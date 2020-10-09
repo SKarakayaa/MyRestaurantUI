@@ -6,7 +6,7 @@ export function getProductList(products){
 }
 
 export function getProducts(customerid){
-    
+    debugger;
     return function(dispatch){
         agent.Products.list(customerid).then(result => dispatch(getProductList(result)));
     }

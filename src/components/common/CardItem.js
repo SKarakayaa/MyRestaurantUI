@@ -7,7 +7,7 @@ import Icofont from 'react-icofont';
 class CardItem extends React.Component {
 	render() {
     	return (
-    		<div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+    		<div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm" key={this.props.id}>
                <div className="list-card-image">
                	  {this.props.rating ? (
 	                  <div className="star position-absolute">
