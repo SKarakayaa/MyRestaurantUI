@@ -112,7 +112,7 @@ BestSeller.propTypes = {
   promotedVariant: PropTypes.string,
   favIcoIconColor: PropTypes.string,
   rating: PropTypes.string,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   qty: PropTypes.number,
   minValue: PropTypes.number,
   maxValue: PropTypes.number,

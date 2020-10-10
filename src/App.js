@@ -2,7 +2,6 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Header from './components/common/Header';
 import Footer from './components/common/Footer';
-import Index from './components/Index';
 import Offers from './components/Offers';
 import MyAccount from './components/MyAccount';
 import List from './components/List';
@@ -28,7 +27,7 @@ class App extends React.Component  {
             (this.props.location.pathname!=='/login' && this.props.location.pathname!=='/register') ? <Header/>:''
           }
           <Switch>
-            <Route path="/" exact component={Index} />
+            {/* <Route path="/" exact component={Index} /> */}
             <Route path="/offers" exact component={Offers} />
             <Route path="/listing" exact component={List} />
             <Route path="/myaccount" component={MyAccount} />
@@ -40,7 +39,7 @@ class App extends React.Component  {
             <Route path="/invoice" exact component={Invoice} />
             <Route path="/checkout" exact component={Checkout} />
             <Route path="/thanks" exact component={Thanks} />
-            <Route path="/detail" exact component={Detail} />
+            <Route path="/" exact component={Detail} />
             <Route exact component={NotFound} />
           </Switch>
           {

@@ -13,11 +13,9 @@ import * as productActions from "../redux/actions/productActions";
 
 class Index extends React.Component {
   componentDidMount() {
-	  var a = this.props.products;
-	  debugger;
-	  if(this.props.products.length === 0){
-		  this.props.actions.getProducts(1);
-	  }
+    if (this.props.products.length === 0) {
+      this.props.actions.getProducts(1);
+    }
   }
   render() {
     return (
@@ -79,7 +77,7 @@ class Index extends React.Component {
                   {this.props.products.map((product) => (
                     <div className="item" key={product.id}>
                       <CardItem
-					    id={product.id}
+                        id={product.id}
                         title={product.name}
                         subTitle="North Indian • American • Pure veg"
                         imageAlt="Product"

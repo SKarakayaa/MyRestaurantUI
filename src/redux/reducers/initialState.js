@@ -1,3 +1,5 @@
 export default {
-    products:[]
+    products:[],
+    customerInfo:{},
+    customerMoreInfo:[]
 }
