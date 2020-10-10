@@ -37,12 +37,15 @@ class Detail extends React.Component {
     if (this.props.customerMoreInfo.length === 0) {
       this.props.actions.getCustomerMoreInfo(1);
     }
+    if(this.props.mostPopularProducts.length === 0){
+      this.props.actions.getMostPopularProducts();
+    }
   }
-
   constructor(props, context) {
     super(props, context);
 
     this.state = {
+      mostPopular: [],
       showAddressModal: false,
       users: [
         {
@@ -70,6 +73,12 @@ class Detail extends React.Component {
   }
 
   hideAddressModal = () => this.setState({ showAddressModal: false });
+  setMostPopularMenus = (mP) => {
+    this.setState({
+      mostPopular: [...this.state.mostPopular,mP],
+    });
+  };
+
   getQty = ({ id, quantity }) => {
     //console.log(id);
     //console.log(quantity);
@@ -80,8 +89,8 @@ class Detail extends React.Component {
   };
 
   render() {
-    console.log("Customer Info 2:", this.props.customerMoreInfo);
-
+    const { products,mostPopularProducts,customerInfo, customerMoreInfo } = this.props;
+    console.log("populars : ",this.props.mostPopularProducts);
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -104,11 +113,11 @@ class Detail extends React.Component {
                       src="/img/1.jpg"
                     />
                     <h2 className="text-white">
-                      {this.props.customerInfo.name}
+                      {customerInfo.name}
                     </h2>
                     <p className="text-white mb-1">
                       <Icofont icon="location-pin" />{" "}
-                      {this.props.customerInfo.customer_location}
+                      {customerInfo.customer_location}
                       10029 <Badge variant="success">OPEN</Badge>
                     </p>
                     <p className="text-white mb-0">
@@ -214,11 +223,11 @@ class Detail extends React.Component {
                             <Icofont icon="tags" /> 15% Off All Items{" "}
                           </Badge>
                         </h6>
-                        <ItemsCarousel />
+                        <ItemsCarousel mostPopularProducts={mostPopularProducts}/>
 
                         <Row>
                           <h5 className="mb-4 mt-3 col-md-12">Products </h5>
-                          {this.props.products.map((product) => (
+                          {products.map((product) => (
                             <Col
                               md={4}
                               sm={6}
@@ -418,21 +427,21 @@ class Detail extends React.Component {
                           </div>
                           <h5 className="mb-4">Restaurant Info</h5>
                           <p className="mb-3">
-                            {this.props.customerInfo.customer_location}
+                            {customerInfo.customer_location}
                             <br /> Near Model Town, Ludhiana, PUNJAB
                           </p>
                           <p className="mb-2 text-black">
                             <Icofont icon="phone-circle text-primary mr-2" />{" "}
-                            {this.props.customerInfo.phone_number}
+                            {customerInfo.phone_number}
                           </p>
                           <p className="mb-2 text-black">
                             <Icofont icon="email text-primary mr-2" />{" "}
-                            {this.props.customerInfo.username}
+                            {customerInfo.username}
                           </p>
                           <p className="mb-2 text-black">
                             <Icofont icon="clock-time text-primary mr-2" />{" "}
-                            Today {this.props.customerInfo.order_time} -{" "}
-                            {this.props.customerInfo.work_time}
+                            Today {customerInfo.order_time} -{" "}
+                            {customerInfo.work_time}
                             <Badge variant="success" className="ml-1">
                               {" "}
                               OPEN NOW{" "}
@@ -446,7 +455,7 @@ class Detail extends React.Component {
                             Raita, Veg Thali, Laccha Paratha, Butter Naan
                           </p>
                           <div className="border-btn-main mb-4">
-                            {this.props.customerMoreInfo.map(
+                            {customerMoreInfo.map(
                               (customerMoreInfo) => (
                                 <Link
                                   className="border-btn text-success mr-2"
@@ -770,6 +779,7 @@ class Detail extends React.Component {
 function mapStateToProps(state) {
   return {
     products: state.productReducer,
+    mostPopularProducts : state.productReducer,
     customerInfo: state.customerInfoReducer,
     customerMoreInfo: state.customerMoreInfoReducer,
   };
@@ -778,6 +788,7 @@ function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      getMostPopularProducts : bindActionCreators(productActions.getMostPopularProducts,dispatch),
       getCustomerInfo: bindActionCreators(
         customerActions.getCustomerInfo,
         dispatch
