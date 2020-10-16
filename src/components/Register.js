@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import { bindActionCreators } from "redux";
+import * as userActions from "../redux/actions/userActions";
+import { connect } from "react-redux";
 
 class Register extends React.Component {
   constructor(props) {
@@ -12,15 +15,23 @@ class Register extends React.Component {
       pass_word: "",
       profile_picture_id: 1,
     };
+    this.handleChange = (event) => {
+      const { name, value } = event.target;
+      this.setState({ [name]: value });
+    };
+    this.handleSave = (event) => {
+      event.preventDefault();
+      // let user = {
+      //   full_name: this.state.full_name,
+      //   email: this.state.email,
+      //   user_name: this.state.user_name,
+      //   password: this.state.pass_word,
+      //   profile_picture_id: this.state.profile_picture_id,
+      // };
+      this.props.actions.register(this.state);
+    };
   }
-  handleChange = (event) => {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  };
-  handleSave = (event) => {
-    event.preventDefault();
-    console.log(this.state);
-  };
+
   render() {
     return (
       <Container fluid className="bg-white">
@@ -82,10 +93,10 @@ class Register extends React.Component {
                         />
                         <Form.Label htmlFor="pass_word">Password</Form.Label>
                       </div>
-					  {/* <Button className=""></Button> */}
+                      {/* <Button className=""></Button> */}
                       <Button
-					  	// to={Button}
-						type="submit"
+                        // to={Button}
+                        type="submit"
                         className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                       >
                         Sign Up
@@ -108,4 +119,18 @@ class Register extends React.Component {
   }
 }
 
-export default Register;
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUserReducer,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      register: bindActionCreators(userActions.register, dispatch),
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

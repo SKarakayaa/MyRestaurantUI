@@ -3,5 +3,6 @@ export default {
     mostPopularProducts:[],
     customerInfo:{},
     customerMoreInfo:[],
-    currentUser:{}
+    currentUser:{},
+    registerUser:{}
 }

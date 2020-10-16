@@ -753,18 +753,7 @@ class Detail extends React.Component {
                       You have saved <strong>$1,884</strong> on the bill
                     </div>
                     <div className="pt-2"></div>
-                    <div className="text-center pt-2">
-                      <Image
-                        fluid
-                        src="https://dummyimage.com/352x504/ccc/ffffff.png&text=Google+ads"
-                      />
-                    </div>
-                    <div className="text-center pt-2">
-                      <Image
-                        fluid
-                        src="https://dummyimage.com/352x504/ccc/ffffff.png&text=Google+ads"
-                      />
-                    </div>
+                    
                   </div>
                 </Col>
               </Row>
