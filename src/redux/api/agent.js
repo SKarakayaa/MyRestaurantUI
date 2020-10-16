@@ -4,7 +4,6 @@ axios.defaults.baseURL =
   "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
 const responseBody = (response) => {
-  debugger;
   return response.data;
 };
 
@@ -23,6 +22,8 @@ const request = {
 const Products = {
   list: (customerid) =>
     request.get(`/Product/getProductsList?xcustomer_id=${customerid}`),
+  getProductCategories:(customerid) =>
+    request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`)
 };
 
 const Customers = {

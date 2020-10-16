@@ -37,8 +37,11 @@ class Detail extends React.Component {
     if (this.props.customerMoreInfo.length === 0) {
       this.props.actions.getCustomerMoreInfo(1);
     }
-    if(this.props.mostPopularProducts.length === 0){
+    if (this.props.mostPopularProducts.length === 0) {
       this.props.actions.getMostPopularProducts();
+    }
+    if (this.props.categories.length === 0) {
+      this.props.actions.getProductCategoriesList(1);
     }
   }
   constructor(props, context) {
@@ -75,7 +78,7 @@ class Detail extends React.Component {
   hideAddressModal = () => this.setState({ showAddressModal: false });
   setMostPopularMenus = (mP) => {
     this.setState({
-      mostPopular: [...this.state.mostPopular,mP],
+      mostPopular: [...this.state.mostPopular, mP],
     });
   };
 
@@ -89,8 +92,14 @@ class Detail extends React.Component {
   };
 
   render() {
-    const { products,mostPopularProducts,customerInfo, customerMoreInfo } = this.props;
-    console.log("populars : ",this.props.mostPopularProducts);
+    const {
+      products,
+      mostPopularProducts,
+      customerInfo,
+      customerMoreInfo,
+      categories,
+    } = this.props;
+    console.log("categories : ", this.props.categories);
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -112,9 +121,7 @@ class Detail extends React.Component {
                       alt="osahan"
                       src="/img/1.jpg"
                     />
-                    <h2 className="text-white">
-                      {customerInfo.name}
-                    </h2>
+                    <h2 className="text-white">{customerInfo.name}</h2>
                     <p className="text-white mb-1">
                       <Icofont icon="location-pin" />{" "}
                       {customerInfo.customer_location}
@@ -223,7 +230,9 @@ class Detail extends React.Component {
                             <Icofont icon="tags" /> 15% Off All Items{" "}
                           </Badge>
                         </h6>
-                        <ItemsCarousel mostPopularProducts={mostPopularProducts}/>
+                        <ItemsCarousel
+                          mostPopularProducts={mostPopularProducts}
+                        />
 
                         <Row>
                           <h5 className="mb-4 mt-3 col-md-12">Products </h5>
@@ -253,150 +262,32 @@ class Detail extends React.Component {
                             </Col>
                           ))}
                         </Row>
-                        <Row>
-                          <h5 className="mb-4 mt-3 col-md-12">
-                            Quick Bites{" "}
-                            <small className="h6 text-black-50">3 ITEMS</small>
-                          </h5>
-                          <Col md={12}>
-                            <div className="bg-white rounded border shadow-sm mb-4">
-                              <QuickBite
-                                id={1}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={2}
-                                title="Cheese corn Roll"
-                                price={600}
-                                showBadge={true}
-                                badgeText="BEST SELLER"
-                                qty={1}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={3}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                showBadge={true}
-                                badgeText="Pure Veg"
-                                badgeVariant="success"
-                                qty={2}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <h5 className="mb-4 mt-3 col-md-12">
-                            Starters{" "}
-                            <small className="h6 text-black-50">3 ITEMS</small>
-                          </h5>
-                          <Col md={12}>
-                            <div className="bg-white rounded border shadow-sm mb-4">
-                              <QuickBite
-                                id={1}
-                                itemClass="menu-list"
-                                image="/img/5.jpg"
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={2}
-                                itemClass="menu-list"
-                                title="Cheese corn Roll"
-                                image="/img/2.jpg"
-                                price={600}
-                                showBadge={true}
-                                badgeText="BEST SELLER"
-                                qty={1}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={3}
-                                itemClass="menu-list"
-                                image="/img/3.jpg"
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                showBadge={true}
-                                badgeText="Pure Veg"
-                                badgeVariant="success"
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <h5 className="mb-4 mt-3 col-md-12">
-                            Soups{" "}
-                            <small className="h6 text-black-50">8 ITEMS</small>
-                          </h5>
-                          <Col md={12}>
-                            <div className="bg-white rounded border shadow-sm">
-                              <QuickBite
-                                id={1}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={2}
-                                title="Cheese corn Roll"
-                                price={600}
-                                showBadge={true}
-                                badgeText="BEST SELLER"
-                                qty={1}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={3}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                showBadge={true}
-                                badgeText="Pure Veg"
-                                badgeVariant="success"
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={1}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={2}
-                                title="Cheese corn Roll"
-                                price={600}
-                                showBadge={true}
-                                badgeText="BEST SELLER"
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                              <QuickBite
-                                id={3}
-                                title="Chicken Tikka Sub"
-                                price={250}
-                                showBadge={true}
-                                badgeText="Pure Veg"
-                                badgeVariant="success"
-                                priceUnit="$"
-                                getValue={this.getQty}
-                              />
-                            </div>
-                          </Col>
-                        </Row>
+                        {categories.map((category) => (
+                          <Row key={category.frm_product_categories_id}>
+                            <h5 className="mb-4 mt-3 col-md-12">
+                              {category.name}{" "}
+                            </h5>
+                            <Col md={12}>
+                              <div className="bg-white rounded border shadow-sm mb-4">
+                                {products
+                                  .filter(
+                                    (product) =>
+                                      product.product_category_id ===
+                                      category.frm_product_categories_id
+                                  )
+                                  .map((product) => (
+                                    <QuickBite key={product.frm_product_id}
+                                      id={product.frm_product_id}
+                                      title={product.name}
+                                      price={product.price}
+                                      priceUnit="£"
+                                      getValue={this.getQty}
+                                    />
+                                  ))}
+                              </div>
+                            </Col>
+                          </Row>
+                        ))}
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <div className="position-relative">
@@ -455,20 +346,16 @@ class Detail extends React.Component {
                             Raita, Veg Thali, Laccha Paratha, Butter Naan
                           </p>
                           <div className="border-btn-main mb-4">
-                            {customerMoreInfo.map(
-                              (customerMoreInfo) => (
-                                <Link
-                                  className="border-btn text-success mr-2"
-                                  to="#"
-                                  key={
-                                    customerMoreInfo.frm_customer_more_info_id
-                                  }
-                                >
-                                  <Icofont icon="check-circled" />{" "}
-                                  {customerMoreInfo.name}
-                                </Link>
-                              )
-                            )}
+                            {customerMoreInfo.map((customerMoreInfo) => (
+                              <Link
+                                className="border-btn text-success mr-2"
+                                to="#"
+                                key={customerMoreInfo.frm_customer_more_info_id}
+                              >
+                                <Icofont icon="check-circled" />{" "}
+                                {customerMoreInfo.name}
+                              </Link>
+                            ))}
                           </div>
                         </div>
                       </Tab.Pane>
@@ -753,7 +640,6 @@ class Detail extends React.Component {
                       You have saved <strong>$1,884</strong> on the bill
                     </div>
                     <div className="pt-2"></div>
-                    
                   </div>
                 </Col>
               </Row>
@@ -768,22 +654,30 @@ class Detail extends React.Component {
 function mapStateToProps(state) {
   return {
     products: state.productReducer,
-    mostPopularProducts : state.productReducer,
+    mostPopularProducts: state.productReducer,
     customerInfo: state.customerInfoReducer,
     customerMoreInfo: state.customerMoreInfoReducer,
+    categories: state.categoryReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
       getProducts: bindActionCreators(productActions.getProducts, dispatch),
-      getMostPopularProducts : bindActionCreators(productActions.getMostPopularProducts,dispatch),
+      getMostPopularProducts: bindActionCreators(
+        productActions.getMostPopularProducts,
+        dispatch
+      ),
       getCustomerInfo: bindActionCreators(
         customerActions.getCustomerInfo,
         dispatch
       ),
       getCustomerMoreInfo: bindActionCreators(
         customerActions.getCustomerMoreInfo,
+        dispatch
+      ),
+      getProductCategoriesList: bindActionCreators(
+        productActions.getProductCategoriesList,
         dispatch
       ),
     },
