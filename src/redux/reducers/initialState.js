@@ -5,5 +5,6 @@ export default {
     customerInfo:{},
     customerMoreInfo:[],
     currentUser:{},
-    registerUser:{}
+    registerUser:{},
+    cart:[]
 }

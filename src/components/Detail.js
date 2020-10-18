@@ -14,7 +14,6 @@ import {
 } from "react-bootstrap";
 import ItemsCarousel from "./common/ItemsCarousel";
 import GalleryCarousel from "./common/GalleryCarousel";
-import CheckoutItem from "./common/CheckoutItem";
 import BestSeller from "./common/BestSeller";
 import QuickBite from "./common/QuickBite";
 import StarRating from "./common/StarRating";
@@ -24,7 +23,9 @@ import Icofont from "react-icofont";
 import { connect } from "react-redux";
 import * as productActions from "../redux/actions/productActions";
 import * as customerActions from "../redux/actions/customerActions";
+import * as cartActions from '../redux/actions/cartActions';
 import { bindActionCreators } from "redux";
+import YourOrder from "./cart/YourOrder";
 
 class Detail extends React.Component {
   componentDidMount() {
@@ -246,12 +247,13 @@ class Detail extends React.Component {
                               <BestSeller
                                 id={product.frm_product_id}
                                 title={product.name}
+                                product={product}
                                 subTitle="North Indian • American • Pure veg"
                                 imageAlt="Product"
                                 image="img/list/1.png"
                                 imageClass="img-fluid item-img"
-                                price={250}
-                                priceUnit="$"
+                                price={product.price}
+                                priceUnit="£"
                                 isNew={true}
                                 showPromoted={true}
                                 promotedVariant="dark"
@@ -280,6 +282,7 @@ class Detail extends React.Component {
                                       id={product.frm_product_id}
                                       title={product.name}
                                       price={product.price}
+                                      product={product}
                                       priceUnit="£"
                                       getValue={this.getQty}
                                     />
@@ -552,95 +555,8 @@ class Detail extends React.Component {
                       <Icofont icon="sale-discount" />
                     </div>
                   </div>
-                  <div className="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
-                    <h5 className="mb-1 text-white">Your Order</h5>
-                    <p className="mb-4 text-white">6 Items</p>
-                    <div className="bg-white rounded shadow-sm mb-2">
-                      <CheckoutItem
-                        itemName="Chicken Tikka Sub"
-                        price={314}
-                        priceUnit="$"
-                        id={1}
-                        qty={2}
-                        show={true}
-                        minValue={0}
-                        maxValue={7}
-                        getValue={this.getQty}
-                      />
-                      <CheckoutItem
-                        itemName="Cheese corn Roll"
-                        price={260}
-                        priceUnit="$"
-                        id={2}
-                        qty={1}
-                        show={true}
-                        minValue={0}
-                        maxValue={7}
-                        getValue={this.getQty}
-                      />
-                      <CheckoutItem
-                        itemName="Mixed Veg"
-                        price={122}
-                        priceUnit="$"
-                        id={3}
-                        qty={1}
-                        show={true}
-                        minValue={0}
-                        maxValue={7}
-                        getValue={this.getQty}
-                      />
-                      <CheckoutItem
-                        itemName="Black Dal Makhani"
-                        price={652}
-                        priceUnit="$"
-                        id={1}
-                        qty={1}
-                        show={true}
-                        minValue={0}
-                        maxValue={7}
-                        getValue={this.getQty}
-                      />
-                      <CheckoutItem
-                        itemName="Mixed Veg"
-                        price={122}
-                        priceUnit="$"
-                        id={4}
-                        qty={1}
-                        show={true}
-                        minValue={0}
-                        maxValue={7}
-                        getValue={this.getQty}
-                      />
-                    </div>
-                    <div className="mb-2 bg-white rounded p-2 clearfix">
-                      <Image
-                        fluid
-                        className="float-left"
-                        src="/img/wallet-icon.png"
-                      />
-                      <h6 className="font-weight-bold text-right mb-2">
-                        Subtotal : <span className="text-danger">$456.4</span>
-                      </h6>
-                      <p className="seven-color mb-1 text-right">
-                        Extra charges may apply
-                      </p>
-                      <p className="text-black mb-0 text-right">
-                        You have saved $955 on the bill
-                      </p>
-                    </div>
-                    <Link
-                      to="/thanks"
-                      className="btn btn-success btn-block btn-lg"
-                    >
-                      Checkout
-                      <Icofont icon="long-arrow-right" />
-                    </Link>
-                    <div className="pt-2"></div>
-                    <div className="alert alert-success" role="alert">
-                      You have saved <strong>$1,884</strong> on the bill
-                    </div>
-                    <div className="pt-2"></div>
-                  </div>
+                  
+                  <YourOrder />
                 </Col>
               </Row>
             </Container>
@@ -658,6 +574,7 @@ function mapStateToProps(state) {
     customerInfo: state.customerInfoReducer,
     customerMoreInfo: state.customerMoreInfoReducer,
     categories: state.categoryReducer,
+    cart:state.cartReducer
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -680,6 +597,7 @@ function mapDispatchToProps(dispatch) {
         productActions.getProductCategoriesList,
         dispatch
       ),
+      addToCart : bindActionCreators(cartActions.addToCart,dispatch)
     },
   };
 }

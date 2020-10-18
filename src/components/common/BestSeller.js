@@ -3,6 +3,9 @@ import {Link} from 'react-router-dom';
 import {Image,Badge,Button} from 'react-bootstrap';
 import PropTypes from 'prop-types'; 
 import Icofont from 'react-icofont';
+import { connect } from 'react-redux';
+import * as cartActions from '../../redux/actions/cartActions';
+import { bindActionCreators } from 'redux';
 
 class BestSeller extends React.Component {
   constructor(props) {
@@ -32,6 +35,10 @@ class BestSeller extends React.Component {
       this.setState({ quantity: this.state.quantity - 1 });
       this.props.getValue({id:this.props.id,quantity: (this.state.quantity - 1 )});
     }
+  }
+
+  addToCart = (product) => {
+    this.props.actions.addToCart({quantity:1,product})
   }
 
   render() {
@@ -77,17 +84,9 @@ class BestSeller extends React.Component {
                            {this.props.priceUnit}{this.props.price} </Link> 
                            {(this.props.isNew)? (<Badge variant="success" className='ml-1'>NEW</Badge>):"" }
                            
-                         {this.state.quantity===0?
                             <span className="float-right"> 
-                              <Button variant='outline-secondary' onClick={this.IncrementItem} size="sm">ADD</Button>
+                              <Button variant='outline-secondary' onClick={()=>this.addToCart(this.props.product)} size="sm">ADD</Button>
                             </span>
-                            :
-                            <span className="count-number float-right">
-                               <Button variant="outline-secondary" onClick={this.DecreaseItem} className="btn-sm left dec"> <Icofont icon="minus" /> </Button>
-                               <input className="count-number-input" type="text" value={this.state.quantity} readOnly/>
-                               <Button variant="outline-secondary" onClick={this.IncrementItem} className="btn-sm right inc"> <Icofont icon="icofont-plus" /> </Button>
-                            </span>
-                         }
                        </p>
                        ):''
                    }
@@ -131,4 +130,12 @@ BestSeller.defaultProps = {
   rating: ''
 }
 
-export default BestSeller;
+function mapDispatchToProps(dispatch){
+  return{
+    actions:{
+      addToCart :bindActionCreators(cartActions.addToCart,dispatch)
+    }
+  }
+}
+
+export default connect(null,mapDispatchToProps)(BestSeller);
