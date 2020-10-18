@@ -5,10 +5,12 @@ export default function currentUserReducer(
   state = initialState.currentUser,
   action
 ) {
+  debugger;
   switch (action.type) {
     case actionTypes.GET_CURRENT_USER:
       return action.payload;
-
+    case actionTypes.LOGIN:
+      return action.payload
     default:
       return state;
   }

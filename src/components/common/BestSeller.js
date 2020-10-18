@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {Image,Badge,Button} from 'react-bootstrap';
-import PropTypes from 'prop-types'; 
 import Icofont from 'react-icofont';
 import { connect } from 'react-redux';
 import * as cartActions from '../../redux/actions/cartActions';
@@ -96,27 +95,6 @@ class BestSeller extends React.Component {
     );
   }
 }
-
-
-BestSeller.propTypes = {
-  title: PropTypes.string.isRequired,
-  imageAlt: PropTypes.string,
-  image: PropTypes.string.isRequired,
-  imageClass: PropTypes.string,
-  isNew: PropTypes.bool,
-  subTitle: PropTypes.string,
-  price: PropTypes.number.isRequired,
-  priceUnit: PropTypes.string.isRequired,
-  showPromoted: PropTypes.bool,
-  promotedVariant: PropTypes.string,
-  favIcoIconColor: PropTypes.string,
-  rating: PropTypes.string,
-  id: PropTypes.string.isRequired,
-  qty: PropTypes.number,
-  minValue: PropTypes.number,
-  maxValue: PropTypes.number,
-  getValue: PropTypes.func.isRequired
-};
 BestSeller.defaultProps = {
   imageAlt:'',
   imageClass:'',

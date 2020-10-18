@@ -1,62 +1,125 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {Row,Col,Container,Form,Button} from 'react-bootstrap';
-import FontAwesome from './common/FontAwesome';
+import React from "react";
+import { Link } from "react-router-dom";
+import { Row, Col, Container, Form, Button } from "react-bootstrap";
+import FontAwesome from "./common/FontAwesome";
+import { connect } from "react-redux";
+import * as userActions from "../redux/actions/userActions";
+import { bindActionCreators } from "redux";
+import history from './history'
 
 class Login extends React.Component {
-
-	render() {
-    	return (
-    	  <Container fluid className='bg-white'>
-	         <Row>
-	            <Col md={4} lg={6} className="d-none d-md-flex bg-image"></Col>
-	            <Col md={8} lg={6}>
-	               <div className="login d-flex align-items-center py-5">
-	                  <Container>
-	                     <Row>
-	                        <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
-	                           <h3 className="login-heading mb-4">Welcome back!</h3>
-	                           <Form>
-	                              <div className="form-label-group">
-	                                 <Form.Control type="email" id="inputEmail" placeholder="Email address" />
-	                                 <Form.Label htmlFor="inputEmail">Email address / Mobile</Form.Label>
-	                              </div>
-	                              <div className="form-label-group">
-	                                 <Form.Control type="password" id="inputPassword" placeholder="Password" />
-	                                 <Form.Label htmlFor="inputPassword">Password</Form.Label>
-	                              </div>
-	                              <Form.Check  
-	                              	className='mb-3'
-							        custom
-							        type="checkbox"
-							        id="custom-checkbox"
-							        label="Remember password"
-							      />
-	                              <Link to="/" className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2">Sign in</Link>
-	                              <div className="text-center pt-3">
-	                                 Don’t have an account? <Link className="font-weight-bold" to="/register">Sign Up</Link>
-	                              </div>
-		                           <hr className="my-4" />
-		                           <p className="text-center">LOGIN WITH</p>
-		                           <div className="row">
-		                              <div className="col pr-2">
-		                                 <Button className="btn pl-1 pr-1 btn-lg btn-google font-weight-normal text-white btn-block text-uppercase" type="submit"><FontAwesome icon="google" className="mr-2" /> Google</Button>
-		                              </div>
-		                              <div className="col pl-2">
-		                                 <Button className="btn pl-1 pr-1 btn-lg btn-facebook font-weight-normal text-white btn-block text-uppercase" type="submit"><FontAwesome icon="facebook" className="mr-2" /> Facebook</Button>
-		                              </div>
-		                           </div>
-	                           </Form>
-	                        </Col>
-	                     </Row>
-	                  </Container>
-	               </div>
-	            </Col>
-	         </Row>
-	      </Container>
-    	);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      userName: "",
+      passWord: "",
+    };
+  }
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+  handleSubmit = (event) => {
+    event.preventDefault();
+	this.props.actions.login(this.state);
+	history.push("/");
+  };
+  render() {
+    return (
+      <Container fluid className="bg-white">
+        <Row>
+          <Col md={4} lg={6} className="d-none d-md-flex bg-image"></Col>
+          <Col md={8} lg={6}>
+            <div className="login d-flex align-items-center py-5">
+              <Container>
+                <Row>
+                  <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
+                    <h3 className="login-heading mb-4">Welcome back!</h3>
+                    <Form onSubmit={this.handleSubmit}>
+                      <div className="form-label-group">
+                        <Form.Control
+                          type="text"
+                          id="userName"
+                          name="userName"
+                          value={this.state.userName}
+                          onChange={this.handleChange}
+                          placeholder="Username"
+                        />
+                        <Form.Label htmlFor="userName">Username</Form.Label>
+                      </div>
+                      <div className="form-label-group">
+                        <Form.Control
+                          type="password"
+                          id="passWord"
+                          name="passWord"
+                          value={this.state.passWord}
+                          onChange={this.handleChange}
+                          placeholder="Password"
+                        />
+                        <Form.Label htmlFor="passWord">Password</Form.Label>
+                      </div>
+                      <Form.Check
+                        className="mb-3"
+                        custom
+                        type="checkbox"
+                        id="custom-checkbox"
+                        label="Remember password"
+                      />
+                      <button
+                        type="submit"
+                        className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
+                      >
+                        Sign in
+                      </button>
+                      <div className="text-center pt-3">
+                        Don’t have an account?{" "}
+                        <Link className="font-weight-bold" to="/register">
+                          Sign Up
+                        </Link>
+                      </div>
+                      <hr className="my-4" />
+                      <p className="text-center">LOGIN WITH</p>
+                      <div className="row">
+                        <div className="col pr-2">
+                          <Button
+                            className="btn pl-1 pr-1 btn-lg btn-google font-weight-normal text-white btn-block text-uppercase"
+                            type="submit"
+                          >
+                            <FontAwesome icon="google" className="mr-2" />{" "}
+                            Google
+                          </Button>
+                        </div>
+                        <div className="col pl-2">
+                          <Button
+                            className="btn pl-1 pr-1 btn-lg btn-facebook font-weight-normal text-white btn-block text-uppercase"
+                            type="submit"
+                          >
+                            <FontAwesome icon="facebook" className="mr-2" />{" "}
+                            Facebook
+                          </Button>
+                        </div>
+                      </div>
+                    </Form>
+                  </Col>
+                </Row>
+              </Container>
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
-
-
-export default Login;
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      login: bindActionCreators(userActions.login, dispatch),
+    },
+  };
+}
+function mapStateToProps(state) {
+  return {
+    currentUser: state.currentUserReducer,
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

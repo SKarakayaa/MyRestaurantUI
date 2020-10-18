@@ -10,6 +10,7 @@ export const GET_CUSTOMER_MORE_INFO = "GET_CUSTOMER_MORE_INFO"
 //USERS
 export const GET_CURRENT_USER = "GET_CURRENT_USER"
 export const REGISTER = "REGISTER"
+export const LOGIN = "LOGIN"
 
 //CART
 export const ADD_TO_CART = "ADD_TO_CART"

@@ -9,8 +9,11 @@ export function registerFunc(registerResult) {
   return { type: actionTypes.REGISTER, payload: registerResult };
 }
 
+export function loginFunc(loginResult){
+  return {type:actionTypes.LOGIN,payload:loginResult};
+}
+
 export function register(user) {
-  debugger;
   return function (dispatch) {
     agent.Users.createUser(user).then((result) => {
       var userRoleModel = {
@@ -22,4 +25,11 @@ export function register(user) {
     }
     );
   };
+}
+
+export function login(loginModel){
+  debugger;
+  return function(dispatch){
+    agent.Users.login(loginModel).then((result)=>dispatch(loginFunc(result)))
+  }
 }

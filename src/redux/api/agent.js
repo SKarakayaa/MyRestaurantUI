@@ -35,6 +35,7 @@ const Customers = {
 
 const Users = {
   createUser: (user) => request.post("/Users/createUser", user),
+  login:(loginModel) => request.post(`/User/login?userName=${loginModel.userName}&passWord=${loginModel.passWord}`,loginModel),
   addRole : (userRoleModel) => request.post("/Users/addUserRole",userRoleModel)
 };
 
