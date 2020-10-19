@@ -5,7 +5,7 @@ import FontAwesome from "./common/FontAwesome";
 import { connect } from "react-redux";
 import * as userActions from "../redux/actions/userActions";
 import { bindActionCreators } from "redux";
-import history from './history'
+import history from "./history";
 
 class Login extends React.Component {
   constructor(props) {
@@ -21,8 +21,8 @@ class Login extends React.Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
-	this.props.actions.login(this.state);
-	history.push("/");
+    this.props.actions.login(this.state);
+    history.push("/");
   };
   render() {
     return (

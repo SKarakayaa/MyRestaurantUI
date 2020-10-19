@@ -6,5 +6,6 @@ export default {
     customerMoreInfo:[],
     currentUser:{},
     registerUser:{},
-    cart:[]
+    cart:[],
+    menus:[]
 }

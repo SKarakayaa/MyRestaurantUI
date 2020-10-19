@@ -28,6 +28,7 @@ class YourOrder extends Component {
   };
   cartNotEmpty = () => {
     const { cart } = this.props;
+    console.log("cart :",cart);
     return (
       <div className="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
         <h5 className="mb-1 text-white">Your Order</h5>
@@ -37,10 +38,9 @@ class YourOrder extends Component {
             <CheckoutItem
               itemName={cartItem.product.name}
               price={cartItem.product.price}
-              product={cartItem.product}
               quantity={cartItem.quantity}
               priceUnit="£"
-              id={cartItem.product.frm_product_id}
+              id={cartItem.product.id}
               qty={2}
               show={true}
               minValue={0}

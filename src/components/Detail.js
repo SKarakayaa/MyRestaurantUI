@@ -38,9 +38,6 @@ class Detail extends React.Component {
     if (this.props.customerMoreInfo.length === 0) {
       this.props.actions.getCustomerMoreInfo(1);
     }
-    if (this.props.mostPopularProducts.length === 0) {
-      this.props.actions.getMostPopularProducts();
-    }
     if (this.props.categories.length === 0) {
       this.props.actions.getProductCategoriesList(1);
     }
@@ -77,12 +74,7 @@ class Detail extends React.Component {
   }
 
   hideAddressModal = () => this.setState({ showAddressModal: false });
-  setMostPopularMenus = (mP) => {
-    this.setState({
-      mostPopular: [...this.state.mostPopular, mP],
-    });
-  };
-
+ 
   getQty = ({ id, quantity }) => {
     //console.log(id);
     //console.log(quantity);
@@ -95,12 +87,10 @@ class Detail extends React.Component {
   render() {
     const {
       products,
-      mostPopularProducts,
       customerInfo,
       customerMoreInfo,
       categories,
     } = this.props;
-    console.log("categories : ", this.props.categories);
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -225,15 +215,9 @@ class Detail extends React.Component {
                           </InputGroup>
                         </Form>
                         <h6 className="mb-3">
-                          Most Popular{" "}
-                          <Badge variant="success">
-                            {" "}
-                            <Icofont icon="tags" /> 15% Off All Items{" "}
-                          </Badge>
+                          Menus{" "}
                         </h6>
-                        <ItemsCarousel
-                          mostPopularProducts={mostPopularProducts}
-                        />
+                        <ItemsCarousel />
 
                         <Row>
                           <h5 className="mb-4 mt-3 col-md-12">Products </h5>

@@ -22,8 +22,10 @@ const request = {
 const Products = {
   list: (customerid) =>
     request.get(`/Product/getProductsList?xcustomer_id=${customerid}`),
-  getProductCategories:(customerid) =>
-    request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`)
+  getProductCategories: (customerid) =>
+    request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`),
+  getProductMenus: (customerid) =>
+    request.get(`/Product/getProductMenu?xcustomer_id=${customerid}`),
 };
 
 const Customers = {
@@ -35,8 +37,12 @@ const Customers = {
 
 const Users = {
   createUser: (user) => request.post("/Users/createUser", user),
-  login:(loginModel) => request.post(`/User/login?userName=${loginModel.userName}&passWord=${loginModel.passWord}`,loginModel),
-  addRole : (userRoleModel) => request.post("/Users/addUserRole",userRoleModel)
+  login: (loginModel) =>
+    request.post(
+      `/User/login?userName=${loginModel.userName}&passWord=${loginModel.passWord}`,
+      loginModel
+    ),
+  addRole: (userRoleModel) => request.post("/Users/addUserRole", userRoleModel),
 };
 
 export default {

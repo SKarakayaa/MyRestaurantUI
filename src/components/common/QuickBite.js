@@ -19,13 +19,13 @@ class QuickBite extends React.Component {
   };
   isInCart = (productId) => {
     var item = this.props.cart.find(
-      (c) => c.product.frm_product_id === productId
+      (c) => c.product.id === productId
     );
     return item;
   };
   render() {
     const { product } = this.props;
-    const isInCart = this.isInCart(product.frm_product_id);
+    const isInCart = this.isInCart(product.id);
     return (
       <div className={"p-3 border-bottom " + this.props.itemClass}>
         {isInCart === undefined ? (

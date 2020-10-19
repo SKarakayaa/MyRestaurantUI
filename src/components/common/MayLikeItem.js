@@ -1,43 +1,47 @@
-import React from 'react';
-import PropTypes from 'prop-types'; 
-import {Image,Button} from 'react-bootstrap';
+import React from "react";
+import { Image, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as cartActions from "../../redux/actions/cartActions";
 
 class MayLikeItem extends React.Component {
-	render() {
-    	return (
-    		<div className={"position-relative " + this.props.boxClass}>
-                <Button onClick={this.props.onAdd} className="btn btn-primary btn-sm position-absolute">ADD</Button>
-                <Image src={this.props.image} className={this.props.imageClass} alt={this.props.imageAlt} />
-                {this.props.title?
-	               <h6>{this.props.title}</h6>
-	               :""
-	            }
-	            {this.props.price?
-	              <small>{this.props.price}</small>
-	               :""
-	            }
-            </div>
-		);
-	}
+  addMenuToCart = (menu) => {
+    this.props.actions.addMenuToCart({ quantity: 1, menu });
+  };
+  render() {
+    const { menu } = this.props;
+    return (
+      <div className={"position-relative " + this.props.boxClass}>
+        <Button
+          onClick={() => this.addMenuToCart(menu)}
+          className="btn btn-primary btn-sm position-absolute"
+        >
+          ADD
+        </Button>
+        <Image
+          src={this.props.image}
+          className={this.props.imageClass}
+          alt={this.props.imageAlt}
+        />
+        {this.props.title ? <h6>{this.props.title}</h6> : ""}
+        {this.props.price ? <small>{this.props.price}</small> : ""}
+      </div>
+    );
+  }
 }
-
-
-MayLikeItem.propTypes = {
-  onAdd: PropTypes.func,
-  image: PropTypes.string.isRequired,
-  imageClass: PropTypes.string,
-  imageAlt: PropTypes.string,
-  boxClass: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.string,
-};
 MayLikeItem.defaultProps = {
-  	imageAlt:'',
-    image:'',
-    imageClass:'',
-    boxClass:'mall-category-item',
-    title:'',
-    price:'',
+  imageAlt: "",
+  image: "",
+  imageClass: "",
+  boxClass: "mall-category-item",
+  title: "",
+  price: "",
+};
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      addMenuToCart: bindActionCreators(cartActions.addMenuToCart, dispatch),
+    },
+  };
 }
-
-export default MayLikeItem;
+export default connect(null, mapDispatchToProps)(MayLikeItem);
