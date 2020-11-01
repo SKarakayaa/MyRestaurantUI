@@ -1,10 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
-import FontAwesome from "./common/FontAwesome";
-import { connect } from "react-redux";
 import * as userActions from "../redux/actions/userActions";
+
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+
+import FontAwesome from "./common/FontAwesome";
+import { Link } from "react-router-dom";
+import React from "react";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import history from "./history";
 
 class Login extends React.Component {

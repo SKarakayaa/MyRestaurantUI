@@ -1,23 +1,25 @@
-import React from 'react';
-import {Switch, Route} from 'react-router-dom';
-import Header from './components/common/Header';
-import Footer from './components/common/Footer';
-import Offers from './components/Offers';
-import MyAccount from './components/MyAccount';
-import List from './components/List';
-import NotFound from './components/NotFound';
-import Thanks from './components/Thanks';
-import Extra from './components/Extra';
-import Login from './components/Login';
-import Register from './components/Register';
-import TrackOrder from './components/TrackOrder';
-import Invoice from './components/Invoice';
-import Checkout from './components/Checkout';
-import Detail from './components/Detail';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.min.css';
 import 'react-select2-wrapper/css/select2.css';
 import './App.css';
+
+import {Route, Switch} from 'react-router-dom';
+
+import Checkout from './components/Checkout';
+import Detail from './components/Detail';
+import Extra from './components/Extra';
+import Footer from './components/common/Footer';
+import Header from './components/common/Header';
+import Invoice from './components/Invoice';
+import List from './components/List';
+import Login from './components/Login';
+import MyAccount from './components/MyAccount';
+import NotFound from './components/NotFound';
+import Offers from './components/Offers';
+import React from 'react';
+import Register from './components/Register';
+import Thanks from './components/Thanks';
+import TrackOrder from './components/TrackOrder';
 
 class App extends React.Component  {
   render() {
@@ -28,6 +30,8 @@ class App extends React.Component  {
           }
           <Switch>
             {/* <Route path="/" exact component={Index} /> */}
+            <Route path="/" exact component={Detail} />
+            
             <Route path="/offers" exact component={Offers} />
             <Route path="/listing" exact component={List} />
             <Route path="/myaccount" component={MyAccount} />
@@ -39,7 +43,6 @@ class App extends React.Component  {
             <Route path="/invoice" exact component={Invoice} />
             <Route path="/checkout" exact component={Checkout} />
             <Route path="/thanks" exact component={Thanks} />
-            <Route path="/" exact component={Detail} />
             <Route exact component={NotFound} />
           </Switch>
           {

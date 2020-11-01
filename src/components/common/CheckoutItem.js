@@ -1,9 +1,11 @@
+import * as cartActions from "../../redux/actions/cartActions";
+
 import React, { Component } from "react";
+
 import { Button } from "react-bootstrap";
 import Icofont from "react-icofont";
-import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as cartActions from "../../redux/actions/cartActions";
+import { connect } from "react-redux";
 
 class CheckoutItem extends Component {
   constructor(props) {
@@ -20,7 +22,6 @@ class CheckoutItem extends Component {
     const product = this.props.products.find(
       (p) => p.frm_product_id === productid && p.name === productName
     );
-    debugger;
     if (product !== undefined) {
       this.props.actions.addToCart({ quantity: 1, product });
     } else {
@@ -49,7 +50,6 @@ class CheckoutItem extends Component {
 
   render() {
     const { id, quantity, itemName } = this.props;
-    debugger;
     return (
       <div className="gold-members p-2 border-bottom">
         <span className="count-number float-right">

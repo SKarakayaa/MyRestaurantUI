@@ -1,20 +1,11 @@
-import React from "react";
-import OwlCarousel from "react-owl-carousel3";
-import { connect } from "react-redux";
 import MayLikeItem from "./MayLikeItem";
-import * as productActions from "../../redux/actions/productActions";
-import { bindActionCreators } from "redux";
+import OwlCarousel from "react-owl-carousel3";
+import React from "react";
+import { connect } from "react-redux";
 
 class ItemsCarousel extends React.Component {
-  componentDidMount() {
-    if (this.props.menus.length === 0) {
-      this.props.actions.getProductMenus(1);
-    }
-  }
   render() {
     const { menus } = this.props;
-    console.log("menus :",menus);
-    debugger;
     return (
       <OwlCarousel
         nav
@@ -23,17 +14,17 @@ class ItemsCarousel extends React.Component {
         className="owl-theme owl-carousel-five offers-interested-carousel"
       >
         {menus.map((menu) => (
-            <div className="item" key={menu.frm_menus_id}>
-              <MayLikeItem
-                title={menu.name}
-                price={menu.price}
-                menu={menu}
-                image="img/list/1.png"
-                imageClass="img-fluid"
-                imageAlt="carousel"
-              />
-            </div>
-          ))}
+          <div className="item" key={menu.frm_product_id}>
+            <MayLikeItem
+              title={menu.name}
+              price={menu.price + " £"}
+              menu={menu}
+              image="img/list/1.png"
+              imageClass="img-fluid"
+              imageAlt="carousel"
+            />
+          </div>
+        ))}
       </OwlCarousel>
     );
   }
@@ -67,17 +58,7 @@ const options = {
 };
 function mapStateToProps(state) {
   return {
-    menus: state.productMenusReducer,
+    menus: state.menuReducer,
   };
 }
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      getProductMenus: bindActionCreators(
-        productActions.getProductMenus,
-        dispatch
-      ),
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(ItemsCarousel);
+export default connect(mapStateToProps)(ItemsCarousel);

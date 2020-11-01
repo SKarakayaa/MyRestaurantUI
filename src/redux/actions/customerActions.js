@@ -1,5 +1,6 @@
-import agent from "../api/agent";
 import * as actionTypes from "./actionTypes";
+
+import agent from "../api/agent";
 
 export function getCustomerInfoFunc(customerInfo) {
   return { type: actionTypes.GET_CUSTOMER_INFO, payload: customerInfo.data[0] };
@@ -12,7 +13,6 @@ export function getCustomerMoreInfoFunc(customerMoreInfo) {
 }
 
 export function getCustomerInfo(customerid) {
-  console.log("getCustomerInfo Worked")
   return function (dispatch) {
     agent.Customers.getCustomerInfo(customerid).then((result) =>
       dispatch(getCustomerInfoFunc(result))

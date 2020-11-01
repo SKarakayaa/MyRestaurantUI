@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Image } from "react-bootstrap";
+
 import CheckoutItem from "../common/CheckoutItem";
 import Icofont from "react-icofont";
+import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
@@ -36,6 +37,7 @@ class YourOrder extends Component {
         <div className="bg-white rounded shadow-sm mb-2">
           {cart.map((cartItem) => (
             <CheckoutItem
+              key={cartItem.product.id}
               itemName={cartItem.product.name}
               price={cartItem.product.price}
               quantity={cartItem.quantity}

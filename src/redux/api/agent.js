@@ -26,6 +26,10 @@ const Products = {
     request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`),
   getProductMenus: (customerid) =>
     request.get(`/Product/getProductMenu?xcustomer_id=${customerid}`),
+  getMenuOptions: (customerid, productid) =>
+    request.get(
+      `/Product/getProductDetailList?xcustomer_id=${customerid}&xproduct_id=${productid}`
+    ),
 };
 
 const Customers = {

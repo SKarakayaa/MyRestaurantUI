@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Icofont from 'react-icofont';
-import PropTypes from 'prop-types'; 
 
+import Icofont from 'react-icofont';
+import PropTypes from 'prop-types';
 
 class StarRating extends Component {
 
@@ -55,7 +55,6 @@ StarRating.propTypes = {
   star: PropTypes.number,
   disabled: PropTypes.bool,
   fontSize:PropTypes.number,
-  getValue: PropTypes.func.isRequired
 };
 StarRating.defaultProps = {
   star: 0,

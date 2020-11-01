@@ -1,10 +1,12 @@
-import React from "react";
-import { Image, Badge, Button, Media } from "react-bootstrap";
-import PropTypes from "prop-types";
-import Icofont from "react-icofont";
-import { connect } from "react-redux";
 import * as cartActions from "../../redux/actions/cartActions";
+
+import { Badge, Button, Image, Media } from "react-bootstrap";
+
+import Icofont from "react-icofont";
+import PropTypes from "prop-types";
+import React from "react";
 import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class QuickBite extends React.Component {
  
@@ -25,7 +27,7 @@ class QuickBite extends React.Component {
   };
   render() {
     const { product } = this.props;
-    const isInCart = this.isInCart(product.id);
+    const isInCart = this.isInCart(product.frm_product_id);
     return (
       <div className={"p-3 border-bottom " + this.props.itemClass}>
         {isInCart === undefined ? (
@@ -116,7 +118,6 @@ QuickBite.propTypes = {
   qty: PropTypes.number,
   minValue: PropTypes.number,
   maxValue: PropTypes.number,
-  getValue: PropTypes.func.isRequired,
 };
 QuickBite.defaultProps = {
   itemClass: "gold-members",

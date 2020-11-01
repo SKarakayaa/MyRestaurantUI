@@ -1,5 +1,6 @@
 export default {
     products:[],
+    menus:[],
     mostPopularProducts:[],
     categories:[],
     customerInfo:{},
@@ -7,5 +8,4 @@ export default {
     currentUser:{},
     registerUser:{},
     cart:[],
-    menus:[]
 }

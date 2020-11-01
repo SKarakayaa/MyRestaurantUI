@@ -1,5 +1,6 @@
-import agent from "../api/agent";
 import * as actionTypes from "./actionTypes";
+
+import agent from "../api/agent";
 
 export function getCurrentUser(currentUser) {
   return { type: actionTypes.GET_CURRENT_USER, payload: currentUser };
@@ -28,7 +29,6 @@ export function register(user) {
 }
 
 export function login(loginModel){
-  debugger;
   return function(dispatch){
     agent.Users.login(loginModel).then((result)=>dispatch(loginFunc(result)))
   }
