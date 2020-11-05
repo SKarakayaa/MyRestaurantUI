@@ -38,7 +38,7 @@ class Detail extends React.Component {
     if (this.props.categories.length === 0) {
       this.props.actions.getProductCategoriesList(1);
     }
-    if(this.props.menus.length === 0){
+    if (this.props.menus.length === 0) {
       this.props.actions.loadMenus(1);
     }
   }
@@ -53,7 +53,8 @@ class Detail extends React.Component {
   hideAddressModal = () => this.setState({ showAddressModal: false });
 
   render() {
-    const { customerInfo } = this.props;
+    const { customerInfo, cart } = this.props;
+    console.log("cart :", cart);
     return (
       <>
         <section className="restaurant-detailed-banner">

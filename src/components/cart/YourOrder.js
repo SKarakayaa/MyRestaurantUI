@@ -41,6 +41,7 @@ class YourOrder extends Component {
               itemName={cartItem.product.name}
               price={cartItem.product.price}
               quantity={cartItem.quantity}
+              product={cartItem.product}
               priceUnit="£"
               id={cartItem.product.id}
               qty={2}

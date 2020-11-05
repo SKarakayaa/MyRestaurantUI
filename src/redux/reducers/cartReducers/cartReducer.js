@@ -1,15 +1,17 @@
 import * as actionTypes from "../../actions/actionTypes";
+
 import initialState from "../initialState";
+import uuid from 'react-uuid';
 
 export default function cartReducer(state = initialState.cart, action) {
   switch (action.type) {
     case actionTypes.ADD_TO_CART:
       var addedItem = state.find(
-        (c) => c.product.id === action.payload.product.frm_product_id && c.product.name === action.payload.product.name
+        (c) => c.product.id === action.payload.product.frm_product_id
       );
       if (addedItem) {
         var newState = state.map((cartItem) => {
-          if (cartItem.product.id === action.payload.product.frm_product_id && cartItem.product.name === action.payload.product.name) {
+          if (cartItem.product.id === action.payload.product.frm_product_id) {
             return Object.assign({}, addedItem, {
               quantity: addedItem.quantity + 1,
             });
@@ -26,22 +28,19 @@ export default function cartReducer(state = initialState.cart, action) {
               id: action.payload.product.frm_product_id,
               name: action.payload.product.name,
               price: action.payload.product.price,
+              is_menu:false,
+              productDetail: {},
             },
           },
         ];
       }
     case actionTypes.REMOVE_FROM_CART:
       var itemInCart = state.find(
-        (c) =>
-          c.product.id === action.payload.frm_product_id &&
-          c.product.name === action.payload.name
+        (c) => c.product.id === action.payload.frm_product_id
       );
       if (itemInCart.quantity > 1) {
         var incrementedState = state.map((cartItem) => {
-          if (
-            cartItem.product.id === action.payload.frm_product_id &&
-            cartItem.product.name === action.payload.name
-          ) {
+          if (cartItem.product.id === action.payload.frm_product_id) {
             return Object.assign({}, itemInCart, {
               quantity: itemInCart.quantity - 1,
             });
@@ -51,24 +50,20 @@ export default function cartReducer(state = initialState.cart, action) {
         return incrementedState;
       } else {
         const deletedItemState = state.filter(
-          (cartItem) =>
-            cartItem.product.id !== action.payload.frm_product_id &&
-            cartItem.product.name !== action.payload.name
+          (cartItem) => cartItem.product.id !== action.payload.frm_product_id
         );
         return deletedItemState;
       }
+
     case actionTypes.ADD_MENU_TO_CART:
       var addedMenuItem = state.find(
-        (c) =>
-          c.product.id === action.payload.menu.frm_menus_id &&
-          c.product.name === action.payload.menu.name
+        (c) => c.product.id === action.payload.product.frm_product_id
       );
       if (addedMenuItem) {
         var newMenuState = state.map((cartItem) => {
-          if (
-            cartItem.product.id === action.payload.menu.frm_menus_id &&
-            cartItem.product.name === action.payload.menu.name
-          ) {
+          if (cartItem.product.id === action.payload.product.frm_product_id) {
+            action.payload.product.options.id = uuid();
+            addedMenuItem.product.options.push(action.payload.product.options);
             return Object.assign({}, addedMenuItem, {
               quantity: addedMenuItem.quantity + 1,
             });
@@ -77,15 +72,20 @@ export default function cartReducer(state = initialState.cart, action) {
         });
         return newMenuState;
       } else {
+        action.payload.product.options.id = uuid();
+        const  product = {
+          id: action.payload.product.frm_product_id,
+          name: action.payload.product.name,
+          price: action.payload.product.price,
+          is_menu:true,
+          options: [],
+        };
+        product.options.push(action.payload.product.options);
         return [
           ...state,
           {
             quantity: action.payload.quantity,
-            product: {
-              id: action.payload.menu.frm_menus_id,
-              name: action.payload.menu.name,
-              price: action.payload.menu.price,
-            },
+            product,
           },
         ];
       }
