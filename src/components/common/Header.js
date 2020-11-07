@@ -1,3 +1,5 @@
+import * as userActions from "../../redux/actions/userActions";
+
 import {
   Container,
   Image,
@@ -11,6 +13,7 @@ import CartDropdownItem from "../cart/CartDropdownItem";
 import DropDownTitle from "../common/DropDownTitle";
 import Icofont from "react-icofont";
 import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 class Header extends React.Component {
@@ -37,6 +40,7 @@ class Header extends React.Component {
   };
 
   componentDidMount() {
+    this.props.actions.loadCurrentUser();
     document.addEventListener("click", this.handleClick, false);
   }
 
@@ -45,15 +49,21 @@ class Header extends React.Component {
   }
   totalPrice = () => {
     let totalPrice = 0;
-    this.props.cart.map(cartItem => (
-      totalPrice += (cartItem.quantity * cartItem.product.price)
-    ));
+    this.props.cart.map(
+      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
+    );
     return totalPrice;
-  }
+  };
+  Logout = () => {
+    this.props.actions.logout();
+  };
   logonUser = () => {
     const { cart } = this.props;
     return (
       <Nav activeKey={0} className="ml-auto" onSelect={this.closeMenu}>
+        <Nav.Link eventKey={1} as={NavLink} exact to="/">
+          Home
+        </Nav.Link>
         <NavDropdown
           alignRight
           title={
@@ -138,7 +148,10 @@ class Header extends React.Component {
             </div>
             <div className="dropdown-cart-top-footer border-top p-4">
               <p className="mb-0 font-weight-bold text-secondary">
-                Sub Total <span className="float-right text-dark">{this.totalPrice()} £</span>
+                Sub Total{" "}
+                <span className="float-right text-dark">
+                  {this.totalPrice()} £
+                </span>
               </p>
               <small className="text-info">Extra charges may apply</small>
             </div>
@@ -155,12 +168,16 @@ class Header extends React.Component {
             </div>
           </div>
         </NavDropdown>
+        <Nav.Link onClick={() => this.Logout()} to="/">Logout</Nav.Link>
       </Nav>
     );
   };
   unlogonUser = () => {
     return (
       <Nav activeKey={0} className="ml-auto" onSelect={this.closeMenu}>
+        <Nav.Link eventKey={1} as={NavLink} exact to="/">
+          Home
+        </Nav.Link>
         <Nav.Link eventKey={1} as={NavLink} exact to="/login">
           Login
         </Nav.Link>
@@ -193,7 +210,7 @@ class Header extends React.Component {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse id="navbarNavDropdown"></Navbar.Collapse>
-            {Object.entries(currentUser).length === 0
+            {currentUser === null
               ? this.unlogonUser()
               : this.logonUser()}
           </Container>
@@ -209,5 +226,13 @@ function mapStateToProps(state) {
     cart: state.cartReducer,
   };
 }
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
+      logout: bindActionCreators(userActions.logout, dispatch),
+    },
+  };
+}
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

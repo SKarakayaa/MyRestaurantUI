@@ -1,7 +1,7 @@
 import * as actionTypes from "../../actions/actionTypes";
 
 import initialState from "../initialState";
-import uuid from 'react-uuid';
+import uuid from "react-uuid";
 
 export default function cartReducer(state = initialState.cart, action) {
   switch (action.type) {
@@ -28,7 +28,7 @@ export default function cartReducer(state = initialState.cart, action) {
               id: action.payload.product.frm_product_id,
               name: action.payload.product.name,
               price: action.payload.product.price,
-              is_menu:false,
+              is_menu: false,
               productDetail: {},
             },
           },
@@ -73,11 +73,11 @@ export default function cartReducer(state = initialState.cart, action) {
         return newMenuState;
       } else {
         action.payload.product.options.id = uuid();
-        const  product = {
+        const product = {
           id: action.payload.product.frm_product_id,
           name: action.payload.product.name,
           price: action.payload.product.price,
-          is_menu:true,
+          is_menu: true,
           options: [],
         };
         product.options.push(action.payload.product.options);
@@ -91,28 +91,24 @@ export default function cartReducer(state = initialState.cart, action) {
       }
     case actionTypes.REMOVE_MENU_FROM_CART:
       var menuInCart = state.find(
-        (c) =>
-          c.product.id === action.payload.frm_menus_id &&
-          c.product.name === action.payload.name
+        (c) => c.product.id === action.payload.productid
       );
       if (menuInCart.quantity > 1) {
-        var menuIncrementedState = state.map((cartItem) => {
-          if (
-            cartItem.product.id === action.payload.frm_menus_id &&
-            cartItem.product.name === action.payload.name
-          ) {
+        var menuDecrementedState = state.map((cartItem) => {
+          if (cartItem.product.id === action.payload.productid) {
+            menuInCart.product.options = menuInCart.product.options.filter(
+              (f) => f.id !== action.payload.optionUniqueId
+            );
             return Object.assign({}, menuInCart, {
               quantity: menuInCart.quantity - 1,
             });
           }
           return cartItem;
         });
-        return menuIncrementedState;
+        return menuDecrementedState;
       } else {
         const deletedMenuItemState = state.filter(
-          (cartItem) =>
-            cartItem.product.id !== action.payload.frm_menus_id &&
-            cartItem.product.name !== action.payload.name
+          (cartItem) => cartItem.product.id !== action.payload.productid
         );
         return deletedMenuItemState;
       }

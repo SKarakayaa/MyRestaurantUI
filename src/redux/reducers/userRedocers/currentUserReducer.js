@@ -1,4 +1,5 @@
 import * as actionTypes from "../../actions/actionTypes";
+
 import initialState from "../initialState";
 
 export default function currentUserReducer(
@@ -10,6 +11,8 @@ export default function currentUserReducer(
       return action.payload;
     case actionTypes.LOGIN:
       return action.payload
+    case actionTypes.LOGOUT:
+      return action.payload;
     default:
       return state;
   }

@@ -2,34 +2,42 @@ import * as actionTypes from "./actionTypes";
 
 import agent from "../api/agent";
 
-export function getCurrentUser(currentUser) {
+export function getCurrentUser() {
+  const currentUser = JSON.parse(window.localStorage.getItem("user"));
   return { type: actionTypes.GET_CURRENT_USER, payload: currentUser };
+}
+
+export function logout() {
+  window.localStorage.removeItem("user");
+  window.localStorage.removeItem("token");
+  return {type:actionTypes.LOGOUT,payload:null}
 }
 
 export function registerFunc(registerResult) {
   return { type: actionTypes.REGISTER, payload: registerResult };
 }
 
-export function loginFunc(loginResult){
-  return {type:actionTypes.LOGIN,payload:loginResult};
+export function loginFunc(loginResult) {
+  localStorage.setItem("user",JSON.stringify(loginResult));
+  localStorage.setItem("token",loginResult.token);
+  return { type: actionTypes.LOGIN, payload: loginResult };
 }
 
 export function register(user) {
   return function (dispatch) {
     agent.Users.createUser(user).then((result) => {
       var userRoleModel = {
-        user_id:result.outs.user_id,
-        role_id:1
-      }
+        user_id: result.outs.user_id,
+        role_id: 1,
+      };
       agent.Users.addRole(userRoleModel);
-      dispatch(registerFunc(result))
-    }
-    );
+      dispatch(registerFunc(result));
+    });
   };
 }
 
-export function login(loginModel){
-  return function(dispatch){
-    agent.Users.login(loginModel).then((result)=>dispatch(loginFunc(result)))
-  }
+export function login(loginModel) {
+  return function (dispatch) {
+    agent.Users.login(loginModel).then((result) => dispatch(loginFunc(result)));
+  };
 }

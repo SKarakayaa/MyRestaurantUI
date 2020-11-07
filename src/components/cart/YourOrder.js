@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import CheckoutItem from "../common/CheckoutItem";
 import Icofont from "react-icofont";
 import { Image } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import history from "../history";
 
 class YourOrder extends Component {
   calculateTotalPrice = () => {
@@ -14,6 +14,13 @@ class YourOrder extends Component {
       (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
     );
     return totalPrice;
+  };
+  Checkout = () => {
+    if(this.props.currentUser === null){
+      history.push("/login");
+    }else{
+      history.push("/checkout");
+    }
   };
   cartEmpty = () => {
     return (
@@ -29,7 +36,7 @@ class YourOrder extends Component {
   };
   cartNotEmpty = () => {
     const { cart } = this.props;
-    console.log("cart :",cart);
+    console.log("cart :", cart);
     return (
       <div className="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
         <h5 className="mb-1 text-white">Your Order</h5>
@@ -63,10 +70,13 @@ class YourOrder extends Component {
             You have saved $955 on the bill
           </p>
         </div>
-        <Link to="/thanks" className="btn btn-success btn-block btn-lg">
+        <button
+          onClick={() => this.Checkout()}
+          className="btn btn-success btn-block btn-lg"
+        >
           Checkout
           <Icofont icon="long-arrow-right" />
-        </Link>
+        </button>
         <div className="pt-2"></div>
       </div>
     );
@@ -81,6 +91,7 @@ class YourOrder extends Component {
 function mapStateToProps(state) {
   return {
     cart: state.cartReducer,
+    currentUser: state.currentUserReducer,
   };
 }
 export default connect(mapStateToProps)(YourOrder);

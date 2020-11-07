@@ -23,10 +23,10 @@ class ProductCard extends Component {
                 imageClass="img-fluid item-img"
                 price={product.price}
                 priceUnit="£"
-                isNew={true}
-                showPromoted={true}
+                isNew={product.is_new}
+                showPromoted={false}
                 promotedVariant="dark"
-                favIcoIconColor="text-danger"
+                favIcoIconColor="text-secondary"
                 rating="3.1 (300+)"
                 getValue={this.getQty}
               />

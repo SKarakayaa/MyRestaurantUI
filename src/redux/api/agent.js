@@ -3,6 +3,12 @@ import axios from "axios";
 axios.defaults.baseURL =
   "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
+  // axios.interceptors.request.use((config) => {
+  //   const token = window.localStorage.getItem("token");
+  //   if (token) config.headers.Authorization = `Bearer ${token}`;
+  //   return config;
+  // });
+
 const responseBody = (response) => {
   return response.data;
 };
@@ -49,8 +55,15 @@ const Users = {
   addRole: (userRoleModel) => request.post("/Users/addUserRole", userRoleModel),
 };
 
+const Orders = {
+  createOrder: (order) => request.post("/Orders/addOrders", order),
+  createOrderDetail: (orderDetail) =>
+    request.post("/Orders/addOrderDetail", orderDetail),
+};
+
 export default {
   Products,
   Customers,
   Users,
+  Orders,
 };

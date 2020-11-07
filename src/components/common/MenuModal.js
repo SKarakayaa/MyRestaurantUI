@@ -1,7 +1,7 @@
 import * as cartActions from "../../redux/actions/cartActions";
 import * as productActions from "../../redux/actions/productActions";
 
-import { Button, Form, Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import React, { Component } from "react";
 
 import { bindActionCreators } from "redux";

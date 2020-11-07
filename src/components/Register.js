@@ -1,9 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { Row, Col, Container, Form, Button } from "react-bootstrap";
-import { bindActionCreators } from "redux";
 import * as userActions from "../redux/actions/userActions";
+
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
+
+import { Link } from "react-router-dom";
+import React from "react";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import history from "./history";
 
 class Register extends React.Component {
   constructor(props) {
@@ -29,6 +32,7 @@ class Register extends React.Component {
       //   profile_picture_id: this.state.profile_picture_id,
       // };
       this.props.actions.register(this.state);
+      history.push("/login");
     };
   }
 

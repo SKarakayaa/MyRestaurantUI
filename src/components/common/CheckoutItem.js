@@ -44,18 +44,28 @@ class CheckoutItem extends Component {
       this.props.actions.removeMenuFromCart(menu);
     }
   };
+  RemoveMenuFromCart = (optionUniqueId, productid) => {
+    this.props.actions.removeMenuFromCart(productid, optionUniqueId);
+  };
   ToggleClick = () => {
     this.setState({ show: !this.state.show });
   };
   GetProduct = (productid) => {
     return this.props.products.find((x) => x.frm_product_id === productid);
   };
+
   GetOptionList = () => {
     return this.props.product.options.map((option) => (
       <div className="media" key={option.id}>
         <div className="mr-1">
           <span className="count-number">
-            <Button variant="outline-secondary" className="btn-sm dec">
+            <Button
+              variant="outline-secondary"
+              className="btn-sm dec"
+              onClick={() =>
+                this.RemoveMenuFromCart(option.id, this.props.product.id)
+              }
+            >
               {" "}
               x
             </Button>

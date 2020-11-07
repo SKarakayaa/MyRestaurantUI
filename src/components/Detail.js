@@ -113,26 +113,7 @@ class Detail extends React.Component {
             <Container>
               <Row>
                 <Col md={12}>
-                  <span className="restaurant-detailed-action-btn float-right">
-                    <Button
-                      variant="light"
-                      size="sm"
-                      className="border-light-btn mr-1"
-                      type="button"
-                    >
-                      <Icofont icon="heart" className="text-danger" /> Mark as
-                      Favourite
-                    </Button>
-                    <Button
-                      variant="light"
-                      size="sm"
-                      className="border-light-btn mr-1"
-                      type="button"
-                    >
-                      <Icofont icon="cauli-flower" className="text-success" />{" "}
-                      Pure Veg
-                    </Button>
-                  </span>
+                  
                   <Nav id="pills-tab">
                     <Nav.Item>
                       <Nav.Link eventKey="first">Order Online</Nav.Link>
