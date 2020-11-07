@@ -27,16 +27,16 @@ import { connect } from "react-redux";
 class Detail extends React.Component {
   componentDidMount() {
     if (this.props.products.length === 0) {
-      this.props.actions.getProducts(1);
+      this.props.actions.loadProducts(1);
     }
     if (this.props.customerInfo.length === undefined) {
-      this.props.actions.getCustomerInfo(1);
+      this.props.actions.loadCustomerInfo(1);
     }
     if (this.props.customerMoreInfo.length === 0) {
-      this.props.actions.getCustomerMoreInfo(1);
+      this.props.actions.loadCustomerMoreInfo(1);
     }
     if (this.props.categories.length === 0) {
-      this.props.actions.getProductCategoriesList(1);
+      this.props.actions.loadCategories(1);
     }
     if (this.props.menus.length === 0) {
       this.props.actions.loadMenus(1);
@@ -191,24 +191,20 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      getProducts: bindActionCreators(productActions.getProducts, dispatch),
-      getMostPopularProducts: bindActionCreators(
-        productActions.getMostPopularProducts,
+      loadProducts: bindActionCreators(productActions.loadProductsRequest, dispatch),
+      loadCustomerInfo: bindActionCreators(
+        customerActions.loadCustomerInfoRequest,
         dispatch
       ),
-      getCustomerInfo: bindActionCreators(
-        customerActions.getCustomerInfo,
+      loadCustomerMoreInfo: bindActionCreators(
+        customerActions.loadCustomerMoreInfoRequest,
         dispatch
       ),
-      getCustomerMoreInfo: bindActionCreators(
-        customerActions.getCustomerMoreInfo,
+      loadCategories: bindActionCreators(
+        productActions.loadCategoriesRequest,
         dispatch
       ),
-      getProductCategoriesList: bindActionCreators(
-        productActions.getProductCategoriesList,
-        dispatch
-      ),
-      loadMenus: bindActionCreators(productActions.getMenus, dispatch),
+      loadMenus: bindActionCreators(productActions.loadMenusRequest, dispatch),
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
     },
   };

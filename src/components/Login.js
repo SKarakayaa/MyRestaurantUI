@@ -115,7 +115,7 @@ class Login extends React.Component {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      login: bindActionCreators(userActions.login, dispatch),
+      login: bindActionCreators(userActions.loginRequest, dispatch),
     },
   };
 }

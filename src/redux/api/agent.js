@@ -26,27 +26,25 @@ const request = {
 };
 
 const Products = {
-  list: (customerid) =>
+  loadProducts: (customerid) =>
     request.get(`/Product/getProductsList?xcustomer_id=${customerid}`),
-  getProductCategories: (customerid) =>
+  loadCategories: (customerid) =>
     request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`),
-  getProductMenus: (customerid) =>
-    request.get(`/Product/getProductMenu?xcustomer_id=${customerid}`),
-  getMenuOptions: (customerid, productid) =>
+  loadMenuOptions: (customerid, productid) =>
     request.get(
       `/Product/getProductDetailList?xcustomer_id=${customerid}&xproduct_id=${productid}`
     ),
 };
 
 const Customers = {
-  getCustomerInfo: (customerid) =>
+  loadCustomerInfo: (customerid) =>
     request.get(`/Customer/getCustomerInfo?xcustomer_id=${customerid}`),
-  getCustomerMoreInfo: (customerid) =>
+  loadCustomerMoreInfo: (customerid) =>
     request.get(`/Customer/getMoreInfo?xcustomer_id=${customerid}`),
 };
 
 const Users = {
-  createUser: (user) => request.post("/Users/createUser", user),
+  register: (user) => request.post("/Users/createUser", user),
   login: (loginModel) =>
     request.post(
       `/User/login?userName=${loginModel.userName}&passWord=${loginModel.passWord}`,

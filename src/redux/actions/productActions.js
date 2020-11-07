@@ -2,15 +2,12 @@ import * as actionTypes from "./actionTypes";
 
 import agent from "../api/agent";
 
-export function getProductList(products) {
+//Connect to Reducers
+export function loadProducts(products) {
   return { type: actionTypes.GET_PRODUCTS, payload: products.data };
 }
 
-export function getMostPopularProducts(products) {
-  return { type: actionTypes.GET_MOST_POPULAR_PRODUCTS, payload: products };
-}
-
-export function getMenusFunc(products) {
+export function loadMenus(products) {
   return {
     type: actionTypes.GET_MENUS,
     payload: products.data.filter((x) => x.is_menu === true),
@@ -21,38 +18,40 @@ export function loadMenuOptions(menuOptions) {
   return { type: actionTypes.GET_MENU_OPTIONS, payload: menuOptions.data };
 }
 
-export function getProductCategoriesListFunc(categories) {
+export function loadCategories(categories) {
   return { type: actionTypes.GET_PRODUCT_CATEGORIES, payload: categories.data };
 }
 
+
+// Requests to API
 export function loadMenuOptionsRequest(customerid, productid) {
   return function (dispatch) {
-    agent.Products.getMenuOptions(customerid, productid).then((result) =>
+    agent.Products.loadMenuOptions(customerid, productid).then((result) =>
       dispatch(loadMenuOptions(result))
     );
   };
 }
 
-export function getProducts(customerid) {
+export function loadProductsRequest(customerid) {
   return function (dispatch) {
-    agent.Products.list(customerid).then((result) =>
-      dispatch(getProductList(result))
+    agent.Products.loadProducts(customerid).then((result) =>
+      dispatch(loadProducts(result))
     );
   };
 }
 
-export function getMenus(customerid) {
+export function loadMenusRequest(customerid) {
   return function (dispatch) {
-    agent.Products.list(customerid).then((result) =>
-      dispatch(getMenusFunc(result))
+    agent.Products.loadProducts(customerid).then((result) =>
+      dispatch(loadMenus(result))
     );
   };
 }
 
-export function getProductCategoriesList(customerid) {
+export function loadCategoriesRequest(customerid) {
   return function (dispatch) {
-    agent.Products.getProductCategories(customerid).then((result) =>
-      dispatch(getProductCategoriesListFunc(result))
+    agent.Products.loadCategories(customerid).then((result) =>
+      dispatch(loadCategories(result))
     );
   };
 }

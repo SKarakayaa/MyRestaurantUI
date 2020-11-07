@@ -10,34 +10,35 @@ export function getCurrentUser() {
 export function logout() {
   window.localStorage.removeItem("user");
   window.localStorage.removeItem("token");
-  return {type:actionTypes.LOGOUT,payload:null}
+  return { type: actionTypes.LOGOUT, payload: null };
 }
 
-export function registerFunc(registerResult) {
+export function register(registerResult) {
   return { type: actionTypes.REGISTER, payload: registerResult };
 }
 
-export function loginFunc(loginResult) {
-  localStorage.setItem("user",JSON.stringify(loginResult));
-  localStorage.setItem("token",loginResult.token);
+export function login(loginResult) {
+  localStorage.setItem("user", JSON.stringify(loginResult));
+  localStorage.setItem("token", loginResult.token);
   return { type: actionTypes.LOGIN, payload: loginResult };
 }
 
-export function register(user) {
+//Request to API
+export function registerRequest(user) {
   return function (dispatch) {
-    agent.Users.createUser(user).then((result) => {
+    agent.Users.register(user).then((result) => {
       var userRoleModel = {
         user_id: result.outs.user_id,
         role_id: 1,
       };
       agent.Users.addRole(userRoleModel);
-      dispatch(registerFunc(result));
+      dispatch(register(result));
     });
   };
 }
 
-export function login(loginModel) {
+export function loginRequest(loginModel) {
   return function (dispatch) {
-    agent.Users.login(loginModel).then((result) => dispatch(loginFunc(result)));
+    agent.Users.login(loginModel).then((result) => dispatch(login(result)));
   };
 }

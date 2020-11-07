@@ -6,35 +6,37 @@ import { connect } from "react-redux";
 
 class ProductCard extends Component {
   render() {
-    const { products } = this.props;
+    const { products, categoryid,categoryName } = this.props;
     return (
       <Row>
-        <h5 className="mb-4 mt-3 col-md-12">Products </h5>
-        {products.map((product) =>
-          product.is_menu === false ? (
-            <Col md={4} sm={6} className="mb-4" key={product.frm_product_id}>
-              <BestSeller
-                id={product.frm_product_id}
-                title={product.name}
-                product={product}
-                subTitle="North Indian • American • Pure veg"
-                imageAlt="Product"
-                image="img/list/1.png"
-                imageClass="img-fluid item-img"
-                price={product.price}
-                priceUnit="£"
-                isNew={product.is_new}
-                showPromoted={false}
-                promotedVariant="dark"
-                favIcoIconColor="text-secondary"
-                rating="3.1 (300+)"
-                getValue={this.getQty}
-              />
-            </Col>
-          ) : (
-            ""
-          )
-        )}
+        <h5 className="mb-4 mt-3 col-md-12">{categoryName} </h5>
+        {products
+          .filter((p) => p.product_category_id === categoryid)
+          .map((product) =>
+            product.is_menu === false ? (
+              <Col md={4} sm={6} className="mb-4" key={product.frm_product_id}>
+                <BestSeller
+                  id={product.frm_product_id}
+                  title={product.name}
+                  product={product}
+                  subTitle="North Indian • American • Pure veg"
+                  imageAlt="Product"
+                  image="img/list/1.png"
+                  imageClass="img-fluid item-img"
+                  price={product.price}
+                  priceUnit="£"
+                  isNew={product.is_new}
+                  showPromoted={false}
+                  promotedVariant="dark"
+                  favIcoIconColor="text-secondary"
+                  rating="3.1 (300+)"
+                  getValue={this.getQty}
+                />
+              </Col>
+            ) : (
+              ""
+            )
+          )}
       </Row>
     );
   }

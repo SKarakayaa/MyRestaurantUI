@@ -24,13 +24,6 @@ class Register extends React.Component {
     };
     this.handleSave = (event) => {
       event.preventDefault();
-      // let user = {
-      //   full_name: this.state.full_name,
-      //   email: this.state.email,
-      //   user_name: this.state.user_name,
-      //   password: this.state.pass_word,
-      //   profile_picture_id: this.state.profile_picture_id,
-      // };
       this.props.actions.register(this.state);
       history.push("/login");
     };
@@ -132,7 +125,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      register: bindActionCreators(userActions.register, dispatch),
+      register: bindActionCreators(userActions.registerRequest, dispatch),
     },
   };
 }

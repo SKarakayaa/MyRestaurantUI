@@ -234,13 +234,13 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadMenu: bindActionCreators(productActions.getMenus, dispatch),
+      loadMenu: bindActionCreators(productActions.loadMenusRequest, dispatch),
       createOrder: bindActionCreators(
         orderActions.createOrderRequest,
         dispatch
       ),
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
-      loadProducts: bindActionCreators(productActions.getProducts, dispatch),
+      loadProducts: bindActionCreators(productActions.loadProductsRequest, dispatch),
     },
   };
 }
