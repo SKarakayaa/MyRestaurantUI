@@ -56,6 +56,7 @@ class Header extends React.Component {
   };
   Logout = () => {
     this.props.actions.logout();
+    window.location.reload();
   };
   logonUser = () => {
     const { cart } = this.props;
@@ -210,7 +211,7 @@ class Header extends React.Component {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse id="navbarNavDropdown"></Navbar.Collapse>
-            {currentUser === null
+            {Object.keys(currentUser).length === 0
               ? this.unlogonUser()
               : this.logonUser()}
           </Container>

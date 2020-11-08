@@ -1,6 +1,7 @@
 import * as cartActions from "../redux/actions/cartActions";
 import * as customerActions from "../redux/actions/customerActions";
 import * as productActions from "../redux/actions/productActions";
+import * as userActions from "../redux/actions/userActions";
 
 import {
   Badge,
@@ -16,6 +17,7 @@ import {
 import BookTable from "./tabs/BookTable/BookTable";
 import GalleryCarousel from "./common/GalleryCarousel";
 import Icofont from "react-icofont";
+import IsLogin from "./Helper";
 import OrderOnlineHome from "./tabs/OrderOnline/OrderOnlineHome";
 import RatingReviews from "./tabs/RatingReviews/RatingReviews";
 import React from "react";
@@ -26,6 +28,7 @@ import { connect } from "react-redux";
 
 class Detail extends React.Component {
   componentDidMount() {
+    this.props.actions.loadCurrentUser();
     if (this.props.products.length === 0) {
       this.props.actions.loadProducts(1);
     }
@@ -41,20 +44,20 @@ class Detail extends React.Component {
     if (this.props.menus.length === 0) {
       this.props.actions.loadMenus(1);
     }
+    if(IsLogin() && this.props.favoriteProducts.length === 0){
+      this.props.actions.loadFavoriteProducts(1);
+    }
   }
   constructor(props, context) {
     super(props, context);
-
     this.state = {
       showAddressModal: false,
     };
   }
 
   hideAddressModal = () => this.setState({ showAddressModal: false });
-
   render() {
-    const { customerInfo, cart } = this.props;
-    console.log("cart :", cart);
+    const { customerInfo } = this.props;
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -113,7 +116,6 @@ class Detail extends React.Component {
             <Container>
               <Row>
                 <Col md={12}>
-                  
                   <Nav id="pills-tab">
                     <Nav.Item>
                       <Nav.Link eventKey="first">Order Online</Nav.Link>
@@ -160,7 +162,7 @@ class Detail extends React.Component {
                       </Tab.Pane>
 
                       <Tab.Pane eventKey="fifth">
-                        <RatingReviews />
+                        <RatingReviews />login
                       </Tab.Pane>
                     </Tab.Content>
                   </div>
@@ -186,12 +188,17 @@ function mapStateToProps(state) {
     categories: state.categoryReducer,
     cart: state.cartReducer,
     menus: state.menuReducer,
+    currentUser: state.currentUserReducer,
+    favoriteProducts: state.favoriteProductReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      loadProducts: bindActionCreators(productActions.loadProductsRequest, dispatch),
+      loadProducts: bindActionCreators(
+        productActions.loadProductsRequest,
+        dispatch
+      ),
       loadCustomerInfo: bindActionCreators(
         customerActions.loadCustomerInfoRequest,
         dispatch
@@ -206,6 +213,11 @@ function mapDispatchToProps(dispatch) {
       ),
       loadMenus: bindActionCreators(productActions.loadMenusRequest, dispatch),
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
+      loadFavoriteProducts: bindActionCreators(
+        userActions.loadFavoritesRequest,
+        dispatch
+      ),
+      loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
     },
   };
 }

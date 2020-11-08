@@ -7,9 +7,10 @@ export default function registerUserReducer(
   action
 ) {
   switch (action.type) {
-    case actionTypes.REGISTER:
+    case actionTypes.REGISTER_SUCCESS:
       return action.payload;
-    
+    case actionTypes.REGISTER_ERROR:
+      return action.payload;
     default:
       return state;
   }

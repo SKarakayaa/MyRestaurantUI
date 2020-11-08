@@ -1,4 +1,5 @@
 import * as cartActions from "../../redux/actions/cartActions";
+import * as userActions from "../../redux/actions/userActions";
 
 import { Badge, Button, Image } from "react-bootstrap";
 
@@ -7,6 +8,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import history from "../history";
 
 class BestSeller extends React.Component {
   constructor(props) {
@@ -27,7 +29,7 @@ class BestSeller extends React.Component {
   };
 
   addToCart = (product) => {
-    this.props.actions.addToCart({quantity:1,product});
+    this.props.actions.addToCart({ quantity: 1, product });
   };
 
   isInCart = () => {
@@ -37,7 +39,25 @@ class BestSeller extends React.Component {
     );
     return item;
   };
-
+  addFavorite = (productid) => {
+    const { currentUser } = this.props;
+    if (Object.keys(currentUser).length === 0) {
+      history.push("/login");
+    } else {
+      this.props.actions.addFavorite(currentUser.session.userId, productid);
+    }
+  };
+  GetHearthIconColor = (productid) => {
+    const { favoriteProducts } = this.props;
+    var isFavorite = favoriteProducts.find(
+      (x) => x.product_id === productid
+    );
+    if (isFavorite !== undefined) {
+      return "favourite-heart position-absolute text-danger";
+    } else {
+      return "favourite-heart position-absolute text-secondary";
+    }
+  };
   render() {
     const { product } = this.props;
     const isInCart = this.isInCart();
@@ -53,10 +73,11 @@ class BestSeller extends React.Component {
           ) : (
             ""
           )}
-          <div
-            className={`favourite-heart position-absolute ${this.props.favIcoIconColor}`}
-          >
-            <Link to="#">
+          <div className={this.GetHearthIconColor(product.frm_product_id)}>
+            <Link
+              onClick={() => this.addFavorite(product.frm_product_id)}
+              to="#"
+            >
               <Icofont icon="heart" />
             </Link>
           </div>
@@ -168,12 +189,16 @@ function mapDispatchToProps(dispatch) {
     actions: {
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
       removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch),
+      addFavorite: bindActionCreators(userActions.addFavoriteRequest, dispatch),
+      loadFavorites:bindActionCreators(userActions.loadFavoritesRequest,dispatch)
     },
   };
 }
 function mapStateToProps(state) {
   return {
     cart: state.cartReducer,
+    currentUser: state.currentUserReducer,
+    favoriteProducts: state.favoriteProductReducer,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);

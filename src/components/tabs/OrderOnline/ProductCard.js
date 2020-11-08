@@ -5,8 +5,9 @@ import BestSeller from "../../common/BestSeller";
 import { connect } from "react-redux";
 
 class ProductCard extends Component {
+  
   render() {
-    const { products, categoryid,categoryName } = this.props;
+    const { products, categoryid, categoryName } = this.props;
     return (
       <Row>
         <h5 className="mb-4 mt-3 col-md-12">{categoryName} </h5>
@@ -28,7 +29,6 @@ class ProductCard extends Component {
                   isNew={product.is_new}
                   showPromoted={false}
                   promotedVariant="dark"
-                  favIcoIconColor="text-secondary"
                   rating="3.1 (300+)"
                   getValue={this.getQty}
                 />

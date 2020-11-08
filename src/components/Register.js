@@ -1,6 +1,7 @@
+import * as actionTypes from "../redux/actions/actionTypes";
 import * as userActions from "../redux/actions/userActions";
 
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 import React from "react";
@@ -17,18 +18,24 @@ class Register extends React.Component {
       user_name: "",
       pass_word: "",
       profile_picture_id: 1,
-    };
-    this.handleChange = (event) => {
-      const { name, value } = event.target;
-      this.setState({ [name]: value });
-    };
-    this.handleSave = (event) => {
-      event.preventDefault();
-      this.props.actions.register(this.state);
-      history.push("/login");
+      registerError: "",
     };
   }
-
+  handleChange = (event) => {
+    const { name, value } = event.target;
+    this.setState({ registerError: "" });
+    this.setState({ [name]: value });
+  };
+  handleSave = (event) => {
+    event.preventDefault();
+    this.props.actions.register(this.state).then((result) => {
+      if (result.type === actionTypes.REGISTER_SUCCESS) {
+        history.push("/login");
+      } else {
+        this.setState({ registerError: result.payload.error });
+      }
+    });
+  };
   render() {
     return (
       <Container fluid className="bg-white">
@@ -40,6 +47,9 @@ class Register extends React.Component {
                 <Row>
                   <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
                     <h3 className="login-heading mb-4">New Buddy!</h3>
+                    <span className="mb-4 text-danger">
+                      {this.state.registerError}
+                    </span>
                     <Form onSubmit={this.handleSave}>
                       <div className="form-label-group">
                         <Form.Control
@@ -61,7 +71,7 @@ class Register extends React.Component {
                           id="email"
                           name="email"
                           value={this.state.email}
-                          onChange={this.handleChange.bind(this)}
+                          onChange={this.handleChange}
                           placeholder="Email address"
                         />
                         <Form.Label htmlFor="email">
@@ -74,7 +84,7 @@ class Register extends React.Component {
                           id="user_name"
                           name="user_name"
                           value={this.state.user_name}
-                          onChange={this.handleChange.bind(this)}
+                          onChange={this.handleChange}
                           placeholder="Username"
                         />
                         <Form.Label htmlFor="user_name">Username</Form.Label>
@@ -85,19 +95,17 @@ class Register extends React.Component {
                           id="pass_word"
                           name="pass_word"
                           value={this.state.pass_word}
-                          onChange={this.handleChange.bind(this)}
+                          onChange={this.handleChange}
                           placeholder="Password"
                         />
                         <Form.Label htmlFor="pass_word">Password</Form.Label>
                       </div>
-                      {/* <Button className=""></Button> */}
-                      <Button
-                        // to={Button}
+                      <button
                         type="submit"
                         className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                       >
                         Sign Up
-                      </Button>
+                      </button>
                       <div className="text-center pt-3">
                         Already have an account?{" "}
                         <Link className="font-weight-bold" to="/login">
@@ -116,12 +124,6 @@ class Register extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUserReducer,
-  };
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
@@ -130,4 +132,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(null, mapDispatchToProps)(Register);

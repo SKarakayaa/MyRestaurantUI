@@ -1,3 +1,4 @@
+import * as actionTypes from "../redux/actions/actionTypes";
 import * as userActions from "../redux/actions/userActions";
 
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
@@ -15,16 +16,23 @@ class Login extends React.Component {
     this.state = {
       userName: "",
       passWord: "",
+      loginError: "",
     };
   }
   handleChange = (event) => {
     const { name, value } = event.target;
+    this.setState({ loginError: "" });
     this.setState({ [name]: value });
   };
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.actions.login(this.state);
-    history.push("/");
+    this.props.actions.login(this.state).then((result) => {
+      if (result.type === actionTypes.LOGIN_ERROR) {
+        this.setState({ loginError: result.payload.error });
+      } else {
+        history.push("/");
+      }
+    });
   };
   render() {
     return (
@@ -37,6 +45,10 @@ class Login extends React.Component {
                 <Row>
                   <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
                     <h3 className="login-heading mb-4">Welcome back!</h3>
+                    <span className="mb-4 text-danger">
+                      {this.state.loginError}
+                    </span>
+                    <br></br>
                     <Form onSubmit={this.handleSubmit}>
                       <div className="form-label-group">
                         <Form.Control
@@ -60,13 +72,6 @@ class Login extends React.Component {
                         />
                         <Form.Label htmlFor="passWord">Password</Form.Label>
                       </div>
-                      <Form.Check
-                        className="mb-3"
-                        custom
-                        type="checkbox"
-                        id="custom-checkbox"
-                        label="Remember password"
-                      />
                       <button
                         type="submit"
                         className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
@@ -119,9 +124,4 @@ function mapDispatchToProps(dispatch) {
     },
   };
 }
-function mapStateToProps(state) {
-  return {
-    currentUser: state.currentUserReducer,
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(null, mapDispatchToProps)(Login);

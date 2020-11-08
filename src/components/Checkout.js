@@ -17,6 +17,7 @@ import {
 import CartAddresses from "./cart/CartAddresses";
 import CheckoutItem from "./common/CheckoutItem";
 import Icofont from "react-icofont";
+import IsLogin from "./Helper";
 import ItemsCarousel from "./common/ItemsCarousel";
 import PaymentChoose from "./cart/PaymentChoose";
 import React from "react";
@@ -25,6 +26,7 @@ import { connect } from "react-redux";
 import history from "./history";
 
 class Checkout extends React.Component {
+  
   componentDidMount() {
     if (this.props.menus.length === 0) {
       this.props.actions.loadMenu(1);
@@ -62,10 +64,14 @@ class Checkout extends React.Component {
     return isValid;
   };
   render() {
-    const { cart, currentUser } = this.props;
-    if (currentUser === null) {
+    // this.props.actions.loadCurrentUser().then(r=>{
+    //   debugger;
+    // });
+    const { cart } = this.props;
+    if (!IsLogin()) {
       history.push("/login");
     }
+    
     return (
       <section className="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
         <Container>
@@ -108,7 +114,7 @@ class Checkout extends React.Component {
                       10029
                     </p>
                   </div>
-                </div>
+                </div>login
                 <div className="bg-white rounded shadow-sm mb-2">
                   {cart.map((cartItem) => (
                     <CheckoutItem

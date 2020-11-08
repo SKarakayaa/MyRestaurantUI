@@ -8,10 +8,14 @@ export default function currentUserReducer(
 ) {
   switch (action.type) {
     case actionTypes.GET_CURRENT_USER:
+      initialState.currentUser = action.payload;
       return action.payload;
-    case actionTypes.LOGIN:
-      return action.payload
+    case actionTypes.LOGIN_SUCCESS:
+      return action.payload;
+    case actionTypes.LOGIN_ERROR:
+      return action.payload;
     case actionTypes.LOGOUT:
+      initialState.favoriteProducts = null;
       return action.payload;
     default:
       return state;
