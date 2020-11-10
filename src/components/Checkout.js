@@ -64,9 +64,6 @@ class Checkout extends React.Component {
     return isValid;
   };
   render() {
-    // this.props.actions.loadCurrentUser().then(r=>{
-    //   debugger;
-    // });
     const { cart } = this.props;
     if (!IsLogin()) {
       history.push("/login");

@@ -1,3 +1,4 @@
+import addressReducer from './addressReducers/addressReducer';
 import cartReducer from "./cartReducers/cartReducer";
 import categoryReducer from "./productReducers/categoryReducer";
 import { combineReducers } from "redux";
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   userRegisterReducer,
   categoryReducer,
   cartReducer,
-  createOrderReducer
+  createOrderReducer,
+  addressReducer
 });
 
 export default rootReducer;

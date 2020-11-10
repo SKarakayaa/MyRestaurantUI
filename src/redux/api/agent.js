@@ -53,10 +53,19 @@ const Users = {
   addRole: (userRoleModel) => request.post("/Users/addUserRole", userRoleModel),
   addFavorite: (addFavoriteModel) =>
     request.post("/Users/addFavoritesProduct", addFavoriteModel),
+  deleteFavorite:(favoriteid) => request.delete(`/Users/deleteFavoritesProduct?tfrm_user_product_favorites_id=${favoriteid}`),
   loadFavorites: (userid, customerid) =>
     request.get(
       `/Users/getUserFavoritesProducts?xuser_id=${userid}&xcustomer_id=${customerid}`
     ),
+};
+
+const Address = {
+  loadAddresses: (userid, customerid) =>
+    request.get(
+      `/Users/getUserAddress?xuser_id=${userid}&xcustomer_id=${customerid}`
+    ),
+  createAddress: (address) => request.post("/Users/addUserAddress", address),
 };
 
 const Orders = {
@@ -70,4 +79,5 @@ export default {
   Customers,
   Users,
   Orders,
+  Address
 };

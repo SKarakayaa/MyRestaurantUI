@@ -44,14 +44,20 @@ class BestSeller extends React.Component {
     if (Object.keys(currentUser).length === 0) {
       history.push("/login");
     } else {
-      this.props.actions.addFavorite(currentUser.session.userId, productid);
+      const { favoriteProducts } = this.props;
+      var isFavorite = favoriteProducts.find((x) => x.product_id === productid);
+      if (isFavorite === undefined) {
+        this.props.actions.addFavorite(currentUser.session.userId, productid);
+      } else {
+        this.props.actions.deleteFavorite(
+          isFavorite.frm_user_product_favorites_id
+        );
+      }
     }
   };
   GetHearthIconColor = (productid) => {
     const { favoriteProducts } = this.props;
-    var isFavorite = favoriteProducts.find(
-      (x) => x.product_id === productid
-    );
+    var isFavorite = favoriteProducts.find((x) => x.product_id === productid);
     if (isFavorite !== undefined) {
       return "favourite-heart position-absolute text-danger";
     } else {
@@ -190,7 +196,14 @@ function mapDispatchToProps(dispatch) {
       addToCart: bindActionCreators(cartActions.addToCart, dispatch),
       removeFromCart: bindActionCreators(cartActions.removeFromCart, dispatch),
       addFavorite: bindActionCreators(userActions.addFavoriteRequest, dispatch),
-      loadFavorites:bindActionCreators(userActions.loadFavoritesRequest,dispatch)
+      deleteFavorite: bindActionCreators(
+        userActions.deleteFavoriteRequest,
+        dispatch
+      ),
+      loadFavorites: bindActionCreators(
+        userActions.loadFavoritesRequest,
+        dispatch
+      ),
     },
   };
 }

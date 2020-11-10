@@ -4,7 +4,6 @@ import agent from "../api/agent";
 
 export function getCurrentUser() {
   const currentUser = JSON.parse(window.localStorage.getItem("user"));
-  debugger;
   return {
     type: actionTypes.GET_CURRENT_USER,
     payload: currentUser === null ? {} : currentUser,
@@ -42,6 +41,14 @@ export function login(loginResult) {
 
 export function addFavorite(addFavoriteResult) {
   return { type: actionTypes.ADD_FAVORITE_PRODUCT, payload: addFavoriteResult };
+}
+
+export function deleteFavorite(deleteFavoriteResult) {
+  console.log("delete favorite result : ",deleteFavoriteResult);
+  return {
+    type: actionTypes.DELETE_FAVORITE_PRODUCT,
+    payload: deleteFavoriteResult,
+  };
 }
 
 export function loadFavorites(favoriteProducts) {
@@ -91,15 +98,22 @@ export function addFavoriteRequest(userid, productid) {
     });
   };
 }
+export function deleteFavoriteRequest(favoriteid) {
+  return function (dispatch) {
+    agent.Users.deleteFavorite(favoriteid).then((result) => {
+      dispatch(deleteFavorite(result));
+    });
+  };
+}
 
 export function loadFavoritesRequest(customerid) {
   const currentUser = JSON.parse(window.localStorage.getItem("user"));
-  if(currentUser !== null){
+  if (currentUser !== null) {
     return function (dispatch) {
-      agent.Users.loadFavorites(currentUser.session.userId, customerid).then((result) =>
-        dispatch(loadFavorites(result))
-      );
+      agent.Users.loadFavorites(
+        currentUser.session.userId,
+        customerid
+      ).then((result) => dispatch(loadFavorites(result)));
     };
   }
-  
 }
