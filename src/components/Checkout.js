@@ -26,7 +26,12 @@ import { connect } from "react-redux";
 import history from "./history";
 
 class Checkout extends React.Component {
-  
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      addressid: 0,
+    };
+  }
   componentDidMount() {
     if (this.props.menus.length === 0) {
       this.props.actions.loadMenu(1);
@@ -45,7 +50,7 @@ class Checkout extends React.Component {
     return totalPrice;
   };
   CreateOrder = () => {
-    const {currentUser} = this.props;
+    const { currentUser } = this.props;
     const totalPrice = this.calculateTotalPrice();
     const order = {
       user_id: currentUser.userId,
@@ -57,18 +62,21 @@ class Checkout extends React.Component {
   };
   ValidatePayment = () => {
     var isValid = true;
-    if (this.props.cart.length === 0){
+    if (this.props.cart.length === 0) {
       isValid = false;
-    } 
+    }
 
     return isValid;
+  };
+  ChangeAddressId = (addressid) => {
+    this.setState({ addressid: addressid });
   };
   render() {
     const { cart } = this.props;
     if (!IsLogin()) {
       history.push("/login");
     }
-    
+
     return (
       <section className="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
         <Container>
@@ -83,12 +91,12 @@ class Checkout extends React.Component {
                 <div className="pt-2"></div>
 
                 {/* TODO : ADDRESSLER AYRI COMPONENT OLMALI */}
-                <CartAddresses />
+                {IsLogin() ? <CartAddresses ChangeAddressId={this.ChangeAddressId}/> : ""}
 
                 <div className="pt-2"></div>
 
                 {/* PAYMENT METHOD AYRI BİR COMPONENT OLMALI */}
-                <PaymentChoose />
+                <PaymentChoose AddressId={this.state.addressid}/>
               </div>
             </Col>
 
@@ -111,7 +119,8 @@ class Checkout extends React.Component {
                       10029
                     </p>
                   </div>
-                </div>login
+                </div>
+                login
                 <div className="bg-white rounded shadow-sm mb-2">
                   {cart.map((cartItem) => (
                     <CheckoutItem
@@ -130,7 +139,6 @@ class Checkout extends React.Component {
                     />
                   ))}
                 </div>
-
                 {/* PROMO CODE AND SUGGESTIONS */}
                 <div className="mb-2 bg-white rounded p-2 clearfix">
                   <InputGroup className="input-group-sm mb-2">
@@ -158,7 +166,6 @@ class Checkout extends React.Component {
                     />
                   </InputGroup>
                 </div>
-
                 {/* CART TOTAL INFORMATIONS */}
                 <div className="mb-2 bg-white rounded p-2 clearfix">
                   <p className="mb-1">
@@ -204,14 +211,14 @@ class Checkout extends React.Component {
                     </span>
                   </h6>
                 </div>
-                <button
+                {/* <button
                   onClick={() => this.CreateOrder()}
                   className="btn btn-success btn-block btn-lg"
                   disabled={!this.ValidatePayment()}
                 >
                   {"PAY" + this.calculateTotalPrice() + " £"}
                   <Icofont icon="long-arrow-right" />
-                </button>
+                </button> */}
               </div>
 
               <div className="pt-2"></div>
@@ -243,7 +250,10 @@ function mapDispatchToProps(dispatch) {
         dispatch
       ),
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
-      loadProducts: bindActionCreators(productActions.loadProductsRequest, dispatch),
+      loadProducts: bindActionCreators(
+        productActions.loadProductsRequest,
+        dispatch
+      ),
     },
   };
 }

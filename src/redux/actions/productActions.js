@@ -22,6 +22,9 @@ export function loadCategories(categories) {
   return { type: actionTypes.GET_PRODUCT_CATEGORIES, payload: categories.data };
 }
 
+export function loadMaterials(materials) {
+  return { type: actionTypes.GET_MATERIALS, payload: materials.data };
+}
 
 // Requests to API
 export function loadMenuOptionsRequest(customerid, productid) {
@@ -52,6 +55,14 @@ export function loadCategoriesRequest(customerid) {
   return function (dispatch) {
     agent.Products.loadCategories(customerid).then((result) =>
       dispatch(loadCategories(result))
+    );
+  };
+}
+
+export function loadMaterialsRequest(customerid) {
+  return function (dispatch) {
+    agent.Products.loadMaterials(customerid).then((result) =>
+      dispatch(loadMaterials(result))
     );
   };
 }

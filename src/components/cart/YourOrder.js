@@ -11,7 +11,7 @@ class YourOrder extends Component {
     const { cart } = this.props;
     var totalPrice = 0;
     cart.map(
-      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
+      (cartItem) => (totalPrice += cartItem.subTotal)
     );
     return totalPrice;
   };
@@ -36,7 +36,7 @@ class YourOrder extends Component {
   };
   cartNotEmpty = () => {
     const { cart } = this.props;
-    console.log("cart :", cart);
+    console.log("cart :",cart)
     return (
       <div className="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
         <h5 className="mb-1 text-white">Your Order</h5>
@@ -48,6 +48,7 @@ class YourOrder extends Component {
               itemName={cartItem.product.name}
               price={cartItem.product.price}
               quantity={cartItem.quantity}
+              subTotal={cartItem.subTotal}
               product={cartItem.product}
               priceUnit="£"
               id={cartItem.product.id}

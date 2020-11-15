@@ -11,9 +11,11 @@ import menuOptionReducer from "./productReducers/menuOptionReducer";
 import menuReducer from "./productReducers/menuReducer";
 import productReducer from "./productReducers/productReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
+import materialReducer from './productReducers/materialReducer';
 
 const rootReducer = combineReducers({
   favoriteProductReducer,
+  materialReducer,
   productReducer,
   menuReducer,
   menuOptionReducer,

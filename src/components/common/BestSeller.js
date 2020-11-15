@@ -9,6 +9,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import history from "../history";
+import MenuModal from "./MenuModal";
 
 class BestSeller extends React.Component {
   constructor(props) {
@@ -18,6 +19,8 @@ class BestSeller extends React.Component {
       show: this.props.show || true,
       max: this.props.maxValue || 5,
       min: this.props.minValue || 0,
+
+      modalShow: false,
     };
   }
 
@@ -27,9 +30,12 @@ class BestSeller extends React.Component {
   DecreaseItem = (product) => {
     this.props.actions.removeFromCart(product);
   };
-
-  addToCart = (product) => {
-    this.props.actions.addToCart({ quantity: 1, product });
+  AddToCart = (product) => {
+    if (product.product_materials !== "") {
+      this.openModal();
+    } else {
+      this.props.actions.addToCart({ quantity: 1, product });
+    }
   };
 
   isInCart = () => {
@@ -64,11 +70,22 @@ class BestSeller extends React.Component {
       return "favourite-heart position-absolute text-secondary";
     }
   };
+  openModal = () => this.setState({ modalShow: true });
+  hideModal = () => this.setState({ modalShow: false });
   render() {
     const { product } = this.props;
     const isInCart = this.isInCart();
     return (
       <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+        {this.state.modalShow ? (
+          <MenuModal
+            show={this.state.modalShow}
+            onHide={this.hideModal}
+            menu={product}
+          />
+        ) : (
+          ""
+        )}
         <div className="list-card-image">
           {this.props.rating ? (
             <div className="star position-absolute">
@@ -135,7 +152,7 @@ class BestSeller extends React.Component {
                   <span className="float-right">
                     <Button
                       variant="outline-secondary"
-                      onClick={() => this.addToCart(product)}
+                      onClick={() => this.AddToCart(product)}
                       size="sm"
                     >
                       ADD
@@ -143,14 +160,6 @@ class BestSeller extends React.Component {
                   </span>
                 ) : (
                   <span className="count-number float-right">
-                    <Button
-                      variant="outline-secondary"
-                      onClick={() => this.DecreaseItem(product)}
-                      className="btn-sm left dec"
-                    >
-                      {" "}
-                      <Icofont icon="minus" />{" "}
-                    </Button>
                     <input
                       className="count-number-input"
                       type="text"
@@ -159,7 +168,7 @@ class BestSeller extends React.Component {
                     />
                     <Button
                       variant="outline-secondary"
-                      onClick={() => this.IncrementItem(product)}
+                      onClick={() => this.AddToCart(product)}
                       className="btn-sm right inc"
                     >
                       {" "}

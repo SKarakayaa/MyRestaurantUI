@@ -62,29 +62,66 @@ export default function cartReducer(state = initialState.cart, action) {
       if (addedMenuItem) {
         var newMenuState = state.map((cartItem) => {
           if (cartItem.product.id === action.payload.product.frm_product_id) {
-            action.payload.product.options.id = uuid();
-            addedMenuItem.product.options.push(action.payload.product.options);
+            const optionid = uuid();
+            if (addedMenuItem.product.is_menu) {
+              action.payload.product.options.id = optionid;
+              addedMenuItem.product.options.push(
+                action.payload.product.options
+              );
+            }
+            let materialPrice = 0;
+            if (action.payload.product.materials !== undefined) {
+              materialPrice += action.payload.product.materials.totalMaterialsPrice;
+              action.payload.product.materials.id = uuid();
+              if (action.payload.product.is_menu) {
+                action.payload.product.materials.option_id = optionid;
+              }
+              addedMenuItem.product.materials.push(
+                action.payload.product.materials
+              );
+            }
+            addedMenuItem.product.price = action.payload.product.price;
             return Object.assign({}, addedMenuItem, {
               quantity: addedMenuItem.quantity + 1,
+              subTotal:
+                addedMenuItem.subTotal +
+                parseInt(action.payload.product.price) +
+                materialPrice,
             });
           }
           return cartItem;
         });
         return newMenuState;
       } else {
-        action.payload.product.options.id = uuid();
         const product = {
           id: action.payload.product.frm_product_id,
           name: action.payload.product.name,
           price: action.payload.product.price,
-          is_menu: true,
+          is_menu: action.payload.product.is_menu,
+          materials: [],
           options: [],
         };
-        product.options.push(action.payload.product.options);
+        const optionid = uuid();
+        if (action.payload.product.is_menu) {
+          action.payload.product.options.id = optionid;
+          product.options.push(action.payload.product.options);
+        }
+        let materialPrice = 0;
+        if (action.payload.product.materials !== undefined) {
+          materialPrice += parseInt(
+            action.payload.product.materials.totalMaterialsPrice
+          );
+          action.payload.product.materials.id = uuid();
+          if (action.payload.product.is_menu) {
+            action.payload.product.materials.option_id = optionid;
+          }
+          product.materials.push(action.payload.product.materials);
+        }
         return [
           ...state,
           {
             quantity: action.payload.quantity,
+            subTotal: parseInt(action.payload.product.price) + materialPrice,
             product,
           },
         ];
@@ -95,12 +132,42 @@ export default function cartReducer(state = initialState.cart, action) {
       );
       if (menuInCart.quantity > 1) {
         var menuDecrementedState = state.map((cartItem) => {
+          let materialPrice = 0;
           if (cartItem.product.id === action.payload.productid) {
-            menuInCart.product.options = menuInCart.product.options.filter(
-              (f) => f.id !== action.payload.optionUniqueId
-            );
+            if (action.payload.optionUniqueId !== null) {
+              menuInCart.product.options = menuInCart.product.options.filter(
+                (f) => f.id !== action.payload.optionUniqueId
+              );
+              if (Object.keys(menuInCart.product.materials).length !== 0) {
+                materialPrice = parseInt(
+                  menuInCart.product.materials.find(
+                    (x) => x.id === action.payload.materialUniqueId
+                  ).totalMaterialsPrice
+                );
+                menuInCart.product.materials = menuInCart.product.materials.filter(
+                  (f) => f.option_id !== action.payload.optionUniqueId
+                );
+              }
+            }
+
+            if (
+              Object.keys(menuInCart.product.materials).length !== 0 &&
+              action.payload.materialUniqueId !== null
+            ) {
+              materialPrice = parseInt(
+                menuInCart.product.materials.find(
+                  (x) => x.id === action.payload.materialUniqueId
+                ).totalMaterialsPrice
+              );
+              menuInCart.product.materials = menuInCart.product.materials.filter(
+                (f) => f.id !== action.payload.materialUniqueId
+              );
+            }
+
             return Object.assign({}, menuInCart, {
               quantity: menuInCart.quantity - 1,
+              subTotal:
+                menuInCart.subTotal - menuInCart.product.price - materialPrice,
             });
           }
           return cartItem;

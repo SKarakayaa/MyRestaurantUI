@@ -45,7 +45,6 @@ class CartAddresses extends Component {
   };
   render() {
     const { addresses } = this.props;
-    console.log("address :", addresses);
     return (
       <div className="bg-white rounded shadow-sm p-4 mb-4">
         <AddAddressModal
@@ -65,6 +64,8 @@ class CartAddresses extends Component {
                   title={this.getAddressTypeName(address.address_type)}
                   icoIcon={this.getAddressIcon(address.address_type)}
                   iconclassName="icofont-3x"
+                  ChangeAddressId={this.props.ChangeAddressId}
+                  AddressId={address.frm_user_adress_id}
                   address={
                     address.delivery_area +
                     " - " +

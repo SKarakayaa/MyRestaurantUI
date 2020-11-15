@@ -34,6 +34,8 @@ const Products = {
     request.get(
       `/Product/getProductDetailList?xcustomer_id=${customerid}&xproduct_id=${productid}`
     ),
+  loadMaterials: (customerid) =>
+    request.get(`/Product/getProductMaterial?xcustomer_id=${customerid}`),
 };
 
 const Customers = {
@@ -53,7 +55,10 @@ const Users = {
   addRole: (userRoleModel) => request.post("/Users/addUserRole", userRoleModel),
   addFavorite: (addFavoriteModel) =>
     request.post("/Users/addFavoritesProduct", addFavoriteModel),
-  deleteFavorite:(favoriteid) => request.delete(`/Users/deleteFavoritesProduct?tfrm_user_product_favorites_id=${favoriteid}`),
+  deleteFavorite: (favoriteid) =>
+    request.delete(
+      `/Users/deleteFavoritesProduct?tfrm_user_product_favorites_id=${favoriteid}`
+    ),
   loadFavorites: (userid, customerid) =>
     request.get(
       `/Users/getUserFavoritesProducts?xuser_id=${userid}&xcustomer_id=${customerid}`
@@ -79,5 +84,5 @@ export default {
   Customers,
   Users,
   Orders,
-  Address
+  Address,
 };

@@ -12,21 +12,20 @@ class OrderOnlineHome extends Component {
   BigListCategories = () => {
     const { categories } = this.props;
     const bigListCategories = categories.filter(
-      (c) => c.list_type === "1" && c.frm_product_categories_id !== "5"
+      (c) => c.list_type === "2" && c.frm_product_categories_id !== "5"
     );
     return bigListCategories;
   };
   LineListCategories = () => {
     const { categories } = this.props;
     const lineListCategories = categories.filter(
-      (c) => c.list_type === "2" && c.frm_product_categories_id !== "5"
+      (c) => c.list_type === "1" && c.frm_product_categories_id !== "5"
     );
     return lineListCategories;
   };
   render() {
     const bigListCategories = this.BigListCategories();
     const lineListCategories = this.LineListCategories();
-    console.log("bg :", bigListCategories);
     return (
       <Fragment>
         <h5 className="mb-4">Recommended</h5>

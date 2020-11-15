@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 class PaymentChoose extends Component {
   render() {
+    console.log("address id :",this.props.AddressId)
     return (
       <div className="bg-white rounded shadow-sm p-4 osahan-payment">
         <h4 className="mb-1">Choose payment method</h4>
@@ -97,13 +98,12 @@ class PaymentChoose extends Component {
                         />
                       </Form.Group>
                       <Form.Group className="col-md-12 mb-0">
-                        <Link
-                          to="/thanks"
+                        <button
                           className="btn btn-success btn-block btn-lg"
                         >
                           PAY $1329
                           <Icofont icon="long-arrow-right" />
-                        </Link>
+                        </button>
                       </Form.Group>
                     </div>
                   </Form>
@@ -271,13 +271,13 @@ class PaymentChoose extends Component {
                   </p>
                   <hr />
                   <Form>
-                    <Link
+                    <button
                       to="/thanks"
                       className="btn btn-success btn-block btn-lg"
                     >
                       PAY $1329
                       <Icofont icon="long-arrow-right" />
-                    </Link>
+                    </button>
                   </Form>
                 </Tab.Pane>
               </Tab.Content>

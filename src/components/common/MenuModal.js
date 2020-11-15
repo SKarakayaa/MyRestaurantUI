@@ -3,6 +3,7 @@ import * as productActions from "../../redux/actions/productActions";
 
 import { Form, Modal } from "react-bootstrap";
 import React, { Component } from "react";
+import Select from "react-select";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -11,6 +12,8 @@ class MenuModal extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
+      choosedMaterials: "",
+      totalMaterialPrice: 0,
       choosenOptions: "",
       options: [],
     };
@@ -20,6 +23,7 @@ class MenuModal extends Component {
       this.props.menu.customer_id,
       this.props.menu.frm_product_id
     );
+    this.props.actions.loadMaterials(this.props.menu.customer_id);
   }
   GetProductName = (productid) => {
     const item = this.props.products.find(
@@ -27,7 +31,30 @@ class MenuModal extends Component {
     );
     return item.name;
   };
-
+  GetProductMaterials = (product) => {
+    const material_ids = product.product_materials.split(",");
+    let materials = [];
+    material_ids.forEach((material_id) => {
+      let material = this.props.materials.find(
+        (x) => x.frm_product_materials_id === material_id
+      );
+      materials.push(material);
+    });
+    return materials;
+  };
+  HandleMultiSelectChange = (event) => {
+    let choosenMaterialNames = "";
+    let totalMaterialPrice = 0;
+    if (event !== null) {
+      event.forEach((e) => {
+        let values = e.label.split("-");
+        choosenMaterialNames += "-" + values[0];
+        totalMaterialPrice += parseInt(values[1]);
+      });
+    }
+    this.setState({ totalMaterialPrice: totalMaterialPrice });
+    this.setState({ choosedMaterials: choosenMaterialNames.substring(1) });
+  };
   HandleChange = (event) => {
     const { name, value } = event.target;
     let choosenNames = "";
@@ -52,19 +79,36 @@ class MenuModal extends Component {
     const option = {
       choosenOptions: this.state.choosenOptions,
     };
+
     const product = {
       frm_product_id: this.props.menu.frm_product_id,
       name: this.props.menu.name,
-      price: this.props.menu.price,
+      price: parseInt(this.props.menu.price),
+      is_menu: this.props.menu.is_menu,
       options: option,
     };
+    if (this.state.choosedMaterials !== "") {
+      const materials = {
+        choosenMaterials: this.state.choosedMaterials,
+        totalMaterialsPrice: this.state.totalMaterialPrice,
+      };
+      product.materials = materials;
+    } else if (this.state.choosedMaterials === "" && !this.props.menu.is_menu) {
+      const materials = {
+        choosenMaterials: "No additional products selected",
+        totalMaterialsPrice: this.state.totalMaterialPrice,
+      };
+      product.materials = materials;
+    }
     this.props.actions.addToCart({ quantity: 1, product });
     this.props.onHide();
   };
   render() {
-    const { menu_options, menu } = this.props;
-    console.log("menu options", menu_options);
-    console.log("menu :", menu);
+    const { menu_options, menu, materials } = this.props;
+    let materialList = [];
+    if (this.props.materials.length !== 0 && menu.product_materials !== "") {
+      materialList = this.GetProductMaterials(menu);
+    }
     return (
       <Modal
         {...this.props}
@@ -103,6 +147,31 @@ class MenuModal extends Component {
                   <br />
                 </Form.Group>
               ))}
+            {materialList.length !== 0 ? (
+              <Form.Group>
+                <Form.Label>Add/Remove Materials</Form.Label>
+                <Select
+                  defaultValue="Choose"
+                  isMulti
+                  name="material"
+                  options={materialList.map((material) => {
+                    return {
+                      value: material.frm_product_materials_id,
+                      label:
+                        material.product_materials +
+                        " - " +
+                        parseInt(material.amount) +
+                        " £",
+                    };
+                  })}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.HandleMultiSelectChange}
+                />
+              </Form.Group>
+            ) : (
+              ""
+            )}
           </Modal.Body>
           <Modal.Footer>
             <button
@@ -124,6 +193,10 @@ function mapDispatchToProps(dispatch) {
         productActions.loadMenuOptionsRequest,
         dispatch
       ),
+      loadMaterials: bindActionCreators(
+        productActions.loadMaterialsRequest,
+        dispatch
+      ),
       addToCart: bindActionCreators(cartActions.addMenuToCart, dispatch),
     },
   };
@@ -131,6 +204,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     menu_options: state.menuOptionReducer,
+    materials: state.materialReducer,
     products: state.productReducer,
     categories: state.categoryReducer,
   };

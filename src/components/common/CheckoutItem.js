@@ -25,7 +25,7 @@ class CheckoutItem extends Component {
     const product = this.props.products.find(
       (p) => p.frm_product_id === productid
     );
-    if (product.is_menu === true) {
+    if (product.is_menu === true || product.product_materials !== "") {
       this.openModal();
     } else {
       this.props.actions.addToCart({ quantity: 1, product });
@@ -44,8 +44,8 @@ class CheckoutItem extends Component {
       this.props.actions.removeMenuFromCart(menu);
     }
   };
-  RemoveMenuFromCart = (optionUniqueId, productid) => {
-    this.props.actions.removeMenuFromCart(productid, optionUniqueId);
+  RemoveMenuFromCart = (productid, optionUniqueId, materialUniqueId) => {
+    this.props.actions.removeMenuFromCart(productid, optionUniqueId, materialUniqueId);
   };
   ToggleClick = () => {
     this.setState({ show: !this.state.show });
@@ -53,7 +53,19 @@ class CheckoutItem extends Component {
   GetProduct = (productid) => {
     return this.props.products.find((x) => x.frm_product_id === productid);
   };
+  GetOptionNames = (optionid) => {
+    const { product } = this.props;
+    let options = "";
+    const option = product.options.find((x) => x.id === optionid);
 
+    options += option.choosenOptions;
+    if (Object.keys(product.materials).length !== 0) {
+      options += product.materials.find((x) => x.option_id === optionid)
+        .choosenMaterials;
+    }
+
+    return options;
+  };
   GetOptionList = () => {
     return this.props.product.options.map((option) => (
       <div className="media" key={option.id}>
@@ -63,7 +75,7 @@ class CheckoutItem extends Component {
               variant="outline-secondary"
               className="btn-sm dec"
               onClick={() =>
-                this.RemoveMenuFromCart(option.id, this.props.product.id)
+                this.RemoveMenuFromCart(this.props.product.id, option.id, null)
               }
             >
               {" "}
@@ -72,7 +84,36 @@ class CheckoutItem extends Component {
           </span>
         </div>
         <div className="media-body">
-          <p className="mt-1 mb-0">{option.choosenOptions}</p>
+          <p className="mt-1 mb-0">{this.GetOptionNames(option.id)}</p>
+        </div>
+      </div>
+    ));
+  };
+
+  GetMaterialList = () => {
+    const { product } = this.props;
+    return product.materials.map((material) => (
+      <div className="media" key={material.id}>
+        <div className="mr-1">
+          <span className="count-number">
+            <Button
+              variant="outline-secondary"
+              className="btn-sm dec"
+              onClick={() =>
+                this.RemoveMenuFromCart(
+                  this.props.product.id,
+                  null,
+                  material.id
+                )
+              }
+            >
+              {" "}
+              x
+            </Button>
+          </span>
+        </div>
+        <div className="media-body">
+          <p className="mt-1 mb-0">{material.choosenMaterials}</p>
         </div>
       </div>
     ));
@@ -95,7 +136,7 @@ class CheckoutItem extends Component {
         <div className="gold-members p-2 border-bottom">
           <span className="count-number float-right">
             <Button
-              disabled={product.is_menu}
+              disabled={product.is_menu || Object.keys(product.materials).length !== 0}
               variant="outline-secondary"
               onClick={() => this.DecreaseItem(id, itemName)}
               className="btn-sm left dec"
@@ -119,7 +160,7 @@ class CheckoutItem extends Component {
             </Button>
           </span>
           <p className="text-gray mb-0 float-right ml-2">
-            {this.props.priceUnit} {this.props.price * this.props.quantity}
+            {this.props.priceUnit} {this.props.subTotal}
           </p>
           <div className="media">
             <div className="mr-2">
@@ -131,6 +172,9 @@ class CheckoutItem extends Component {
           </div>
 
           {product.is_menu ? product.options && this.GetOptionList() : ""}
+          {!product.is_menu && Object.keys(product.materials).length !== 0
+            ? this.GetMaterialList()
+            : ""}
         </div>
       </Fragment>
     );

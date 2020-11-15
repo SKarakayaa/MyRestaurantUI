@@ -1,5 +1,6 @@
 export default {
   products: [],
+  materials:[],
   menus: [],
   mostPopularProducts: [],
   categories: [],
