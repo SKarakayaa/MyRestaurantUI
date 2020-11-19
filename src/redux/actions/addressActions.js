@@ -13,7 +13,7 @@ export function createAddress(addressResult, addressModel) {
     return {
       type: actionTypes.CREATE_USER_ADDRESS_SUCCESS,
       payload: {
-        frm_user_address_id: addressResult.outs.frm_user_adress_id,
+        frm_user_adress_id: addressResult.outs.frm_user_adress_id,
         is_default:addressModel.is_default,
         user_id: addressModel.user_id,
         location: addressModel.location,

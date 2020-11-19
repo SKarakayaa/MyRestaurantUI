@@ -50,22 +50,27 @@ class Checkout extends React.Component {
     return totalPrice;
   };
   CreateOrder = () => {
-    const { currentUser } = this.props;
-    const totalPrice = this.calculateTotalPrice();
-    const order = {
-      user_id: currentUser.userId,
-      address_id: 2,
-      payment_methods: 2,
-      total_price: totalPrice,
-    };
-    this.props.actions.createOrder(order, this.props.cart);
+    let isValid = this.ValidatePayment();
+    if (isValid) {
+      const { currentUser } = this.props;
+      const totalPrice = this.calculateTotalPrice();
+      const order = {
+        user_id: currentUser.session.userId,
+        address_id: this.state.addressid,
+        payment_methods: 2,
+        total_price: totalPrice,
+      };
+      this.props.actions.createOrder(order, this.props.cart);
+    }
   };
   ValidatePayment = () => {
     var isValid = true;
     if (this.props.cart.length === 0) {
       isValid = false;
     }
-
+    if (this.state.addressid === 0) {
+      isValid = false;
+    }
     return isValid;
   };
   ChangeAddressId = (addressid) => {
@@ -91,12 +96,16 @@ class Checkout extends React.Component {
                 <div className="pt-2"></div>
 
                 {/* TODO : ADDRESSLER AYRI COMPONENT OLMALI */}
-                {IsLogin() ? <CartAddresses ChangeAddressId={this.ChangeAddressId}/> : ""}
+                {IsLogin() ? (
+                  <CartAddresses ChangeAddressId={this.ChangeAddressId} />
+                ) : (
+                  ""
+                )}
 
                 <div className="pt-2"></div>
 
                 {/* PAYMENT METHOD AYRI BİR COMPONENT OLMALI */}
-                <PaymentChoose AddressId={this.state.addressid}/>
+                <PaymentChoose CreateOrder={this.CreateOrder} AddressId={this.state.addressid} />
               </div>
             </Col>
 

@@ -272,7 +272,8 @@ class PaymentChoose extends Component {
                   <hr />
                   <Form>
                     <button
-                      to="/thanks"
+                      type="button"
+                      onClick={()=>this.props.CreateOrder()}
                       className="btn btn-success btn-block btn-lg"
                     >
                       PAY $1329
