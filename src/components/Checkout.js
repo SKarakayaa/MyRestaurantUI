@@ -1,7 +1,6 @@
 import * as orderActions from "../redux/actions/orderActions";
 import * as productActions from "../redux/actions/productActions";
 import * as userActions from "../redux/actions/userActions";
-
 import {
   Button,
   Col,
@@ -24,6 +23,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import history from "./history";
+import alertify from 'alertifyjs';
 
 class Checkout extends React.Component {
   constructor(props, context) {
@@ -44,14 +44,13 @@ class Checkout extends React.Component {
   calculateTotalPrice = () => {
     const { cart } = this.props;
     var totalPrice = 0;
-    cart.map(
-      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
-    );
+    cart.map((cartItem) => (totalPrice += cartItem.subTotal));
     return totalPrice;
   };
   CreateOrder = () => {
-    let isValid = this.ValidatePayment();
-    if (isValid) {
+    let valid = this.ValidatePayment();
+    console.log(valid);
+    if (valid.isValid) {
       const { currentUser } = this.props;
       const totalPrice = this.calculateTotalPrice();
       const order = {
@@ -60,18 +59,26 @@ class Checkout extends React.Component {
         payment_methods: 2,
         total_price: totalPrice,
       };
-      this.props.actions.createOrder(order, this.props.cart);
+      var result = this.props.actions.createOrder(order, this.props.cart);
+      console.log("create order result :",result);
+    }else{
+      alertify.error(valid.errorMessage);
     }
   };
   ValidatePayment = () => {
-    var isValid = true;
+    var validObject = {
+      isValid:true,
+      errorMessage:""
+    };
     if (this.props.cart.length === 0) {
-      isValid = false;
+      validObject.isValid = false;
+      validObject.errorMessage = "Your Cart is Empty !";
     }
     if (this.state.addressid === 0) {
-      isValid = false;
+      validObject.isValid = false;
+      validObject.errorMessage = "You didn't choose any address !";
     }
-    return isValid;
+    return validObject;
   };
   ChangeAddressId = (addressid) => {
     this.setState({ addressid: addressid });
@@ -97,7 +104,7 @@ class Checkout extends React.Component {
 
                 {/* TODO : ADDRESSLER AYRI COMPONENT OLMALI */}
                 {IsLogin() ? (
-                  <CartAddresses ChangeAddressId={this.ChangeAddressId} />
+                  <CartAddresses ChangeAddressId={this.ChangeAddressId} ChoosedAddressId={this.state.addressid}/>
                 ) : (
                   ""
                 )}
@@ -105,7 +112,10 @@ class Checkout extends React.Component {
                 <div className="pt-2"></div>
 
                 {/* PAYMENT METHOD AYRI BİR COMPONENT OLMALI */}
-                <PaymentChoose CreateOrder={this.CreateOrder} AddressId={this.state.addressid} />
+                <PaymentChoose
+                  CreateOrder={this.CreateOrder}
+                  AddressId={this.state.addressid}
+                />
               </div>
             </Col>
 
@@ -129,7 +139,6 @@ class Checkout extends React.Component {
                     </p>
                   </div>
                 </div>
-                login
                 <div className="bg-white rounded shadow-sm mb-2">
                   {cart.map((cartItem) => (
                     <CheckoutItem
@@ -138,6 +147,7 @@ class Checkout extends React.Component {
                       price={cartItem.product.price}
                       quantity={cartItem.quantity}
                       product={cartItem.product}
+                      subTotal={cartItem.subTotal}
                       priceUnit="£"
                       id={cartItem.product.id}
                       qty={2}

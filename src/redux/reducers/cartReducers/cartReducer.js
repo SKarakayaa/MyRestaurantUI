@@ -14,6 +14,8 @@ export default function cartReducer(state = initialState.cart, action) {
           if (cartItem.product.id === action.payload.product.frm_product_id) {
             return Object.assign({}, addedItem, {
               quantity: addedItem.quantity + 1,
+              subTotal:
+                addedItem.subTotal + parseInt(action.payload.product.price),
             });
           }
           return cartItem;
@@ -29,8 +31,10 @@ export default function cartReducer(state = initialState.cart, action) {
               name: action.payload.product.name,
               price: action.payload.product.price,
               is_menu: false,
-              productDetail: {},
+              materials: undefined,
+              options: undefined,
             },
+            subTotal: parseInt(action.payload.product.price),
           },
         ];
       }
@@ -43,6 +47,7 @@ export default function cartReducer(state = initialState.cart, action) {
           if (cartItem.product.id === action.payload.frm_product_id) {
             return Object.assign({}, itemInCart, {
               quantity: itemInCart.quantity - 1,
+              subTotal: itemInCart.subTotal - action.payload.price,
             });
           }
           return cartItem;
@@ -71,7 +76,8 @@ export default function cartReducer(state = initialState.cart, action) {
             }
             let materialPrice = 0;
             if (action.payload.product.materials !== undefined) {
-              materialPrice += action.payload.product.materials.totalMaterialsPrice;
+              materialPrice +=
+                action.payload.product.materials.totalMaterialsPrice;
               action.payload.product.materials.id = uuid();
               if (action.payload.product.is_menu) {
                 action.payload.product.materials.option_id = optionid;

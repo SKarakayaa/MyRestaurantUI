@@ -7,6 +7,7 @@ import React from "react";
 
 class ChooseAddressCard extends React.Component {
   render() {
+    console.log(this.props.IsChoosed)
     return (
       <Card
         style={{ height: 176 }}
@@ -28,12 +29,15 @@ class ChooseAddressCard extends React.Component {
                   <>
                     <button
                       className="btn btn-sm btn-success mr-2"
-                      onClick={()=>this.props.ChangeAddressId(this.props.AddressId)}
+                      onClick={() =>
+                        this.props.ChangeAddressId(this.props.AddressId)
+                      }
                     >
                       {" "}
                       DELIVER HERE{" "}
                     </button>
-                    <span>30MIN</span>
+                    {/* <span>30MIN</span> */}
+                    <button className="btn btn-sm btn-primary mr-2" style={{visibility:this.props.IsChoosed}}>CHOOSED</button>
                   </>
                 ) : (
                   <Link

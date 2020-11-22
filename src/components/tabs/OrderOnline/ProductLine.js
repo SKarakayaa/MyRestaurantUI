@@ -21,6 +21,7 @@ class ProductLine extends Component {
                     <QuickBite
                       key={product.frm_product_id}
                       id={product.frm_product_id}
+                      image="/img/5.jpg"
                       title={product.name}
                       price={product.price}
                       product={product}

@@ -99,6 +99,7 @@ export function addFavoriteRequest(userid, productid) {
   };
 }
 export function deleteFavoriteRequest(favoriteid) {
+  console.log("delete favorite id :",favoriteid)
   return function (dispatch) {
     agent.Users.deleteFavorite(favoriteid).then((result) => {
       dispatch(deleteFavorite(result));

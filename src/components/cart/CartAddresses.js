@@ -66,6 +66,7 @@ class CartAddresses extends Component {
                   iconclassName="icofont-3x"
                   ChangeAddressId={this.props.ChangeAddressId}
                   AddressId={address.frm_user_adress_id}
+                  IsChoosed={address.frm_user_adress_id === this.props.ChoosedAddressId ? "visible" : "hidden"}
                   address={
                     address.delivery_area +
                     " - " +

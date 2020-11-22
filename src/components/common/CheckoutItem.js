@@ -136,7 +136,7 @@ class CheckoutItem extends Component {
         <div className="gold-members p-2 border-bottom">
           <span className="count-number float-right">
             <Button
-              disabled={product.is_menu || Object.keys(product.materials).length !== 0}
+              disabled={product.is_menu || (product.materials !== undefined && Object.keys(product.materials).length !== 0)}
               variant="outline-secondary"
               onClick={() => this.DecreaseItem(id, itemName)}
               className="btn-sm left dec"
@@ -172,7 +172,7 @@ class CheckoutItem extends Component {
           </div>
 
           {product.is_menu ? product.options && this.GetOptionList() : ""}
-          {!product.is_menu && Object.keys(product.materials).length !== 0
+          {!product.is_menu && product.materials !== undefined && Object.keys(product.materials).length !== 0
             ? this.GetMaterialList()
             : ""}
         </div>

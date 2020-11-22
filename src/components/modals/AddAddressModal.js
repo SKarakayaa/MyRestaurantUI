@@ -45,7 +45,13 @@ class AddAddressModal extends React.Component {
       location: this.state.location,
       user_id: this.props.currentUser.session.userId,
     };
+    this.setState({ adress_type: 0 });
+    this.setState({ complete_address: "" });
+    this.setState({ delivery_area: "" });
+    this.setState({ delivery_instructions: "" });
+    this.setState({ location: "" });
     this.props.actions.createAddress(addAddressModel);
+    this.props.onHide();
   };
   handleAddressType = (addressTypeId) => {
     console.log("addressTypeId", addressTypeId);

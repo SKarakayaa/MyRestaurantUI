@@ -7,34 +7,58 @@ import PropTypes from "prop-types";
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import MenuModal from "./MenuModal";
 
 class QuickBite extends React.Component {
- 
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      modalShow: false,
+    };
+  }
+
   IncrementItem = (product) => {
     this.props.actions.addToCart({ quantity: 1, product });
   };
   DecreaseItem = (product) => {
     this.props.actions.removeFromCart(product);
   };
-  addToCart = (product) => {
-    this.props.actions.addToCart({ quantity: 1, product });
-  };
+  // addToCart = (product) => {
+  //   this.props.actions.addToCart({ quantity: 1, product });
+  // };
   isInCart = (productId) => {
-    var item = this.props.cart.find(
-      (c) => c.product.id === productId
-    );
+    var item = this.props.cart.find((c) => c.product.id === productId);
     return item;
   };
+  AddToCart = (product) => {
+    debugger;
+    if (product.product_materials !== "") {
+      this.openModal();
+    } else {
+      this.props.actions.addToCart({ quantity: 1, product });
+    }
+  };
+  openModal = () => this.setState({ modalShow: true });
+  hideModal = () => this.setState({ modalShow: false });
   render() {
     const { product } = this.props;
     const isInCart = this.isInCart(product.frm_product_id);
     return (
       <div className={"p-3 border-bottom " + this.props.itemClass}>
+        {this.state.modalShow ? (
+          <MenuModal
+            show={this.state.modalShow}
+            onHide={this.hideModal}
+            menu={product}
+          />
+        ) : (
+          ""
+        )}
         {isInCart === undefined ? (
           <span className="float-right">
             <Button
               variant="outline-secondary"
-              onClick={() => this.addToCart(product)}
+              onClick={() => this.AddToCart(product)}
               size="sm"
             >
               ADD
@@ -42,14 +66,6 @@ class QuickBite extends React.Component {
           </span>
         ) : (
           <span className="count-number float-right">
-            <Button
-              variant="outline-secondary"
-              onClick={()=>this.DecreaseItem(product)}
-              className="btn-sm left dec"
-            >
-              {" "}
-              <Icofont icon="minus" />{" "}
-            </Button>
             <input
               className="count-number-input"
               type="text"
@@ -58,7 +74,7 @@ class QuickBite extends React.Component {
             />
             <Button
               variant="outline-secondary"
-              onClick={()=>this.IncrementItem(product)}
+              onClick={() => this.AddToCart(product)}
               className="btn-sm right inc"
             >
               {" "}
@@ -67,37 +83,16 @@ class QuickBite extends React.Component {
           </span>
         )}
         <Media>
-          {this.props.image ? (
-            <Image
-              className={"mr-3 rounded-pill " + this.props.imageClass}
-              src={this.props.image}
-              alt={this.props.imageAlt}
-            />
-          ) : (
-            <div className="mr-3">
-              <Icofont
-                icon="ui-press"
-                className={"text-" + this.props.badgeVariant + " food-item"}
-              />
-            </div>
-          )}
-          <Media.Body>
-            <h6 className="mb-1">
-              {this.props.title}{" "}
-              {this.props.showBadge ? (
-                <Badge variant={this.props.badgeVariant}>
-                  {this.props.badgeText}
-                </Badge>
-              ) : (
-                ""
-              )}
-            </h6>
-            <p className="text-gray mb-0">
-              {this.props.priceUnit}
-              {this.props.price}
-            </p>
-          </Media.Body>
-        </Media>
+		      {this.props.image?
+		      	<Image className={"mr-3 rounded-pill " +this.props.imageClass} src={this.props.image} alt={this.props.imageAlt} width="50" height="50"/>
+		      	:
+		      	<div className="mr-3"><Icofont icon="ui-press" className={"text-"+this.props.badgeVariant+" food-item"} /></div>
+		      }
+		      <Media.Body>
+		         <h6 className="mb-1">{this.props.title} {this.props.showBadge?<Badge variant={this.props.badgeVariant}>{this.props.badgeText}</Badge>:""}</h6>
+		         <p className="text-gray mb-0">{this.props.priceUnit}{this.props.price}</p>
+		      </Media.Body>
+		   </Media>
       </div>
     );
   }
