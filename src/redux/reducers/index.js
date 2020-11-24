@@ -12,6 +12,7 @@ import menuReducer from "./productReducers/menuReducer";
 import productReducer from "./productReducers/productReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
 import materialReducer from './productReducers/materialReducer';
+import userInfoReducer from './userRedocers/userInfoReducer';
 
 const rootReducer = combineReducers({
   favoriteProductReducer,
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
   customerMoreInfoReducer,
   currentUserReducer,
   userRegisterReducer,
+  userInfoReducer,
   categoryReducer,
   cartReducer,
   createOrderReducer,

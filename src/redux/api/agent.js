@@ -1,9 +1,9 @@
 import axios from "axios";
 
-axios.defaults.baseURL =
-  "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
+// axios.defaults.baseURL =
+//   "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
-// axios.defaults.baseURL="http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
+axios.defaults.baseURL="http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
 // axios.interceptors.request.use((config) => {
 //   const token = window.localStorage.getItem("token");
@@ -67,6 +67,8 @@ const Users = {
     request.get(
       `/Users/getUserFavoritesProducts?xuser_id=${userid}&xcustomer_id=${customerid}`
     ),
+  loadUserInfo: (userid) =>
+    request.get(`/Users/getUserInfo?xuser_id=${userid}`),
 };
 
 const Address = {
@@ -75,6 +77,11 @@ const Address = {
       `/Users/getUserAddress?xuser_id=${userid}&xcustomer_id=${customerid}`
     ),
   createAddress: (address) => request.post("/Users/addUserAddress", address),
+  updateAddress: (address) => request.put("/Users/updateUserAddress", address),
+  deleteAddress: (addressid) =>
+    request.delete(
+      `/Users/deleteUserAddress?tfrm_user_address_id=${addressid}`
+    ),
 };
 
 const Orders = {

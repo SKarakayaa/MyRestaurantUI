@@ -29,6 +29,7 @@ class Register extends React.Component {
   handleSave = (event) => {
     event.preventDefault();
     this.props.actions.register(this.state).then((result) => {
+      console.log("register result :",result)
       if (result.type === actionTypes.REGISTER_SUCCESS) {
         history.push("/login");
       } else {

@@ -1,102 +1,138 @@
-import React from 'react';
-import {Row,Col} from 'react-bootstrap';
-import AddAddressModal from '../modals/AddAddressModal';
-import DeleteAddressModal from '../modals/DeleteAddressModal';
-import AddressCard from '../common/AddressCard';
-
+import React from "react";
+import { Row, Col } from "react-bootstrap";
+import AddAddressModal from "../modals/AddAddressModal";
+import DeleteAddressModal from "../modals/DeleteAddressModal";
+import AddressCard from "../common/AddressCard";
+import { connect } from "react-redux";
+import * as addressActions from "../../redux/actions/addressActions";
+import { bindActionCreators } from "redux";
+import IsLogin from "../Helper";
+import history from "../history";
 class Addresses extends React.Component {
-	constructor(props, context) {
-	    super(props, context);
+  constructor(props, context) {
+    super(props, context);
 
-	    this.state = {
-	      showDeleteModal: false,
-      	  showAddressModal: false,
-	    };
-	}
+    this.state = {
+      showDeleteModal: false,
+      showAddressModal: false,
+      choosedAddress: null,
+      addressTypes: [
+        { id: "1", name: "Home" },
+        { id: "2", name: "Work" },
+        { id: "3", name: "Other" },
+      ],
+    };
+  }
 
-    hideDeleteModal = () => this.setState({ showDeleteModal: false });
-    hideAddressModal = () => this.setState({ showAddressModal: false });
-
-	render() {
-    	return (
-	      <>
-	        <AddAddressModal show={this.state.showAddressModal} onHide={this.hideAddressModal}/>
-	        <DeleteAddressModal show={this.state.showDeleteModal} onHide={this.hideDeleteModal}/>
-		    <div className='p-4 bg-white shadow-sm'>
-              <Row>
-               <Col md={12}>
-                  <h4 className="font-weight-bold mt-0 mb-3">Manage Addresses</h4>
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="border border-primary shadow"
-					  title= 'Home'
-					  icoIcon= 'ui-home'
-					  iconclassName= 'icofont-3x'
-					  address= 'Osahan House, Jawaddi Kalan, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="shadow-sm"
-					  title= 'Work'
-					  icoIcon= 'briefcase'
-					  iconclassName= 'icofont-3x'
-					  address= 'NCC, Model Town Rd, Pritm Nagar, Model Town, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="shadow-sm"
-					  title= 'Other'
-					  icoIcon= 'location-pin'
-					  iconclassName= 'icofont-3x'
-					  address= 'Delhi Bypass Rd, Jawaddi Taksal, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="shadow-sm"
-					  title= 'Other'
-					  icoIcon= 'location-pin'
-					  iconclassName= 'icofont-3x'
-					  address= 'MT, Model Town Rd, Pritm Nagar, Model Town, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="shadow-sm"
-					  title= 'Other'
-					  icoIcon= 'location-pin'
-					  iconclassName= 'icofont-3x'
-					  address= 'GNE Rd, Jawaddi Taksal, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-               <Col md={6}>
-               	  <AddressCard 
-               	  	  boxClass="shadow-sm"
-					  title= 'Other'
-					  icoIcon= 'location-pin'
-					  iconclassName= 'icofont-3x'
-					  address= 'GTTT, Model Town Rd, Pritm Nagar, Model Town, Ludhiana, Punjab 141002, India'
-					  onEditClick= {() => this.setState({ showAddressModal: true })}
-					  onDeleteClick={() => this.setState({ showDeleteModal: true })}
-               	  />
-               </Col>
-              </Row>
-		    </div>
-	      </>
-    	);
+  hideDeleteModal = () => this.setState({ showDeleteModal: false });
+  hideAddressModal = () => {
+    this.setState({ choosedAddress: null });
+    this.setState({ showAddressModal: false });
+  };
+  componentDidMount() {
+    if (this.props.addresses.length === 0) {
+      this.props.action.loadAddresses(1);
     }
+  }
+  getAddressTypeName = (addressTypeId) => {
+    const addressType = this.state.addressTypes.find(
+      (x) => x.id === addressTypeId
+    );
+    return addressType ? addressType.name : "Unknown";
+  };
+  getAddressIcon = (addressTypeId) => {
+    if (addressTypeId === "1") {
+      return "home";
+    } else if (addressTypeId === "2") {
+      return "briefcase";
+    } else {
+      return "location-pin";
+    }
+  };
+  EditClick = (address) => {
+    this.setState({ choosedAddress: address });
+    this.setState({ showAddressModal: true });
+  };
+  render() {
+    if (!IsLogin()) {
+      history.push("/login");
+    }
+    const { addresses } = this.props;
+    console.log("addresses :", addresses);
+    return IsLogin() ? (
+      <>
+        {this.state.showAddressModal ? (
+          <AddAddressModal
+            choosedAddress={this.state.choosedAddress}
+            show={this.state.showAddressModal}
+            onHide={this.hideAddressModal}
+          />
+        ) : (
+          ""
+        )}
+
+        <DeleteAddressModal
+          show={this.state.showDeleteModal}
+          onHide={this.hideDeleteModal}
+        />
+        <div className="p-4 bg-white shadow-sm">
+          <Row>
+            <Col md={12}>
+              <h4 className="font-weight-bold mt-0 mb-3">Manage Addresses</h4>
+            </Col>
+            {addresses.map((address) => (
+              <Col md={6} key={address.frm_user_adress_id}>
+                <AddressCard
+                  boxClass="border border-primary shadow"
+                  title={this.getAddressTypeName(address.address_type)}
+                  icoIcon={this.getAddressIcon(address.address_type)}
+                  cardType="address-info"
+                  iconclassName="icofont-3x"
+                  address={
+                    address.delivery_area +
+                    " - " +
+                    address.delivery_instructions +
+                    " - " +
+                    address.location
+                  }
+                  onEditClick={() => this.EditClick(address)}
+                  onDeleteClick={() => this.setState({ showDeleteModal: true })}
+                />
+              </Col>
+            ))}
+            <Col md={6}>
+              <AddressCard
+                boxClass="border border-primary shadow"
+                title=""
+                icoIcon="plus"
+                iconclassName="icofont-9x"
+                cardType="new-address"
+                onEditClick={() => this.setState({ showAddressModal: true })}
+                onDeleteClick={() => this.setState({ showDeleteModal: true })}
+                onAddClick={() => this.setState({ showAddressModal: true })}
+              />
+            </Col>
+          </Row>
+        </div>
+      </>
+    ) : (
+      ""
+    );
+  }
 }
-export default Addresses;
+function mapStateToProps(state) {
+  return {
+    addresses: state.addressReducer,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    action: {
+      loadAddresses: bindActionCreators(
+        addressActions.loadAddressesRequest,
+        dispatch
+      ),
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Addresses);

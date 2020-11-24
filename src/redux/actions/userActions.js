@@ -44,7 +44,7 @@ export function addFavorite(addFavoriteResult) {
 }
 
 export function deleteFavorite(deleteFavoriteResult) {
-  console.log("delete favorite result : ",deleteFavoriteResult);
+  console.log("delete favorite result : ", deleteFavoriteResult);
   return {
     type: actionTypes.DELETE_FAVORITE_PRODUCT,
     payload: deleteFavoriteResult,
@@ -58,6 +58,9 @@ export function loadFavorites(favoriteProducts) {
   };
 }
 
+export function loadUserInfo(userInfo) {
+  return { type: actionTypes.GET_USER_INFO, payload: userInfo.data[0] };
+}
 //Request to API
 export function registerRequest(user) {
   return function (dispatch) {
@@ -99,7 +102,7 @@ export function addFavoriteRequest(userid, productid) {
   };
 }
 export function deleteFavoriteRequest(favoriteid) {
-  console.log("delete favorite id :",favoriteid)
+  console.log("delete favorite id :", favoriteid);
   return function (dispatch) {
     agent.Users.deleteFavorite(favoriteid).then((result) => {
       dispatch(deleteFavorite(result));
@@ -115,6 +118,17 @@ export function loadFavoritesRequest(customerid) {
         currentUser.session.userId,
         customerid
       ).then((result) => dispatch(loadFavorites(result)));
+    };
+  }
+}
+
+export function loadUserInfoRequest() {
+  const currentUser = JSON.parse(window.localStorage.getItem("user"));
+  if (currentUser !== null) {
+    return function (dispatch) {
+      agent.Users.loadUserInfo(currentUser.session.userId).then((result) =>
+        dispatch(loadUserInfo(result))
+      );
     };
   }
 }

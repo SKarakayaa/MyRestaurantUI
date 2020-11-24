@@ -29,7 +29,19 @@ class AddAddressModal extends React.Component {
       delivery_area: "",
       delivery_instructions: "",
       location: "",
+      choosedAddress: null,
     };
+  }
+  componentDidMount() {
+    const { choosedAddress } = this.props;
+    if (choosedAddress !== undefined && choosedAddress !== null) {
+      this.setState({ adress_type: choosedAddress.address_type });
+      this.setState({ delivery_area: choosedAddress.delivery_area });
+      this.setState({
+        delivery_instructions: choosedAddress.delivery_instructions,
+      });
+      this.setState({ location: choosedAddress.location });
+    }
   }
   handleChange = (event) => {
     const { name, value } = event.target;
@@ -37,6 +49,7 @@ class AddAddressModal extends React.Component {
   };
   handleSubmit = (event) => {
     event.preventDefault();
+    const { choosedAddress } = this.props;
     const addAddressModel = {
       address_type: this.state.adress_type,
       complete_address: this.state.complete_address,
@@ -45,19 +58,28 @@ class AddAddressModal extends React.Component {
       location: this.state.location,
       user_id: this.props.currentUser.session.userId,
     };
+    if (choosedAddress !== null) {
+      addAddressModel.tfrm_user_adress_id = parseInt(choosedAddress.frm_user_adress_id);
+    }
     this.setState({ adress_type: 0 });
     this.setState({ complete_address: "" });
     this.setState({ delivery_area: "" });
     this.setState({ delivery_instructions: "" });
     this.setState({ location: "" });
-    this.props.actions.createAddress(addAddressModel);
+
+    if (choosedAddress !== null) {
+      this.props.actions.updateAddress(addAddressModel);
+    } else {
+      this.props.actions.createAddress(addAddressModel);
+    }
     this.props.onHide();
   };
   handleAddressType = (addressTypeId) => {
-    console.log("addressTypeId", addressTypeId);
     this.setState({ adress_type: addressTypeId });
   };
   render() {
+    const { choosedAddress } = this.props;
+    console.log("choosed address :", choosedAddress);
     return (
       <Modal show={this.props.show} onHide={this.props.onHide} centered>
         <Modal.Header closeButton={true}>
@@ -123,7 +145,11 @@ class AddAddressModal extends React.Component {
                   >
                     {this.state.addressTypes.map((addressType) => (
                       <ToggleButton
-                        variant="info"
+                        variant={
+                          this.state.adress_type === addressType.id
+                            ? "success"
+                            : "info"
+                        }
                         value={addressType.id}
                         key={addressType.id}
                         onClick={() => this.handleAddressType(addressType.id)}
@@ -169,6 +195,10 @@ function mapDispatchToProps(dispatch) {
     actions: {
       createAddress: bindActionCreators(
         addressActions.createAddressRequest,
+        dispatch
+      ),
+      updateAddress: bindActionCreators(
+        addressActions.updateAddressRequest,
         dispatch
       ),
     },

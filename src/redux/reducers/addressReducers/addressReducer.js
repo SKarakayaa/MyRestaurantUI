@@ -8,6 +8,8 @@ export default function addressReducer(state = initialState.addresses, action) {
       return action.payload;
     case actionTypes.CREATE_USER_ADDRESS_SUCCESS:
       return [...state, action.payload];
+    case actionTypes.UPDATE_USER_ADDRESS_SUCCESS:
+      return [...state, action.payload];
     case actionTypes.CREATE_USER_ADDRESS_FAIL:
       return action.payload;
     default:

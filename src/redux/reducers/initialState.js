@@ -7,6 +7,7 @@ export default {
   customerInfo: {},
   customerMoreInfo: [],
   currentUser: {},
+  userInfo:{},
   registerUser: {},
   cart: [],
   favoriteProducts: [],
