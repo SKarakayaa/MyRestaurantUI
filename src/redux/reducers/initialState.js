@@ -10,6 +10,7 @@ export default {
   userInfo:{},
   registerUser: {},
   cart: [],
+  orders:[],
   favoriteProducts: [],
   addresses:[]
 };

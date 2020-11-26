@@ -29,7 +29,7 @@ export function loadMaterials(materials) {
 // Requests to API
 export function loadMenuOptionsRequest(customerid, productid) {
   return function (dispatch) {
-    agent.Products.loadMenuOptions(customerid, productid).then((result) =>
+    agent.Products.loadMenuOptions(parseInt(customerid), parseInt(productid)).then((result) =>
       dispatch(loadMenuOptions(result))
     );
   };

@@ -29,7 +29,6 @@ class MyAccount extends React.Component {
   }
   render() {
     const { userInfo } = this.props;
-    console.log("current user info:", userInfo);
     return (
       <>
         <EditProfileModal
@@ -91,7 +90,7 @@ class MyAccount extends React.Component {
                         <i className="icofont-food-cart"></i> Orders
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <NavLink
                         className="nav-link"
                         activeClassName="active"
@@ -100,7 +99,7 @@ class MyAccount extends React.Component {
                       >
                         <i className="icofont-sale-discount"></i> Offers
                       </NavLink>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <NavLink
                         className="nav-link"

@@ -59,7 +59,7 @@ class AddAddressModal extends React.Component {
       user_id: this.props.currentUser.session.userId,
     };
     if (choosedAddress !== null) {
-      addAddressModel.tfrm_user_adress_id = parseInt(choosedAddress.frm_user_adress_id);
+      addAddressModel.tfrm_user_adress_id = choosedAddress.frm_user_adress_id;
     }
     this.setState({ adress_type: 0 });
     this.setState({ complete_address: "" });

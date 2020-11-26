@@ -3,7 +3,8 @@ import axios from "axios";
 // axios.defaults.baseURL =
 //   "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
-axios.defaults.baseURL="http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
+axios.defaults.baseURL =
+  "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
 // axios.interceptors.request.use((config) => {
 //   const token = window.localStorage.getItem("token");
@@ -33,11 +34,9 @@ const Products = {
   loadProducts: (customerid) =>
     request.get(`/Product/getProductsList?xcustomer_id=${customerid}`),
   loadCategories: (customerid) =>
-    request.get(`/Product/getProductCategoriesList?xcustomer_id${customerid}`),
+    request.get(`/Product/getProductCategoriesList?xcustomer_id=${customerid}`),
   loadMenuOptions: (customerid, productid) =>
-    request.get(
-      `/Product/getProductDetailList?xcustomer_id=${customerid}&xproduct_id=${productid}`
-    ),
+    request.get(`/Product/getProductDetailList?xproduct_id=${productid}`),
   loadMaterials: (customerid) =>
     request.get(`/Product/getProductMaterial?xcustomer_id=${customerid}`),
 };
@@ -73,9 +72,7 @@ const Users = {
 
 const Address = {
   loadAddresses: (userid, customerid) =>
-    request.get(
-      `/Users/getUserAddress?xuser_id=${userid}&xcustomer_id=${customerid}`
-    ),
+    request.get(`/Users/getUserAddress?xuser_id=${userid}`),
   createAddress: (address) => request.post("/Users/addUserAddress", address),
   updateAddress: (address) => request.put("/Users/updateUserAddress", address),
   deleteAddress: (addressid) =>
@@ -88,6 +85,10 @@ const Orders = {
   createOrder: (order) => request.post("/Orders/addOrders", order),
   createOrderDetail: (orderDetail) =>
     request.post("/Orders/addOrderDetail", orderDetail),
+  loadOrders: (customerid, userid) =>
+    request.get(
+      `/Orders/getOrder?xcustomer_id=${customerid}&xuser_id=${userid}`
+    ),
 };
 
 export default {

@@ -10,6 +10,11 @@ export function createOrder(orderResult) {
   }
 }
 
+export function loadOrders(orders) {
+  return { type: actionTypes.GET_ORDERS, payload: orders.data };
+}
+
+//Connect to API
 export function createOrderRequest(order, cart) {
   return function (dispatch) {
     return agent.Orders.createOrder(order).then((result) => {
@@ -47,4 +52,15 @@ export function createOrderRequest(order, cart) {
       dispatch(createOrder(result));
     });
   };
+}
+
+export function loadOrdersRequest(customerid) {
+  const user = JSON.parse(window.localStorage.getItem("user"));
+  if (user !== null) {
+    return function (dispatch) {
+      agent.Orders.loadOrders(customerid, user.session.userId).then((result) =>
+        dispatch(loadOrders(result))
+      );
+    };
+  }
 }

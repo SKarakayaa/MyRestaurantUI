@@ -47,6 +47,7 @@ class AddressCard extends React.Component {
           ) : (
             <Link
               onClick={this.props.onAddClick}
+              to="#"
               className="text-danger"
               style={{ fontSize: 80 }}
             >

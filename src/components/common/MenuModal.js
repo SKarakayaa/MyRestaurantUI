@@ -104,7 +104,7 @@ class MenuModal extends Component {
     this.props.onHide();
   };
   render() {
-    const { menu_options, menu, materials } = this.props;
+    const { menu_options, menu } = this.props;
     let materialList = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
       materialList = this.GetProductMaterials(menu);

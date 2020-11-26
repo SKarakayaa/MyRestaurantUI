@@ -16,6 +16,7 @@ class Addresses extends React.Component {
       showDeleteModal: false,
       showAddressModal: false,
       choosedAddress: null,
+      chosedDeleteAddressId: null,
       addressTypes: [
         { id: "1", name: "Home" },
         { id: "2", name: "Work" },
@@ -53,12 +54,18 @@ class Addresses extends React.Component {
     this.setState({ choosedAddress: address });
     this.setState({ showAddressModal: true });
   };
+  DeleteClick = (addressid) => {
+    this.setState({ chosedDeleteAddressId: addressid });
+    this.setState({ showDeleteModal: true });
+  };
+  DeleteAddress = (addressid) => {
+    this.props.action.deleteAddress(addressid);
+  };
   render() {
     if (!IsLogin()) {
       history.push("/login");
     }
     const { addresses } = this.props;
-    console.log("addresses :", addresses);
     return IsLogin() ? (
       <>
         {this.state.showAddressModal ? (
@@ -70,11 +77,17 @@ class Addresses extends React.Component {
         ) : (
           ""
         )}
+        {this.state.showDeleteModal ? (
+          <DeleteAddressModal
+            show={this.state.showDeleteModal}
+            onHide={this.hideDeleteModal}
+            deleteAddress={this.DeleteAddress}
+            addressid={this.state.chosedDeleteAddressId}
+          />
+        ) : (
+          ""
+        )}
 
-        <DeleteAddressModal
-          show={this.state.showDeleteModal}
-          onHide={this.hideDeleteModal}
-        />
         <div className="p-4 bg-white shadow-sm">
           <Row>
             <Col md={12}>
@@ -96,7 +109,9 @@ class Addresses extends React.Component {
                     address.location
                   }
                   onEditClick={() => this.EditClick(address)}
-                  onDeleteClick={() => this.setState({ showDeleteModal: true })}
+                  onDeleteClick={() =>
+                    this.DeleteClick(address.frm_user_adress_id)
+                  }
                 />
               </Col>
             ))}
@@ -130,6 +145,10 @@ function mapDispatchToProps(dispatch) {
     action: {
       loadAddresses: bindActionCreators(
         addressActions.loadAddressesRequest,
+        dispatch
+      ),
+      deleteAddress: bindActionCreators(
+        addressActions.deleteAddressRequest,
         dispatch
       ),
     },

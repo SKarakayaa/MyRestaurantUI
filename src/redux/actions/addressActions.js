@@ -30,7 +30,6 @@ export function createAddress(addressResult, addressModel) {
 }
 
 export function updateAddress(addressResult, addressModel) {
-  console.log("update address result : ",addressResult);
   if (addressResult.success) {
     return {
       type: actionTypes.UPDATE_USER_ADDRESS_SUCCESS,
@@ -50,6 +49,14 @@ export function updateAddress(addressResult, addressModel) {
       payload: addressResult,
     };
   }
+}
+
+export function deleteAddress(deleteAddressResult) {
+  console.log("delete address result :", deleteAddressResult);
+  return {
+    type: actionTypes.DELETE_USER_ADDRESS,
+    payload: deleteAddressResult,
+  };
 }
 //Connect to API
 export function loadAddressesRequest(customerid) {
@@ -73,10 +80,17 @@ export function createAddressRequest(address) {
 }
 
 export function updateAddressRequest(address) {
-  console.log("update address model : ",address);
   return function (dispatch) {
     return agent.Address.updateAddress(address).then((result) =>
       dispatch(updateAddress(result, address))
+    );
+  };
+}
+
+export function deleteAddressRequest(addressid) {
+  return function (dispatch) {
+    agent.Address.deleteAddress(addressid).then((result) =>
+      dispatch(deleteAddress(result))
     );
   };
 }
