@@ -6,6 +6,7 @@ import * as orderActions from "../../redux/actions/orderActions";
 import * as addressActions from "../../redux/actions/addressActions";
 import IsLogin from "../Helper";
 import history from "../history";
+import moment from 'moment'
 class Orders extends React.Component {
   componentDidMount() {
     this.props.actions.loadOrders(1);
@@ -47,8 +48,8 @@ class Orders extends React.Component {
                 image="/img/3.jpg"
                 imageAlt=""
                 orderNumber={order.order_number}
-                orderDate={order.order_date}
-                deliveredDate={order.send_date}
+                orderDate={moment(order.order_date).format("dddd, MMMM Do YYYY")}
+                deliveredDate={moment(order.send_date).format("dddd, MMMM Do YYYY")}
                 orderTitle={"ORDER #" + (parseInt(index) + 1)}
                 address={this.GetAddress(order.address_id)}
                 orderProducts="Veg Masala Roll x 1, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1"

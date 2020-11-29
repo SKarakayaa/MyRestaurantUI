@@ -63,7 +63,6 @@ class CheckoutItem extends Component {
       options += product.materials.find((x) => x.option_id === optionid)
         .choosenMaterials;
     }
-
     return options;
   };
   GetOptionList = () => {
@@ -113,7 +112,7 @@ class CheckoutItem extends Component {
           </span>
         </div>
         <div className="media-body">
-          <p className="mt-1 mb-0">{material.choosenMaterials}</p>
+            <p className="mt-1 mb-0">{"With "+ material.choosenMaterials}</p>
         </div>
       </div>
     ));

@@ -2,7 +2,6 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { NavLink, Link } from "react-router-dom";
 import { Row, Col, Container, Image } from "react-bootstrap";
-import Offers from "./myaccount/Offers";
 import Orders from "./myaccount/Orders";
 import Favourites from "./myaccount/Favourites";
 import Payments from "./myaccount/Payments";
@@ -136,7 +135,7 @@ class MyAccount extends React.Component {
               <Col md={9}>
                 <Switch>
                   <Route path="/myaccount/orders" exact component={Orders} />
-                  <Route path="/myaccount/offers" exact component={Offers} />
+                  {/* <Route path="/myaccount/offers" exact component={Offers} /> */}
                   <Route
                     path="/myaccount/favourites"
                     exact

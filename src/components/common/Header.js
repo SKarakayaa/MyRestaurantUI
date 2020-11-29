@@ -1,12 +1,6 @@
 import * as userActions from "../../redux/actions/userActions";
 
-import {
-  Container,
-  Image,
-  Nav,
-  NavDropdown,
-  Navbar,
-} from "react-bootstrap";
+import { Container, Image, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 
 import CartDropdownItem from "../cart/CartDropdownItem";
@@ -49,9 +43,7 @@ class Header extends React.Component {
   }
   totalPrice = () => {
     let totalPrice = 0;
-    this.props.cart.map(
-      (cartItem) => (totalPrice += cartItem.quantity * cartItem.product.price)
-    );
+    this.props.cart.map((cartItem) => (totalPrice += cartItem.subTotal));
     return totalPrice;
   };
   Logout = () => {
@@ -85,14 +77,14 @@ class Header extends React.Component {
           >
             <Icofont icon="food-cart" /> Orders
           </NavDropdown.Item>
-          <NavDropdown.Item
+          {/* <NavDropdown.Item
             eventKey={4.2}
             as={NavLink}
             activeclassname="active"
             to="/myaccount/offers"
           >
             <Icofont icon="sale-discount" /> Offers
-          </NavDropdown.Item>
+          </NavDropdown.Item> */}
           <NavDropdown.Item
             eventKey={4.3}
             as={NavLink}
@@ -138,12 +130,13 @@ class Header extends React.Component {
             <div className="dropdown-cart-top-body border-top p-4">
               {cart.length === 0
                 ? "Cart is empty"
-                : cart.map((cartItem) => (
+                : cart.map((cartItem, index) => (
                     <CartDropdownItem
                       icoIcon="ui-press"
+                      key={index}
                       iconClass="text-success food-item"
-                      title={cartItem.product.name + " * " + cartItem.quantity}
-                      price={cartItem.product.price * cartItem.quantity + " £"}
+                      title={cartItem.product.name + " x " + cartItem.quantity}
+                      price={cartItem.subTotal + " £"}
                     />
                   ))}
             </div>
@@ -169,7 +162,9 @@ class Header extends React.Component {
             </div>
           </div>
         </NavDropdown>
-        <Nav.Link onClick={() => this.Logout()} to="/">Logout</Nav.Link>
+        <Nav.Link onClick={() => this.Logout()} to="/">
+          Logout
+        </Nav.Link>
       </Nav>
     );
   };

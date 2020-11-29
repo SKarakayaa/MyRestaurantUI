@@ -60,13 +60,13 @@ class CardItem extends React.Component {
 	                   	):''
 	                 }
                   </div>
-                  {this.props.offerText ? (
+                  {/* {this.props.offerText ? (
 	                  <div className="list-card-badge">
 	                     <Badge variant={this.props.offerColor}>OFFER</Badge> <small>{this.props.offerText}</small>
 	                  </div>
 	                  )
 	                  :""
-	              }
+	              } */}
                </div>
             </div>
 		);

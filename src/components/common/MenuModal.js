@@ -13,8 +13,9 @@ class MenuModal extends Component {
     super(props, context);
     this.state = {
       choosedMaterials: "",
-      totalMaterialPrice: 0,
       choosenOptions: "",
+      removedMaterials: "",
+      totalMaterialPrice: 0,
       options: [],
     };
   }
@@ -55,6 +56,15 @@ class MenuModal extends Component {
     this.setState({ totalMaterialPrice: totalMaterialPrice });
     this.setState({ choosedMaterials: choosenMaterialNames.substring(1) });
   };
+  HandleMultiSelectChangeForRemovable = (event) => {
+    if (event !== null) {
+      let removedMaterialsName = "";
+      event.forEach((e) => {
+        removedMaterialsName += e.label;
+      });
+      this.setState({ removedMaterials: removedMaterialsName });
+    }
+  };
   HandleChange = (event) => {
     const { name, value } = event.target;
     let choosenNames = "";
@@ -92,12 +102,20 @@ class MenuModal extends Component {
         choosenMaterials: this.state.choosedMaterials,
         totalMaterialsPrice: this.state.totalMaterialPrice,
       };
+      if (this.state.removedMaterials !== "") {
+        materials.choosenMaterials +=
+          " And Without " + this.state.removedMaterials;
+      }
       product.materials = materials;
     } else if (this.state.choosedMaterials === "" && !this.props.menu.is_menu) {
       const materials = {
         choosenMaterials: "No additional products selected",
         totalMaterialsPrice: this.state.totalMaterialPrice,
       };
+      if (this.state.removedMaterials !== "") {
+        materials.choosenMaterials +=
+          "And Without " + this.state.removedMaterials;
+      }
       product.materials = materials;
     }
     this.props.actions.addToCart({ quantity: 1, product });
@@ -105,10 +123,16 @@ class MenuModal extends Component {
   };
   render() {
     const { menu_options, menu } = this.props;
+    console.log("removed materials :", this.state.removedMaterials);
     let materialList = [];
+    let removableMaterials = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
       materialList = this.GetProductMaterials(menu);
     }
+    if (this.props.materials.length !== 0 && menu.materials_removed !== "") {
+      removableMaterials = this.GetProductMaterials(menu);
+    }
+    console.log("removable materials : ", removableMaterials);
     return (
       <Modal
         {...this.props}
@@ -149,7 +173,7 @@ class MenuModal extends Component {
               ))}
             {materialList.length !== 0 ? (
               <Form.Group>
-                <Form.Label>Add/Remove Materials</Form.Label>
+                <Form.Label>Can Be Added Materials</Form.Label>
                 <Select
                   defaultValue="Choose"
                   isMulti
@@ -167,6 +191,27 @@ class MenuModal extends Component {
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.HandleMultiSelectChange}
+                />
+              </Form.Group>
+            ) : (
+              ""
+            )}
+            {removableMaterials.length !== 0 ? (
+              <Form.Group>
+                <Form.Label>Removable Materials</Form.Label>
+                <Select
+                  defaultValue="Choose"
+                  isMulti
+                  name="removableMaterial"
+                  options={removableMaterials.map((material) => {
+                    return {
+                      value: material.frm_product_materials_id,
+                      label: material.product_materials,
+                    };
+                  })}
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.HandleMultiSelectChangeForRemovable}
                 />
               </Form.Group>
             ) : (

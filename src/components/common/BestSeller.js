@@ -223,4 +223,4 @@ function mapStateToProps(state) {
     favoriteProducts: state.favoriteProductReducer,
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(BestSeller);
+export default connect(mapStateToProps, mapDispatchToProps)(BestSeller); 
