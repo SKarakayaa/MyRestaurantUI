@@ -19,7 +19,7 @@ class ItemsCarousel extends React.Component {
               title={menu.name}
               price={menu.price + " £"}
               menu={menu}
-              image="img/list/1.png"
+              image={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${menu.photo}`}
               imageClass="img-fluid"
               imageAlt="carousel"
             />

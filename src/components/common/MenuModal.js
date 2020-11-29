@@ -114,7 +114,7 @@ class MenuModal extends Component {
       };
       if (this.state.removedMaterials !== "") {
         materials.choosenMaterials +=
-          "And Without " + this.state.removedMaterials;
+          " And Without " + this.state.removedMaterials;
       }
       product.materials = materials;
     }

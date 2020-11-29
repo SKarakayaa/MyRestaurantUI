@@ -5,9 +5,9 @@ import BestSeller from "../../common/BestSeller";
 import { connect } from "react-redux";
 
 class ProductCard extends Component {
-  
   render() {
     const { products, categoryid, categoryName } = this.props;
+    console.log("products :", products);
     return (
       <Row>
         <h5 className="mb-4 mt-3 col-md-12">{categoryName} </h5>
@@ -22,7 +22,7 @@ class ProductCard extends Component {
                   product={product}
                   subTitle="North Indian • American • Pure veg"
                   imageAlt="Product"
-                  image="img/list/1.png"
+                  image={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${product.photo}`}
                   imageClass="img-fluid item-img"
                   price={product.price}
                   priceUnit="£"
