@@ -12,6 +12,12 @@ export function loadCustomerMoreInfo(customerMoreInfo) {
     payload: customerMoreInfo.data,
   };
 }
+export function loadCustomerSlider(customerSlider) {
+  return {
+    type: actionTypes.GET_CUSTOMER_SLIDER,
+    payload: customerSlider.data[0],
+  };
+}
 
 //Request to API
 export function loadCustomerInfoRequest(customerid) {
@@ -26,6 +32,14 @@ export function loadCustomerMoreInfoRequest(customerid) {
   return function (dispatch) {
     agent.Customers.loadCustomerMoreInfo(customerid).then((result) =>
       dispatch(loadCustomerMoreInfo(result))
+    );
+  };
+}
+
+export function loadCustomerSliderRequest(customerid) {
+  return function (dispatch) {
+    agent.Customers.loadCustomerSlider(customerid).then((result) =>
+      dispatch(loadCustomerSlider(result))
     );
   };
 }

@@ -54,6 +54,8 @@ class Orders extends React.Component {
                 address={this.GetAddress(order.address_id)}
                 orderProducts="Veg Masala Roll x 1, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1"
                 orderTotal={"£ " + order.total_price}
+                orderId={order.frm_orders_id}
+                key={order.frm_orders_id}
                 helpLink="#"
                 detailLink="/detail"
               />

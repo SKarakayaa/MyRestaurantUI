@@ -1,19 +1,20 @@
-import addressReducer from './addressReducers/addressReducer';
+import addressReducer from "./addressReducers/addressReducer";
 import cartReducer from "./cartReducers/cartReducer";
 import categoryReducer from "./productReducers/categoryReducer";
 import { combineReducers } from "redux";
-import createOrderReducer from './orderReducers/createOrderReducer';
+import createOrderReducer from "./orderReducers/createOrderReducer";
 import currentUserReducer from "./userRedocers/currentUserReducer";
 import customerInfoReducer from "./customerReducers/customerInfoReducer";
 import customerMoreInfoReducer from "./customerReducers/customerMoreInfoReducer";
-import favoriteProductReducer from './userRedocers/favoriteProductReducer';
+import favoriteProductReducer from "./userRedocers/favoriteProductReducer";
 import menuOptionReducer from "./productReducers/menuOptionReducer";
 import menuReducer from "./productReducers/menuReducer";
 import productReducer from "./productReducers/productReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
-import materialReducer from './productReducers/materialReducer';
-import userInfoReducer from './userRedocers/userInfoReducer';
-
+import materialReducer from "./productReducers/materialReducer";
+import userInfoReducer from "./userRedocers/userInfoReducer";
+import customerSliderReducer from "./customerReducers/customerSliderReducer";
+import orderDetailReducer from "./orderReducers/orderDetailReducer";
 const rootReducer = combineReducers({
   favoriteProductReducer,
   materialReducer,
@@ -28,7 +29,9 @@ const rootReducer = combineReducers({
   categoryReducer,
   cartReducer,
   createOrderReducer,
-  addressReducer
+  orderDetailReducer,
+  addressReducer,
+  customerSliderReducer,
 });
 
 export default rootReducer;

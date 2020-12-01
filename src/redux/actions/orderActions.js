@@ -13,9 +13,14 @@ export function createOrder(orderResult) {
 export function loadOrders(orders) {
   return { type: actionTypes.GET_ORDERS, payload: orders.data };
 }
+export function loadOrderDetails(orderDetails) {
+  return { type: actionTypes.GET_ORDER_DETAILS, payload: orderDetails.data };
+}
 
 //Connect to API
 export function createOrderRequest(order, cart) {
+  console.log("order model :", order);
+  console.log("cart :", cart);
   return function (dispatch) {
     return agent.Orders.createOrder(order).then((result) => {
       console.log("order result : ", result);
@@ -25,7 +30,7 @@ export function createOrderRequest(order, cart) {
             var orderDetail = {
               order_id: result.outs.frm_orders_id,
               product_id: cartItem.product.id,
-              price: parseInt(cartItem.product.price),
+              price: parseInt(cartItem.subTotal),
             };
             if (cartItem.product.is_menu) {
               orderDetail.options =
@@ -36,7 +41,7 @@ export function createOrderRequest(order, cart) {
               Object.keys(cartItem.product.materials).length !== 0
             ) {
               orderDetail.price += parseInt(
-                cartItem.product.materials.totalMaterialsPrice
+                cartItem.product.materials[0].totalMaterialsPrice
               );
               orderDetail.material_add =
                 cartItem.product.materials[index].choosenMaterials;
@@ -63,4 +68,12 @@ export function loadOrdersRequest(customerid) {
       );
     };
   }
+}
+
+export function loadOrderDetailRequest(orderid) {
+  return function (dispatch) {
+    agent.Orders.loadOrderDetails(orderid).then((result) =>
+      dispatch(loadOrderDetails(result))
+    );
+  };
 }

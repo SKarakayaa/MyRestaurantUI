@@ -63,6 +63,8 @@ class MenuModal extends Component {
         removedMaterialsName += e.label;
       });
       this.setState({ removedMaterials: removedMaterialsName });
+    } else {
+      this.setState({ removedMaterials: "" });
     }
   };
   HandleChange = (event) => {

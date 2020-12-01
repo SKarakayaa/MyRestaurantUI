@@ -46,6 +46,8 @@ const Customers = {
     request.get(`/Customer/getCustomerInfo?xcustomer_id=${customerid}`),
   loadCustomerMoreInfo: (customerid) =>
     request.get(`/Customer/getMoreInfo?xcustomer_id=${customerid}`),
+  loadCustomerSlider: (customerid) =>
+    request.get(`/Customer/getCustomerSlider?xcustomer_id=${customerid}`),
 };
 
 const Users = {
@@ -89,6 +91,8 @@ const Orders = {
     request.get(
       `/Orders/getOrder?xcustomer_id=${customerid}&xuser_id=${userid}`
     ),
+  loadOrderDetails: (orderid) =>
+    request.get(`/Orders/getOrderDetail?xorder_id=${orderid}`),
 };
 
 export default {

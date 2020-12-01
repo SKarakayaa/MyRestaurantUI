@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import * as userActions from "../redux/actions/userActions";
 import { bindActionCreators } from "redux";
 import IsLogin from "./Helper";
+import * as productActions from "../redux/actions/productActions";
 class MyAccount extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -24,6 +25,9 @@ class MyAccount extends React.Component {
     this.props.actions.loadCurrentUser();
     if (IsLogin() && Object.keys(this.props.userInfo).length === 0) {
       this.props.actions.loadUserInfo();
+    }
+    if(this.props.products.length === 0){
+      this.props.actions.loadProducts(1)
     }
   }
   render() {
@@ -165,6 +169,7 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUserReducer,
     userInfo: state.userInfoReducer,
+    products: state.productReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -173,6 +178,10 @@ function mapDispatchToProps(dispatch) {
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
       loadUserInfo: bindActionCreators(
         userActions.loadUserInfoRequest,
+        dispatch
+      ),
+      loadProducts: bindActionCreators(
+        productActions.loadProductsRequest,
         dispatch
       ),
     },

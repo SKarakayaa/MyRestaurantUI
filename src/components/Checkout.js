@@ -23,7 +23,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import history from "./history";
-import alertify from 'alertifyjs';
+import alertify from "alertifyjs";
 
 class Checkout extends React.Component {
   constructor(props, context) {
@@ -58,17 +58,19 @@ class Checkout extends React.Component {
         address_id: this.state.addressid,
         payment_methods: 2,
         total_price: totalPrice,
+        channel_type_id: 1,
+        customer_id:1
       };
       var result = this.props.actions.createOrder(order, this.props.cart);
-      console.log("create order result :",result);
-    }else{
+      console.log("create order result :", result);
+    } else {
       alertify.error(valid.errorMessage);
     }
   };
   ValidatePayment = () => {
     var validObject = {
-      isValid:true,
-      errorMessage:""
+      isValid: true,
+      errorMessage: "",
     };
     if (this.props.cart.length === 0) {
       validObject.isValid = false;
@@ -104,7 +106,10 @@ class Checkout extends React.Component {
 
                 {/* TODO : ADDRESSLER AYRI COMPONENT OLMALI */}
                 {IsLogin() ? (
-                  <CartAddresses ChangeAddressId={this.ChangeAddressId} ChoosedAddressId={this.state.addressid}/>
+                  <CartAddresses
+                    ChangeAddressId={this.ChangeAddressId}
+                    ChoosedAddressId={this.state.addressid}
+                  />
                 ) : (
                   ""
                 )}

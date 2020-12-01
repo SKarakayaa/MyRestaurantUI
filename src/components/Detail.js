@@ -44,8 +44,11 @@ class Detail extends React.Component {
     if (this.props.menus.length === 0) {
       this.props.actions.loadMenus(1);
     }
-    if(IsLogin() && this.props.favoriteProducts.length === 0){
+    if (IsLogin() && this.props.favoriteProducts.length === 0) {
       this.props.actions.loadFavoriteProducts(1);
+    }
+    if (this.props.customerSlider.length === 0) {
+      this.props.actions.loadCustomerSlider(1);
     }
   }
   constructor(props, context) {
@@ -57,7 +60,8 @@ class Detail extends React.Component {
 
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
-    const { customerInfo } = this.props;
+    const { customerInfo, customerSlider } = this.props;
+    console.log("customer slider :",customerSlider);
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -65,7 +69,11 @@ class Detail extends React.Component {
             <Image
               fluid
               className="cover"
-              src="/img/mall-dedicated-banner.png"
+              src={
+                customerSlider.length !== 0
+                  ? `http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customerSlider.photo_path}`
+                  : "/img/mall-dedicated-banner.png"
+              }
             />
           </div>
           <div className="restaurant-detailed-header">
@@ -162,7 +170,8 @@ class Detail extends React.Component {
                       </Tab.Pane>
 
                       <Tab.Pane eventKey="fifth">
-                        <RatingReviews />login
+                        <RatingReviews />
+                        login
                       </Tab.Pane>
                     </Tab.Content>
                   </div>
@@ -190,6 +199,7 @@ function mapStateToProps(state) {
     menus: state.menuReducer,
     currentUser: state.currentUserReducer,
     favoriteProducts: state.favoriteProductReducer,
+    customerSlider: state.customerSliderReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -218,6 +228,10 @@ function mapDispatchToProps(dispatch) {
         dispatch
       ),
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
+      loadCustomerSlider: bindActionCreators(
+        customerActions.loadCustomerSliderRequest,
+        dispatch
+      ),
     },
   };
 }

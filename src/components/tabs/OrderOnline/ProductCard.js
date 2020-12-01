@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 class ProductCard extends Component {
   render() {
     const { products, categoryid, categoryName } = this.props;
-    console.log("products :", products);
     return (
       <Row>
         <h5 className="mb-4 mt-3 col-md-12">{categoryName} </h5>

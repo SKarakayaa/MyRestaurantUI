@@ -6,11 +6,13 @@ export default {
   categories: [],
   customerInfo: {},
   customerMoreInfo: [],
+  customerSlider:[],
   currentUser: {},
   userInfo:{},
   registerUser: {},
   cart: [],
   orders:[],
+  orderDetails:[],
   favoriteProducts: [],
   addresses:[]
 };
