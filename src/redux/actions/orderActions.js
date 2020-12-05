@@ -30,7 +30,7 @@ export function createOrderRequest(order, cart) {
             var orderDetail = {
               order_id: result.outs.frm_orders_id,
               product_id: cartItem.product.id,
-              price: parseInt(cartItem.subTotal),
+              price: parseInt(cartItem.product.price)+parseInt(cartItem.product.materials[index].totalMaterialsPrice),
             };
             if (cartItem.product.is_menu) {
               orderDetail.options =
@@ -40,9 +40,9 @@ export function createOrderRequest(order, cart) {
               cartItem.product.materials !== undefined &&
               Object.keys(cartItem.product.materials).length !== 0
             ) {
-              orderDetail.price += parseInt(
-                cartItem.product.materials[0].totalMaterialsPrice
-              );
+              // orderDetail.price += parseInt(
+              //   cartItem.product.materials[0].totalMaterialsPrice
+              // );
               orderDetail.material_add =
                 cartItem.product.materials[index].choosenMaterials;
             }

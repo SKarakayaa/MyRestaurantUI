@@ -38,6 +38,7 @@ class Orders extends React.Component {
       history.push("/login");
     }
     const { orders } = this.props;
+    console.log("orders :",orders)
     return IsLogin() ? (
       <>
         <div className="p-4 bg-white shadow-sm">

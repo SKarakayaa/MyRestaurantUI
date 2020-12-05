@@ -75,7 +75,7 @@ class OrderDetailModal extends React.Component {
                     ""
                   )} */}
                       </h6>
-                      <p className="text-gray mb-0">{"£ " + product.price}</p>
+                      <p className="text-gray mb-0">{"£ " + orderDetail.price}</p>
                       <br />
                       <p className="text-gray mb-0">{orderDetail.options}</p>
                       <p className="text-gray mb-0">

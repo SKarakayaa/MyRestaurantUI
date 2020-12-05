@@ -59,7 +59,8 @@ class Checkout extends React.Component {
         payment_methods: 2,
         total_price: totalPrice,
         channel_type_id: 1,
-        customer_id:1
+        customer_id:1,
+        order_date: new Date()
       };
       var result = this.props.actions.createOrder(order, this.props.cart);
       console.log("create order result :", result);
@@ -171,7 +172,6 @@ class Checkout extends React.Component {
                       <Button
                         variant="primary"
                         type="button"
-                        id="button-addon2"
                       >
                         <Icofont icon="sale-discount" /> APPLY
                       </Button>
