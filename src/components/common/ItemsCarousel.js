@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 
 class ItemsCarousel extends React.Component {
   render() {
+    const { customerInfo } = this.props;
     const { menus } = this.props;
     return (
       <OwlCarousel
@@ -17,7 +18,7 @@ class ItemsCarousel extends React.Component {
           <div className="item" key={menu.frm_product_id}>
             <MayLikeItem
               title={menu.name}
-              price={menu.price + " £"}
+              price={menu.price + " "+customerInfo.currency_unit}
               menu={menu}
               image={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${menu.photo}`}
               imageClass="img-fluid"
@@ -59,6 +60,7 @@ const options = {
 function mapStateToProps(state) {
   return {
     menus: state.menuReducer,
+    customerInfo: state.customerInfoReducer,
   };
 }
 export default connect(mapStateToProps)(ItemsCarousel);

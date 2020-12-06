@@ -3,11 +3,11 @@ import * as cartActions from "../../redux/actions/cartActions";
 import { Badge, Button, Image, Media } from "react-bootstrap";
 
 import Icofont from "react-icofont";
+import MenuModal from "./MenuModal";
 import PropTypes from "prop-types";
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import MenuModal from "./MenuModal";
 
 class QuickBite extends React.Component {
   constructor(props, context) {
@@ -90,7 +90,7 @@ class QuickBite extends React.Component {
 		      }
 		      <Media.Body>
 		         <h6 className="mb-1">{this.props.title} {this.props.showBadge?<Badge variant={this.props.badgeVariant}>{this.props.badgeText}</Badge>:""}</h6>
-		         <p className="text-gray mb-0">{this.props.priceUnit}{this.props.price}</p>
+		         <p className="text-gray mb-0">{this.props.price} {this.props.priceUnit}</p>
 		      </Media.Body>
 		   </Media>
       </div>

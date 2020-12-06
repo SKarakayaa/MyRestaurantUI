@@ -1,9 +1,11 @@
+import * as customerActions from "../../redux/actions/customerActions";
 import * as userActions from "../../redux/actions/userActions";
 
 import { Container, Image, Nav, NavDropdown, Navbar } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 
 import CartDropdownItem from "../cart/CartDropdownItem";
+import { CurrentCustomerId } from "../Helper";
 import DropDownTitle from "../common/DropDownTitle";
 import Icofont from "react-icofont";
 import React from "react";
@@ -35,6 +37,7 @@ class Header extends React.Component {
 
   componentDidMount() {
     this.props.actions.loadCurrentUser();
+    this.props.actions.loadCustomerInfo(CurrentCustomerId());
     document.addEventListener("click", this.handleClick, false);
   }
 
@@ -51,7 +54,7 @@ class Header extends React.Component {
     window.location.reload();
   };
   logonUser = () => {
-    const { cart } = this.props;
+    const { cart, customerInfo } = this.props;
     return (
       <Nav activeKey={0} className="ml-auto" onSelect={this.closeMenu}>
         <Nav.Link eventKey={1} as={NavLink} exact to="/">
@@ -136,7 +139,9 @@ class Header extends React.Component {
                       key={index}
                       iconClass="text-success food-item"
                       title={cartItem.product.name + " x " + cartItem.quantity}
-                      price={cartItem.subTotal + " £"}
+                      price={
+                        cartItem.subTotal + " " + customerInfo.currency_unit
+                      }
                     />
                   ))}
             </div>
@@ -144,7 +149,7 @@ class Header extends React.Component {
               <p className="mb-0 font-weight-bold text-secondary">
                 Sub Total{" "}
                 <span className="float-right text-dark">
-                  {this.totalPrice()} £
+                  {this.totalPrice() + " " + customerInfo.currency_unit}
                 </span>
               </p>
               <small className="text-info">Extra charges may apply</small>
@@ -220,6 +225,7 @@ function mapStateToProps(state) {
   return {
     currentUser: state.currentUserReducer,
     cart: state.cartReducer,
+    customerInfo: state.customerInfoReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -227,6 +233,10 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
       logout: bindActionCreators(userActions.logout, dispatch),
+      loadCustomerInfo: bindActionCreators(
+        customerActions.loadCustomerInfoRequest,
+        dispatch
+      ),
     },
   };
 }

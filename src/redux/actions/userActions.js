@@ -32,7 +32,6 @@ export function register(registerResult) {
 }
 
 export function login(loginResult) {
-  console.log("login result :",loginResult)
   if (loginResult.success) {
     localStorage.setItem("user", JSON.stringify(loginResult));
     localStorage.setItem("token", loginResult.token);
@@ -47,7 +46,6 @@ export function addFavorite(addFavoriteResult) {
 }
 
 export function deleteFavorite(deleteFavoriteResult) {
-  console.log("delete favorite result : ", deleteFavoriteResult);
   return {
     type: actionTypes.DELETE_FAVORITE_PRODUCT,
     payload: deleteFavoriteResult,
@@ -63,6 +61,14 @@ export function loadFavorites(favoriteProducts) {
 
 export function loadUserInfo(userInfo) {
   return { type: actionTypes.GET_USER_INFO, payload: userInfo.data[0] };
+}
+
+export function updateUser(updateUserResult, userUpdateModel) {
+  if (updateUserResult.success) {
+    return { type: actionTypes.UPDATE_USER_INFO_SUCCESS, payload: userUpdateModel };
+  } else {
+    return { type: actionTypes.UPDATE_USER_INFO_FAIL, payload: updateUserResult };
+  }
 }
 //Request to API
 export function registerRequest(user) {
@@ -134,4 +140,12 @@ export function loadUserInfoRequest() {
       );
     };
   }
+}
+
+export function updateUserRequest(user) {
+  return function (dispatch) {
+    return agent.Users.updateUser(user).then((result) =>
+      dispatch(updateUser(result, user))
+    );
+  };
 }

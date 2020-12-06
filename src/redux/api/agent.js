@@ -70,6 +70,7 @@ const Users = {
     ),
   loadUserInfo: (userid) =>
     request.get(`/Users/getUserInfo?xuser_id=${userid}`),
+  updateUser: (user) => request.post(`/Users/updateUser`, user),
 };
 
 const Address = {

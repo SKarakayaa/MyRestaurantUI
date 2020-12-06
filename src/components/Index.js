@@ -1,20 +1,23 @@
-import React from "react";
-import { Row, Col, Container } from "react-bootstrap";
+import * as productActions from "../redux/actions/productActions";
+
+import { Col, Container, Row } from "react-bootstrap";
+
+import CardItem from "./common/CardItem";
+import { CurrentCustomerId } from "./Helper";
+import FontAwesome from "./common/FontAwesome";
 import { Link } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel3";
-import TopSearch from "./home/TopSearch";
 import ProductBox from "./home/ProductBox";
-import CardItem from "./common/CardItem";
+import React from "react";
 import SectionHeading from "./common/SectionHeading";
-import FontAwesome from "./common/FontAwesome";
-import { connect } from "react-redux";
+import TopSearch from "./home/TopSearch";
 import { bindActionCreators } from "redux";
-import * as productActions from "../redux/actions/productActions";
+import { connect } from "react-redux";
 
 class Index extends React.Component {
   componentDidMount() {
     if (this.props.products.length === 0) {
-      this.props.actions.getProducts(1);
+      this.props.actions.getProducts(CurrentCustomerId());
     }
   }
   render() {

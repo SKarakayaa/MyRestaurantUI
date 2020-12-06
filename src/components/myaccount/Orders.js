@@ -1,17 +1,24 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import OrderCard from "../common/OrderCard";
-import * as orderActions from "../../redux/actions/orderActions";
 import * as addressActions from "../../redux/actions/addressActions";
-import IsLogin from "../Helper";
+import * as customerActions from "../../redux/actions/customerActions";
+import * as orderActions from "../../redux/actions/orderActions";
+
+import IsLogin, { CurrentCustomerId } from "../Helper";
+
+import OrderCard from "../common/OrderCard";
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import history from "../history";
-import moment from 'moment'
+import moment from "moment";
+
 class Orders extends React.Component {
   componentDidMount() {
-    this.props.actions.loadOrders(1);
+    this.props.actions.loadOrders(CurrentCustomerId());
     if (this.props.addresses.length === 0) {
-      this.props.actions.loadAddress(1);
+      this.props.actions.loadAddress(CurrentCustomerId());
+    }
+    if (this.props.customerInfo.length === undefined) {
+      this.props.actions.loadCustomerInfo(CurrentCustomerId());
     }
   }
   GetAddress = (addressid) => {
@@ -37,8 +44,7 @@ class Orders extends React.Component {
     if (!IsLogin()) {
       history.push("/login");
     }
-    const { orders } = this.props;
-    console.log("orders :",orders)
+    const { orders, customerInfo } = this.props;
     return IsLogin() ? (
       <>
         <div className="p-4 bg-white shadow-sm">
@@ -49,12 +55,18 @@ class Orders extends React.Component {
                 image="/img/3.jpg"
                 imageAlt=""
                 orderNumber={order.order_number}
-                orderDate={moment(order.order_date).format("dddd, MMMM Do YYYY")}
-                deliveredDate={moment(order.send_date).format("dddd, MMMM Do YYYY")}
+                orderDate={moment(order.order_date).format(
+                  "dddd, MMMM Do YYYY"
+                )}
+                deliveredDate={moment(order.send_date).format(
+                  "dddd, MMMM Do YYYY"
+                )}
                 orderTitle={"ORDER #" + (parseInt(index) + 1)}
                 address={this.GetAddress(order.address_id)}
                 orderProducts="Veg Masala Roll x 1, Veg Burger x 1, Veg Penne Pasta in Red Sauce x 1"
-                orderTotal={"£ " + order.total_price}
+                orderTotal={
+                  order.total_price + " " + customerInfo.currency_unit
+                }
                 orderId={order.frm_orders_id}
                 key={order.frm_orders_id}
                 helpLink="#"
@@ -72,6 +84,7 @@ function mapStateToProps(state) {
   return {
     orders: state.createOrderReducer,
     addresses: state.addressReducer,
+    customerInfo: state.customerInfoReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -80,6 +93,10 @@ function mapDispatchToProps(dispatch) {
       loadOrders: bindActionCreators(orderActions.loadOrdersRequest, dispatch),
       loadAddress: bindActionCreators(
         addressActions.loadAddressesRequest,
+        dispatch
+      ),
+      loadCustomerInfo: bindActionCreators(
+        customerActions.loadCustomerInfoRequest,
         dispatch
       ),
     },

@@ -13,11 +13,11 @@ import {
   Row,
   Tab,
 } from "react-bootstrap";
+import IsLogin, { CurrentCustomerId } from "./Helper";
 
 import BookTable from "./tabs/BookTable/BookTable";
 import GalleryCarousel from "./common/GalleryCarousel";
 import Icofont from "react-icofont";
-import IsLogin from "./Helper";
 import OrderOnlineHome from "./tabs/OrderOnline/OrderOnlineHome";
 import RatingReviews from "./tabs/RatingReviews/RatingReviews";
 import React from "react";
@@ -30,25 +30,25 @@ class Detail extends React.Component {
   componentDidMount() {
     this.props.actions.loadCurrentUser();
     if (this.props.products.length === 0) {
-      this.props.actions.loadProducts(1);
+      this.props.actions.loadProducts(CurrentCustomerId());
     }
     if (this.props.customerInfo.length === undefined) {
-      this.props.actions.loadCustomerInfo(1);
+      this.props.actions.loadCustomerInfo(CurrentCustomerId());
     }
     if (this.props.customerMoreInfo.length === 0) {
-      this.props.actions.loadCustomerMoreInfo(1);
+      this.props.actions.loadCustomerMoreInfo(CurrentCustomerId());
     }
     if (this.props.categories.length === 0) {
-      this.props.actions.loadCategories(1);
+      this.props.actions.loadCategories(CurrentCustomerId());
     }
     if (this.props.menus.length === 0) {
-      this.props.actions.loadMenus(1);
+      this.props.actions.loadMenus(CurrentCustomerId());
     }
     if (IsLogin() && this.props.favoriteProducts.length === 0) {
-      this.props.actions.loadFavoriteProducts(1);
+      this.props.actions.loadFavoriteProducts(CurrentCustomerId());
     }
     if (this.props.customerSlider.length === 0) {
-      this.props.actions.loadCustomerSlider(1);
+      this.props.actions.loadCustomerSlider(CurrentCustomerId());
     }
   }
   constructor(props, context) {
@@ -61,7 +61,7 @@ class Detail extends React.Component {
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
-    console.log("customer slider :",customerSlider);
+    console.log("customer info :", customerInfo);
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -70,7 +70,7 @@ class Detail extends React.Component {
               fluid
               className="cover"
               src={
-                customerSlider.length !== 0
+                customerSlider !== undefined && customerSlider.length !== 0
                   ? `http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customerSlider.photo_path}`
                   : "/img/mall-dedicated-banner.png"
               }
@@ -91,7 +91,11 @@ class Detail extends React.Component {
                     <p className="text-white mb-1">
                       <Icofont icon="location-pin" />{" "}
                       {customerInfo.customer_location}
-                      10029 <Badge variant="success">OPEN</Badge>
+                      {customerInfo.customer_status === "1" ? (
+                        <Badge variant="success">OPEN</Badge>
+                      ) : (
+                        <Badge variant="danger">CLOSE</Badge>
+                      )}
                     </p>
                     <p className="text-white mb-0">
                       <Icofont icon="food-cart" /> North Indian, Chinese, Fast

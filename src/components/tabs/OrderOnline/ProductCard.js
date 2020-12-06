@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 class ProductCard extends Component {
   render() {
-    const { products, categoryid, categoryName } = this.props;
+    const { products, categoryid, categoryName,customerInfo } = this.props;
     return (
       <Row>
         <h5 className="mb-4 mt-3 col-md-12">{categoryName} </h5>
@@ -24,7 +24,7 @@ class ProductCard extends Component {
                   image={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${product.photo}`}
                   imageClass="img-fluid item-img"
                   price={product.price}
-                  priceUnit="£"
+                  priceUnit={customerInfo.currency_unit}
                   isNew={product.is_new}
                   showPromoted={false}
                   promotedVariant="dark"
@@ -43,6 +43,7 @@ class ProductCard extends Component {
 function mapStateToProps(state) {
   return {
     products: state.productReducer,
+    customerInfo:state.customerInfoReducer
   };
 }
 export default connect(mapStateToProps)(ProductCard);

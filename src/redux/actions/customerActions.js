@@ -15,7 +15,7 @@ export function loadCustomerMoreInfo(customerMoreInfo) {
 export function loadCustomerSlider(customerSlider) {
   return {
     type: actionTypes.GET_CUSTOMER_SLIDER,
-    payload: customerSlider.data[0],
+    payload: customerSlider.data.length !== 0 ? customerSlider.data[0] : [],
   };
 }
 

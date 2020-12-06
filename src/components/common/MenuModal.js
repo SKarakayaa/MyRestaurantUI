@@ -3,8 +3,8 @@ import * as productActions from "../../redux/actions/productActions";
 
 import { Form, Modal } from "react-bootstrap";
 import React, { Component } from "react";
-import Select from "react-select";
 
+import Select from "react-select";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -124,8 +124,7 @@ class MenuModal extends Component {
     this.props.onHide();
   };
   render() {
-    const { menu_options, menu } = this.props;
-    console.log("removed materials :", this.state.removedMaterials);
+    const { menu_options, menu, customerInfo } = this.props;
     let materialList = [];
     let removableMaterials = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
@@ -134,7 +133,6 @@ class MenuModal extends Component {
     if (this.props.materials.length !== 0 && menu.materials_removed !== "") {
       removableMaterials = this.GetProductMaterials(menu);
     }
-    console.log("removable materials : ", removableMaterials);
     return (
       <Modal
         {...this.props}
@@ -187,7 +185,8 @@ class MenuModal extends Component {
                         material.product_materials +
                         " - " +
                         parseInt(material.amount) +
-                        " £",
+                        " " +
+                        customerInfo.currency_unit,
                     };
                   })}
                   className="basic-multi-select"
@@ -254,6 +253,7 @@ function mapStateToProps(state) {
     materials: state.materialReducer,
     products: state.productReducer,
     categories: state.categoryReducer,
+    customerInfo: state.customerInfoReducer,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MenuModal);

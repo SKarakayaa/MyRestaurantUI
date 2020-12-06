@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 
 class ProductLine extends Component {
   render() {
-    const { products, categoryName, categoryid } = this.props;
+    const { products, categoryName, categoryid,customerInfo } = this.props;
     return (
       <Fragment>
         <Row>
@@ -25,7 +25,7 @@ class ProductLine extends Component {
                       title={product.name}
                       price={product.price}
                       product={product}
-                      priceUnit="£"
+                      priceUnit={customerInfo.currency_unit}
                       getValue={this.getQty}
                     />
                   ) : (
@@ -43,6 +43,7 @@ function mapStateToProps(state) {
   return {
     categories: state.categoryReducer,
     products: state.productReducer,
+    customerInfo:state.customerInfoReducer
   };
 }
 export default connect(mapStateToProps)(ProductLine);

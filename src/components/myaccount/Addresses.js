@@ -1,13 +1,16 @@
-import React from "react";
-import { Row, Col } from "react-bootstrap";
-import AddAddressModal from "../modals/AddAddressModal";
-import DeleteAddressModal from "../modals/DeleteAddressModal";
-import AddressCard from "../common/AddressCard";
-import { connect } from "react-redux";
 import * as addressActions from "../../redux/actions/addressActions";
+
+import { Col, Row } from "react-bootstrap";
+import IsLogin, { CurrentCustomerId } from "../Helper";
+
+import AddAddressModal from "../modals/AddAddressModal";
+import AddressCard from "../common/AddressCard";
+import DeleteAddressModal from "../modals/DeleteAddressModal";
+import React from "react";
 import { bindActionCreators } from "redux";
-import IsLogin from "../Helper";
+import { connect } from "react-redux";
 import history from "../history";
+
 class Addresses extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -32,7 +35,7 @@ class Addresses extends React.Component {
   };
   componentDidMount() {
     if (this.props.addresses.length === 0) {
-      this.props.action.loadAddresses(1);
+      this.props.action.loadAddresses(CurrentCustomerId());
     }
   }
   getAddressTypeName = (addressTypeId) => {

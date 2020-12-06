@@ -5,6 +5,7 @@ import React, { Component } from "react";
 
 import AddAddressModal from "../modals/AddAddressModal";
 import ChooseAddressCard from "../common/ChooseAddressCard";
+import { CurrentCustomerId } from "../Helper";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -23,7 +24,7 @@ class CartAddresses extends Component {
   }
   componentDidMount() {
     if (this.props.addresses.length === 0) {
-      this.props.actions.loadAddresses(1);
+      this.props.actions.loadAddresses(CurrentCustomerId());
     }
   }
   hideAddressModal = () => this.setState({ showAddressModal: false });

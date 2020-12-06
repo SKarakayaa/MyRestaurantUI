@@ -1,6 +1,7 @@
 import * as orderActions from "../redux/actions/orderActions";
 import * as productActions from "../redux/actions/productActions";
 import * as userActions from "../redux/actions/userActions";
+
 import {
   Button,
   Col,
@@ -12,18 +13,18 @@ import {
   Row,
   Tooltip,
 } from "react-bootstrap";
+import IsLogin, { CurrentCustomerId } from "./Helper";
 
 import CartAddresses from "./cart/CartAddresses";
 import CheckoutItem from "./common/CheckoutItem";
 import Icofont from "react-icofont";
-import IsLogin from "./Helper";
 import ItemsCarousel from "./common/ItemsCarousel";
 import PaymentChoose from "./cart/PaymentChoose";
 import React from "react";
+import alertify from "alertifyjs";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import history from "./history";
-import alertify from "alertifyjs";
 
 class Checkout extends React.Component {
   constructor(props, context) {
@@ -34,10 +35,10 @@ class Checkout extends React.Component {
   }
   componentDidMount() {
     if (this.props.menus.length === 0) {
-      this.props.actions.loadMenu(1);
+      this.props.actions.loadMenu(CurrentCustomerId());
     }
     if (this.props.products.length === 0) {
-      this.props.actions.loadProducts(1);
+      this.props.actions.loadProducts(CurrentCustomerId());
     }
     this.props.actions.loadCurrentUser();
   }
@@ -49,7 +50,6 @@ class Checkout extends React.Component {
   };
   CreateOrder = () => {
     let valid = this.ValidatePayment();
-    console.log(valid);
     if (valid.isValid) {
       const { currentUser } = this.props;
       const totalPrice = this.calculateTotalPrice();
@@ -62,8 +62,7 @@ class Checkout extends React.Component {
         customer_id:1,
         order_date: new Date()
       };
-      var result = this.props.actions.createOrder(order, this.props.cart);
-      console.log("create order result :", result);
+      this.props.actions.createOrder(order, this.props.cart);
     } else {
       alertify.error(valid.errorMessage);
     }
@@ -87,7 +86,7 @@ class Checkout extends React.Component {
     this.setState({ addressid: addressid });
   };
   render() {
-    const { cart } = this.props;
+    const { cart,customerInfo } = this.props;
     if (!IsLogin()) {
       history.push("/login");
     }
@@ -154,7 +153,7 @@ class Checkout extends React.Component {
                       quantity={cartItem.quantity}
                       product={cartItem.product}
                       subTotal={cartItem.subTotal}
-                      priceUnit="£"
+                      priceUnit={customerInfo.currency_unit}
                       id={cartItem.product.id}
                       qty={2}
                       show={true}
@@ -195,7 +194,7 @@ class Checkout extends React.Component {
                   <p className="mb-1">
                     Item Total{" "}
                     <span className="float-right text-dark">
-                      {this.calculateTotalPrice() + " £"}
+                      {this.calculateTotalPrice() + customerInfo.currency_unit}
                     </span>
                   </p>
 
@@ -231,7 +230,7 @@ class Checkout extends React.Component {
                   <h6 className="font-weight-bold mb-0">
                     TO PAY{" "}
                     <span className="float-right">
-                      {this.calculateTotalPrice() + " £"}
+                      {this.calculateTotalPrice() + customerInfo.currency_unit}
                     </span>
                   </h6>
                 </div>
@@ -263,6 +262,7 @@ function mapStateToProps(state) {
     menus: state.menuReducer,
     currentUser: state.currentUserReducer,
     products: state.productReducer,
+    customerInfo:state.customerInfoReducer
   };
 }
 function mapDispatchToProps(dispatch) {

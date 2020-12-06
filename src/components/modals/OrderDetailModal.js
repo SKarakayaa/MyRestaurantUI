@@ -1,8 +1,12 @@
-import React from "react";
-import { Modal, Button, Media, Image } from "react-bootstrap";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import * as cartActions from "../../redux/actions/cartActions";
 import * as orderActions from "../../redux/actions/orderActions";
+
+import { Button, Image, Media, Modal } from "react-bootstrap";
+
+import React from "react";
+import alertify from "alertifyjs";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 class OrderDetailModal extends React.Component {
   componentDidMount() {
@@ -14,9 +18,35 @@ class OrderDetailModal extends React.Component {
     );
     return product;
   };
-  render() {
-    console.log("order detail modal :", this.props.orderDetails);
+  AddToCart = (e) => {
+    e.preventDefault();
     const { orderDetails } = this.props;
+    orderDetails.forEach((orderDetail) => {
+      let _product = this.GetProduct(orderDetail.product_id);
+      let product = {
+        frm_product_id: _product.frm_product_id,
+        name: _product.name,
+        price: parseInt(_product.price),
+        is_menu: _product.is_menu,
+        options: {
+          choosenOptions:
+            _product.options === undefined ? "" : _product.options,
+        },
+      };
+      if (orderDetail.material_add !== "") {
+        product.materials = {
+          choosenMaterials: orderDetail.material_add,
+          totalMaterialsPrice:
+            parseInt(orderDetail.price) - parseInt(_product.price),
+        };
+      }
+      this.props.actions.addToCart({ quantity: 1, product });
+    });
+    alertify.success("Orders has added cart !");
+    this.props.onHide();
+  };
+  render() {
+    const { orderDetails, customerInfo } = this.props;
     return (
       <Modal
         show={this.props.show}
@@ -34,7 +64,6 @@ class OrderDetailModal extends React.Component {
           {orderDetails &&
             orderDetails.map((orderDetail) => {
               let product = this.GetProduct(orderDetail.product_id);
-              console.log("modal product :", product);
               return (
                 <div
                   className={"p-3 border-bottom gold-members"}
@@ -48,34 +77,11 @@ class OrderDetailModal extends React.Component {
                       width="50"
                       height="50"
                     />
-                    {/* {this.props.image ? (
-                <Image
-                  className={"mr-3 rounded-pill "}
-                  src="http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=8"
-                  alt=""
-                  width="50"
-                  height="50"
-                />
-              ) : (
-                <div className="mr-3">
-                  <Icofont
-                    icon="ui-press"
-                    className={"text-danger food-item"}
-                  />
-                </div>
-              )} */}
                     <Media.Body>
-                      <h6 className="mb-1">
-                        {product.name}
-                        {/* {this.props.showBadge ? (
-                    <Badge variant={this.props.badgeVariant}>
-                      {this.props.badgeText}
-                    </Badge>
-                  ) : (
-                    ""
-                  )} */}
-                      </h6>
-                      <p className="text-gray mb-0">{"£ " + orderDetail.price}</p>
+                      <h6 className="mb-1">{product.name}</h6>
+                      <p className="text-gray mb-0">
+                        {customerInfo.currency_unit + " " + orderDetail.price}
+                      </p>
                       <br />
                       <p className="text-gray mb-0">{orderDetail.options}</p>
                       <p className="text-gray mb-0">
@@ -89,38 +95,6 @@ class OrderDetailModal extends React.Component {
                 </div>
               );
             })}
-
-          {/* Total Price : 100 $ */}
-          {/* <Form>
-            <div className="form-row">
-              <Form.Group className="col-md-12">
-                <Form.Label>Phone number</Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue="+91 85680-79956"
-                  placeholder="Enter Phone number"
-                />
-              </Form.Group>
-              <Form.Group className="col-md-12">
-                <Form.Label>Email id</Form.Label>
-                <Form.Control
-                  type="text"
-                  defaultValue="iamosahan@gmail.com"
-                  placeholder="Enter Email id
-                        "
-                />
-              </Form.Group>
-              <Form.Group className="col-md-12 mb-0">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  defaultValue="**********"
-                  placeholder="Enter password
-                        "
-                />
-              </Form.Group>
-            </div>
-          </Form> */}
         </Modal.Body>
 
         <Modal.Footer>
@@ -136,6 +110,7 @@ class OrderDetailModal extends React.Component {
             type="button"
             variant="primary"
             className="d-flex w-50 text-center justify-content-center"
+            onClick={(e) => this.AddToCart(e)}
           >
             REORDER
           </Button>
@@ -148,6 +123,7 @@ function mapStateToProps(state) {
   return {
     orderDetails: state.orderDetailReducer,
     products: state.productReducer,
+    customerInfo: state.customerInfo,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -157,6 +133,7 @@ function mapDispatchToProps(dispatch) {
         orderActions.loadOrderDetailRequest,
         dispatch
       ),
+      addToCart: bindActionCreators(cartActions.addMenuToCart, dispatch),
     },
   };
 }

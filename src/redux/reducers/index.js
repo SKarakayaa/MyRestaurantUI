@@ -6,15 +6,16 @@ import createOrderReducer from "./orderReducers/createOrderReducer";
 import currentUserReducer from "./userRedocers/currentUserReducer";
 import customerInfoReducer from "./customerReducers/customerInfoReducer";
 import customerMoreInfoReducer from "./customerReducers/customerMoreInfoReducer";
+import customerSliderReducer from "./customerReducers/customerSliderReducer";
 import favoriteProductReducer from "./userRedocers/favoriteProductReducer";
+import materialReducer from "./productReducers/materialReducer";
 import menuOptionReducer from "./productReducers/menuOptionReducer";
 import menuReducer from "./productReducers/menuReducer";
-import productReducer from "./productReducers/productReducer";
-import userRegisterReducer from "./userRedocers/registerUserReducer";
-import materialReducer from "./productReducers/materialReducer";
-import userInfoReducer from "./userRedocers/userInfoReducer";
-import customerSliderReducer from "./customerReducers/customerSliderReducer";
 import orderDetailReducer from "./orderReducers/orderDetailReducer";
+import productReducer from "./productReducers/productReducer";
+import userInfoReducer from "./userRedocers/userInfoReducer";
+import userInfoUpdateReducer from './userRedocers/userInfoUpdateReducer';
+import userRegisterReducer from "./userRedocers/registerUserReducer";
 const rootReducer = combineReducers({
   favoriteProductReducer,
   materialReducer,
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   currentUserReducer,
   userRegisterReducer,
   userInfoReducer,
+  userInfoUpdateReducer,
   categoryReducer,
   cartReducer,
   createOrderReducer,

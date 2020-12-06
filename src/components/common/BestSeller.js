@@ -5,11 +5,11 @@ import { Badge, Button, Image } from "react-bootstrap";
 
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
+import MenuModal from "./MenuModal";
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import history from "../history";
-import MenuModal from "./MenuModal";
 
 class BestSeller extends React.Component {
   constructor(props) {
@@ -137,8 +137,8 @@ class BestSeller extends React.Component {
                   className="btn btn-link btn-sm pl-0 text-black pr-0"
                   to="#"
                 >
-                  {this.props.priceUnit}
                   {this.props.price}{" "}
+                  {this.props.priceUnit}
                 </Link>
                 {this.props.isNew ? (
                   <Badge variant="success" className="ml-1">

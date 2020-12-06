@@ -1,17 +1,20 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import { NavLink, Link } from "react-router-dom";
-import { Row, Col, Container, Image } from "react-bootstrap";
-import Orders from "./myaccount/Orders";
-import Favourites from "./myaccount/Favourites";
-import Payments from "./myaccount/Payments";
+import * as productActions from "../redux/actions/productActions";
+import * as userActions from "../redux/actions/userActions";
+
+import { Col, Container, Image, Row } from "react-bootstrap";
+import { Link, NavLink } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
+
 import Addresses from "./myaccount/Addresses";
 import EditProfileModal from "./modals/EditProfileModal";
-import { connect } from "react-redux";
-import * as userActions from "../redux/actions/userActions";
-import { bindActionCreators } from "redux";
+import Favourites from "./myaccount/Favourites";
 import IsLogin from "./Helper";
-import * as productActions from "../redux/actions/productActions";
+import Orders from "./myaccount/Orders";
+import Payments from "./myaccount/Payments";
+import React from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
 class MyAccount extends React.Component {
   constructor(props, context) {
     super(props, context);
@@ -26,18 +29,24 @@ class MyAccount extends React.Component {
     if (IsLogin() && Object.keys(this.props.userInfo).length === 0) {
       this.props.actions.loadUserInfo();
     }
-    if(this.props.products.length === 0){
-      this.props.actions.loadProducts(1)
+    if (this.props.products.length === 0) {
+      this.props.actions.loadProducts(1);
     }
   }
   render() {
     const { userInfo } = this.props;
-    return (
+    return IsLogin() ? (
       <>
-        <EditProfileModal
-          show={this.state.showEditProfile}
-          onHide={this.hideEditProfile}
-        />
+        {this.state.showEditProfile ? (
+          <EditProfileModal
+            show={this.state.showEditProfile}
+            onHide={this.hideEditProfile}
+            userInfo={userInfo}
+          />
+        ) : (
+          ""
+        )}
+
         <section className="section pt-4 pb-4 osahan-account-page">
           <Container>
             <Row>
@@ -161,6 +170,8 @@ class MyAccount extends React.Component {
           </Container>
         </section>
       </>
+    ) : (
+      ""
     );
   }
 }

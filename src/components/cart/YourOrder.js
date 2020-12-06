@@ -35,7 +35,7 @@ class YourOrder extends Component {
     );
   };
   cartNotEmpty = () => {
-    const { cart } = this.props;
+    const { cart,currentCustomer } = this.props;
     console.log("cart :",cart)
     return (
       <div className="generator-bg rounded shadow-sm mb-4 p-4 osahan-cart-item">
@@ -50,7 +50,7 @@ class YourOrder extends Component {
               quantity={cartItem.quantity}
               subTotal={cartItem.subTotal}
               product={cartItem.product}
-              priceUnit="£"
+              priceUnit={currentCustomer.currency_unit}
               id={cartItem.product.id}
               qty={2}
               show={true}
@@ -64,7 +64,7 @@ class YourOrder extends Component {
           <Image fluid className="float-left" src="/img/wallet-icon.png" />
           <h6 className="font-weight-bold text-right mb-2">
             Subtotal :{" "}
-            <span className="text-danger">{this.calculateTotalPrice()} £</span>
+            <span className="text-danger">{this.calculateTotalPrice() +" "+ currentCustomer.currency_unit} </span>
           </h6>
           <p className="seven-color mb-1 text-right">Extra charges may apply</p>
           <p className="text-black mb-0 text-right">
@@ -93,6 +93,7 @@ function mapStateToProps(state) {
   return {
     cart: state.cartReducer,
     currentUser: state.currentUserReducer,
+    customerInfo: state.customerInfoReducer
   };
 }
 export default connect(mapStateToProps)(YourOrder);

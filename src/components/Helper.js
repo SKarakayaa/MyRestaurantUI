@@ -4,3 +4,7 @@ export default function IsLogin(){
         return false;
     return true;
 }
+
+export function CurrentCustomerId(){
+    return 1;
+}
