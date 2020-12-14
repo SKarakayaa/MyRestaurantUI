@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 
 class PaymentChoose extends Component {
   render() {
-    console.log("address id :",this.props.AddressId)
     return (
       <div className="bg-white rounded shadow-sm p-4 osahan-payment">
         <h4 className="mb-1">Choose payment method</h4>

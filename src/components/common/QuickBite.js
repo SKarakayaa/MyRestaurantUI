@@ -31,7 +31,6 @@ class QuickBite extends React.Component {
     return item;
   };
   AddToCart = (product) => {
-    debugger;
     if (product.product_materials !== "") {
       this.openModal();
     } else {

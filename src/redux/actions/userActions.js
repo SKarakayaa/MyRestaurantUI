@@ -22,9 +22,7 @@ export function register(registerResult) {
       user_id: registerResult.outs.user_id,
       role_id: 1,
     };
-    agent.Users.addRole(userRoleModel).then((result) =>
-      console.log("add role result :", result)
-    );
+    agent.Users.addRole(userRoleModel);
     return { type: actionTypes.REGISTER_SUCCESS, payload: registerResult };
   } else {
     return { type: actionTypes.REGISTER_ERROR, payload: registerResult };
@@ -111,7 +109,6 @@ export function addFavoriteRequest(userid, productid) {
   };
 }
 export function deleteFavoriteRequest(favoriteid) {
-  console.log("delete favorite id :", favoriteid);
   return function (dispatch) {
     agent.Users.deleteFavorite(favoriteid).then((result) => {
       dispatch(deleteFavorite(result));

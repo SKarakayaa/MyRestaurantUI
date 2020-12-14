@@ -7,7 +7,6 @@ import React from "react";
 
 class ChooseAddressCard extends React.Component {
   render() {
-    console.log(this.props.IsChoosed)
     return (
       <Card
         style={{ height: 176 }}

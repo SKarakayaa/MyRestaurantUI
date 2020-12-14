@@ -19,18 +19,15 @@ export function loadOrderDetails(orderDetails) {
 
 //Connect to API
 export function createOrderRequest(order, cart) {
-  console.log("order model :", order);
-  console.log("cart :", cart);
   return function (dispatch) {
     return agent.Orders.createOrder(order).then((result) => {
-      console.log("order result : ", result);
       if (result.success) {
         cart.map((cartItem) => {
           for (let index = 0; index < cartItem.quantity; index++) {
             var orderDetail = {
               order_id: result.outs.frm_orders_id,
               product_id: cartItem.product.id,
-              price: parseInt(cartItem.product.price)+parseInt(cartItem.product.materials[index].totalMaterialsPrice),
+              price: parseInt(cartItem.product.price),
             };
             if (cartItem.product.is_menu) {
               orderDetail.options =
@@ -43,13 +40,11 @@ export function createOrderRequest(order, cart) {
               // orderDetail.price += parseInt(
               //   cartItem.product.materials[0].totalMaterialsPrice
               // );
+              orderDetail.price += parseInt(cartItem.product.materials[index].totalMaterialsPrice); 
               orderDetail.material_add =
                 cartItem.product.materials[index].choosenMaterials;
             }
-            console.log(`order detail ${index} :`, orderDetail);
-            agent.Orders.createOrderDetail(orderDetail).then((detailResult) =>
-              console.log(`detail result ${index} :`, detailResult)
-            );
+            agent.Orders.createOrderDetail(orderDetail);
           }
           return 0;
         });

@@ -52,7 +52,6 @@ class EditProfileModal extends React.Component {
       }
     });
 
-    // console.log("update user result :", result);
   };
   render() {
     return (

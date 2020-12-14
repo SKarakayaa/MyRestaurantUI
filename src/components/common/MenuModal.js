@@ -124,7 +124,7 @@ class MenuModal extends Component {
     this.props.onHide();
   };
   render() {
-    const { menu_options, menu, customerInfo } = this.props;
+    const { menu_options, menu, customerinfo } = this.props;
     let materialList = [];
     let removableMaterials = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
@@ -186,7 +186,7 @@ class MenuModal extends Component {
                         " - " +
                         parseInt(material.amount) +
                         " " +
-                        customerInfo.currency_unit,
+                        customerinfo.currency_unit,
                     };
                   })}
                   className="basic-multi-select"
@@ -253,7 +253,7 @@ function mapStateToProps(state) {
     materials: state.materialReducer,
     products: state.productReducer,
     categories: state.categoryReducer,
-    customerInfo: state.customerInfoReducer,
+    customerinfo: state.customerInfoReducer,
   };
 }
 export default connect(mapStateToProps, mapDispatchToProps)(MenuModal);

@@ -82,7 +82,7 @@ class Orders extends React.Component {
 }
 function mapStateToProps(state) {
   return {
-    orders: state.createOrderReducer,
+    orders: state.orderReducer,
     addresses: state.addressReducer,
     customerInfo: state.customerInfoReducer,
   };

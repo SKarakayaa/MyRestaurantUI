@@ -123,7 +123,7 @@ function mapStateToProps(state) {
   return {
     orderDetails: state.orderDetailReducer,
     products: state.productReducer,
-    customerInfo: state.customerInfo,
+    customerInfo: state.customerInfoReducer,
   };
 }
 function mapDispatchToProps(dispatch) {

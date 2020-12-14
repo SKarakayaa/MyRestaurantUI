@@ -185,6 +185,8 @@ export default function cartReducer(state = initialState.cart, action) {
         );
         return deletedMenuItemState;
       }
+    case actionTypes.REMOVE_CART:
+      return action.payload;
     default:
       return state;
   }

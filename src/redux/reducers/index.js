@@ -12,10 +12,12 @@ import materialReducer from "./productReducers/materialReducer";
 import menuOptionReducer from "./productReducers/menuOptionReducer";
 import menuReducer from "./productReducers/menuReducer";
 import orderDetailReducer from "./orderReducers/orderDetailReducer";
+import orderReducer from "./orderReducers/orderReducer";
 import productReducer from "./productReducers/productReducer";
 import userInfoReducer from "./userRedocers/userInfoReducer";
-import userInfoUpdateReducer from './userRedocers/userInfoUpdateReducer';
+import userInfoUpdateReducer from "./userRedocers/userInfoUpdateReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
+
 const rootReducer = combineReducers({
   favoriteProductReducer,
   materialReducer,
@@ -32,6 +34,7 @@ const rootReducer = combineReducers({
   cartReducer,
   createOrderReducer,
   orderDetailReducer,
+  orderReducer,
   addressReducer,
   customerSliderReducer,
 });

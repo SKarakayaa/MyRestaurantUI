@@ -1,3 +1,4 @@
+import * as cartActions from "../redux/actions/cartActions";
 import * as orderActions from "../redux/actions/orderActions";
 import * as productActions from "../redux/actions/productActions";
 import * as userActions from "../redux/actions/userActions";
@@ -59,10 +60,12 @@ class Checkout extends React.Component {
         payment_methods: 2,
         total_price: totalPrice,
         channel_type_id: 1,
-        customer_id:1,
-        order_date: new Date()
+        customer_id: 1,
+        order_date: new Date(),
       };
       this.props.actions.createOrder(order, this.props.cart);
+      alertify.success("Payment is successfull !");
+      this.props.actions.removeCart();
     } else {
       alertify.error(valid.errorMessage);
     }
@@ -86,7 +89,7 @@ class Checkout extends React.Component {
     this.setState({ addressid: addressid });
   };
   render() {
-    const { cart,customerInfo } = this.props;
+    const { cart, customerInfo } = this.props;
     if (!IsLogin()) {
       history.push("/login");
     }
@@ -168,10 +171,7 @@ class Checkout extends React.Component {
                   <InputGroup className="input-group-sm mb-2">
                     <Form.Control type="text" placeholder="Enter promo code" />
                     <InputGroup.Append>
-                      <Button
-                        variant="primary"
-                        type="button"
-                      >
+                      <Button variant="primary" type="button">
                         <Icofont icon="sale-discount" /> APPLY
                       </Button>
                     </InputGroup.Append>
@@ -262,7 +262,7 @@ function mapStateToProps(state) {
     menus: state.menuReducer,
     currentUser: state.currentUserReducer,
     products: state.productReducer,
-    customerInfo:state.customerInfoReducer
+    customerInfo: state.customerInfoReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -273,6 +273,7 @@ function mapDispatchToProps(dispatch) {
         orderActions.createOrderRequest,
         dispatch
       ),
+      removeCart: bindActionCreators(cartActions.removeCart, dispatch),
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
       loadProducts: bindActionCreators(
         productActions.loadProductsRequest,

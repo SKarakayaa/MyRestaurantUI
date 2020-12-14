@@ -52,7 +52,6 @@ export function updateAddress(addressResult, addressModel) {
 }
 
 export function deleteAddress(deleteAddressResult) {
-  console.log("delete address result :", deleteAddressResult);
   return {
     type: actionTypes.DELETE_USER_ADDRESS,
     payload: deleteAddressResult,

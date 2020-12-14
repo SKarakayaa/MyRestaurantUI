@@ -78,8 +78,6 @@ class AddAddressModal extends React.Component {
     this.setState({ adress_type: addressTypeId });
   };
   render() {
-    const { choosedAddress } = this.props;
-    console.log("choosed address :", choosedAddress);
     return (
       <Modal show={this.props.show} onHide={this.props.onHide} centered>
         <Modal.Header closeButton={true}>

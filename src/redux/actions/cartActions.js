@@ -12,6 +12,10 @@ export function addMenuToCart(cartItem) {
   return { type: actionTypes.ADD_MENU_TO_CART, payload: cartItem };
 }
 
+export function removeCart() {
+  return { type: actionTypes.REMOVE_CART, payload: [] };
+}
+
 export function removeMenuFromCart(
   productid,
   optionUniqueId,
