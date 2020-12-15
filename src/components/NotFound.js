@@ -1,6 +1,7 @@
-import React from 'react';
+import {Col, Container, Image, Row} from 'react-bootstrap';
+
 import {Link} from 'react-router-dom';
-import {Row,Col,Container,Image} from 'react-bootstrap';
+import React from 'react';
 
 class NotFound extends React.Component {
 

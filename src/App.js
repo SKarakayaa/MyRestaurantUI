@@ -3,9 +3,13 @@ import "font-awesome/css/font-awesome.min.css";
 import "react-select2-wrapper/css/select2.css";
 import "./App.css";
 
+import * as customerActions from "./redux/actions/customerActions";
+import * as customerStatus from "./enums/CustomerStatusEnums";
+
 import { Route, Switch } from "react-router-dom";
 
 import Checkout from "./components/Checkout";
+import { CurrentCustomerId } from "./components/Helper";
 import Detail from "./components/Detail";
 import Extra from "./components/Extra";
 import Footer from "./components/common/Footer";
@@ -20,15 +24,23 @@ import React from "react";
 import Register from "./components/Register";
 import Thanks from "./components/Thanks";
 import TrackOrder from "./components/TrackOrder";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 class App extends React.Component {
-    render() {
-    
+  componentDidMount() {
+    if (this.props.customerInfo.length === undefined) {
+      this.props.actions.loadCustomerInfo(CurrentCustomerId());
+    }
+  }
+  render() {
+    const { customerInfo } = this.props;
+    console.log("customer info :", customerInfo);
     return (
       <>
         {this.props.location.pathname !== "/login" &&
-        this.props.location.pathname !== "/register" ? (
+        this.props.location.pathname !== "/register" &&
+        customerInfo.customer_status === customerStatus.OPEN ? (
           <Header />
         ) : (
           ""
@@ -36,6 +48,10 @@ class App extends React.Component {
         <Switch>
           {/* <Route path="/" exact component={Index} /> */}
           <Route path="/" exact component={Detail} />
+          {/* {customerInfo.customer_status === customerStatus.OPEN ? (
+          ) : (
+            <Route path="/" exact component={NotFound} />
+          )} */}
 
           <Route path="/offers" exact component={Offers} />
           <Route path="/listing" exact component={List} />
@@ -51,7 +67,8 @@ class App extends React.Component {
           <Route exact component={NotFound} />
         </Switch>
         {this.props.location.pathname !== "/login" &&
-        this.props.location.pathname !== "/register" ? (
+        this.props.location.pathname !== "/register" &&
+        customerInfo.customer_status === customerStatus.OPEN ? (
           <Footer />
         ) : (
           ""
@@ -60,4 +77,19 @@ class App extends React.Component {
     );
   }
 }
-export default connect()(App);
+function mapStateToProps(state) {
+  return {
+    customerInfo: state.customerInfoReducer,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      loadCustomerInfo: bindActionCreators(
+        customerActions.loadCustomerInfoRequest,
+        dispatch
+      ),
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App);

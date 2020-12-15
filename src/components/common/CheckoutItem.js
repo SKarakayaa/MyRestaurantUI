@@ -159,7 +159,7 @@ class CheckoutItem extends Component {
             </Button>
           </span>
           <p className="text-gray mb-0 float-right ml-2">
-            {this.props.priceUnit} {this.props.subTotal}
+            {this.props.subTotal} {this.props.priceUnit} 
           </p>
           <div className="media">
             <div className="mr-2">

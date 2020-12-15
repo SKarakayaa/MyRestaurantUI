@@ -1,5 +1,6 @@
 import * as cartActions from "../redux/actions/cartActions";
 import * as customerActions from "../redux/actions/customerActions";
+import * as customerStatus from "../enums/CustomerStatusEnums";
 import * as productActions from "../redux/actions/productActions";
 import * as userActions from "../redux/actions/userActions";
 
@@ -16,6 +17,7 @@ import {
 import IsLogin, { CurrentCustomerId } from "./Helper";
 
 import BookTable from "./tabs/BookTable/BookTable";
+import Closed from "./Closed";
 import GalleryCarousel from "./common/GalleryCarousel";
 import Icofont from "react-icofont";
 import OrderOnlineHome from "./tabs/OrderOnline/OrderOnlineHome";
@@ -90,7 +92,7 @@ class Detail extends React.Component {
                     <p className="text-white mb-1">
                       <Icofont icon="location-pin" />{" "}
                       {customerInfo.customer_location}
-                      {customerInfo.customer_status === "1" ? (
+                      {customerInfo.customer_status === customerStatus.OPEN ? (
                         <Badge variant="success">OPEN</Badge>
                       ) : (
                         <Badge variant="danger">CLOSE</Badge>
@@ -121,71 +123,74 @@ class Detail extends React.Component {
             </Container>
           </div>
         </section>
+        {customerInfo.customer_status === customerStatus.OPEN ? (
+          <Tab.Container defaultActiveKey="first">
+            <section className="offer-dedicated-nav bg-white border-top-0 shadow-sm">
+              <Container>
+                <Row>
+                  <Col md={12}>
+                    <Nav id="pills-tab">
+                      <Nav.Item>
+                        <Nav.Link eventKey="first">Order Online</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="second">Gallery</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="fourth">Book A Table</Nav.Link>
+                      </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="fifth">Ratings & Reviews</Nav.Link>
+                      </Nav.Item>
+                    </Nav>
+                  </Col>
+                </Row>
+              </Container>
+            </section>
+            <section className="offer-dedicated-body pt-2 pb-2 mt-4 mb-4">
+              <Container>
+                <Row>
+                  <Col md={8}>
+                    <div className="offer-dedicated-body-left">
+                      <Tab.Content className="h-100">
+                        <Tab.Pane eventKey="first">
+                          <OrderOnlineHome />
+                        </Tab.Pane>
 
-        <Tab.Container defaultActiveKey="first">
-          <section className="offer-dedicated-nav bg-white border-top-0 shadow-sm">
-            <Container>
-              <Row>
-                <Col md={12}>
-                  <Nav id="pills-tab">
-                    <Nav.Item>
-                      <Nav.Link eventKey="first">Order Online</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="second">Gallery</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="fourth">Book A Table</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="fifth">Ratings & Reviews</Nav.Link>
-                    </Nav.Item>
-                  </Nav>
-                </Col>
-              </Row>
-            </Container>
-          </section>
-          <section className="offer-dedicated-body pt-2 pb-2 mt-4 mb-4">
-            <Container>
-              <Row>
-                <Col md={8}>
-                  <div className="offer-dedicated-body-left">
-                    <Tab.Content className="h-100">
-                      <Tab.Pane eventKey="first">
-                        <OrderOnlineHome />
-                      </Tab.Pane>
+                        <Tab.Pane eventKey="second">
+                          <div className="position-relative">
+                            <GalleryCarousel />
+                          </div>
+                        </Tab.Pane>
 
-                      <Tab.Pane eventKey="second">
-                        <div className="position-relative">
-                          <GalleryCarousel />
-                        </div>
-                      </Tab.Pane>
+                        <Tab.Pane eventKey="third">
+                          <RestaurantInfo />
+                        </Tab.Pane>
 
-                      <Tab.Pane eventKey="third">
-                        <RestaurantInfo />
-                      </Tab.Pane>
+                        <Tab.Pane eventKey="fourth">
+                          <BookTable />
+                        </Tab.Pane>
 
-                      <Tab.Pane eventKey="fourth">
-                        <BookTable />
-                      </Tab.Pane>
-
-                      <Tab.Pane eventKey="fifth">
-                        <RatingReviews />
-                        login
-                      </Tab.Pane>
-                    </Tab.Content>
-                  </div>
-                </Col>
-                <Col md={4}>
-                  <YourOrder />
-                </Col>
-              </Row>
-            </Container>
-          </section>
-        </Tab.Container>
+                        <Tab.Pane eventKey="fifth">
+                          <RatingReviews />
+                          login
+                        </Tab.Pane>
+                      </Tab.Content>
+                    </div>
+                  </Col>
+                  <Col md={4}>
+                    <YourOrder />
+                  </Col>
+                </Row>
+              </Container>
+            </section>
+          </Tab.Container>
+        ) : (
+          <Closed />
+        )}
       </>
     );
   }

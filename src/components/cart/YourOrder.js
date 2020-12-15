@@ -63,7 +63,7 @@ class YourOrder extends Component {
           <Image fluid className="float-left" src="/img/wallet-icon.png" />
           <h6 className="font-weight-bold text-right mb-2">
             Subtotal :{" "}
-            <span className="text-danger">{customerInfo.currency_unit +" "+ this.calculateTotalPrice()} </span>
+            <span className="text-danger">{ this.calculateTotalPrice() +" "+  customerInfo.currency_unit} </span>
           </h6>
           <p className="seven-color mb-1 text-right">Extra charges may apply</p>
           <p className="text-black mb-0 text-right">
