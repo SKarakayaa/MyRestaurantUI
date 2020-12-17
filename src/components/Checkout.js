@@ -61,6 +61,7 @@ class Checkout extends React.Component {
         total_price: totalPrice,
         channel_type_id: 1,
         customer_id: 1,
+        order_status_id: 1,
         order_date: new Date(),
       };
       this.props.actions.createOrder(order, this.props.cart);

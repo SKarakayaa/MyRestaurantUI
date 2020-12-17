@@ -4,6 +4,7 @@ import categoryReducer from "./productReducers/categoryReducer";
 import { combineReducers } from "redux";
 import createOrderReducer from "./orderReducers/createOrderReducer";
 import currentUserReducer from "./userRedocers/currentUserReducer";
+import customerCommentReducer from "./customersCommentReducers/customerCommentReducer";
 import customerInfoReducer from "./customerReducers/customerInfoReducer";
 import customerMoreInfoReducer from "./customerReducers/customerMoreInfoReducer";
 import customerSliderReducer from "./customerReducers/customerSliderReducer";
@@ -19,24 +20,30 @@ import userInfoUpdateReducer from "./userRedocers/userInfoUpdateReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
 
 const rootReducer = combineReducers({
-  favoriteProductReducer,
   materialReducer,
   productReducer,
   menuReducer,
   menuOptionReducer,
+
   customerInfoReducer,
   customerMoreInfoReducer,
+  customerSliderReducer,
+  customerCommentReducer,
+  
   currentUserReducer,
   userRegisterReducer,
   userInfoReducer,
   userInfoUpdateReducer,
+  favoriteProductReducer,
+  addressReducer,
+
   categoryReducer,
+
   cartReducer,
+
   createOrderReducer,
   orderDetailReducer,
   orderReducer,
-  addressReducer,
-  customerSliderReducer,
 });
 
 export default rootReducer;

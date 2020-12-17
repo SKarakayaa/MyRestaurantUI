@@ -176,7 +176,6 @@ class Detail extends React.Component {
 
                         <Tab.Pane eventKey="fifth">
                           <RatingReviews />
-                          login
                         </Tab.Pane>
                       </Tab.Content>
                     </div>

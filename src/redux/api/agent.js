@@ -48,6 +48,8 @@ const Customers = {
     request.get(`/Customer/getMoreInfo?xcustomer_id=${customerid}`),
   loadCustomerSlider: (customerid) =>
     request.get(`/Customer/getCustomerSlider?xcustomer_id=${customerid}`),
+  loadCustomersComments: (customerid) =>
+    request.get(`/Customer/getCustomerComments?xcustomer_id=${customerid}`),
 };
 
 const Users = {

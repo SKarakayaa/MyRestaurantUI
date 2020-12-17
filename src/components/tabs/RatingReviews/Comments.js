@@ -1,17 +1,22 @@
+import * as commentActions from "../../../redux/actions/commentActions";
+
 import { Button, Form } from "react-bootstrap";
 import React, { Component, Fragment } from "react";
 
+import { CurrentCustomerId } from "../../Helper";
 import { Link } from "react-router-dom";
 import Review from "../../common/Review";
 import StarRating from "../../common/StarRating";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import moment from "moment";
 
 class Comments extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      mostPopular: [],
-      showAddressModal: false,
+      seeCount: 2,
       users: [
         {
           name: "Osahan Singh",
@@ -36,7 +41,16 @@ class Comments extends Component {
       ],
     };
   }
+  componentDidMount() {
+    if (this.props.customerComments.length === 0) {
+      this.props.actions.loadCustomerCommentLoad(CurrentCustomerId());
+    }
+  }
+  SeeAllComments = () => {
+    this.setState({ seeCount: this.props.customerComments.length });
+  };
   render() {
+    const { customerComments } = this.props;
     return (
       <Fragment>
         <div className="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
@@ -44,34 +58,32 @@ class Comments extends Component {
             Top Rated
           </Link>
           <h5 className="mb-1">All Ratings and Reviews</h5>
-          <Review
-            image="/img/user/1.png"
-            ImageAlt=""
-            ratingStars={5}
-            Name="Singh Osahan"
-            profileLink="#"
-            reviewDate="Tue, 20 Mar 2020"
-            reviewText="Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classNameical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classNameical literature, discovered the undoubtable source. Lorem Ipsum comes from sections"
-            likes="856M"
-            dislikes="158K"
-            otherUsers={this.state.users}
-          />
-          <hr />
-          <Review
-            image="/img/user/6.png"
-            ImageAlt=""
-            ratingStars={5}
-            Name="Gurdeep Osahan"
-            profileLink="#"
-            reviewDate="Tue, 20 Mar 2020"
-            reviewText="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English."
-            likes="88K"
-            dislikes="1K"
-            otherUsers={this.state.users}
-          />
-          <hr />
+          {customerComments &&
+            customerComments.slice(0, this.state.seeCount).map((comment) => (
+              <Fragment key={comment.frm_customer_comments_id}>
+                <Review
+                  image="/img/user/1.png"
+                  ImageAlt=""
+                  ratingStars={5}
+                  Name="Singh Osahan"
+                  userId={comment.user_id}
+                  profileLink="#"
+                  reviewDate={moment(comment.comment_date).format(
+                    "dddd, MMMM Do YYYY"
+                  )}
+                  reviewText={comment.comment}
+                  likes="0"
+                  dislikes="0"
+                  otherUsers={this.state.users}
+                />
+                <hr />
+              </Fragment>
+            ))}
+
           <Link
             className="text-center w-100 d-block mt-4 font-weight-bold"
+            onClick={this.SeeAllComments}
+            as={Button}
             to="#"
           >
             See All Reviews
@@ -102,4 +114,19 @@ class Comments extends Component {
     );
   }
 }
-export default Comments;
+function mapStateToProps(state) {
+  return {
+    customerComments: state.customerCommentReducer,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      loadCustomerCommentLoad: bindActionCreators(
+        commentActions.loadCustomerCommentsRequest,
+        dispatch
+      ),
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Comments);

@@ -58,7 +58,7 @@ class AddAddressModal extends React.Component {
       location: this.state.location,
       user_id: this.props.currentUser.session.userId,
     };
-    if (choosedAddress !== null) {
+    if (choosedAddress !== undefined) {
       addAddressModel.tfrm_user_adress_id = choosedAddress.frm_user_adress_id;
     }
     this.setState({ adress_type: 0 });
@@ -67,7 +67,7 @@ class AddAddressModal extends React.Component {
     this.setState({ delivery_instructions: "" });
     this.setState({ location: "" });
 
-    if (choosedAddress !== null) {
+    if (choosedAddress !== undefined) {
       this.props.actions.updateAddress(addAddressModel);
     } else {
       this.props.actions.createAddress(addAddressModel);
