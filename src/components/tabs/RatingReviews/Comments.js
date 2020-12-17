@@ -7,6 +7,7 @@ import { CurrentCustomerId } from "../../Helper";
 import { Link } from "react-router-dom";
 import Review from "../../common/Review";
 import StarRating from "../../common/StarRating";
+import alertify from "alertifyjs";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import moment from "moment";
@@ -16,7 +17,9 @@ class Comments extends Component {
     super(props, context);
 
     this.state = {
-      seeCount: 2,
+      isAllComment: false,
+      newComment: "",
+      point: 0,
       users: [
         {
           name: "Osahan Singh",
@@ -47,7 +50,36 @@ class Comments extends Component {
     }
   }
   SeeAllComments = () => {
-    this.setState({ seeCount: this.props.customerComments.length });
+    this.setState({ isAllComment: !this.state.isAllComment });
+  };
+  HandleChange = (event) => {
+    this.setState({ newComment: event.target.value });
+  };
+  HandlePoint = (point) => {
+    this.setState({ point: point });
+  };
+  HandleSubmit = (event) => {
+    event.preventDefault();
+    const validateResult = this.ValidateCommentForm();
+    if (validateResult === true) {
+      const comment = {
+        user_id: this.props.currentUser.session.userId,
+        flavor: this.state.point,
+        comment: this.state.newComment,
+        customer_id: CurrentCustomerId(),
+        comment_date: new Date(),
+      };
+      this.props.actions.addCustomerComment(comment);
+      this.setState({ newComment: "" });
+      alertify.success("Comments is successfull !");
+    }
+  };
+  ValidateCommentForm = () => {
+    if (this.state.point === 0 || this.state.newComment === "") {
+      alertify.error("Please give an point and make a comment !");
+      return false;
+    }
+    return true;
   };
   render() {
     const { customerComments } = this.props;
@@ -58,27 +90,47 @@ class Comments extends Component {
             Top Rated
           </Link>
           <h5 className="mb-1">All Ratings and Reviews</h5>
-          {customerComments &&
-            customerComments.slice(0, this.state.seeCount).map((comment) => (
-              <Fragment key={comment.frm_customer_comments_id}>
-                <Review
-                  image="/img/user/1.png"
-                  ImageAlt=""
-                  ratingStars={5}
-                  Name="Singh Osahan"
-                  userId={comment.user_id}
-                  profileLink="#"
-                  reviewDate={moment(comment.comment_date).format(
-                    "dddd, MMMM Do YYYY"
-                  )}
-                  reviewText={comment.comment}
-                  likes="0"
-                  dislikes="0"
-                  otherUsers={this.state.users}
-                />
-                <hr />
-              </Fragment>
-            ))}
+          {customerComments && this.state.isAllComment === false
+            ? customerComments.slice(0, 2).map((comment) => (
+                <Fragment key={comment.frm_customer_comments_id}>
+                  <Review
+                    image="/img/user/1.png"
+                    ImageAlt=""
+                    ratingStars={5}
+                    Name="Singh Osahan"
+                    userId={comment.user_id}
+                    profileLink="#"
+                    reviewDate={moment(comment.comment_date).format(
+                      "dddd, MMMM Do YYYY"
+                    )}
+                    reviewText={comment.comment}
+                    likes="0"
+                    dislikes="0"
+                    otherUsers={this.state.users}
+                  />
+                  <hr />
+                </Fragment>
+              ))
+            : customerComments.map((comment) => (
+                <Fragment key={comment.frm_customer_comments_id}>
+                  <Review
+                    image="/img/user/1.png"
+                    ImageAlt=""
+                    ratingStars={parseInt(comment.flavor)}
+                    Name="Singh Osahan"
+                    userId={comment.user_id}
+                    profileLink="#"
+                    reviewDate={moment(comment.comment_date).format(
+                      "dddd, MMMM Do YYYY"
+                    )}
+                    reviewText={comment.comment}
+                    likes="0"
+                    dislikes="0"
+                    otherUsers={this.state.users}
+                  />
+                  <hr />
+                </Fragment>
+              ))}
 
           <Link
             className="text-center w-100 d-block mt-4 font-weight-bold"
@@ -86,7 +138,9 @@ class Comments extends Component {
             as={Button}
             to="#"
           >
-            See All Reviews
+            {this.state.isAllComment === false
+              ? "See All Reviews"
+              : "See Few Reviews"}
           </Link>
         </div>
         <div className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page">
@@ -94,16 +148,27 @@ class Comments extends Component {
           <p className="mb-2">Rate the Place</p>
           <div className="mb-4">
             <div className="star-rating">
-              <StarRating fontSize={26} star={5} getValue={this.getStarValue} />
+              <StarRating
+                fontSize={26}
+                star={5}
+                handlePoint={this.HandlePoint}
+              />
             </div>
           </div>
-          <Form>
+
+          <Form onSubmit={this.HandleSubmit}>
             <Form.Group>
               <Form.Label>Your Comment</Form.Label>
-              <Form.Control as="textarea" />
+              <Form.Control
+                as="textarea"
+                value={this.state.newComment}
+                name="newComment"
+                id="newComment"
+                onChange={this.HandleChange}
+              />
             </Form.Group>
             <Form.Group>
-              <Button variant="primary" size="sm" type="button">
+              <Button variant="primary" size="sm" type="submit">
                 {" "}
                 Submit Comment{" "}
               </Button>
@@ -117,6 +182,7 @@ class Comments extends Component {
 function mapStateToProps(state) {
   return {
     customerComments: state.customerCommentReducer,
+    currentUser: state.currentUserReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -124,6 +190,10 @@ function mapDispatchToProps(dispatch) {
     actions: {
       loadCustomerCommentLoad: bindActionCreators(
         commentActions.loadCustomerCommentsRequest,
+        dispatch
+      ),
+      addCustomerComment: bindActionCreators(
+        commentActions.addCustomerCommentRequest,
         dispatch
       ),
     },

@@ -9,6 +9,8 @@ export default {
   customerMoreInfo: [],
   customerSlider: [],
   customerComments:[],
+  customerGalery:[],
+  customerCuisines:[],
   
   currentUser: {},
   userInfo: {},

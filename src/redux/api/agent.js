@@ -50,6 +50,12 @@ const Customers = {
     request.get(`/Customer/getCustomerSlider?xcustomer_id=${customerid}`),
   loadCustomersComments: (customerid) =>
     request.get(`/Customer/getCustomerComments?xcustomer_id=${customerid}`),
+  loadCustomerGalery: (customerid) =>
+    request.get(`/Customer/getCustomerGalery?xcustomer_id=${customerid}`),
+  laodCustomerCuisines: (customerid) =>
+    request.get(`/Customer/getCustomerAllCuisines?xcustomer_id=${customerid}`),
+  addComment: (comment) =>
+    request.post("/Customer/addCustomerComment", comment),
 };
 
 const Users = {

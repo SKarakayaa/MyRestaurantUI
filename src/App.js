@@ -35,7 +35,6 @@ class App extends React.Component {
   }
   render() {
     const { customerInfo } = this.props;
-    console.log("customer info :", customerInfo);
     return (
       <>
         {this.props.location.pathname !== "/login" &&

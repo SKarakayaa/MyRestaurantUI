@@ -18,6 +18,19 @@ export function loadCustomerSlider(customerSlider) {
     payload: customerSlider.data.length !== 0 ? customerSlider.data[0] : [],
   };
 }
+export function loadCustomerGalery(customerGalery) {
+  return {
+    type: actionTypes.GET_CUSTOMER_GALERY,
+    payload: customerGalery.data,
+  };
+}
+
+export function loadCustomerCuisines(customerCuisines) {
+  return {
+    type: actionTypes.GET_CUSTOMER_CUISINES,
+    payload: customerCuisines.data,
+  };
+}
 
 //Request to API
 export function loadCustomerInfoRequest(customerid) {
@@ -40,6 +53,22 @@ export function loadCustomerSliderRequest(customerid) {
   return function (dispatch) {
     agent.Customers.loadCustomerSlider(customerid).then((result) =>
       dispatch(loadCustomerSlider(result))
+    );
+  };
+}
+
+export function loadCustomerGaleryRequest(customerId) {
+  return function (dispatch) {
+    agent.Customers.loadCustomerGalery(customerId).then((result) =>
+      dispatch(loadCustomerGalery(result))
+    );
+  };
+}
+
+export function loadCustomerCuisinesRequest(customerId) {
+  return function (dispatch) {
+    agent.Customers.laodCustomerCuisines(customerId).then((result) =>
+      dispatch(loadCustomerCuisines(result))
     );
   };
 }

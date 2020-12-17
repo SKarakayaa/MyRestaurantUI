@@ -5,6 +5,8 @@ import { combineReducers } from "redux";
 import createOrderReducer from "./orderReducers/createOrderReducer";
 import currentUserReducer from "./userRedocers/currentUserReducer";
 import customerCommentReducer from "./customersCommentReducers/customerCommentReducer";
+import customerCuisineReducer from "./customerReducers/customerCuisineReducer";
+import customerGaleryReducer from "./customerReducers/customerGaleryReducer";
 import customerInfoReducer from "./customerReducers/customerInfoReducer";
 import customerMoreInfoReducer from "./customerReducers/customerMoreInfoReducer";
 import customerSliderReducer from "./customerReducers/customerSliderReducer";
@@ -29,7 +31,9 @@ const rootReducer = combineReducers({
   customerMoreInfoReducer,
   customerSliderReducer,
   customerCommentReducer,
-  
+  customerGaleryReducer,
+  customerCuisineReducer,
+
   currentUserReducer,
   userRegisterReducer,
   userInfoReducer,

@@ -52,6 +52,9 @@ class Detail extends React.Component {
     if (this.props.customerSlider.length === 0) {
       this.props.actions.loadCustomerSlider(CurrentCustomerId());
     }
+    if (this.props.customerCuisines.length === 0) {
+      this.props.actions.loadCustomerCuisines(CurrentCustomerId());
+    }
   }
   constructor(props, context) {
     super(props, context);
@@ -59,7 +62,16 @@ class Detail extends React.Component {
       showAddressModal: false,
     };
   }
-
+  GetCustomerCuisine = () => {
+    const { customerCuisines } = this.props;
+    let cuisines = " ";
+    customerCuisines &&
+      customerCuisines.forEach((cuisine) => {
+        cuisines += cuisine.name + ", ";
+      });
+    cuisines = cuisines.slice(0, -2);
+    return cuisines;
+  };
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
@@ -99,8 +111,8 @@ class Detail extends React.Component {
                       )}
                     </p>
                     <p className="text-white mb-0">
-                      <Icofont icon="food-cart" /> North Indian, Chinese, Fast
-                      Food, South Indian
+                      <Icofont icon="food-cart" />
+                      {this.GetCustomerCuisine()}
                     </p>
                   </div>
                 </Col>
@@ -136,9 +148,11 @@ class Detail extends React.Component {
                       <Nav.Item>
                         <Nav.Link eventKey="second">Gallery</Nav.Link>
                       </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
-                      </Nav.Item>
+                      {customerInfo.is_rezervation === true ? (
+                        <Nav.Item>
+                          <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
+                        </Nav.Item>
+                      ) : null}
                       <Nav.Item>
                         <Nav.Link eventKey="fourth">Book A Table</Nav.Link>
                       </Nav.Item>
@@ -207,6 +221,7 @@ function mapStateToProps(state) {
     currentUser: state.currentUserReducer,
     favoriteProducts: state.favoriteProductReducer,
     customerSlider: state.customerSliderReducer,
+    customerCuisines: state.customerCuisineReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -237,6 +252,10 @@ function mapDispatchToProps(dispatch) {
       loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
       loadCustomerSlider: bindActionCreators(
         customerActions.loadCustomerSliderRequest,
+        dispatch
+      ),
+      loadCustomerCuisines: bindActionCreators(
+        customerActions.loadCustomerCuisinesRequest,
         dispatch
       ),
     },

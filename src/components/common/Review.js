@@ -10,8 +10,7 @@ import { connect } from "react-redux";
 class Review extends Component {
   render() {
     const { currentUser } = this.props;
-    console.log("cu :", this.props.userId);
-
+    
     return (
       <div className="reviews-members pt-4 pb-4">
         <Media>
@@ -49,7 +48,8 @@ class Review extends Component {
               <Link className="total-like" to="#">
                 <Icofont icon="thumbs-down" /> {this.props.dislikes}
               </Link>
-              {IsLogin() && currentUser.session.userId === this.props.userId ? (
+              {IsLogin() &&
+              currentUser.session.userId === parseInt(this.props.userId) ? (
                 <Link
                   to="#"
                   className="w-100 d-block mt-4 font-weight-bold ml-1"

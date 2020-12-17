@@ -9,7 +9,8 @@ export default function customerCommentReduecer(
   switch (action.type) {
     case actionTypes.GET_CUSTOMERS_COMMENTS:
       return action.payload;
-
+    case actionTypes.ADD_CUSTOMER_COMMENT:
+      return [...state, action.payload];
     default:
       return state;
   }
