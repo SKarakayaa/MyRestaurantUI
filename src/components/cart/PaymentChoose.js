@@ -16,7 +16,7 @@ class PaymentChoose extends Component {
               <Nav variant="pills" className="flex-column">
                 <Nav.Link eventKey="first">
                   <Icofont icon="credit-card" /> Credit/Debit Cards
-                </Nav.Link>
+                </Nav.Link> 
                 <Nav.Link eventKey="second">
                   <Icofont icon="id-card" /> Food Cards
                 </Nav.Link>

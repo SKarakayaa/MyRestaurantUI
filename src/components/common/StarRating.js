@@ -23,31 +23,63 @@ class StarRating extends Component {
         style={{ fontSize: this.props.fontSize ? this.props.fontSize : 14 }}
         className="d-inline-block"
       >
-        <Icofont
-          icon="star"
-          className={this.state.star >= 1 ? "text-primary" : "text-dark"}
-          onClick={() => this.handleClick(1)}
-        />
-        <Icofont
-          icon="star"
-          className={this.state.star >= 2 ? "text-primary" : "text-dark"}
-          onClick={() => this.handleClick(2)}
-        />
-        <Icofont
-          icon="star"
-          className={this.state.star >= 3 ? "text-primary" : "text-dark"}
-          onClick={() => this.handleClick(3)}
-        />
-        <Icofont
-          icon="star"
-          className={this.state.star >= 4 ? "text-primary" : "text-dark"}
-          onClick={() => this.handleClick(4)}
-        />
-        <Icofont
-          icon="star"
-          className={this.state.star >= 5 ? "text-primary" : "text-dark"}
-          onClick={() => this.handleClick(5)}
-        />
+        {!this.props.disabled ? (
+          <>
+            <Icofont
+              icon="star"
+              className={this.state.star >= 1 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(1)}
+            />
+            <Icofont
+              icon="star"
+              className={this.state.star >= 2 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(2)}
+            />
+            <Icofont
+              icon="star"
+              className={this.state.star >= 3 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(3)}
+            />
+            <Icofont
+              icon="star"
+              className={this.state.star >= 4 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(4)}
+            />
+            <Icofont
+              icon="star"
+              className={this.state.star >= 5 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(5)}
+            />
+          </>
+        ) : (
+          <>
+            <Icofont
+              icon="star"
+              className={this.props.star >= 1 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(1)}
+            />
+            <Icofont
+              icon="star"
+              className={this.props.star >= 2 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(2)}
+            />
+            <Icofont
+              icon="star"
+              className={this.props.star >= 3 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(3)}
+            />
+            <Icofont
+              icon="star"
+              className={this.props.star >= 4 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(4)}
+            />
+            <Icofont
+              icon="star"
+              className={this.props.star >= 5 ? "text-primary" : "text-dark"}
+              onClick={() => this.handleClick(5)}
+            />
+          </>
+        )}
       </div>
     );
   }

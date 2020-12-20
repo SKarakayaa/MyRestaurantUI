@@ -122,7 +122,7 @@ class MyAccount extends React.Component {
                         <i className="icofont-heart"></i> Favourites
                       </NavLink>
                     </li>
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <NavLink
                         className="nav-link"
                         activeClassName="active"
@@ -131,7 +131,7 @@ class MyAccount extends React.Component {
                       >
                         <i className="icofont-credit-card"></i> Payments
                       </NavLink>
-                    </li>
+                    </li> */}
                     <li className="nav-item">
                       <NavLink
                         className="nav-link"

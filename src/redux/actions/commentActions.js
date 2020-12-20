@@ -11,6 +11,9 @@ export function addCustomerComment(result, comment) {
   return { type: actionTypes.ADD_CUSTOMER_COMMENT, payload: comment };
 }
 
+export function updateCustomerComment(result, comment) {
+  return { type: actionTypes.UPDATE_CUSTOMER_COMMENT, payload: comment };
+}
 //REQUEST TO API
 export function loadCustomerCommentsRequest(customerid) {
   return function (dispatch) {
@@ -24,6 +27,14 @@ export function addCustomerCommentRequest(comment) {
   return function (dispatch) {
     agent.Customers.addComment(comment).then((result) =>
       dispatch(addCustomerComment(result, comment))
+    );
+  };
+}
+
+export function updateCustomerCommentRequest(comment) {
+  return function (dispatch) {
+    agent.Customers.updateCustomerComment(comment).then((result) =>
+      dispatch(updateCustomerComment(result, comment))
     );
   };
 }

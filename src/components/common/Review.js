@@ -5,14 +5,30 @@ import Icofont from "react-icofont";
 import IsLogin from "../Helper";
 import { Link } from "react-router-dom";
 import StarRating from "../common/StarRating";
+import UpdateCommentModal from "../modals/UpdateCommentModal";
 import { connect } from "react-redux";
 
 class Review extends Component {
+  constructor() {
+    super();
+    this.state = {
+      isShowEditCommentModal: false,
+    };
+  }
+  onShowClick = () => this.setState({ isShowEditCommentModal: true });
+  onHideClick = () => this.setState({ isShowEditCommentModal: false });
   render() {
-    const { currentUser } = this.props;
-    
+    const { currentUser, ratingStars, comment } = this.props;
+    console.log("star :", ratingStars);
     return (
       <div className="reviews-members pt-4 pb-4">
+        {this.state.isShowEditCommentModal ? (
+          <UpdateCommentModal
+            show={this.state.isShowEditCommentModal}
+            comment={this.props.comment}
+            onHide={this.onHideClick}
+          />
+        ) : null}
         <Media>
           <Link to="#">
             <Image
@@ -36,7 +52,10 @@ class Review extends Component {
                   {this.props.name}
                 </Link>
               </h6>
-              <p className="text-gray">{this.props.reviewDate}</p>
+              <p className="text-gray">
+                {this.props.reviewDate} -{" "}
+                {comment !== undefined ? comment.comment_user_name : ""}
+              </p>
             </div>
             <div className="reviews-members-body">
               <p>{this.props.reviewText}</p>
@@ -48,14 +67,26 @@ class Review extends Component {
               <Link className="total-like" to="#">
                 <Icofont icon="thumbs-down" /> {this.props.dislikes}
               </Link>
+              <br></br>
+              <br></br>
               {IsLogin() &&
               currentUser.session.userId === parseInt(this.props.userId) ? (
-                <Link
-                  to="#"
-                  className="w-100 d-block mt-4 font-weight-bold ml-1"
-                >
-                  <i className="icofont-ui-edit"></i> Edit Comment
-                </Link>
+                <>
+                  <Link
+                    to="#"
+                    className="w-100 mt-4 font-weight-bold ml-2"
+                    onClick={() => this.onShowClick()}
+                  >
+                    <i className="icofont-ui-edit"></i> Edit Comment
+                  </Link>&emsp;
+                  <Link
+                    to="#"
+                    className="w-100 mt-4 font-weight-bold ml-2"
+                    onClick={() => this.onShowClick()}
+                  >
+                    <i className="icofont-ui-delete"></i> Delete Comment
+                  </Link>
+                </>
               ) : (
                 ""
               )}

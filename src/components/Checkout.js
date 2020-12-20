@@ -10,9 +10,7 @@ import {
   Form,
   Image,
   InputGroup,
-  OverlayTrigger,
   Row,
-  Tooltip,
 } from "react-bootstrap";
 import IsLogin, { CurrentCustomerId } from "./Helper";
 
@@ -204,7 +202,7 @@ class Checkout extends React.Component {
                     Restaurant Charges{" "}
                     <span className="float-right text-dark">$62.8</span>
                   </p>
-                  <p className="mb-1">
+                  {/* <p className="mb-1">
                     Delivery Fee
                     <OverlayTrigger
                       key="top"
@@ -220,7 +218,7 @@ class Checkout extends React.Component {
                       </span>
                     </OverlayTrigger>
                     <span className="float-right text-dark">$10</span>
-                  </p>
+                  </p> */}
                   <p className="mb-1 text-success">
                     Total Discount
                     <span className="float-right text-success">$1884</span>

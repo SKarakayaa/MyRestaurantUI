@@ -19,7 +19,7 @@ class ProductCard extends Component {
                   id={product.frm_product_id}
                   title={product.name}
                   product={product}
-                  subTitle="North Indian • American • Pure veg"
+                  subTitle={product.description}
                   imageAlt="Product"
                   image={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${product.photo}`}
                   imageClass="img-fluid item-img"

@@ -18,6 +18,7 @@ class Register extends React.Component {
       user_name: "",
       pass_word: "",
       profile_picture_id: 1,
+      phone:"",
       registerError: "",
     };
   }
@@ -75,9 +76,25 @@ class Register extends React.Component {
                           placeholder="Email address"
                         />
                         <Form.Label htmlFor="email">
-                          Email address / Mobile
+                          Email address
                         </Form.Label>
                       </div>
+
+                      <div className="form-label-group">
+                        <Form.Control
+                          type="number"
+                          id="phone"
+                          name="phone"
+                          value={this.state.phone}
+                          onChange={this.handleChange}
+                          placeholder="Phone Number"
+                          required
+                        />
+                        <Form.Label htmlFor="email">
+                          Phone Number
+                        </Form.Label>
+                      </div>
+
                       <div className="form-label-group">
                         <Form.Control
                           type="text"

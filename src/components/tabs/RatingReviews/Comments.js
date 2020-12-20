@@ -96,8 +96,9 @@ class Comments extends Component {
                   <Review
                     image="/img/user/1.png"
                     ImageAlt=""
-                    ratingStars={5}
+                    ratingStars={parseInt(comment.flavor)}
                     Name="Singh Osahan"
+                    comment={comment}
                     userId={comment.user_id}
                     profileLink="#"
                     reviewDate={moment(comment.comment_date).format(
@@ -116,6 +117,7 @@ class Comments extends Component {
                   <Review
                     image="/img/user/1.png"
                     ImageAlt=""
+                    comment={comment}
                     ratingStars={parseInt(comment.flavor)}
                     Name="Singh Osahan"
                     userId={comment.user_id}

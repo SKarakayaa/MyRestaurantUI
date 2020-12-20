@@ -72,9 +72,23 @@ class Detail extends React.Component {
     cuisines = cuisines.slice(0, -2);
     return cuisines;
   };
+  CalculateAvaragePoint = () => {
+    const { customerComments } = this.props;
+    let totalPoint = 0;
+    let avg = 0;
+    customerComments.forEach((comment) => {
+      totalPoint += parseInt(comment.flavor);
+    });
+    avg = totalPoint / customerComments.length;
+    return avg.toFixed(2);
+  };
+  CalculateTotalRate = () => {
+    return this.props.customerComments.length;
+  }
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
+    let totalRate = this.CalculateTotalRate();
     return (
       <>
         <section className="restaurant-detailed-banner">
@@ -123,11 +137,10 @@ class Detail extends React.Component {
                     </Button>
                     <h6 className="text-white mb-0 restaurant-detailed-ratings">
                       <span className="generator-bg rounded text-white">
-                        <Icofont icon="star" /> 3.1
+                        <Icofont icon="star" /> {this.CalculateAvaragePoint()}
                       </span>{" "}
-                      23 Ratings
-                      <Icofont icon="speech-comments" className="ml-3" /> 91
-                      reviews
+                      {totalRate} Ratings
+                      <Icofont icon="speech-comments" className="ml-3" /> {totalRate} reviews
                     </h6>
                   </div>
                 </Col>
@@ -222,6 +235,7 @@ function mapStateToProps(state) {
     favoriteProducts: state.favoriteProductReducer,
     customerSlider: state.customerSliderReducer,
     customerCuisines: state.customerCuisineReducer,
+    customerComments:state.customerCommentReducer
   };
 }
 function mapDispatchToProps(dispatch) {

@@ -54,8 +54,12 @@ const Customers = {
     request.get(`/Customer/getCustomerGalery?xcustomer_id=${customerid}`),
   laodCustomerCuisines: (customerid) =>
     request.get(`/Customer/getCustomerAllCuisines?xcustomer_id=${customerid}`),
+
   addComment: (comment) =>
     request.post("/Customer/addCustomerComment", comment),
+
+  updateCustomerComment: (comment) =>
+    request.put("/Customer/updateCustomerComment", comment),
 };
 
 const Users = {

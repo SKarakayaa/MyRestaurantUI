@@ -25,7 +25,7 @@ class AddAddressModal extends React.Component {
         { id: "3", name: "Other" },
       ],
       adress_type: 0,
-      complete_address: "",
+      complate_address: "",
       delivery_area: "",
       delivery_instructions: "",
       location: "",
@@ -52,7 +52,7 @@ class AddAddressModal extends React.Component {
     const { choosedAddress } = this.props;
     const addAddressModel = {
       address_type: this.state.adress_type,
-      complete_address: this.state.complete_address,
+      complate_address: this.state.complate_address,
       delivery_area: this.state.delivery_area,
       delivery_instructions: this.state.delivery_instructions,
       location: this.state.location,
@@ -62,7 +62,7 @@ class AddAddressModal extends React.Component {
       addAddressModel.tfrm_user_adress_id = choosedAddress.frm_user_adress_id;
     }
     this.setState({ adress_type: 0 });
-    this.setState({ complete_address: "" });
+    this.setState({ complate_address: "" });
     this.setState({ delivery_area: "" });
     this.setState({ delivery_instructions: "" });
     this.setState({ location: "" });
@@ -115,9 +115,9 @@ class AddAddressModal extends React.Component {
                 <Form.Control
                   type="text"
                   placeholder="Complete Address e.g. house number, street name, landmark"
-                  id="complete_address"
-                  name="complete_address"
-                  value={this.state.complete_address}
+                  id="complate_address"
+                  name="complate_address"
+                  value={this.state.complate_address}
                   onChange={this.handleChange}
                 />
               </Form.Group>

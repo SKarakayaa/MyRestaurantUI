@@ -96,14 +96,14 @@ class Header extends React.Component {
           >
             <Icofont icon="heart" /> Favourites
           </NavDropdown.Item>
-          <NavDropdown.Item
+          {/* <NavDropdown.Item
             eventKey={4.4}
             as={NavLink}
             activeclassname="active"
             to="/myaccount/payments"
           >
             <Icofont icon="credit-card" /> Payments
-          </NavDropdown.Item>
+          </NavDropdown.Item> */}
           <NavDropdown.Item
             eventKey={4.5}
             as={NavLink}
