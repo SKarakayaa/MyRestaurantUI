@@ -70,6 +70,9 @@ const Customers = {
     request.delete(
       `/Customer/deleteCustomerCommentLike?tfrm_comment_like_user_id=${commentLikeId}`
     ),
+
+  addRezervation: (rezervationModel) =>
+    request.post("/Customer/addRezervation", rezervationModel),
 };
 
 const Users = {

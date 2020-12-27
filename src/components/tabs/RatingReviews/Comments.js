@@ -127,8 +127,7 @@ class Comments extends Component {
   };
 
   render() {
-    const { customerComments, commentLikes } = this.props;
-    console.log("comment likes :", commentLikes);
+    const { customerComments } = this.props;
     return (
       <Fragment>
         <div className="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">

@@ -207,7 +207,10 @@ class Header extends React.Component {
         >
           <Container>
             <Navbar.Brand to="/">
-              <Image src="/img/logo.png" alt="" />
+              <Image
+                src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${this.props.customerInfo.logo_path}`}
+                alt=""
+              />
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse id="navbarNavDropdown"></Navbar.Collapse>

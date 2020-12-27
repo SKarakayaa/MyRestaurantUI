@@ -18,6 +18,7 @@ import menuReducer from "./productReducers/menuReducer";
 import orderDetailReducer from "./orderReducers/orderDetailReducer";
 import orderReducer from "./orderReducers/orderReducer";
 import productReducer from "./productReducers/productReducer";
+import rezervationReducer from "./rezervationReducers/rezervationReducers";
 import userInfoReducer from "./userRedocers/userInfoReducer";
 import userInfoUpdateReducer from "./userRedocers/userInfoUpdateReducer";
 import userRegisterReducer from "./userRedocers/registerUserReducer";
@@ -36,6 +37,8 @@ const rootReducer = combineReducers({
   customerCuisineReducer,
 
   customerCommentLikeReducer,
+
+  rezervationReducer,
 
   currentUserReducer,
   userRegisterReducer,

@@ -84,7 +84,7 @@ class Detail extends React.Component {
   };
   CalculateTotalRate = () => {
     return this.props.customerComments.length;
-  }
+  };
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
@@ -112,7 +112,11 @@ class Detail extends React.Component {
                       fluid
                       className="mr-3 float-left"
                       alt="osahan"
-                      src="/img/1.jpg"
+                      src={
+                        customerInfo.sub_logo !== ""
+                          ? `http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customerSlider.sub_logo}`
+                          : "/img/1.jpg"
+                      }
                     />
                     <h2 className="text-white">{customerInfo.name}</h2>
                     <p className="text-white mb-1">
@@ -140,7 +144,8 @@ class Detail extends React.Component {
                         <Icofont icon="star" /> {this.CalculateAvaragePoint()}
                       </span>{" "}
                       {totalRate} Ratings
-                      <Icofont icon="speech-comments" className="ml-3" /> {totalRate} reviews
+                      <Icofont icon="speech-comments" className="ml-3" />{" "}
+                      {totalRate} reviews
                     </h6>
                   </div>
                 </Col>
@@ -161,14 +166,14 @@ class Detail extends React.Component {
                       <Nav.Item>
                         <Nav.Link eventKey="second">Gallery</Nav.Link>
                       </Nav.Item>
+                      <Nav.Item>
+                        <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
+                      </Nav.Item>
                       {customerInfo.is_rezervation === true ? (
                         <Nav.Item>
-                          <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
+                          <Nav.Link eventKey="fourth">Rezervation</Nav.Link>
                         </Nav.Item>
                       ) : null}
-                      <Nav.Item>
-                        <Nav.Link eventKey="fourth">Book A Table</Nav.Link>
-                      </Nav.Item>
                       <Nav.Item>
                         <Nav.Link eventKey="fifth">Ratings & Reviews</Nav.Link>
                       </Nav.Item>
@@ -235,7 +240,7 @@ function mapStateToProps(state) {
     favoriteProducts: state.favoriteProductReducer,
     customerSlider: state.customerSliderReducer,
     customerCuisines: state.customerCuisineReducer,
-    customerComments:state.customerCommentReducer
+    customerComments: state.customerCommentReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
