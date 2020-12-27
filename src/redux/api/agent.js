@@ -57,9 +57,19 @@ const Customers = {
 
   addComment: (comment) =>
     request.post("/Customer/addCustomerComment", comment),
-
   updateCustomerComment: (comment) =>
     request.put("/Customer/updateCustomerComment", comment),
+
+  loadCustomerCommentLike: (customerid) =>
+    request.get(`/Customer/getCustomerCommentLike?xcustomer_id=${customerid}`),
+  addCustomerCommentLike: (commentLikeModel) =>
+    request.post("/Customer/addCustomerCommentLike", commentLikeModel),
+  updateCustomerCommentLike: (commentLikeModel) =>
+    request.put("/Customer/updateCustomerCommentLike", commentLikeModel),
+  deleteCustomerCommentLike: (commentLikeId) =>
+    request.delete(
+      `/Customer/deleteCustomerCommentLike?tfrm_comment_like_user_id=${commentLikeId}`
+    ),
 };
 
 const Users = {

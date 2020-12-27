@@ -13,6 +13,7 @@ import { CurrentCustomerId } from "./components/Helper";
 import Detail from "./components/Detail";
 import Extra from "./components/Extra";
 import Footer from "./components/common/Footer";
+import ForgotPassword from "./components/ForgotPassword";
 import Header from "./components/common/Header";
 import Invoice from "./components/Invoice";
 import List from "./components/List";
@@ -58,6 +59,7 @@ class App extends React.Component {
           <Route path="/404" exact component={NotFound} />
           <Route path="/extra" exact component={Extra} />
           <Route path="/login" exact component={Login} />
+          <Route path="/forgot-password" exact component={ForgotPassword} />
           <Route path="/register" exact component={Register} />
           <Route path="/track-order" exact component={TrackOrder} />
           <Route path="/invoice" exact component={Invoice} />

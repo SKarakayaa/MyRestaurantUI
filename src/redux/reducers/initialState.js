@@ -11,6 +11,8 @@ export default {
   customerComments:[],
   customerGalery:[],
   customerCuisines:[],
+
+  customerCommentLike:[],
   
   currentUser: {},
   userInfo: {},

@@ -83,6 +83,10 @@ class Login extends React.Component {
                         <Link className="font-weight-bold" to="/register">
                           Sign Up
                         </Link>
+                        &emsp;
+                        <Link className="font-weight-bold" to="/forgot-password">
+                          Forgot Password ?
+                        </Link>
                       </div>
                       <hr className="my-4" />
                       <p className="text-center">LOGIN WITH</p>

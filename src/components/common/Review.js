@@ -1,11 +1,14 @@
-import { Image, Media } from "react-bootstrap";
+import * as commentLikeActions from "../../redux/actions/commentLikeActions";
+
+import { Button, Image, Media } from "react-bootstrap";
+import IsLogin, { GetCurrentUser } from "../Helper";
 import React, { Component } from "react";
 
 import Icofont from "react-icofont";
-import IsLogin from "../Helper";
 import { Link } from "react-router-dom";
 import StarRating from "../common/StarRating";
 import UpdateCommentModal from "../modals/UpdateCommentModal";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 class Review extends Component {
@@ -17,9 +20,29 @@ class Review extends Component {
   }
   onShowClick = () => this.setState({ isShowEditCommentModal: true });
   onHideClick = () => this.setState({ isShowEditCommentModal: false });
+  LikeComment = (commentId, isLike, commentLikeId) => {
+    const { commentLikeInformation } = this.props;
+    if (commentLikeInformation.isLikeCurrentUser === null) {
+      this.props.actions.addCommentLike({
+        comment_id: parseInt(commentId),
+        user_id: GetCurrentUser().userId,
+        is_like_flag: isLike,
+      });
+    } else {
+      isLike === commentLikeInformation.isLikeCurrentUser
+        ? this.props.actions.deleteCommentsLike({
+            tfrm_comment_like_user_id: commentLikeId,
+          })
+        : this.props.actions.updateCommentLike({
+            tfrm_comment_like_user_id: commentLikeId,
+            comment_id: commentId,
+            user_id: GetCurrentUser().userId,
+            is_like_flag: isLike,
+          });
+    }
+  };
   render() {
-    const { currentUser, ratingStars, comment } = this.props;
-    console.log("star :", ratingStars);
+    const { currentUser, comment, commentLikeInformation } = this.props;
     return (
       <div className="reviews-members pt-4 pb-4">
         {this.state.isShowEditCommentModal ? (
@@ -61,11 +84,43 @@ class Review extends Component {
               <p>{this.props.reviewText}</p>
             </div>
             <div className="reviews-members-footer">
-              <Link className="total-like" to="#">
-                <Icofont icon="thumbs-up" /> {this.props.likes}
+              <Link
+                className="total-like"
+                style={
+                  commentLikeInformation.isLikeCurrentUser
+                    ? { color: "green" }
+                    : {}
+                }
+                onClick={() =>
+                  this.LikeComment(
+                    comment.frm_customer_comments_id,
+                    true,
+                    commentLikeInformation.commentLikeId
+                  )
+                }
+                to="#"
+                as={Button}
+              >
+                <Icofont icon="thumbs-up" /> {commentLikeInformation.likeCount}
               </Link>{" "}
-              <Link className="total-like" to="#">
-                <Icofont icon="thumbs-down" /> {this.props.dislikes}
+              <Link
+                className="total-like"
+                onClick={() =>
+                  this.LikeComment(
+                    comment.frm_customer_comments_id,
+                    false,
+                    commentLikeInformation.commentLikeId
+                  )
+                }
+                style={
+                  commentLikeInformation.isLikeCurrentUser === false
+                    ? { color: "black" }
+                    : {}
+                }
+                to="#"
+              >
+                <Icofont icon="thumbs-down" />{" "}
+                {commentLikeInformation.dislikeCount}
               </Link>
               <br></br>
               <br></br>
@@ -78,7 +133,8 @@ class Review extends Component {
                     onClick={() => this.onShowClick()}
                   >
                     <i className="icofont-ui-edit"></i> Edit Comment
-                  </Link>&emsp;
+                  </Link>
+                  &emsp;
                   <Link
                     to="#"
                     className="w-100 mt-4 font-weight-bold ml-2"
@@ -102,4 +158,22 @@ function mapStateToProps(state) {
     currentUser: state.currentUserReducer,
   };
 }
-export default connect(mapStateToProps)(Review);
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: {
+      addCommentLike: bindActionCreators(
+        commentLikeActions.addCustomerCommentLikeRequest,
+        dispatch
+      ),
+      updateCommentLike: bindActionCreators(
+        commentLikeActions.updateCustomerCommentLikeRequest,
+        dispatch
+      ),
+      deleteCommentsLike: bindActionCreators(
+        commentLikeActions.deleteCustomerCommentLikeRequest,
+        dispatch
+      ),
+    },
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Review);

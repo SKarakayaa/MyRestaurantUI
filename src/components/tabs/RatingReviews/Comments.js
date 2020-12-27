@@ -1,9 +1,11 @@
 import * as commentActions from "../../../redux/actions/commentActions";
+import * as commentLikeActions from "../../../redux/actions/commentLikeActions";
+import * as userActions from "../../../redux/actions/userActions";
 
 import { Button, Form } from "react-bootstrap";
+import IsLogin, { CurrentCustomerId } from "../../Helper";
 import React, { Component, Fragment } from "react";
 
-import { CurrentCustomerId } from "../../Helper";
 import { Link } from "react-router-dom";
 import Review from "../../common/Review";
 import StarRating from "../../common/StarRating";
@@ -48,12 +50,54 @@ class Comments extends Component {
     if (this.props.customerComments.length === 0) {
       this.props.actions.loadCustomerCommentLoad(CurrentCustomerId());
     }
+    if (this.props.commentLikes.length === 0) {
+      this.props.actions.loadCommentLikes(CurrentCustomerId());
+    }
+    this.props.actions.loadCurrentUser();
   }
   SeeAllComments = () => {
     this.setState({ isAllComment: !this.state.isAllComment });
   };
   HandleChange = (event) => {
     this.setState({ newComment: event.target.value });
+  };
+  GetCommentLikeInformation = (commentid) => {
+    const { commentLikes, currentUser } = this.props;
+    let commentLikeInformation = {
+      isLikeCurrentUser: null,
+      dislikeCount: 0,
+      likeCount: 0,
+      commentLikeId: 0,
+    };
+    if (commentLikes.length !== 0 && IsLogin()) {
+      commentLikes
+        .filter(
+          (comentLike) =>
+            parseInt(comentLike.comment_id) === parseInt(commentid)
+        )
+        .forEach((commentLike) => {
+          if (commentLike.is_like_flag === "0") {
+            commentLikeInformation.dislikeCount++;
+          } else {
+            commentLikeInformation.likeCount++;
+          }
+          if (
+            parseInt(commentLike.user_id) ===
+            parseInt(currentUser.session.userId)
+          ) {
+            if (commentLike.is_like_flag === "1") {
+              commentLikeInformation.isLikeCurrentUser = true;
+              commentLikeInformation.commentLikeId =
+                commentLike.frm_comment_like_user_id;
+            } else if (commentLike.is_like_flag === "0") {
+              commentLikeInformation.isLikeCurrentUser = false;
+              commentLikeInformation.commentLikeId =
+                commentLike.frm_comment_like_user_id;
+            }
+          }
+        });
+    }
+    return commentLikeInformation;
   };
   HandlePoint = (point) => {
     this.setState({ point: point });
@@ -81,8 +125,10 @@ class Comments extends Component {
     }
     return true;
   };
+
   render() {
-    const { customerComments } = this.props;
+    const { customerComments, commentLikes } = this.props;
+    console.log("comment likes :", commentLikes);
     return (
       <Fragment>
         <div className="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
@@ -91,48 +137,56 @@ class Comments extends Component {
           </Link>
           <h5 className="mb-1">All Ratings and Reviews</h5>
           {customerComments && this.state.isAllComment === false
-            ? customerComments.slice(0, 2).map((comment) => (
-                <Fragment key={comment.frm_customer_comments_id}>
-                  <Review
-                    image="/img/user/1.png"
-                    ImageAlt=""
-                    ratingStars={parseInt(comment.flavor)}
-                    Name="Singh Osahan"
-                    comment={comment}
-                    userId={comment.user_id}
-                    profileLink="#"
-                    reviewDate={moment(comment.comment_date).format(
-                      "dddd, MMMM Do YYYY"
-                    )}
-                    reviewText={comment.comment}
-                    likes="0"
-                    dislikes="0"
-                    otherUsers={this.state.users}
-                  />
-                  <hr />
-                </Fragment>
-              ))
-            : customerComments.map((comment) => (
-                <Fragment key={comment.frm_customer_comments_id}>
-                  <Review
-                    image="/img/user/1.png"
-                    ImageAlt=""
-                    comment={comment}
-                    ratingStars={parseInt(comment.flavor)}
-                    Name="Singh Osahan"
-                    userId={comment.user_id}
-                    profileLink="#"
-                    reviewDate={moment(comment.comment_date).format(
-                      "dddd, MMMM Do YYYY"
-                    )}
-                    reviewText={comment.comment}
-                    likes="0"
-                    dislikes="0"
-                    otherUsers={this.state.users}
-                  />
-                  <hr />
-                </Fragment>
-              ))}
+            ? customerComments.slice(0, 2).map((comment) => {
+                const commentLikeInformation = this.GetCommentLikeInformation(
+                  comment.frm_customer_comments_id
+                );
+                return (
+                  <Fragment key={comment.frm_customer_comments_id}>
+                    <Review
+                      image="/img/user/1.png"
+                      ImageAlt=""
+                      ratingStars={parseInt(comment.flavor)}
+                      Name="Singh Osahan"
+                      comment={comment}
+                      userId={comment.user_id}
+                      profileLink="#"
+                      reviewDate={moment(comment.comment_date).format(
+                        "dddd, MMMM Do YYYY"
+                      )}
+                      reviewText={comment.comment}
+                      otherUsers={this.state.users}
+                      commentLikeInformation={commentLikeInformation}
+                    />
+                    <hr />
+                  </Fragment>
+                );
+              })
+            : customerComments.map((comment) => {
+                const commentLikeInformation = this.GetCommentLikeInformation(
+                  comment.frm_customer_comments_id
+                );
+                return (
+                  <Fragment key={comment.frm_customer_comments_id}>
+                    <Review
+                      image="/img/user/1.png"
+                      ImageAlt=""
+                      comment={comment}
+                      ratingStars={parseInt(comment.flavor)}
+                      Name="Singh Osahan"
+                      userId={comment.user_id}
+                      profileLink="#"
+                      reviewDate={moment(comment.comment_date).format(
+                        "dddd, MMMM Do YYYY"
+                      )}
+                      reviewText={comment.comment}
+                      otherUsers={this.state.users}
+                      commentLikeInformation={commentLikeInformation}
+                    />
+                    <hr />
+                  </Fragment>
+                );
+              })}
 
           <Link
             className="text-center w-100 d-block mt-4 font-weight-bold"
@@ -185,6 +239,7 @@ function mapStateToProps(state) {
   return {
     customerComments: state.customerCommentReducer,
     currentUser: state.currentUserReducer,
+    commentLikes: state.customerCommentLikeReducer,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -198,6 +253,11 @@ function mapDispatchToProps(dispatch) {
         commentActions.addCustomerCommentRequest,
         dispatch
       ),
+      loadCommentLikes: bindActionCreators(
+        commentLikeActions.loadCustomerCommentLikeRequest,
+        dispatch
+      ),
+      loadCurrentUser: bindActionCreators(userActions.getCurrentUser, dispatch),
     },
   };
 }

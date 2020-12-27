@@ -5,6 +5,11 @@ export default function IsLogin(){
     return true;
 }
 
+export function GetCurrentUser(){
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    return user.session;
+}
+
 export function CurrentCustomerId(){
     return 1;
 }
