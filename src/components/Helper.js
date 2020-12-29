@@ -7,7 +7,9 @@ export default function IsLogin(){
 
 export function GetCurrentUser(){
     const user = JSON.parse(window.localStorage.getItem("user"));
-    return user.session;
+    if(user !== null)
+        return user.session;
+    return "";
 }
 
 export function CurrentCustomerId(){

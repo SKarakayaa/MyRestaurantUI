@@ -3,14 +3,13 @@ import "react-datetime/css/react-datetime.css";
 import * as rezervationActions from "../../../redux/actions/rezervationActions";
 
 import { Button, Col, Form, Row } from "react-bootstrap";
-import IsLogin, { CurrentCustomerId, GetCurrentUser } from "../../Helper";
+import { CurrentCustomerId, GetCurrentUser } from "../../Helper";
 import React, { Component } from "react";
 
 import Datetime from "react-datetime";
 import alertify from "alertifyjs";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import history from "../../history";
 
 class BookTable extends Component {
   constructor() {
@@ -49,10 +48,7 @@ class BookTable extends Component {
     });
   };
   render() {
-    if (!IsLogin()) {
-      history.push("/login");
-    }
-    return IsLogin() ? (
+    return  (
       <div
         id="book-a-table"
         className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page"
@@ -123,9 +119,7 @@ class BookTable extends Component {
           </Form.Group>
         </Form>
       </div>
-    ) : (
-      ""
-    );
+    )
   }
 }
 function mapDispatchToProps(dispatch) {

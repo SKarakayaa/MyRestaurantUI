@@ -169,7 +169,7 @@ class Detail extends React.Component {
                       <Nav.Item>
                         <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
                       </Nav.Item>
-                      {customerInfo.is_rezervation === true ? (
+                      {customerInfo.is_rezervation === true && IsLogin() ? (
                         <Nav.Item>
                           <Nav.Link eventKey="fourth">Rezervation</Nav.Link>
                         </Nav.Item>
