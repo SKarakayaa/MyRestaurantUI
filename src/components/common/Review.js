@@ -30,9 +30,7 @@ class Review extends Component {
       });
     } else {
       isLike === commentLikeInformation.isLikeCurrentUser
-        ? this.props.actions.deleteCommentsLike({
-            tfrm_comment_like_user_id: commentLikeId,
-          })
+        ? this.props.actions.deleteCommentsLike(commentLikeId)
         : this.props.actions.updateCommentLike({
             tfrm_comment_like_user_id: commentLikeId,
             comment_id: commentId,

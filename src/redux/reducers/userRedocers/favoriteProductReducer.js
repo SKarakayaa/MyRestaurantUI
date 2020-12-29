@@ -11,8 +11,10 @@ export default function favoriteProductReducer(
       action.payload.customer_id = 1;
       return [...state, action.payload];
     case actionTypes.DELETE_FAVORITE_PRODUCT:
-      // var newState = state.filter(x=>x.frm_user_product_favorites_id !==)
-      return action.payload;
+      var newState = state.filter(
+        (x) => x.frm_user_product_favorites_id !== action.payload.favoriteid
+      );
+      return newState;
     case actionTypes.GET_FAVORITE_PRODUCTS:
       return action.payload;
     default:

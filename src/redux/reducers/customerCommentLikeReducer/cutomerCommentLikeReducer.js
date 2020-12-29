@@ -30,11 +30,13 @@ export default function customerCommentLikeReducer(
         return _commentLike;
       });
     case actionTypes.DELETE_CUSTOMER_COMMENT_LIKE:
-      return state.filter(
+      let newState = state.filter(
         (commentLike) =>
           commentLike.frm_comment_like_user_id !==
           action.payload.commentLikeId
       );
+      debugger;
+      return newState;
     default:
       return state;
   }

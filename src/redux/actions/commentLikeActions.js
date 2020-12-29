@@ -28,6 +28,7 @@ export function updateCustomerCommentLike(result, commentLikeModel) {
 }
 
 export function deleteCustomerCommentLike(result, commentLikeId) {
+  debugger;
   return {
     type: actionTypes.DELETE_CUSTOMER_COMMENT_LIKE,
     payload: commentLikeId,
@@ -61,9 +62,10 @@ export function updateCustomerCommentLikeRequest(commentLikeModel) {
 }
 
 export function deleteCustomerCommentLikeRequest(commentLikeId) {
+  debugger;
   return function (dispatch) {
     agent.Customers.deleteCustomerCommentLike(commentLikeId).then((result) =>
-      dispatch(updateCustomerCommentLike(result, commentLikeId))
+      dispatch(deleteCustomerCommentLike(result, commentLikeId))
     );
   };
 }

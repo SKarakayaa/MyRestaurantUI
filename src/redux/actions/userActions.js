@@ -43,10 +43,11 @@ export function addFavorite(addFavoriteResult) {
   return { type: actionTypes.ADD_FAVORITE_PRODUCT, payload: addFavoriteResult };
 }
 
-export function deleteFavorite(deleteFavoriteResult) {
+export function deleteFavorite(deleteFavoriteResult,favoriteid) {
+  debugger
   return {
     type: actionTypes.DELETE_FAVORITE_PRODUCT,
-    payload: deleteFavoriteResult,
+    payload: favoriteid,
   };
 }
 
@@ -111,7 +112,7 @@ export function addFavoriteRequest(userid, productid) {
 export function deleteFavoriteRequest(favoriteid) {
   return function (dispatch) {
     agent.Users.deleteFavorite(favoriteid).then((result) => {
-      dispatch(deleteFavorite(result));
+      dispatch(deleteFavorite(result,favoriteid));
     });
   };
 }
