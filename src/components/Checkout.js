@@ -30,6 +30,7 @@ class Checkout extends React.Component {
     super(props, context);
     this.state = {
       addressid: 0,
+      paymentMethodId: 0,
     };
   }
   componentDidMount() {
@@ -55,7 +56,7 @@ class Checkout extends React.Component {
       const order = {
         user_id: currentUser.session.userId,
         address_id: this.state.addressid,
-        payment_methods: 2,
+        payment_methods: this.state.paymentMethodId,
         total_price: totalPrice,
         channel_type_id: 1,
         customer_id: 1,
@@ -82,10 +83,17 @@ class Checkout extends React.Component {
       validObject.isValid = false;
       validObject.errorMessage = "You didn't choose any address !";
     }
+    if (this.state.paymentMethodId === 0) {
+      validObject.isValid = false;
+      validObject.errorMessage = "You didn't choose payment method !";
+    }
     return validObject;
   };
   ChangeAddressId = (addressid) => {
     this.setState({ addressid: addressid });
+  };
+  ChangePaymentMethodId = (paymentMethodId) => {
+    this.setState({ paymentMethodId: paymentMethodId });
   };
   render() {
     const { cart, customerInfo } = this.props;
@@ -121,7 +129,8 @@ class Checkout extends React.Component {
                 {/* PAYMENT METHOD AYRI BİR COMPONENT OLMALI */}
                 <PaymentChoose
                   CreateOrder={this.CreateOrder}
-                  AddressId={this.state.addressid}
+                  ChoosedPaymentMethodId={this.state.paymentMethodId}
+                  ChangePaymentMethodId={this.ChangePaymentMethodId}
                 />
               </div>
             </Col>

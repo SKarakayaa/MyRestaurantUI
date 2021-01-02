@@ -33,9 +33,8 @@ export default function customerCommentLikeReducer(
       let newState = state.filter(
         (commentLike) =>
           commentLike.frm_comment_like_user_id !==
-          action.payload.commentLikeId
+          action.payload
       );
-      debugger;
       return newState;
     default:
       return state;

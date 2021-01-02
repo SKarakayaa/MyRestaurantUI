@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import configureStore from "./redux/reducers/configureStore";
 import history from "./components/history";
 
+// "proxy": "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01",
 
 const store = configureStore();
 ReactDOM.render(

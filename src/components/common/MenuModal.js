@@ -39,7 +39,10 @@ class MenuModal extends Component {
       let material = this.props.materials.find(
         (x) => x.frm_product_materials_id === material_id
       );
-      materials.push(material);
+      materials.push({
+        value: material.frm_product_materials_id,
+        label: material.product_materials,
+      });
     });
     return materials;
   };
@@ -57,15 +60,19 @@ class MenuModal extends Component {
     this.setState({ choosedMaterials: choosenMaterialNames.substring(1) });
   };
   HandleMultiSelectChangeForRemovable = (event) => {
+    let removableMaterials = this.GetProductMaterials(this.props.menu);
+    let removedMaterialsName = "";
     if (event !== null) {
-      let removedMaterialsName = "";
       event.forEach((e) => {
-        removedMaterialsName += e.label;
+        removableMaterials = removableMaterials.filter(
+          (item) => item.value !== e.value
+        );
       });
-      this.setState({ removedMaterials: removedMaterialsName });
-    } else {
-      this.setState({ removedMaterials: "" });
     }
+    removableMaterials.forEach((item) => {
+      removedMaterialsName += item.label+" ";
+    });
+    this.setState({ removedMaterials: removedMaterialsName });
   };
   HandleChange = (event) => {
     const { name, value } = event.target;
@@ -123,8 +130,9 @@ class MenuModal extends Component {
     this.props.actions.addToCart({ quantity: 1, product });
     this.props.onHide();
   };
+
   render() {
-    const { menu_options, menu, customerinfo } = this.props;
+    const { menu_options, menu } = this.props;
     let materialList = [];
     let removableMaterials = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
@@ -178,17 +186,7 @@ class MenuModal extends Component {
                   defaultValue="Choose"
                   isMulti
                   name="material"
-                  options={materialList.map((material) => {
-                    return {
-                      value: material.frm_product_materials_id,
-                      label:
-                        material.product_materials +
-                        " - " +
-                        parseInt(material.amount) +
-                        " " +
-                        customerinfo.currency_unit,
-                    };
-                  })}
+                  options={materialList}
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.HandleMultiSelectChange}
@@ -201,15 +199,10 @@ class MenuModal extends Component {
               <Form.Group>
                 <Form.Label>Removable Materials</Form.Label>
                 <Select
-                  defaultValue="Choose"
                   isMulti
+                  defaultValue={removableMaterials}
                   name="removableMaterial"
-                  options={removableMaterials.map((material) => {
-                    return {
-                      value: material.frm_product_materials_id,
-                      label: material.product_materials,
-                    };
-                  })}
+                  options={removableMaterials}
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.HandleMultiSelectChangeForRemovable}

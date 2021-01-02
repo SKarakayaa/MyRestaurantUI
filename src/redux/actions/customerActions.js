@@ -32,6 +32,12 @@ export function loadCustomerCuisines(customerCuisines) {
   };
 }
 
+export function loadPaymentMethod(paymentMethods) {
+  return {
+    type: actionTypes.GET_PAYMENT_METHODS,
+    payload: paymentMethods.data,
+  };
+}
 //Request to API
 export function loadCustomerInfoRequest(customerid) {
   return function (dispatch) {
@@ -69,6 +75,14 @@ export function loadCustomerCuisinesRequest(customerId) {
   return function (dispatch) {
     agent.Customers.laodCustomerCuisines(customerId).then((result) =>
       dispatch(loadCustomerCuisines(result))
+    );
+  };
+}
+
+export function loadPaymentMethodRequest() {
+  return function (dispatch) {
+    agent.Customers.loadPaymentMethos().then((result) =>
+      dispatch(loadPaymentMethod(result))
     );
   };
 }

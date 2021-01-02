@@ -4,24 +4,26 @@ export default {
   menus: [],
   mostPopularProducts: [],
   categories: [],
-  
+
   customerInfo: {},
   customerMoreInfo: [],
   customerSlider: [],
-  customerComments:[],
-  customerGalery:[],
-  customerCuisines:[],
+  customerComments: [],
+  customerGalery: [],
+  customerCuisines: [],
 
-  customerCommentLike:[],
-  
+  customerCommentLike: [],
+
+  paymentMethods: [],
+
   currentUser: {},
   userInfo: {},
   registerUser: {},
   favoriteProducts: [],
   addresses: [],
-  
+
   cart: [],
-  
+
   orders: [],
   orderDetails: [],
 };
