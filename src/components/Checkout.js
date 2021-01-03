@@ -66,6 +66,7 @@ class Checkout extends React.Component {
       this.props.actions.createOrder(order, this.props.cart);
       alertify.success("Payment is successfull !");
       this.props.actions.removeCart();
+      history.push('/thanks');
     } else {
       alertify.error(valid.errorMessage);
     }

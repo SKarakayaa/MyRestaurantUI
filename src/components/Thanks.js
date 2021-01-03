@@ -1,6 +1,7 @@
-import React from 'react';
+import {Col, Container, Image, Row} from 'react-bootstrap';
+
 import {Link} from 'react-router-dom';
-import {Row,Col,Container,Image} from 'react-bootstrap';
+import React from 'react';
 
 class Thanks extends React.Component {
 
@@ -13,7 +14,7 @@ class Thanks extends React.Component {
 		                  <Image className="img-fluid" src="/img/thanks.png" alt="404" />
 		                  <h1 className="mt-2 mb-2">Congratulations</h1>
 		                  <p className="mb-5">ou have successfully placed your order</p>
-		                  <Link className="btn btn-primary btn-lg" to="/myaccount/orders">GO HOME</Link>
+		                  <Link className="btn btn-primary btn-lg" to="/myaccount/orders">GO ORDERS</Link>
 		               </Col>
 		            </Row>
 		         </Container>

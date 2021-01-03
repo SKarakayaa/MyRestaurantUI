@@ -88,6 +88,7 @@ class Detail extends React.Component {
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
+    console.log("cart :", this.props.cart);
     let totalRate = this.CalculateTotalRate();
     return (
       <>

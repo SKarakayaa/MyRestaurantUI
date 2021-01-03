@@ -32,16 +32,23 @@ class MenuModal extends Component {
     );
     return item.name;
   };
-  GetProductMaterials = (product) => {
+  //materialListType 0 = can add materials, materialListType 1 = can removable items
+  GetProductMaterials = (product, materialListType) => {
     const material_ids = product.product_materials.split(",");
     let materials = [];
     material_ids.forEach((material_id) => {
       let material = this.props.materials.find(
         (x) => x.frm_product_materials_id === material_id
       );
+      console.log("material :", material);
       materials.push({
         value: material.frm_product_materials_id,
-        label: material.product_materials,
+        label:
+          materialListType === 1
+            ? material.product_materials +
+              "-" +
+              parseFloat(material.amount).toFixed(2)
+            : material.product_materials,
       });
     });
     return materials;
@@ -60,7 +67,7 @@ class MenuModal extends Component {
     this.setState({ choosedMaterials: choosenMaterialNames.substring(1) });
   };
   HandleMultiSelectChangeForRemovable = (event) => {
-    let removableMaterials = this.GetProductMaterials(this.props.menu);
+    let removableMaterials = this.GetProductMaterials(this.props.menu, 2);
     let removedMaterialsName = "";
     if (event !== null) {
       event.forEach((e) => {
@@ -70,7 +77,7 @@ class MenuModal extends Component {
       });
     }
     removableMaterials.forEach((item) => {
-      removedMaterialsName += item.label+" ";
+      removedMaterialsName += item.label + " ";
     });
     this.setState({ removedMaterials: removedMaterialsName });
   };
@@ -136,10 +143,10 @@ class MenuModal extends Component {
     let materialList = [];
     let removableMaterials = [];
     if (this.props.materials.length !== 0 && menu.product_materials !== "") {
-      materialList = this.GetProductMaterials(menu);
+      materialList = this.GetProductMaterials(menu, 1);
     }
     if (this.props.materials.length !== 0 && menu.materials_removed !== "") {
-      removableMaterials = this.GetProductMaterials(menu);
+      removableMaterials = this.GetProductMaterials(menu, 2);
     }
     return (
       <Modal

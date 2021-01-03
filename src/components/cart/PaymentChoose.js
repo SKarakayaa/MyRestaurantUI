@@ -40,7 +40,7 @@ class PaymentChoose extends Component {
                 (method) =>
                   method.frm_payment_method_id === customerPaymentMethodId
               );
-              return (
+              return paymentMethod !== undefined ? (
                 <div
                   key={customerPaymentMethodId}
                   className="border shadow-sm-sm p-4 d-flex align-items-center bg-white mb-3"
@@ -75,6 +75,8 @@ class PaymentChoose extends Component {
                     </div>
                   </div>
                 </div>
+              ) : (
+                ""
               );
             })
           : ""}

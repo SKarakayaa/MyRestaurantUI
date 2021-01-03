@@ -16,6 +16,7 @@ import Footer from "./components/common/Footer";
 import ForgotPassword from "./components/ForgotPassword";
 import Header from "./components/common/Header";
 import Invoice from "./components/Invoice";
+import Kios from "./components/common/Kios";
 import List from "./components/List";
 import Login from "./components/Login";
 import MyAccount from "./components/MyAccount";
@@ -40,6 +41,7 @@ class App extends React.Component {
       <>
         {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&
+        this.props.location.pathname !== "/kios" &&
         customerInfo.customer_status === customerStatus.OPEN ? (
           <Header />
         ) : (
@@ -54,6 +56,7 @@ class App extends React.Component {
           )} */}
 
           <Route path="/offers" exact component={Offers} />
+          <Route path="/kios" exact component={Kios} />
           <Route path="/listing" exact component={List} />
           <Route path="/myaccount" component={MyAccount} />
           <Route path="/404" exact component={NotFound} />
@@ -69,6 +72,7 @@ class App extends React.Component {
         </Switch>
         {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&
+        this.props.location.pathname !== "/kios" &&
         customerInfo.customer_status === customerStatus.OPEN ? (
           <Footer />
         ) : (
