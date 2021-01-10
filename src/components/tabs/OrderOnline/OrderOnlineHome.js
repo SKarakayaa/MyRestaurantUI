@@ -9,6 +9,8 @@ import ProductLine from "./ProductLine";
 import { connect } from "react-redux";
 
 class OrderOnlineHome extends Component {
+
+  // Reselect
   BigListCategories = () => {
     const { categories } = this.props;
     const bigListCategories = categories.filter(
@@ -16,6 +18,7 @@ class OrderOnlineHome extends Component {
     );
     return bigListCategories;
   };
+  //Reselect
   LineListCategories = () => {
     const { categories } = this.props;
     const lineListCategories = categories.filter(
@@ -43,6 +46,7 @@ class OrderOnlineHome extends Component {
         <ItemsCarousel />
         {bigListCategories &&
           bigListCategories.map((bigListCategory) => (
+            //category send as full
             <ProductCard
               categoryid={bigListCategory.frm_product_categories_id}
               categoryName={bigListCategory.name}
@@ -51,6 +55,7 @@ class OrderOnlineHome extends Component {
           ))}
         {lineListCategories &&
           lineListCategories.map((lineListCategory) => (
+            //category send as full
             <ProductLine
               categoryid={lineListCategory.frm_product_categories_id}
               categoryName={lineListCategory.name}

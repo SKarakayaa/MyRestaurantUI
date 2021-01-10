@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import BestSeller from "../../common/BestSeller";
 import { connect } from "react-redux";
 
+//make functional comp
 class ProductCard extends Component {
   render() {
     const { products, categoryid, categoryName,customerInfo } = this.props;
@@ -15,6 +16,7 @@ class ProductCard extends Component {
           .map((product) =>
             product.is_menu === false ? (
               <Col md={4} sm={6} className="mb-4" key={product.frm_product_id}>
+                {/* Send just product */}
                 <BestSeller
                   id={product.frm_product_id}
                   title={product.name}

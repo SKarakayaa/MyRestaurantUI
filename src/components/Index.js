@@ -2,7 +2,6 @@ import * as productActions from "../redux/actions/productActions";
 
 import { Col, Container, Row } from "react-bootstrap";
 
-import CardItem from "./common/CardItem";
 import { CurrentCustomerId } from "./Helper";
 import FontAwesome from "./common/FontAwesome";
 import { Link } from "react-router-dom";
@@ -14,10 +13,12 @@ import TopSearch from "./home/TopSearch";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+// import CardItem from "./common/CardItem";
+
 class Index extends React.Component {
   componentDidMount() {
     if (this.props.products.length === 0) {
-      this.props.actions.getProducts(CurrentCustomerId());
+      this.props.actions.loadProducts(CurrentCustomerId());
     }
   }
   render() {
@@ -77,7 +78,7 @@ class Index extends React.Component {
                   {...options}
                   className="owl-carousel-four owl-theme"
                 >
-                  {this.props.products.map((product) => (
+                  {/* {this.props.products.map((product) => (
                     <div className="item" key={product.id}>
                       <CardItem
                         id={product.id}
@@ -96,7 +97,7 @@ class Index extends React.Component {
                         rating="3.1 (300+)"
                       />
                     </div>
-                  ))}
+                  ))} */}
                 </OwlCarousel>
               </Col>
             </Row>
@@ -159,7 +160,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: {
-      getProducts: bindActionCreators(productActions.getProducts, dispatch),
+      loadProducts: bindActionCreators(
+        productActions.loadProductsRequest,
+        dispatch
+      ),
     },
   };
 }

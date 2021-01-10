@@ -30,31 +30,33 @@ import { connect } from "react-redux";
 
 class Detail extends React.Component {
   componentDidMount() {
+    const {match} = this.props;
+    var isThereId = Object.keys(match.params).length === 0;
     this.props.actions.loadCurrentUser();
     if (this.props.products.length === 0) {
-      this.props.actions.loadProducts(CurrentCustomerId());
+      this.props.actions.loadProducts(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (this.props.customerInfo.length === undefined) {
-      this.props.actions.loadCustomerInfo(CurrentCustomerId());
+      this.props.actions.loadCustomerInfo(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (this.props.customerMoreInfo.length === 0) {
-      this.props.actions.loadCustomerMoreInfo(CurrentCustomerId());
+      this.props.actions.loadCustomerMoreInfo(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (this.props.categories.length === 0) {
-      this.props.actions.loadCategories(CurrentCustomerId());
+      this.props.actions.loadCategories(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (this.props.menus.length === 0) {
-      this.props.actions.loadMenus(CurrentCustomerId());
+      this.props.actions.loadMenus(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (IsLogin() && this.props.favoriteProducts.length === 0) {
-      this.props.actions.loadFavoriteProducts(CurrentCustomerId());
+      this.props.actions.loadFavoriteProducts(isThereId ? CurrentCustomerId() : match.params.id);
     }
     if (this.props.customerSlider.length === 0) {
-      this.props.actions.loadCustomerSlider(CurrentCustomerId());
+      this.props.actions.loadCustomerSlider(isThereId ? CurrentCustomerId() : match.params.id);
     }
-    if (this.props.customerCuisines.length === 0) {
-      this.props.actions.loadCustomerCuisines(CurrentCustomerId());
-    }
+    // if (this.props.customerCuisines.length === 0) {
+    //   this.props.actions.loadCustomerCuisines(isThereId ? CurrentCustomerId() : match.params.id);
+    // }
   }
   constructor(props, context) {
     super(props, context);
@@ -62,6 +64,7 @@ class Detail extends React.Component {
       showAddressModal: false,
     };
   }
+  //reselect
   GetCustomerCuisine = () => {
     const { customerCuisines } = this.props;
     let cuisines = " ";
@@ -72,6 +75,7 @@ class Detail extends React.Component {
     cuisines = cuisines.slice(0, -2);
     return cuisines;
   };
+  //reselect
   CalculateAvaragePoint = () => {
     const { customerComments } = this.props;
     let totalPoint = 0;
@@ -82,13 +86,14 @@ class Detail extends React.Component {
     avg = totalPoint / customerComments.length;
     return avg.toFixed(2);
   };
+  //reselect
   CalculateTotalRate = () => {
     return this.props.customerComments.length;
   };
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
-    console.log("cart :", this.props.cart);
+    console.log("customer info :", customerInfo);
     let totalRate = this.CalculateTotalRate();
     return (
       <>
@@ -274,10 +279,10 @@ function mapDispatchToProps(dispatch) {
         customerActions.loadCustomerSliderRequest,
         dispatch
       ),
-      loadCustomerCuisines: bindActionCreators(
-        customerActions.loadCustomerCuisinesRequest,
-        dispatch
-      ),
+      // loadCustomerCuisines: bindActionCreators(
+      //   customerActions.loadCustomerCuisinesRequest,
+      //   dispatch
+      // ),
     },
   };
 }

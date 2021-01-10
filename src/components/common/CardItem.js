@@ -1,8 +1,9 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
-import {Image,Badge} from 'react-bootstrap';
-import PropTypes from 'prop-types'; 
+import {Badge, Image} from 'react-bootstrap';
+
 import Icofont from 'react-icofont';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class CardItem extends React.Component {
 	render() {

@@ -107,7 +107,6 @@ export default function cartReducer(state = initialState.cart, action) {
           materials: [],
           options: [],
         };
-        debugger;
         const optionid = uuid();
         if (action.payload.product.is_menu) {
           action.payload.product.options.id = optionid;

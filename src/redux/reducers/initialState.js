@@ -10,7 +10,6 @@ export default {
   customerSlider: [],
   customerComments: [],
   customerGalery: [],
-  customerCuisines: [],
 
   customerCommentLike: [],
 
@@ -26,4 +25,7 @@ export default {
 
   orders: [],
   orderDetails: [],
+
+  customers:[],
+  cuisines: []
 };

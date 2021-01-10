@@ -25,13 +25,6 @@ export function loadCustomerGalery(customerGalery) {
   };
 }
 
-export function loadCustomerCuisines(customerCuisines) {
-  return {
-    type: actionTypes.GET_CUSTOMER_CUISINES,
-    payload: customerCuisines.data,
-  };
-}
-
 export function loadPaymentMethod(paymentMethods) {
   return {
     type: actionTypes.GET_PAYMENT_METHODS,
@@ -67,14 +60,6 @@ export function loadCustomerGaleryRequest(customerId) {
   return function (dispatch) {
     agent.Customers.loadCustomerGalery(customerId).then((result) =>
       dispatch(loadCustomerGalery(result))
-    );
-  };
-}
-
-export function loadCustomerCuisinesRequest(customerId) {
-  return function (dispatch) {
-    agent.Customers.laodCustomerCuisines(customerId).then((result) =>
-      dispatch(loadCustomerCuisines(result))
     );
   };
 }

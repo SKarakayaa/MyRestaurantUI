@@ -3,15 +3,16 @@ import cartReducer from "./cartReducers/cartReducer";
 import categoryReducer from "./productReducers/categoryReducer";
 import { combineReducers } from "redux";
 import createOrderReducer from "./orderReducers/createOrderReducer";
+import cuisineReducer from "./homepageReducers/cuisineReducer";
 import currentUserReducer from "./userRedocers/currentUserReducer";
 import customerCommentLikeReducer from "./customerCommentLikeReducer/cutomerCommentLikeReducer";
 import customerCommentReducer from "./customersCommentReducers/customerCommentReducer";
-import customerCuisineReducer from "./customerReducers/customerCuisineReducer";
 import customerGaleryReducer from "./customerReducers/customerGaleryReducer";
 import customerInfoReducer from "./customerReducers/customerInfoReducer";
 import customerMoreInfoReducer from "./customerReducers/customerMoreInfoReducer";
 import customerSliderReducer from "./customerReducers/customerSliderReducer";
 import favoriteProductReducer from "./userRedocers/favoriteProductReducer";
+import homepageReducer from "./homepageReducers/homepageReducer";
 import materialReducer from "./productReducers/materialReducer";
 import menuOptionReducer from "./productReducers/menuOptionReducer";
 import menuReducer from "./productReducers/menuReducer";
@@ -35,7 +36,6 @@ const rootReducer = combineReducers({
   customerSliderReducer,
   customerCommentReducer,
   customerGaleryReducer,
-  customerCuisineReducer,
 
   customerCommentLikeReducer,
 
@@ -57,6 +57,9 @@ const rootReducer = combineReducers({
   createOrderReducer,
   orderDetailReducer,
   orderReducer,
+
+  homepageReducer,
+  cuisineReducer,
 });
 
 export default rootReducer;

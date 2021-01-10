@@ -52,8 +52,6 @@ const Customers = {
     request.get(`/Customer/getCustomerComments?xcustomer_id=${customerid}`),
   loadCustomerGalery: (customerid) =>
     request.get(`/Customer/getCustomerGalery?xcustomer_id=${customerid}`),
-  laodCustomerCuisines: (customerid) =>
-    request.get(`/Customer/getCustomerAllCuisines?xcustomer_id=${customerid}`),
 
   addComment: (comment) =>
     request.post("/Customer/addCustomerComment", comment),
@@ -123,10 +121,17 @@ const Orders = {
     request.get(`/Orders/getOrderDetail?xorder_id=${orderid}`),
 };
 
+const HomepageRequests = {
+  loadCustomers: () => request.get("/Customer/getCustomerList"),
+  laodCuisines: (customerid) =>
+    request.get(`/Customer/getCustomerAllCuisines?xcustomer_id=${customerid}`),
+};
+
 export default {
   Products,
   Customers,
   Users,
   Orders,
   Address,
+  HomepageRequests
 };

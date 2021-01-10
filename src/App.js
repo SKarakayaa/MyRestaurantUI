@@ -14,7 +14,9 @@ import Detail from "./components/Detail";
 import Extra from "./components/Extra";
 import Footer from "./components/common/Footer";
 import ForgotPassword from "./components/ForgotPassword";
+import { Fragment } from "react";
 import Header from "./components/common/Header";
+import Index from "./components/Index";
 import Invoice from "./components/Invoice";
 import Kios from "./components/common/Kios";
 import List from "./components/List";
@@ -30,6 +32,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 class App extends React.Component {
+  state = {
+    isMainSite: true,
+  };
   componentDidMount() {
     if (this.props.customerInfo.length === undefined) {
       this.props.actions.loadCustomerInfo(CurrentCustomerId());
@@ -48,16 +53,21 @@ class App extends React.Component {
           ""
         )}
         <Switch>
-          {/* <Route path="/" exact component={Index} /> */}
-          <Route path="/" exact component={Detail} />
-          {/* {customerInfo.customer_status === customerStatus.OPEN ? (
+          {this.state.isMainSite ? (
+            <Fragment>
+              <Route path="/" exact component={Index} />
+              <Route path="/listing" exact component={List} />
+              <Route path="/detail/:id" exact component={Detail} />
+            </Fragment>
           ) : (
-            <Route path="/" exact component={NotFound} />
-          )} */}
+            <Fragment>
+              {" "}
+              <Route path="/" exact component={Detail} />
+            </Fragment>
+          )}
 
           <Route path="/offers" exact component={Offers} />
           <Route path="/kios" exact component={Kios} />
-          <Route path="/listing" exact component={List} />
           <Route path="/myaccount" component={MyAccount} />
           <Route path="/404" exact component={NotFound} />
           <Route path="/extra" exact component={Extra} />
