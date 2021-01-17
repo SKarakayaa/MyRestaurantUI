@@ -5,6 +5,7 @@ import {
 
 import GalleryList from "../gallery/gallery-list.component";
 import OrderOnline from "../order-online/order-online.component";
+import RatingsAndReviews from "../rating-reviews/ratings-and-reviews.component";
 import React from "react";
 import RestaurantInfo from "../restaurant-info/restaurant-info.component";
 import { Tab } from "react-bootstrap";
@@ -37,7 +38,9 @@ const TabBody = ({
 
       <Tab.Pane eventKey="fourth">{/* <BookTable /> */}</Tab.Pane>
 
-      <Tab.Pane eventKey="fifth">{/* <RatingReviews /> */}</Tab.Pane>
+      <Tab.Pane eventKey="fifth">
+        <RatingsAndReviews />
+      </Tab.Pane>
     </Tab.Content>
   </div>
 );

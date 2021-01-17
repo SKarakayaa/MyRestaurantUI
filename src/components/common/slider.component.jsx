@@ -2,6 +2,10 @@ import * as customerStatus from "../../enums/CustomerStatusEnums";
 
 import { Badge, Button, Col, Container, Image, Row } from "react-bootstrap";
 import {
+  selectCustomerComments,
+  selectCustomerCommentsAreFetching,
+} from "../../redux/comment/comment.reselect";
+import {
   selectCustomerInfo,
   selectCustomerSlider,
   selectCustomerSliderIsFetching,
@@ -9,6 +13,7 @@ import {
 
 import { CurrentCustomerId } from "../../componentsold/Helper";
 import Icofont from "react-icofont";
+import RatingAndReviewsHelper from "../../helpers/ratingAndReviewsHelper";
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -20,7 +25,13 @@ class Slider extends React.Component {
     loadCustomerSlider(CurrentCustomerId());
   }
   render() {
-    const { customerInfo, customerSlider, isSliderFetching } = this.props;
+    const {
+      customerInfo,
+      customerSlider,
+      isSliderFetching,
+      areCustomerCommentsFetching,
+      customerComments,
+    } = this.props;
     return (
       !isSliderFetching && (
         <section className="restaurant-detailed-banner">
@@ -62,16 +73,19 @@ class Slider extends React.Component {
                     <Button variant="success" type="button">
                       <Icofont icon="clock-time" /> {customerInfo.order_time}
                     </Button>
-                    <h6 className="text-white mb-0 restaurant-detailed-ratings">
-                      <span className="generator-bg rounded text-white">
-                        {/* <Icofont icon="star" /> {this.CalculateAvaragePoint()} */}
-                      </span>{" "}
-                      {/* {totalRate} Ratings
-                <Icofont icon="speech-comments" className="ml-3" /> {totalRate}{" "} */}
-                      5 Ratings
-                      <Icofont icon="speech-comments" className="ml-3" /> 5
-                      reviews
-                    </h6>
+                    {!areCustomerCommentsFetching && (
+                      <h6 className="text-white mb-0 restaurant-detailed-ratings">
+                        <span className="generator-bg rounded text-white">
+                          <Icofont icon="star" />{" "}
+                          {RatingAndReviewsHelper.CalculateAvaragePoint(
+                            customerComments
+                          )}
+                        </span>
+                        {customerComments.length} Ratings
+                        <Icofont icon="speech-comments" className="ml-3" />{" "}
+                        {customerComments.length} Reviews
+                      </h6>
+                    )}
                   </div>
                 </Col>
               </Row>
@@ -86,6 +100,8 @@ const mapStateToProps = createStructuredSelector({
   customerInfo: selectCustomerInfo,
   isSliderFetching: selectCustomerSliderIsFetching,
   customerSlider: selectCustomerSlider,
+  areCustomerCommentsFetching: selectCustomerCommentsAreFetching,
+  customerComments: selectCustomerComments,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadCustomerSlider: (customerid) =>
