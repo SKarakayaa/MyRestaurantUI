@@ -97,6 +97,7 @@ class Detail extends React.Component {
     let totalRate = this.CalculateTotalRate();
     return (
       <>
+      {/* Slider ayrı component */}
         <section className="restaurant-detailed-banner">
           <div className="text-center">
             <Image

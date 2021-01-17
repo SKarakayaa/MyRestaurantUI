@@ -6,7 +6,7 @@ import React, { Component } from "react";
 
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
-import StarRating from "../common/StarRating";
+import StarRating from "./StarRating";
 import UpdateCommentModal from "../modals/UpdateCommentModal";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";

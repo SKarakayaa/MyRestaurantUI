@@ -1,0 +1,5 @@
+const CategoryActionTypes = {
+  FETCH_CATEGORIES_START: "FETCH_CATEGORIES_START",
+  FETCH_CATEGORIES_SUCCESS: "FETCH_CATEGORIES_SUCCESS",
+};
+export default CategoryActionTypes;

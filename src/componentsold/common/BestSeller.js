@@ -38,6 +38,7 @@ class BestSeller extends React.Component {
     }
   };
 
+  // reselect - quantity kullanılıyor sadece
   isInCart = () => {
     const productId = this.props.product.frm_product_id;
     const item = this.props.cart.find(

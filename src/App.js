@@ -8,26 +8,28 @@ import * as customerStatus from "./enums/CustomerStatusEnums";
 
 import { Route, Switch } from "react-router-dom";
 
-import Checkout from "./components/Checkout";
-import { CurrentCustomerId } from "./components/Helper";
-import Detail from "./components/Detail";
-import Extra from "./components/Extra";
-import Footer from "./components/common/Footer";
-import ForgotPassword from "./components/ForgotPassword";
+import Checkout from "./componentsold/Checkout";
+import { CurrentCustomerId } from "./componentsold/Helper";
+// import Detail from "./componentsold/Detail";
+import Detail from "./pages/detail.pages";
+import Extra from "./componentsold/Extra";
+import Footer from "./componentsold/common/Footer";
+import ForgotPassword from "./componentsold/ForgotPassword";
 import { Fragment } from "react";
-import Header from "./components/common/Header";
-import Index from "./components/Index";
-import Invoice from "./components/Invoice";
-import Kios from "./components/common/Kios";
-import List from "./components/List";
-import Login from "./components/Login";
-import MyAccount from "./components/MyAccount";
-import NotFound from "./components/NotFound";
-import Offers from "./components/Offers";
+// import Header from "./componentsold/common/Header";
+import Header from "./components/header/header.component";
+import Index from "./componentsold/Index";
+import Invoice from "./componentsold/Invoice";
+import Kios from "./componentsold/common/Kios";
+import List from "./componentsold/List";
+import Login from "./componentsold/Login";
+import MyAccount from "./componentsold/MyAccount";
+import NotFound from "./componentsold/NotFound";
+import Offers from "./componentsold/Offers";
 import React from "react";
-import Register from "./components/Register";
-import Thanks from "./components/Thanks";
-import TrackOrder from "./components/TrackOrder";
+import Register from "./componentsold/Register";
+import Thanks from "./componentsold/Thanks";
+import TrackOrder from "./componentsold/TrackOrder";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -35,16 +37,25 @@ class App extends React.Component {
   state = {
     isMainSite: true,
   };
-  componentDidMount() {
-    if (this.props.customerInfo.length === undefined) {
-      this.props.actions.loadCustomerInfo(CurrentCustomerId());
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.customerInfo.length === undefined) {
+  //     this.props.actions.loadCustomerInfo(CurrentCustomerId());
+  //   }
+  // }
   render() {
-    const { customerInfo } = this.props;
+    // const { customerInfo } = this.props;
     return (
       <>
         {this.props.location.pathname !== "/login" &&
+        this.props.location.pathname !== "/register" ? (
+          <Header />
+        ) : (
+          ""
+        )}
+        <Switch>
+          <Route path="/" exact component={Detail} />
+        </Switch>
+        {/* {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&
         this.props.location.pathname !== "/kios" &&
         customerInfo.customer_status === customerStatus.OPEN ? (
@@ -87,24 +98,24 @@ class App extends React.Component {
           <Footer />
         ) : (
           ""
-        )}
+        )} */}
       </>
     );
   }
 }
-function mapStateToProps(state) {
-  return {
-    customerInfo: state.customerInfoReducer,
-  };
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: {
-      loadCustomerInfo: bindActionCreators(
-        customerActions.loadCustomerInfoRequest,
-        dispatch
-      ),
-    },
-  };
-}
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// function mapStateToProps(state) {
+//   return {
+//     customerInfo: state.customerInfoReducer,
+//   };
+// }
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     actions: {
+//       loadCustomerInfo: bindActionCreators(
+//         customerActions.loadCustomerInfoRequest,
+//         dispatch
+//       ),
+//     },
+//   };
+// }
+export default App;
