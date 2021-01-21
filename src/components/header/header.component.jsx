@@ -13,6 +13,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchCustomerInfoStartAsync } from "../../redux/customer/customer.actions";
+import { logout } from "../../redux/auth/auth.actions";
+import { selectLoginCompleted } from "../../redux/auth/auth.reselect";
 
 class Header extends React.Component {
   constructor(props) {
@@ -50,6 +52,7 @@ class Header extends React.Component {
   }
 
   logonUser = () => {
+    const { logout } = this.props;
     return (
       <Nav activeKey={0} className="ml-auto" onSelect={this.closeMenu}>
         <Nav.Link eventKey={1} as={NavLink} exact to="/">
@@ -148,7 +151,9 @@ class Header extends React.Component {
             </div>
           </div>
         </NavDropdown>
-        <Nav.Link to="/">Logout</Nav.Link>
+        <Nav.Link to="/login" onClick={() => logout()}>
+          Logout
+        </Nav.Link>
       </Nav>
     );
   };
@@ -174,7 +179,7 @@ class Header extends React.Component {
     );
   };
   render() {
-    const { customerInfo, isCustomerInfoFetching } = this.props;
+    const { customerInfo, isCustomerInfoFetching, loginCompleted } = this.props;
     return isCustomerInfoFetching ? (
       <Loading />
     ) : (
@@ -198,7 +203,7 @@ class Header extends React.Component {
             {/* {Object.keys(currentUser).length === 0
               ? this.unlogonUser()
               : this.logonUser()} */}
-            {this.unlogonUser()}
+            {loginCompleted ? this.logonUser() : this.unlogonUser()}
           </Container>
         </Navbar>
       </div>
@@ -208,9 +213,11 @@ class Header extends React.Component {
 const mapStateToProps = createStructuredSelector({
   isCustomerInfoFetching: selectCustomerInfoIsFetching,
   customerInfo: selectCustomerInfo,
+  loginCompleted: selectLoginCompleted,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchCustomerInfoStartAsync: (customerid) =>
     dispatch(fetchCustomerInfoStartAsync(customerid)),
+  logout: () => dispatch(logout()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

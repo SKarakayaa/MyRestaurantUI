@@ -20,6 +20,7 @@ import Header from "./components/header/header.component";
 // import Kios from "./componentsold/common/Kios";
 // import List from "./componentsold/List";
 // import Login from "./componentsold/Login";
+import Login from "./pages/login.pages";
 // import MyAccount from "./componentsold/MyAccount";
 // import NotFound from "./componentsold/NotFound";
 // import Offers from "./componentsold/Offers";
@@ -27,7 +28,6 @@ import React from "react";
 
 // import * as customerActions from "./redux/actions/customerActions";
 // import * as customerStatus from "./enums/CustomerStatusEnums";
-
 
 // import Register from "./componentsold/Register";
 // import Thanks from "./componentsold/Thanks";
@@ -56,6 +56,7 @@ class App extends React.Component {
         )}
         <Switch>
           <Route path="/" exact component={Detail} />
+          <Route path="/login" exact component={Login} />
         </Switch>
         {/* {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&

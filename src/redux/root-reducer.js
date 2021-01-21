@@ -1,3 +1,4 @@
+import authReducer from "./auth/auth.reducer";
 import cartReducer from "./cart/cart.reducer";
 import categoryReducer from "./category/category.reducer";
 import { combineReducers } from "redux";
@@ -11,5 +12,6 @@ const rootReducer = combineReducers({
   products: productReducer,
   cart: cartReducer,
   comments: commentReducer,
+  auth: authReducer,
 });
 export default rootReducer;
