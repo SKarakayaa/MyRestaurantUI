@@ -27,9 +27,9 @@ const CartSide = ({ cartItems, cartItemsCount, cartTotal, customerInfo }) =>
       <h5 className="mb-1 text-white">Your Order</h5>
       <p className="mb-4 text-white">{cartItemsCount} Items</p>
       <div className="bg-white rounded shadow-sm mb-2">
-        {cartItems.map((cartItem, index) => (
+        {cartItems.map((cartItem) => (
           <CartSideItem
-            key={index}
+            key={cartItem.id}
             cartItem={cartItem}
             currencyUnit={customerInfo.currency_unit}
           />

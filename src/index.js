@@ -9,7 +9,7 @@ import App from "./App";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
-import configureStore from "./redux/reducers/configureStore";
+// import configureStore from "./redux/reducers/configureStore";
 import history from "./componentsold/history";
 import { store } from "./redux/store";
 

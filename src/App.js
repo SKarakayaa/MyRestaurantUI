@@ -3,35 +3,37 @@ import "font-awesome/css/font-awesome.min.css";
 import "react-select2-wrapper/css/select2.css";
 import "./App.css";
 
-import * as customerActions from "./redux/actions/customerActions";
-import * as customerStatus from "./enums/CustomerStatusEnums";
-
 import { Route, Switch } from "react-router-dom";
 
-import Checkout from "./componentsold/Checkout";
-import { CurrentCustomerId } from "./componentsold/Helper";
+// import Checkout from "./componentsold/Checkout";
+// import { CurrentCustomerId } from "./componentsold/Helper";
 // import Detail from "./componentsold/Detail";
 import Detail from "./pages/detail.pages";
-import Extra from "./componentsold/Extra";
-import Footer from "./componentsold/common/Footer";
-import ForgotPassword from "./componentsold/ForgotPassword";
-import { Fragment } from "react";
+// import Extra from "./componentsold/Extra";
+// import Footer from "./componentsold/common/Footer";
+// import ForgotPassword from "./componentsold/ForgotPassword";
+// import { Fragment } from "react";
 // import Header from "./componentsold/common/Header";
 import Header from "./components/header/header.component";
-import Index from "./componentsold/Index";
-import Invoice from "./componentsold/Invoice";
-import Kios from "./componentsold/common/Kios";
-import List from "./componentsold/List";
-import Login from "./componentsold/Login";
-import MyAccount from "./componentsold/MyAccount";
-import NotFound from "./componentsold/NotFound";
-import Offers from "./componentsold/Offers";
+// import Index from "./componentsold/Index";
+// import Invoice from "./componentsold/Invoice";
+// import Kios from "./componentsold/common/Kios";
+// import List from "./componentsold/List";
+// import Login from "./componentsold/Login";
+// import MyAccount from "./componentsold/MyAccount";
+// import NotFound from "./componentsold/NotFound";
+// import Offers from "./componentsold/Offers";
 import React from "react";
-import Register from "./componentsold/Register";
-import Thanks from "./componentsold/Thanks";
-import TrackOrder from "./componentsold/TrackOrder";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+
+// import * as customerActions from "./redux/actions/customerActions";
+// import * as customerStatus from "./enums/CustomerStatusEnums";
+
+
+// import Register from "./componentsold/Register";
+// import Thanks from "./componentsold/Thanks";
+// import TrackOrder from "./componentsold/TrackOrder";
+// import { bindActionCreators } from "redux";
+// import { connect } from "react-redux";
 
 class App extends React.Component {
   state = {

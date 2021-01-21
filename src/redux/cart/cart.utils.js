@@ -1,3 +1,5 @@
+import uuid from "react-uuid";
+
 export const addItemToCart = (cartItems, cartItemToAdd) => {
   const existingCartItem = cartItems.find(
     (cartItem) =>
@@ -16,42 +18,23 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         : cartItem
     );
   }
-  return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+  return [...cartItems, { ...cartItemToAdd, quantity: 1, id: uuid() }];
 };
 
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
   const existingCartItem = cartItems.find(
-    (cartItem) =>
-      cartItem.frm_product_id === cartItemToRemove.frm_product_id &&
-      cartItem.options === cartItemToRemove.options &&
-      cartItem.choosedMaterials === cartItemToRemove.choosedMaterials &&
-      cartItem.removedMaterials === cartItemToRemove.removedMaterials
+    (cartItem) => cartItem.id === cartItemToRemove.id
   );
   if (existingCartItem.quantity === 1) {
-    return cartItems.filter(
-      (cartItem) =>
-        cartItem.frm_product_id !== cartItemToRemove.frm_product_id &&
-        cartItem.options === cartItemToRemove.options &&
-        cartItem.choosedMaterials === cartItemToRemove.choosedMaterials &&
-        cartItem.removedMaterials === cartItemToRemove.removedMaterials
-    );
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
   }
   return cartItems.map((cartItem) =>
-    cartItem.frm_product_id === cartItemToRemove.frm_product_id &&
-    cartItem.options === cartItemToRemove.options &&
-    cartItem.choosedMaterials === cartItemToRemove.choosedMaterials &&
-    cartItem.removedMaterials === cartItemToRemove.removedMaterials
+    cartItem.id === cartItemToRemove.id
       ? { ...cartItem, quantity: cartItem.quantity - 1 }
       : cartItem
   );
 };
 
 export const clearItemFromCart = (cartItems, cartItemToClear) => {
-  return cartItems.filter(
-    (cartItem) =>
-      cartItem.frm_product_id !== cartItemToClear.frm_product_id &&
-      cartItem.options === cartItemToClear.options &&
-      cartItem.choosedMaterials === cartItemToClear.choosedMaterials &&
-      cartItem.removedMaterials === cartItemToClear.removedMaterials
-  );
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToClear.id);
 };

@@ -1,5 +1,4 @@
 import { createSelector } from "reselect";
-import memoize from "lodash.memoize";
 const selectProduct = (state) => state.products;
 
 //PRODUCTS AND MENUS
