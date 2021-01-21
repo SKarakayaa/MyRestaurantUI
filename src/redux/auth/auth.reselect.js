@@ -10,3 +10,12 @@ export const selectLoginError = createSelector(
   [selectAuth],
   (auth) => auth.loginError
 );
+
+export const selectRegisterCompleted = createSelector(
+  [selectAuth],
+  (auth) => auth.registerCompleted
+);
+export const selectRegisterError = createSelector(
+  [selectAuth],
+  (auth) => auth.registerError
+);

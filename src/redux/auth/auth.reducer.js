@@ -4,6 +4,9 @@ import AuthHelper from "../../helpers/authHelper";
 const INITIAL_STATE = {
   loginError: "",
   loginCompleted: AuthHelper.IsLogin(),
+
+  registerCompleted: false,
+  registerError: "",
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +32,19 @@ const authReducer = (state = INITIAL_STATE, action) => {
         ...state,
         loginCompleted: false,
         loginError: "",
+      };
+    case AuthActionTypes.REGISTER_SUCCESS:
+      return {
+        ...state,
+        registerError: "",
+        registerCompleted: true,
+      };
+    case AuthActionTypes.REGISTER_FAIL:
+      
+      return {
+        ...state,
+        registerCompleted: false,
+        registerError: action.payload.error,
       };
     default:
       return state;
