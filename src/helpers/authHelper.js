@@ -18,7 +18,7 @@ const AuthHelper = {
   },
   IsLogin: () => {
     var token = window.localStorage.getItem("token");
-    return token === "" ? false : true;
+    return token === null ? false : true;
   },
 };
 const GetSecureLS = () => {
