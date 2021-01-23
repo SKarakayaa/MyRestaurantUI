@@ -17,6 +17,7 @@ const ProductCard = ({ category, products, currencyUnit }) => (
         <ProductCardItem
           currencyUnit={currencyUnit}
           product={product}
+          isFavorite={false}
           key={product.frm_product_id}
         />
       ))}

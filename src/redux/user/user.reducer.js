@@ -6,6 +6,9 @@ const INITIAL_STATE = {
 
   areFetchingUserAddresses: true,
   userAddresses: null,
+
+  areFetchingFavorites: true,
+  favoriteProducts: null,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +35,18 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userAddresses: action.payload,
         areFetchingUserAddresses: false,
+      };
+
+    case UserActionTypes.FETCH_FAVORITE_PRODUCTS_START:
+      return {
+        ...state,
+        areFetchingFavorites: true,
+      };
+    case UserActionTypes.FETCH_FAVORITE_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        favoriteProducts: action.payload,
+        areFetchingFavorites: false,
       };
     default:
       return state;

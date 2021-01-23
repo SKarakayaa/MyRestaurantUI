@@ -32,3 +32,19 @@ export const fetchUserAddressesStartAsync = (customerid, userid) => {
     );
   };
 };
+
+export const fetchFavoriteProductsStart = () => ({
+  type: UserActionTypes.FETCH_FAVORITE_PRODUCTS_START,
+});
+export const fetchFavoriteProductsSuccess = (favoriteProducts) => ({
+  type: UserActionTypes.FETCH_FAVORITE_PRODUCTS_SUCCESS,
+  payload: favoriteProducts.data,
+});
+export const fetchFavoriteProductsStartAsync = (userid, customerid) => {
+  return (dispatch) => {
+    dispatch(fetchFavoriteProductsStart());
+    agent.Users.loadFavorites(userid, customerid).then((result) =>
+      dispatch(fetchFavoriteProductsSuccess(result))
+    );
+  };
+};

@@ -26,7 +26,7 @@ class CardItem extends React.Component {
                   </div>
                   {this.props.showPromoted ? (
 	                  <div className="member-plan position-absolute">
-	                  	<Badge variant={this.props.promotedVariant}>Promoted</Badge>
+	                  	<Badge variant={this.props.promotedVariant}>Promoted</Badge> 
 	                  </div>
 	                  )
                   	  :""

@@ -19,3 +19,12 @@ export const selectUserAddresses = createSelector(
   [selectUser],
   (user) => user.userAddresses
 );
+
+export const selectAreFetchingFavorites = createSelector(
+  [selectUser],
+  (user) => user.areFetchingFavorites
+);
+export const selectFavoriteProducts = createSelector(
+  [selectUser],
+  (user) => user.favoriteProducts
+);
