@@ -16,3 +16,19 @@ export const fetchUserInfoStartAsync = (userid) => {
     );
   };
 };
+
+export const fetchUserAddressesStart = () => ({
+  type: UserActionTypes.FETCH_USER_ADDRESSES_START,
+});
+export const fetchUserAddressesSuccess = (userAddresses) => ({
+  type: UserActionTypes.FETCH_USER_ADDRESSES_SUCCESS,
+  payload: userAddresses.data,
+});
+export const fetchUserAddressesStartAsync = (customerid, userid) => {
+  return (dispatch) => {
+    dispatch(fetchUserAddressesStart());
+    agent.Address.loadAddresses(userid, customerid).then((result) =>
+      dispatch(fetchUserAddressesSuccess(result))
+    );
+  };
+};

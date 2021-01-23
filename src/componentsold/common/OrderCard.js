@@ -1,12 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { Image, Media } from "react-bootstrap";
+
 import Icofont from "react-icofont";
+import { Link } from "react-router-dom";
 import OrderDetailModal from "../modals/OrderDetailModal";
+import PropTypes from "prop-types";
+import React from "react";
 
 class OrderCard extends React.Component {
-  constructor(props, context) {
+  constructor(props, context) { 
     super(props, context);
     this.state = {
       detailModalShow: false,
