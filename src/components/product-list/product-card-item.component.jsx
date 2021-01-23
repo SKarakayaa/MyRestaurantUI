@@ -1,5 +1,6 @@
-import { Badge, Button, Image } from "react-bootstrap";
+import { Badge, Image } from "react-bootstrap";
 
+import AddToCartButton from "../buttons/add-to-cart-button.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
@@ -46,9 +47,10 @@ const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
             ""
           )}
           <span className="float-right">
-            <Button variant="outline-secondary" size="sm">
+            <AddToCartButton variant="outline-secondary" product={product} />
+            {/* <Button variant="outline-secondary" size="sm">
               ADD
-            </Button>
+            </Button> */}
           </span>
         </p>
       </div>

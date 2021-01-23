@@ -4,8 +4,8 @@ import { Fragment } from "react";
 import MenuModal from "../modals/menu-modal.component";
 import React from "react";
 import { addItem } from "../../redux/cart/cart.actions";
+import alertifyjs from 'alertifyjs'
 import { connect } from "react-redux";
-
 class AddToCartButton extends React.Component {
   state = {
     isOpenMenuModal: false,
@@ -17,6 +17,7 @@ class AddToCartButton extends React.Component {
     } else {
       const productModel = AddToCartHelper.HandleMenuModalSubmit({}, product);
       addToCart(productModel);
+      alertifyjs.success("Product is added to cart");
     }
   };
 
