@@ -1,3 +1,5 @@
+import * as addressTypeEnum from "../enums/AddressTypeEnum";
+
 const AddressHelper = {
   GetAddress: (addresses, addressid) => {
     const address = addresses.find((x) => x.frm_user_adress_id === addressid);
@@ -8,6 +10,26 @@ const AddressHelper = {
           address.delivery_instructions +
           " - " +
           address.location;
+  },
+  GetAddressTypeName: (addressTypeId) => {
+    switch (addressTypeId) {
+      case addressTypeEnum.HOME:
+        return "Home";
+      case addressTypeEnum.WORK:
+        return "Work";
+      default:
+        return "Other";
+    }
+  },
+  GetAddressIcon: (addressTypeId) => {
+    switch (addressTypeId) {
+      case addressTypeEnum.HOME:
+        return "home";
+      case addressTypeEnum.WORK:
+        return "briefcase";
+      default:
+        return "location-pin";
+    }
   },
 };
 export default AddressHelper;

@@ -20,7 +20,6 @@ class Orders extends React.Component {
 
   render() {
     const { orderHistory } = this.props;
-    console.log("order history :", orderHistory);
     return (
       <>
         <div className="p-4 bg-white shadow-sm">

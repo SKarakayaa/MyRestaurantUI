@@ -44,9 +44,6 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
               <Icofont icon="headphone-alt" /> HELP
             </Link>
             <OrderDetailButton orderid={order.frm_orders_id} />
-            {/* <Link className="btn btn-sm btn-primary" to="#">
-              <Icofont icon="listing-box" /> Detail
-            </Link> */}
           </div>
           <p className="mb-0 text-black text-primary pt-2">
             <span className="text-black font-weight-bold"> Total Paid:</span>{" "}
