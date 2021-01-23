@@ -5,6 +5,7 @@ import { combineReducers } from "redux";
 import commentReducer from "./comment/comment.reducer";
 import customerReducer from "./customer/customer.reducer";
 import productReducer from "./product/product.reducer";
+import userReducer from "./user/user.reducer";
 
 const rootReducer = combineReducers({
   customer: customerReducer,
@@ -13,5 +14,6 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   comments: commentReducer,
   auth: authReducer,
+  user: userReducer,
 });
 export default rootReducer;

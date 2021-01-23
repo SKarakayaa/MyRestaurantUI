@@ -24,6 +24,7 @@ class Login extends React.Component {
     event.preventDefault();
     const { login } = this.props;
     login(this.state);
+    
     // this.props.actions.login(this.state).then((result) => {
     //   if (result.type === actionTypes.LOGIN_ERROR) {
     //     this.setState({ loginError: result.payload.error });

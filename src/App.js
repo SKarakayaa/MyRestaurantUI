@@ -21,6 +21,7 @@ import Header from "./components/header/header.component";
 // import List from "./componentsold/List";
 // import Login from "./componentsold/Login";
 import Login from "./pages/login.pages";
+import MyAccount from "./pages/myaccount/myaccount.pages";
 // import MyAccount from "./componentsold/MyAccount";
 // import NotFound from "./componentsold/NotFound";
 // import Offers from "./componentsold/Offers";
@@ -59,6 +60,7 @@ class App extends React.Component {
           <Route path="/" exact component={Detail} />
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
+          <Route path="/myaccount" component={MyAccount} />
         </Switch>
         {/* {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&

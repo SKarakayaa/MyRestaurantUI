@@ -63,7 +63,7 @@ const LoginUser = ({ logout }) => (
           title="Cart"
           badgeClass="ml-1"
           badgeVariant="success"
-          badgeValue="5"
+          badgeValue={5}
         />
       }
     >
