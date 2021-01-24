@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import memoize from "lodash.memoize";
 
 const selectOrder = (state) => state.order;
 
@@ -18,4 +19,29 @@ export const selectIsFetchingUserOrderHistory = createSelector(
 export const selectUserOrderHistory = createSelector(
   [selectOrder],
   (order) => order.userOrderHistory
+);
+
+export const selectAreFetchingPaymentMethods = createSelector(
+  [selectOrder],
+  (order) => order.areFetchingPaymentMethods
+);
+export const selectPaymentMethods = createSelector(
+  [selectOrder],
+  (order) => order.paymentMethods
+);
+export const selectPaymentMethod = memoize((paymentMethodId) =>
+  createSelector([selectOrder], (order) =>
+    order.paymentMethods.find(
+      (method) => method.frm_payment_method_id === paymentMethodId
+    )
+  )
+);
+
+export const selectChoosedAddressId = createSelector(
+  [selectOrder],
+  (order) => order.choosedAddressId
+);
+export const selectChoosedPaymentMethodId = createSelector(
+  [selectOrder],
+  (order) => order.choosedPaymentMethodId
 );

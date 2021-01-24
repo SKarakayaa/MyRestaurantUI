@@ -5,6 +5,7 @@ import "./App.css";
 
 import { Route, Switch } from "react-router-dom";
 
+import Checkout from "./pages/checkout.pages";
 // import Checkout from "./componentsold/Checkout";
 // import { CurrentCustomerId } from "./componentsold/Helper";
 // import Detail from "./componentsold/Detail";
@@ -61,6 +62,7 @@ class App extends React.Component {
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
           <Route path="/myaccount" component={MyAccount} />
+          <Route path="/checkout" exact component={Checkout} />
         </Switch>
         {/* {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&

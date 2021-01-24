@@ -17,6 +17,8 @@ const AddressHelper = {
         return "Home";
       case addressTypeEnum.WORK:
         return "Work";
+      case addressTypeEnum.ADD:
+        return "ADD";
       default:
         return "Other";
     }
@@ -27,6 +29,8 @@ const AddressHelper = {
         return "home";
       case addressTypeEnum.WORK:
         return "briefcase";
+      case addressTypeEnum.ADD:
+        return "plus";
       default:
         return "location-pin";
     }

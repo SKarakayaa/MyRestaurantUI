@@ -13,6 +13,11 @@ export const selectCustomerInfoIsFetching = createSelector(
   (customer) => customer.isFetching
 );
 
+export const selectCustomerPaymentMethods = createSelector(
+  [selectCustomer],
+  (customer) => customer.customerInfo.payment_method_id.split(",")
+);
+
 //CUSTOMER MORE INFO
 export const selectCustomerMoreInfoIsFetching = createSelector(
   [selectCustomer],

@@ -32,3 +32,28 @@ export const fetchUserOrderHistoryStartAsync = (customerid, userid) => {
     );
   };
 };
+
+export const fetchPaymentMethodsStart = () => ({
+  type: OrderActionTypes.FETCH_PAYMENT_METHODS_START,
+});
+export const fetchPaymentMethodsSuccess = (paymentMethods) => ({
+  type: OrderActionTypes.FETCH_PAYMENT_METHODS_SUCCESS,
+  payload: paymentMethods.data,
+});
+export const fetchPaymentMethodsStartAsync = () => {
+  return (dispatch) => {
+    dispatch(fetchPaymentMethodsStart());
+    agent.Customers.loadPaymentMethos().then((result) =>
+      dispatch(fetchPaymentMethodsSuccess(result))
+    );
+  };
+};
+
+export const chooseAddress = (addressId) => ({
+  type: OrderActionTypes.CHOOSE_ADDRESS,
+  payload: addressId,
+});
+export const choosePaymentMethod = (paymentMethodId) => ({
+  type: OrderActionTypes.CHOOSE_PAYMENT_METHOD,
+  payload: paymentMethodId,
+});

@@ -6,6 +6,12 @@ const INITIAL_STATE = {
 
   isFetchingUserOrderHistory: true,
   userOrderHistory: null,
+
+  areFetchingPaymentMethods: true,
+  paymentMethods: null,
+
+  choosedAddressId: 0,
+  choosedPaymentMethodId: 0,
 };
 
 const orderReducer = (state = INITIAL_STATE, action) => {
@@ -32,6 +38,29 @@ const orderReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userOrderHistory: action.payload,
         isFetchingUserOrderHistory: true,
+      };
+
+    case OrderActionTypes.FETCH_PAYMENT_METHODS_START:
+      return {
+        ...state,
+        areFetchingPaymentMethods: true,
+      };
+    case OrderActionTypes.FETCH_PAYMENT_METHODS_SUCCESS:
+      return {
+        ...state,
+        paymentMethods: action.payload,
+        areFetchingPaymentMethods: false,
+      };
+
+    case OrderActionTypes.CHOOSE_ADDRESS:
+      return {
+        ...state,
+        choosedAddressId: action.payload,
+      };
+    case OrderActionTypes.CHOOSE_PAYMENT_METHOD:
+      return {
+        ...state,
+        choosedPaymentMethodId: action.payload,
       };
     default:
       return state;

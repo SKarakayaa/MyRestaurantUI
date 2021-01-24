@@ -7,6 +7,7 @@ import {
 import CartSideItem from "./cart-side-item.component";
 import Icofont from "react-icofont";
 import { Image } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -48,10 +49,10 @@ const CartSide = ({ cartItems, cartItemsCount, cartTotal, customerInfo }) =>
           You have saved $955 on the bill
         </p>
       </div>
-      <button className="btn btn-success btn-block btn-lg">
+      <Link to="/checkout" className="btn btn-success btn-block btn-lg">
         Checkout
         <Icofont icon="long-arrow-right" />
-      </button>
+      </Link>
       <div className="pt-2"></div>
     </div>
   );
