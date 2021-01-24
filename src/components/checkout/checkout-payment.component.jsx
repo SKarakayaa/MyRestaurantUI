@@ -4,9 +4,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCustomerPaymentMethods } from "../../redux/customer/customer.reselect";
-import { selectPaymentMethods } from "../../redux/order/order.reselect";
 
-const CheckoutPayment = ({ customerPaymentMethods, paymentMethods }) => (
+const CheckoutPayment = ({ customerPaymentMethods, CreateOrder }) => (
   <div className="bg-white rounded shadow-sm p-4 osahan-payment">
     <h4 className="mb-1">Choose payment method</h4>
     <br></br>
@@ -17,7 +16,7 @@ const CheckoutPayment = ({ customerPaymentMethods, paymentMethods }) => (
       />
     ))}
     <button
-      //   onClick={() => this.props.CreateOrder()}
+      onClick={() => CreateOrder()}
       className="btn btn-success btn-block btn-lg"
     >
       Order <Icofont icon="long-arrow-right" />
@@ -26,6 +25,5 @@ const CheckoutPayment = ({ customerPaymentMethods, paymentMethods }) => (
 );
 const mapStateToProps = createStructuredSelector({
   customerPaymentMethods: selectCustomerPaymentMethods,
-  paymentMethods: selectPaymentMethods,
 });
 export default connect(mapStateToProps)(CheckoutPayment);

@@ -28,6 +28,7 @@ import MyAccount from "./pages/myaccount/myaccount.pages";
 // import Offers from "./componentsold/Offers";
 import React from "react";
 import Register from "./pages/register.pages";
+import Thanks from "./pages/thanks.pages";
 
 // import * as customerActions from "./redux/actions/customerActions";
 // import * as customerStatus from "./enums/CustomerStatusEnums";
@@ -63,6 +64,7 @@ class App extends React.Component {
           <Route path="/register" exact component={Register} />
           <Route path="/myaccount" component={MyAccount} />
           <Route path="/checkout" exact component={Checkout} />
+          <Route path="/thanks" exact component={Thanks} />
         </Switch>
         {/* {this.props.location.pathname !== "/login" &&
         this.props.location.pathname !== "/register" &&

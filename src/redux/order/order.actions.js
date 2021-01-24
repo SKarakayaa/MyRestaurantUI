@@ -49,6 +49,44 @@ export const fetchPaymentMethodsStartAsync = () => {
   };
 };
 
+export const createOrderStart = () => ({
+  type: OrderActionTypes.CREATE_ORDER_START,
+});
+export const createOrderSuccess = (lastOrder) => ({
+  type: OrderActionTypes.CREATE_ORDER_SUCCESS,
+  payload: lastOrder,
+});
+export const createOrderFail = (errorMessage) => ({
+  type: OrderActionTypes.CREATE_ORDER_FAIL,
+  payload: errorMessage,
+});
+export const createOrder = (order, cart) => {
+  return (dispatch) => {
+    dispatch(createOrderStart());
+    agent.Orders.createOrder(order)
+      .then((result) => {
+        if (result.success) {
+          cart.forEach((cartItem) => {
+            var orderDetail = {
+              order_id: result.outs.frm_orders_id,
+              product_id: cartItem.frm_product_id,
+              price: cartItem.price,
+              options: cartItem.options,
+              material_add: cartItem.choosedMaterials,
+              material_removed: cartItem.removedMaterials, 
+              quantity: cartItem.quantity,
+            };
+            agent.Orders.createOrderDetail(orderDetail);
+          });
+        } else {
+          dispatch(createOrderFail(result.message));
+        }
+      })
+      .catch((error) => dispatch(createOrderFail(error.message)));
+    dispatch(createOrderSuccess({ order: order, orderDetail: cart }));
+  };
+};
+
 export const chooseAddress = (addressId) => ({
   type: OrderActionTypes.CHOOSE_ADDRESS,
   payload: addressId,

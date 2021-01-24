@@ -19,7 +19,6 @@ class GalleryList extends React.Component {
   }
   render() {
     const { isGalleryFetching, gallery } = this.props;
-    console.log("gallery :", gallery);
     return (
       !isGalleryFetching && (
         <>

@@ -45,3 +45,17 @@ export const selectChoosedPaymentMethodId = createSelector(
   [selectOrder],
   (order) => order.choosedPaymentMethodId
 );
+
+export const selectIsOrderCreated = createSelector(
+  [selectOrder],
+  (order) => order.isOrderCreated
+);
+export const selectOrderErrorMessage = createSelector(
+  [selectOrder],
+  (order) => order.orderErrorMessage
+);
+
+export const selectLastOrder = createSelector(
+  [selectOrder],
+  (order) => order.lastOrder
+);

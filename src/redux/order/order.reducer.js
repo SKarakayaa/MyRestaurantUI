@@ -12,6 +12,10 @@ const INITIAL_STATE = {
 
   choosedAddressId: 0,
   choosedPaymentMethodId: 0,
+
+  isOrderCreated: false,
+  lastOrder: null,
+  orderErrorMessage: null,
 };
 
 const orderReducer = (state = INITIAL_STATE, action) => {
@@ -61,6 +65,26 @@ const orderReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         choosedPaymentMethodId: action.payload,
+      };
+
+    case OrderActionTypes.CREATE_ORDER_START:
+      return {
+        ...state,
+        isOrderCreated: false,
+        orderErrorMessage: null,
+      };
+    case OrderActionTypes.CREATE_ORDER_SUCCESS:
+      return {
+        ...state,
+        isOrderCreated: true,
+        lastOrder: action.payload,
+        orderErrorMessage: null,
+      };
+    case OrderActionTypes.CREATE_ORDER_FAIL:
+      return {
+        ...state,
+        isOrderCreated: true,
+        orderErrorMessage: action.payload,
       };
     default:
       return state;
