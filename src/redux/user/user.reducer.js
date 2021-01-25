@@ -3,6 +3,7 @@ import UserActionTypes from "./user.types";
 const INITIAL_STATE = {
   isFetchingUserInfo: true,
   userInfo: null,
+  userInfoUpdateErrorMessage: null,
 
   areFetchingUserAddresses: true,
   userAddresses: null,
@@ -22,6 +23,21 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userInfo: action.payload,
+        isFetchingUserInfo: false,
+      };
+    case UserActionTypes.EDIT_PROFILE_START:
+      return state;
+    case UserActionTypes.EDIT_PROFILE_SUCCESS:
+      action.payload.user_id = action.payload.tuser_id;
+      return {
+        ...state,
+        userInfoUpdateErrorMessage: null,
+        userInfo: action.payload,
+      };
+    case UserActionTypes.EDIT_PROFILE_FAIL:
+      return {
+        ...state,
+        userInfoUpdateErrorMessage: action.payload,
         isFetchingUserInfo: false,
       };
 

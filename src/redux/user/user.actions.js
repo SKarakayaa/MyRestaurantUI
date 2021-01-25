@@ -1,6 +1,7 @@
 import UserActionTypes from "./user.types";
 import agent from "../api/agent";
 
+//USER INFO
 export const fetchUserInfoStart = () => ({
   type: UserActionTypes.FETCH_USER_INFO_START,
 });
@@ -16,7 +17,38 @@ export const fetchUserInfoStartAsync = (userid) => {
     );
   };
 };
+//UPDATE USER INFO
+export const fetchUserInfoUpdateStart = () => ({
+  type: UserActionTypes.EDIT_PROFILE_START,
+});
+export const fetchUserInfoUpdateSuccess = (userInfo) => ({
+  type: UserActionTypes.EDIT_PROFILE_SUCCESS,
+  payload: userInfo,
+});
+export const fetchUserInfoUpdateFail = (errorMessage) => ({
+  type: UserActionTypes.EDIT_PROFILE_FAIL,
+  payload: errorMessage,
+});
+export const fetchUserInfoUpdateAsync = (userInfo) => {
+  return (dispatch) => {
+    // dispatch(fetchUserInfoUpdateStart());
+    return agent.Users.updateUser(userInfo)
+      .then((result) => {
+        if (result.success) {
+          return dispatch(fetchUserInfoUpdateSuccess(userInfo));
+        } else {
+          let errmsg = "";
+          result.errors.forEach((error) => {
+            errmsg += error.dsc + " " + error.msg;
+          });
+          return dispatch(fetchUserInfoUpdateFail(errmsg));
+        }
+      })
+      .catch((error) => dispatch(fetchUserInfoUpdateFail(error.message)));
+  };
+};
 
+//USER ADDRESS
 export const fetchUserAddressesStart = () => ({
   type: UserActionTypes.FETCH_USER_ADDRESSES_START,
 });
@@ -33,6 +65,7 @@ export const fetchUserAddressesStartAsync = (customerid, userid) => {
   };
 };
 
+//USER FAVORITE PRODUCT
 export const fetchFavoriteProductsStart = () => ({
   type: UserActionTypes.FETCH_FAVORITE_PRODUCTS_START,
 });

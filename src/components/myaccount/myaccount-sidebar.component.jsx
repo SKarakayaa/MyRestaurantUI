@@ -1,6 +1,7 @@
 import { Col, Image } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
 
+import EditProfileButton from "../buttons/edit-profile-button.component";
+import { NavLink } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -30,9 +31,7 @@ const MyAccountSidebar = ({ userInfo }) => (
                   : "You have no email address !"}
               </p>
               <p className="mb-0 text-black font-weight-bold">
-                <Link to="#" className="text-primary mr-3">
-                  <i className="icofont-ui-edit"></i> EDIT
-                </Link>
+                <EditProfileButton userInfo={userInfo} />
               </p>
             </div>
           </div>
@@ -49,16 +48,6 @@ const MyAccountSidebar = ({ userInfo }) => (
             <i className="icofont-food-cart"></i> Orders
           </NavLink>
         </li>
-        {/* <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            exact
-            to="/myaccount/offers"
-          >
-            <i className="icofont-sale-discount"></i> Offers
-          </NavLink>
-        </li> */}
         <li className="nav-item">
           <NavLink
             className="nav-link"
@@ -69,16 +58,6 @@ const MyAccountSidebar = ({ userInfo }) => (
             <i className="icofont-heart"></i> Favourites
           </NavLink>
         </li>
-        {/* <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            exact
-            to="/myaccount/payments"
-          >
-            <i className="icofont-credit-card"></i> Payments
-          </NavLink>
-        </li> */}
         <li className="nav-item">
           <NavLink
             className="nav-link"

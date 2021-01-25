@@ -2,6 +2,7 @@ import { createSelector } from "reselect";
 import memoize from "lodash.memoize";
 const selectUser = (state) => state.user;
 
+//USER INFO
 export const selectIsFetchingUserInfo = createSelector(
   [selectUser],
   (user) => user.isFetchingUserInfo
@@ -10,7 +11,12 @@ export const selectUserInfo = createSelector(
   [selectUser],
   (user) => user.userInfo
 );
+export const selectUserInfoUpdateErrorMessage = createSelector(
+  [selectUser],
+  (user) => user.userInfoUpdateErrorMessage
+);
 
+//USER ADDRESS
 export const selectAreAddressesFetching = createSelector(
   [selectUser],
   (user) => user.areFetchingUserAddresses
@@ -27,6 +33,7 @@ export const selectUserAddress = memoize((addressId) =>
   )
 );
 
+//USER FAVORITES
 export const selectAreFetchingFavorites = createSelector(
   [selectUser],
   (user) => user.areFetchingFavorites
