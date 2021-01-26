@@ -35,5 +35,22 @@ const AddressHelper = {
         return "location-pin";
     }
   },
+  GetCitiesForSelect: (cities) => {
+    let selectCities = [];
+    cities.forEach((city) => {
+      selectCities.push({ value: city.id, label: city.dsc });
+    });
+    return selectCities;
+  },
+  GetCountiesForSelect: (counties) => {
+    let selectCounties = [];
+    counties.forEach((county) => {
+      selectCounties.push({
+        value: county.counties_id,
+        label: county.countyname,
+      });
+    });
+    return selectCounties;
+  },
 };
 export default AddressHelper;

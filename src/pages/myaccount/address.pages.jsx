@@ -18,7 +18,13 @@ const Address = ({ addresses }) => (
         </Col>
       ))}
       <Col md={6}>
-        <AddressCard cardType="new-address" />
+        <AddressCard
+          address={{
+            address_type: "4",
+            delivery_area: "Click to add new address",
+          }}
+          isAdd
+        />
       </Col>
     </Row>
   </div>

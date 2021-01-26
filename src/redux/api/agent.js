@@ -99,6 +99,11 @@ const Users = {
 };
 
 const Address = {
+  loadCities: () => request.get("/Address/getCity"),
+  loadCounties: (cityid) =>
+    request.get(`/Address/getCounties?xcityid=${cityid}`),
+  loadAreas: (countyid) =>
+    request.get(`/Address/getArea?xcountyid=${countyid}`),
   loadAddresses: (userid, customerid) =>
     request.get(`/Users/getUserAddress?xuser_id=${userid}`),
   createAddress: (address) => request.post("/Users/addUserAddress", address),
@@ -133,5 +138,5 @@ export default {
   Users,
   Orders,
   Address,
-  HomepageRequests
+  HomepageRequests,
 };

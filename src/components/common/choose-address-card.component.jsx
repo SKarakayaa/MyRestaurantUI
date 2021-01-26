@@ -1,9 +1,9 @@
 import { Card, Media } from "react-bootstrap";
 
+import AddressAddUpdateButton from "../buttons/address-add-update-button.component";
 import AddressHelper from "../../helpers/addressHelper";
 import { Col } from "react-bootstrap";
 import Icofont from "react-icofont";
-import { Link } from "react-router-dom";
 import React from "react";
 import { chooseAddress } from "../../redux/order/order.actions";
 import { connect } from "react-redux";
@@ -57,9 +57,7 @@ const ChooseAddressCard = ({
                   )}
                 </>
               ) : (
-                <Link className="btn btn-sm btn-primary mr-2" to="#">
-                  ADD NEW ADDRESS
-                </Link>
+                <AddressAddUpdateButton isAdd />
               )}
             </p>
           </div>
