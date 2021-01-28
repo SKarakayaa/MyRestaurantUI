@@ -13,18 +13,14 @@ const Address = ({ addresses }) => (
         <h4 className="font-weight-bold mt-0 mb-3">Manage Addresses</h4>
       </Col>
       {addresses.map((address, index) => (
-        <Col md={6} key={index}>
-          <AddressCard address={address} cardType="address-info" />
-        </Col>
+        <AddressCard key={index} address={address} />
       ))}
-      <Col md={6}>
-        <AddressCard
-          address={{
-            address_type: "4",
-          }}
-          isAdd
-        />
-      </Col>
+      <AddressCard
+        address={{
+          address_type: "4",
+        }}
+        isAdd
+      />
     </Row>
   </div>
 );

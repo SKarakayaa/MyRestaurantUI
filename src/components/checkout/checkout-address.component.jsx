@@ -1,4 +1,4 @@
-import ChooseAddressCard from "../common/choose-address-card.component";
+import AddressCard from "../myaccount/address-card.component";
 import React from "react";
 import { Row } from "react-bootstrap";
 import { connect } from "react-redux";
@@ -11,15 +11,13 @@ const CheckoutAddress = ({ addresses }) => (
     <h6 className="mb-3 text-black-50">Multiple addresses in this location</h6>
     <Row>
       {addresses.map((address) => (
-        <ChooseAddressCard key={address.frm_user_adress_id} address={address} />
+        <AddressCard
+          address={address}
+          isCheckout
+          key={address.frm_user_adress_id}
+        />
       ))}
-      <ChooseAddressCard
-        address={{
-          address_type: "4",
-          delivery_area: "Click to add new address",
-        }}
-        isAdd
-      />
+      <AddressCard isAdd isCheckout address={{ address_type: "4" }} />
     </Row>
   </div>
 );
