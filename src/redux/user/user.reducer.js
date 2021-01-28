@@ -10,6 +10,8 @@ const INITIAL_STATE = {
 
   areFetchingFavorites: true,
   favoriteProducts: null,
+
+  createEditAddressError: "",
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -63,6 +65,12 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         favoriteProducts: action.payload,
         areFetchingFavorites: false,
+      };
+
+    case UserActionTypes.CREATE_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        userAddresses: [...state.userAddresses, { ...action.payload }],
       };
     default:
       return state;

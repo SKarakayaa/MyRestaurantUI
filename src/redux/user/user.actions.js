@@ -81,3 +81,35 @@ export const fetchFavoriteProductsStartAsync = (userid, customerid) => {
     );
   };
 };
+
+//USER ADDRESS
+export const fetchCreateAddressSuccess = (addressModel) => ({
+  type: UserActionTypes.CREATE_ADDRESS_SUCCESS,
+  payload: addressModel,
+});
+export const fetchCreateAddressFail = (errorMessage) => ({
+  type: UserActionTypes.CREATE_ADDRESS_FAIL,
+  payload: errorMessage,
+});
+export const fetchCreateAddressAsync = (addressModel) => {
+  return (dispatch) => {
+    return agent.Address.createAddress(addressModel)
+      .then((result) => {
+        if (result.success) {
+          return dispatch(
+            fetchCreateAddressSuccess({
+              ...addressModel,
+              frm_user_adress_id: result.outs.frm_user_adress_id,
+            })
+          );
+        } else {
+          let errmsg = "";
+          result.errors.forEach((error) => {
+            errmsg += error.dsc + " " + error.msg;
+          });
+          return dispatch(fetchCreateAddressFail(errmsg));
+        }
+      })
+      .catch((error) => dispatch(fetchCreateAddressFail(error.message)));
+  };
+};

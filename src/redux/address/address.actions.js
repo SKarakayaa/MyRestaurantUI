@@ -68,3 +68,27 @@ export const fetchAreasStartAsync = (countyid) => {
     });
   };
 };
+
+export const fetchNeighborhoodsStart = () => ({
+  type: AddressActionTypes.FETCH_NEIGHBORHOODS_START,
+});
+export const fetchNeighborhoodsSuccess = (neighborhoods) => ({
+  type: AddressActionTypes.FETCH_NEIGHBORHOODS_SUCCESS,
+  payload: neighborhoods,
+});
+export const fetchNeighborhoodsStartAsync = (areaid) => {
+  return (dispatch) => {
+    dispatch(fetchNeighborhoodsStart());
+    agent.Address.loadNeighborhoods(areaid).then((result) => {
+      let neighborhoods = [];
+      result.data.forEach((neighborhood) =>
+        neighborhoods.push({
+          value: neighborhood.id,
+          label: neighborhood.dsc,
+          areaid: areaid,
+        })
+      );
+      dispatch(fetchNeighborhoodsSuccess(neighborhoods));
+    });
+  };
+};

@@ -28,3 +28,12 @@ export const selectAreas = createSelector(
   [selectAddress],
   (address) => address.areas
 );
+
+export const selectAreNeighborhoodsFetching = createSelector(
+  [selectAddress],
+  (address) => address.areNeighborhoodsFetching
+);
+export const selectNeighborhoods = createSelector(
+  [selectAddress],
+  (address) => address.neighborhoods
+);

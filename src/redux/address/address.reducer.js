@@ -9,6 +9,9 @@ const INITIAL_STATE = {
 
   areAreasFetching: true,
   areas: null,
+
+  areNeighborhoodsFetching: true,
+  neighborhoods: null,
 };
 
 const addressReducer = (state = INITIAL_STATE, action) => {
@@ -21,6 +24,8 @@ const addressReducer = (state = INITIAL_STATE, action) => {
         counties: null,
         areAreasFetching: true,
         areas: null,
+        neighborhoods: null,
+        areNeighborhoodsFetching: true,
       };
     case AddressActionTypes.FETCH_CITIES_SUCCESS:
       return {
@@ -34,6 +39,8 @@ const addressReducer = (state = INITIAL_STATE, action) => {
         areCountiesFetching: true,
         areAreasFetching: true,
         areas: null,
+        neighborhoods: null,
+        areNeighborhoodsFetching: true,
       };
     case AddressActionTypes.FETCH_COUNTIES_SUCCESS:
       return {
@@ -45,12 +52,26 @@ const addressReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         areAreasFetching: true,
+        neighborhoods: null,
+        areNeighborhoodsFetching: true,
       };
     case AddressActionTypes.FETCH_AREAS_SUCCESS:
       return {
         ...state,
         areas: action.payload,
         areAreasFetching: false,
+      };
+
+    case AddressActionTypes.FETCH_NEIGHBORHOODS_START:
+      return {
+        ...state,
+        areNeighborhoodsFetching: true,
+      };
+    case AddressActionTypes.FETCH_NEIGHBORHOODS_SUCCESS:
+      return {
+        ...state,
+        neighborhoods: action.payload,
+        areNeighborhoodsFetching: false,
       };
     default:
       return state;

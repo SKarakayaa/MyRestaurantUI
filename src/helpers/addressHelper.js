@@ -1,5 +1,7 @@
 import * as addressTypeEnum from "../enums/AddressTypeEnum";
 
+import AuthHelper from "./authHelper";
+
 const AddressHelper = {
   GetAddress: (addresses, addressid) => {
     const address = addresses.find((x) => x.frm_user_adress_id === addressid);
@@ -35,22 +37,40 @@ const AddressHelper = {
         return "location-pin";
     }
   },
-  GetCitiesForSelect: (cities) => {
-    let selectCities = [];
-    cities.forEach((city) => {
-      selectCities.push({ value: city.id, label: city.dsc });
-    });
-    return selectCities;
+  GetAddressTypeSelect: () => {
+    return [
+      { value: 1, label: "EV" },
+      { value: 2, label: "İŞ" },
+      { value: 3, label: "DİĞER" },
+    ];
   },
-  GetCountiesForSelect: (counties) => {
-    let selectCounties = [];
-    counties.forEach((county) => {
-      selectCounties.push({
-        value: county.counties_id,
-        label: county.countyname,
-      });
-    });
-    return selectCounties;
+  IsNullOrEmpty: (obj) => {
+    for (var key in obj) {
+      if (obj[key] === null && obj[key] === "") return false;
+    }
+    return true;
+  },
+  CreateModel: (state) => {
+    const addressModel = {
+      address_type: state.addressType.value.toString(),
+      city_id: state.city.value,
+      counties_id: state.county.value,
+      area_id: state.area.value,
+      neighborhoods_id: state.neighborhoods.value,
+      delivery_instructions: state.openAddress,
+      user_id: AuthHelper.GetCurrentUser().userId,
+      complate_address:
+        state.area.label +
+        " " +
+        state.neighborhoods.label +
+        " " +
+        state.openAddress +
+        " " +
+        state.county.label +
+        "/" +
+        state.city.label,
+    };
+    return addressModel;
   },
 };
 export default AddressHelper;

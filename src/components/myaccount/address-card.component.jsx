@@ -25,12 +25,8 @@ const AddressCard = ({ address, isAdd }) => (
               {AddressHelper.GetAddressTypeName(address.address_type)}
             </h6>
             <p className="text-black">
-              {address.delivery_area}
-              {!isAdd &&
-                " - " +
-                  address.delivery_instructions +
-                  " - " +
-                  address.location}
+              {/* {address.delivery_area} */}
+              {!isAdd ? address.complate_address : "Click to add new address"}
             </p>
 
             <p className="mb-0 text-black font-weight-bold">

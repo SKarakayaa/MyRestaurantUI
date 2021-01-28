@@ -21,7 +21,6 @@ const Address = ({ addresses }) => (
         <AddressCard
           address={{
             address_type: "4",
-            delivery_area: "Click to add new address",
           }}
           isAdd
         />
