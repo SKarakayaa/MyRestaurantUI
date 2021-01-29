@@ -50,27 +50,31 @@ const AddressHelper = {
     }
     return true;
   },
-  CreateModel: (state) => {
+  CreateModel: (state, cities, counties, areas, neighborhoods) => {
     const addressModel = {
-      address_type: state.addressType.value.toString(),
-      city_id: state.city.value,
-      counties_id: state.county.value,
-      area_id: state.area.value,
-      neighborhoods_id: state.neighborhoods.value,
+      address_type: state.addressType.toString(),
+      city_id: state.city,
+      counties_id: state.county,
+      area_id: state.area,
+      neighborhoods_id: state.neighborhoods,
       delivery_instructions: state.openAddress,
       user_id: AuthHelper.GetCurrentUser().userId,
       complate_address:
-        state.area.label +
+        AddressHelper.GetLabel(areas, state.area) +
         " " +
-        state.neighborhoods.label +
+        AddressHelper.GetLabel(neighborhoods, state.neighborhoods) +
         " " +
         state.openAddress +
         " " +
-        state.county.label +
+        AddressHelper.GetLabel(counties, state.county) +
         "/" +
-        state.city.label,
+        AddressHelper.GetLabel(cities, state.city),
     };
+    if (state.address_id !== undefined) addressModel.tfrm_user_adress_id = state.address_id;
     return addressModel;
+  },
+  GetLabel: (array, value) => {
+    return array.find((x) => x.value === value).label;
   },
 };
 export default AddressHelper;

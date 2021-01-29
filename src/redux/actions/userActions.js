@@ -44,7 +44,6 @@ export function addFavorite(addFavoriteResult) {
 }
 
 export function deleteFavorite(deleteFavoriteResult,favoriteid) {
-  debugger
   return {
     type: actionTypes.DELETE_FAVORITE_PRODUCT,
     payload: favoriteid,

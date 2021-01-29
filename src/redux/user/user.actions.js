@@ -31,7 +31,6 @@ export const fetchUserInfoUpdateFail = (errorMessage) => ({
 });
 export const fetchUserInfoUpdateAsync = (userInfo) => {
   return (dispatch) => {
-    // dispatch(fetchUserInfoUpdateStart());
     return agent.Users.updateUser(userInfo)
       .then((result) => {
         if (result.success) {
@@ -111,5 +110,29 @@ export const fetchCreateAddressAsync = (addressModel) => {
         }
       })
       .catch((error) => dispatch(fetchCreateAddressFail(error.message)));
+  };
+};
+
+export const fetchUpdateAddressSuccess = (addressModel) => ({
+  type: UserActionTypes.UPDATE_ADDRESS_SUCCESS,
+  payload: addressModel,
+});
+export const fetchUpdateAddressFail = (errorMessage) => ({
+  type: UserActionTypes.UPDATE_ADDRESS_FAIL,
+  payload: errorMessage,
+});
+export const fetchUpdateAddressAsync = (addressModel) => {
+  return (dispatch) => {
+    return agent.Address.updateAddress(addressModel).then((result) => {
+      if (result.success) {
+        return dispatch(fetchUpdateAddressSuccess(addressModel));
+      } else {
+        let errmsg = "";
+        result.errors.forEach((error) => {
+          errmsg += error.dsc + " " + error.msg;
+        });
+        return dispatch(fetchUpdateAddressFail(errmsg));
+      }
+    });
   };
 };

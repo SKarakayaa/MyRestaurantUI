@@ -1,4 +1,5 @@
 import UserActionTypes from "./user.types";
+import { updateAddress } from "./user.utils";
 
 const INITIAL_STATE = {
   isFetchingUserInfo: true,
@@ -71,6 +72,17 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userAddresses: [...state.userAddresses, { ...action.payload }],
+      };
+    case UserActionTypes.CREATE_ADDRESS_FAIL:
+      return {
+        ...state,
+        createEditAddressError: action.payload,
+      };
+
+    case UserActionTypes.UPDATE_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        userAddresses: updateAddress(state.userAddresses, action.payload),
       };
     default:
       return state;

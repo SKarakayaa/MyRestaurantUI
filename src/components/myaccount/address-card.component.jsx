@@ -34,10 +34,7 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
                 {!isAdd ? (
                   !isCheckout ? (
                     <>
-                      <AddressAddUpdateButton
-                        addressId={address.frm_user_adress_id}
-                        isAdd={false}
-                      />
+                      <AddressAddUpdateButton address={address} isAdd={false} />
                       <Link
                         className="text-danger"
                         to="#"
@@ -47,12 +44,10 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
                       </Link>
                     </>
                   ) : (
-                    <CheckoutAddressButtons
-                      addressid={address.frm_user_adress_id}
-                    />
+                    <CheckoutAddressButtons address={address} />
                   )
                 ) : (
-                  <AddressAddUpdateButton addressId={0} isAdd />
+                  <AddressAddUpdateButton address={null} isAdd />
                 )}
               </p>
             </div>

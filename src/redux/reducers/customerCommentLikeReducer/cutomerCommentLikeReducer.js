@@ -10,7 +10,6 @@ export default function customerCommentLikeReducer(
     case actionTypes.GET_CUSTOMER_COMMENT_LIKE:
       return action.payload;
     case actionTypes.ADD_CUSTOMER_COMMENT_LIKE:
-      debugger;
       return [...state, action.payload];
     case actionTypes.UPDATE_CUSTOMER_COMMENT_LIKE:
       var commentLike = state.find(

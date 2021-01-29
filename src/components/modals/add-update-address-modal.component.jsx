@@ -5,6 +5,10 @@ import {
   fetchNeighborhoodsStartAsync,
 } from "../../redux/address/address.actions";
 import {
+  fetchCreateAddressAsync,
+  fetchUpdateAddressAsync,
+} from "../../redux/user/user.actions";
+import {
   selectAreAreasFetching,
   selectAreCitiesFetching,
   selectAreCountiesFetching,
@@ -18,48 +22,82 @@ import {
 import AddressHelper from "../../helpers/addressHelper";
 import React from "react";
 import SingleSelect from "../dropdowns/single-select.component";
+import UserActionTypes from "../../redux/user/user.types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { fetchCreateAddressAsync } from "../../redux/user/user.actions";
 
 class AddUpdateAddressModal extends React.Component {
-  state = {
-    id: null,
-    addressType: null,
-    city: null,
-    county: null,
-    area: null,
-    neighborhoods: null,
-    openAddress: "",
-    errorMessage: "",
-  };
-  handleSelectChange(name, value) {
+  constructor(props) {
+    super(props);
+    const { address } = props;
+    this.state = {
+      address_id: address !== null ? address.frm_user_adress_id : undefined,
+      addressType: address !== null ? address.address_type : undefined,
+      city: address !== null ? address.city_id : undefined,
+      county: address !== null ? address.counties_id : undefined,
+      area: address !== null ? address.area_id : undefined,
+      neighborhoods: address !== null ? address.neighborhoods_id : undefined,
+      openAddress: address !== null ? address.delivery_instructions : "",
+      errorMessage: "",
+    };
+  }
+  componentDidMount() {
+    const { address, loadCounties, loadAreas, loadNeighborhoods } = this.props;
+    if (address !== null) {
+      loadCounties(address.city_id);
+      loadAreas(address.counties_id);
+      loadNeighborhoods(address.area_id);
+    }
+  }
+  handleSelectChange(event) {
+    const { name, value } = event.target;
     const { loadCounties, loadAreas, loadNeighborhoods } = this.props;
     this.setState({ [name]: value });
     if (name === "city") {
-      this.setState({ county: null, area: null, neighborhoods: null });
-      loadCounties(value.value);
+      this.setState({
+        county: undefined,
+        area: undefined,
+        neighborhoods: undefined,
+      });
+      loadCounties(value);
     }
     if (name === "county") {
-      this.setState({ area: null, neighborhoods: null });
-      loadAreas(value.value);
+      this.setState({ area: undefined, neighborhoods: undefined });
+      loadAreas(value);
     }
     if (name === "area") {
-      this.setState({ neighborhoods: null });
-      loadNeighborhoods(value.value);
+      this.setState({ neighborhoods: undefined });
+      loadNeighborhoods(value);
     }
   }
   HandleSubmit = (event) => {
     event.preventDefault();
-    var model = AddressHelper.CreateModel(this.state);
+    const { cities, counties, areas, neighborhoods, address } = this.props;
+    var model = AddressHelper.CreateModel(
+      this.state,
+      cities,
+      counties,
+      areas,
+      neighborhoods
+    );
     console.log("model :", model);
-    // this.props.createAddress(model);
+    if (address === null) {
+      this.props.createAddress(model).then((result) => {
+        if (result.type === UserActionTypes.CREATE_ADDRESS_SUCCESS)
+          this.props.onHide();
+      });
+    } else {
+      this.props.updateAddress(model).then((result) => {
+        if (result.type === UserActionTypes.UPDATE_ADDRESS_SUCCESS)
+          this.props.onHide();
+      });
+    }
   };
   render() {
     const {
       show,
       onHide,
-      addressId,
+      address,
       citiesAreFetching,
       cities,
       countiesAreFetching,
@@ -69,6 +107,7 @@ class AddUpdateAddressModal extends React.Component {
       neighborhoodsAreFetching,
       neighborhoods,
     } = this.props;
+    console.log("state :", this.state);
     return (
       <Modal show={show} onHide={onHide} size="m" centered>
         <Modal.Header closeButton={true}>
@@ -82,38 +121,48 @@ class AddUpdateAddressModal extends React.Component {
             <SingleSelect
               label="Address Tipi Seçiniz"
               options={AddressHelper.GetAddressTypeSelect()}
-              onChange={this.handleSelectChange.bind(this, "addressType")}
+              value={this.state.addressType}
+              name="addressType"
+              onChange={this.handleSelectChange.bind(this)}
               required
             />
             {!citiesAreFetching && (
               <SingleSelect
                 options={cities}
-                onChange={this.handleSelectChange.bind(this, "city")}
+                onChange={this.handleSelectChange.bind(this)}
+                value={this.state.city}
                 required
+                name="city"
                 label="Şehir Seçiniz"
               />
             )}
             {!countiesAreFetching && (
               <SingleSelect
                 options={counties}
-                onChange={this.handleSelectChange.bind(this, "county")}
+                onChange={this.handleSelectChange.bind(this)}
                 required
+                value={this.state.county}
+                name="county"
                 label="İlçe Seçiniz"
               />
             )}
             {!areasAreFetching && (
               <SingleSelect
                 options={areas}
-                onChange={this.handleSelectChange.bind(this, "area")}
+                onChange={this.handleSelectChange.bind(this)}
                 required
+                value={this.state.area}
+                name="area"
                 label="Bölge Seçiniz"
               />
             )}
             {!neighborhoodsAreFetching && (
               <SingleSelect
                 options={neighborhoods}
-                onChange={this.handleSelectChange.bind(this, "neighborhoods")}
+                onChange={this.handleSelectChange.bind(this)}
                 required
+                value={this.state.neighborhoods}
+                name="neighborhoods"
                 label="Mahalle Seçiniz"
               />
             )}
@@ -145,7 +194,7 @@ class AddUpdateAddressModal extends React.Component {
               variant="primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              {addressId !== 0 && addressId !== undefined ? "UPDATE" : "ADD"}
+              {address !== null ? "UPDATE" : "ADD"}
             </Button>
           </Modal.Footer>
         </Form>
@@ -169,6 +218,8 @@ const mapDispatchToProps = (dispatch) => ({
   loadNeighborhoods: (areaid) => dispatch(fetchNeighborhoodsStartAsync(areaid)),
   createAddress: (addressModel) =>
     dispatch(fetchCreateAddressAsync(addressModel)),
+  updateAddress: (addressModel) =>
+    dispatch(fetchUpdateAddressAsync(addressModel)),
 });
 export default connect(
   mapStateToProps,
