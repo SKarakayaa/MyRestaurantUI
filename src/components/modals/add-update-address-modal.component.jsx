@@ -80,7 +80,6 @@ class AddUpdateAddressModal extends React.Component {
       areas,
       neighborhoods
     );
-    console.log("model :", model);
     if (address === null) {
       this.props.createAddress(model).then((result) => {
         if (result.type === UserActionTypes.CREATE_ADDRESS_SUCCESS)
@@ -107,7 +106,6 @@ class AddUpdateAddressModal extends React.Component {
       neighborhoodsAreFetching,
       neighborhoods,
     } = this.props;
-    console.log("state :", this.state);
     return (
       <Modal show={show} onHide={onHide} size="m" centered>
         <Modal.Header closeButton={true}>

@@ -1,4 +1,5 @@
 import CommentActionTypes from "./comment.types";
+import { updateComment } from "./comment.utils";
 
 const INITIAL_STATE = {
   areCustomerCommentsFetching: true,
@@ -14,6 +15,7 @@ const commentReducer = (state = INITIAL_STATE, action) => {
         areCustomerCommentsFetching: true,
       };
     case CommentActionTypes.FETCH_CUSTOMER_COMMENTS_SUCCESS:
+      debugger;
       return {
         ...state,
         areCustomerCommentsFetching: false,
@@ -23,6 +25,17 @@ const commentReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         seeAll: !state.seeAll,
+      };
+
+    case CommentActionTypes.ADD_COMMENT_SUCCESS:
+      return {
+        ...state,
+        customerComments: [...state.customerComments, { ...action.payload }],
+      };
+    case CommentActionTypes.UPDATE_COMMENT_SUCCESS:
+      return {
+        ...state,
+        customerComments: updateComment(state.customerComments, action.payload),
       };
     default:
       return state;

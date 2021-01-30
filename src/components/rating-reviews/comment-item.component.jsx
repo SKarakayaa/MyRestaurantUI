@@ -1,10 +1,11 @@
 import { Button, Image, Media } from "react-bootstrap";
 
+import AuthHelper from "../../helpers/authHelper";
+import CommentButtons from "../buttons/comment-buttons.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
 import StarRating from "./star-rating.component";
-import moment from "moment";
 
 const CommentItem = ({ comment }) => (
   <div className="reviews-members pt-4 pb-4">
@@ -34,11 +35,11 @@ const CommentItem = ({ comment }) => (
           </div>
           <h6 className="mb-1">
             <Link className="text-black" to="#">
-              Singh Osahan
+              {comment.comment_user_name}
             </Link>
           </h6>
           <p className="text-gray">
-            {moment(comment.comment_date).format("dddd, MMMM Do YYYY")}
+            {comment.comment_date.split(" ")[0]}
             {/* {comment !== undefined ? comment.comment_user_name : ""} */}
           </p>
         </div>
@@ -85,28 +86,9 @@ const CommentItem = ({ comment }) => (
           </Link>
           <br></br>
           <br></br>
-          {/* {IsLogin() &&
-          currentUser.session.userId === parseInt(this.props.userId) ? (
-            <>
-              <Link
-                to="#"
-                className="w-100 mt-4 font-weight-bold ml-2"
-                onClick={() => this.onShowClick()}
-              >
-                <i className="icofont-ui-edit"></i> Edit Comment
-              </Link>
-              &emsp;
-              <Link
-                to="#"
-                className="w-100 mt-4 font-weight-bold ml-2"
-                onClick={() => this.onShowClick()}
-              >
-                <i className="icofont-ui-delete"></i> Delete Comment
-              </Link>
-            </>
-          ) : (
-            ""
-          )} */}
+          {AuthHelper.IsLogin() &&
+            AuthHelper.GetCurrentUser().userId ===
+              parseInt(comment.user_id) && <CommentButtons comment={comment} />}
         </div>
       </Media.Body>
     </Media>

@@ -6,6 +6,7 @@ import {
 import { Button } from "react-bootstrap";
 import CommentItem from "./comment-item.component";
 import { Fragment } from "react";
+import LeaveComment from "./leave-comment.component";
 import { Link } from "react-router-dom";
 import React from "react";
 import { connect } from "react-redux";
@@ -36,6 +37,7 @@ const Comments = ({ customerComments, seeCommentCount, seeAllComment }) => (
         {seeCommentCount === 2 ? "See All Reviews" : "See Few Reviews"}
       </Link>
     </div>
+    <LeaveComment />
   </Fragment>
 );
 const mapStateToProps = createStructuredSelector({
