@@ -1,6 +1,11 @@
 import CustomerActionTypes from "./customer.types";
 import agent from "../api/agent";
 
+export const changeCustomerIdAsync = (customerid) => ({
+  type: CustomerActionTypes.CHANGE_CUSTOMER_ID,
+  payload: customerid,
+});
+
 //CUSTOMER INFO ACTIONS
 export const fetchCustomerInfoStart = () => ({
   type: CustomerActionTypes.FETCH_CUSTOMER_INFO_START,

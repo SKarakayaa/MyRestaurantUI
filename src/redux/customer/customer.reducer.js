@@ -1,6 +1,8 @@
 import CustomerActionTypes from "./customer.types";
 
 const INITIAL_STATE = {
+  customerId: 1,
+
   isFetching: true,
   customerInfo: null,
   errorMessage: undefined,
@@ -72,7 +74,7 @@ const customerReducer = (state = INITIAL_STATE, action) => {
       };
     case CustomerActionTypes.CREATE_REZERVATION_SUCCESS:
       return state;
-      
+
     default:
       return state;
   }
