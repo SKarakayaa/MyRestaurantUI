@@ -32,7 +32,6 @@ class Favorites extends React.Component {
       customerInfo,
       areProductMaterialsFetching,
     } = this.props;
-    console.log("favorites :", favoriteProducts);
     return (
       !areProductMaterialsFetching && (
         <>

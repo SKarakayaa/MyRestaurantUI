@@ -36,8 +36,7 @@ class List extends React.Component {
     }
   };
   render() {
-    const { customers, cuisines } = this.props;
-    console.log("customers :", cuisines);
+    const { customers } = this.props;
     return (
       <>
         <PageTitle

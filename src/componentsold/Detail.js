@@ -93,7 +93,6 @@ class Detail extends React.Component {
   hideAddressModal = () => this.setState({ showAddressModal: false });
   render() {
     const { customerInfo, customerSlider } = this.props;
-    console.log("customer info :", customerInfo);
     let totalRate = this.CalculateTotalRate();
     return (
       <>

@@ -5,6 +5,7 @@ import categoryReducer from "./category/category.reducer";
 import { combineReducers } from "redux";
 import commentReducer from "./comment/comment.reducer";
 import customerReducer from "./customer/customer.reducer";
+import likeReducer from "./like/like.reducer";
 import orderReducer from "./order/order.reducer";
 import productReducer from "./product/product.reducer";
 import userReducer from "./user/user.reducer";
@@ -19,5 +20,6 @@ const rootReducer = combineReducers({
   user: userReducer,
   order: orderReducer,
   address: addressReducer,
+  like: likeReducer,
 });
 export default rootReducer;

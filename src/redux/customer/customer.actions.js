@@ -50,7 +50,6 @@ export const fetchCustomerSliderSuccess = (customerSlider) => ({
 });
 export const fetchCustomerSliderStartAsync = (customerid) => {
   return (dispatch) => {
-    console.log("customer slider fetch worked !");
     dispatch(fetchCustomerSliderStart());
     agent.Customers.loadCustomerSlider(customerid).then((result) =>
       dispatch(fetchCustomerSliderSuccess(result))

@@ -15,7 +15,6 @@ const commentReducer = (state = INITIAL_STATE, action) => {
         areCustomerCommentsFetching: true,
       };
     case CommentActionTypes.FETCH_CUSTOMER_COMMENTS_SUCCESS:
-      debugger;
       return {
         ...state,
         areCustomerCommentsFetching: false,

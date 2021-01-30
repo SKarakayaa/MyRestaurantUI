@@ -40,7 +40,6 @@ class MenuModal extends Component {
       let material = this.props.materials.find(
         (x) => x.frm_product_materials_id === material_id
       );
-      console.log("material :", material);
       materials.push({
         value: material.frm_product_materials_id,
         label:

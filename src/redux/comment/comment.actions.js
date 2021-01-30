@@ -1,3 +1,4 @@
+import AuthHelper from "../../helpers/authHelper";
 import CommentActionTypes from "./comment.types";
 import agent from "../api/agent";
 
@@ -30,6 +31,13 @@ export const fetchCustomerCommentAddAsync = (commentModel) => {
     agent.Customers.addComment(commentModel).then((result) => {
       commentModel.frm_customer_comments_id =
         result.outs.frm_customer_comments_id;
+      commentModel.comment_user_name = AuthHelper.GetCurrentUser().completeName;
+      commentModel.comment_date =
+        commentModel.comment_date.getDate() +
+        "/" +
+        commentModel.comment_date.getMonth() +
+        "/" +
+        commentModel.comment_date.getYear();
       dispatch(fetchCustomerCommentAdd(commentModel));
     });
   };
