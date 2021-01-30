@@ -19,6 +19,11 @@ const INITIAL_STATE = {
 
 const customerReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case CustomerActionTypes.CHANGE_CUSTOMER_ID:
+      return {
+        ...state,
+        customerId: action.payload,
+      };
     case CustomerActionTypes.FETCH_CUSTOMER_INFO_START:
       return {
         ...state,

@@ -9,6 +9,7 @@ import DropDownTitle from "../common/dropdown-title.component";
 import { Link } from "react-router-dom";
 import { NavDropdown } from "react-bootstrap";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
@@ -23,7 +24,7 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
         className="d-inline-block"
         faIcon="shopping-basket"
         iconClass="mr-1"
-        title="Cart"
+        title={<Translate lang="tr">Cart</Translate>}
         badgeClass="ml-1"
         badgeVariant="success"
         badgeValue={cartCount}
@@ -32,18 +33,22 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
   >
     <div className="dropdown-cart-top shadow-sm">
       <div className="dropdown-cart-top-body border-top p-4">
-        {cartCount !== 0
-          ? cartItems.map((cartItem) => <CartHeader cartItem={cartItem} />)
-          : "Cart is Empty"}
+        {cartCount !== 0 ? (
+          cartItems.map((cartItem) => <CartHeader cartItem={cartItem} />)
+        ) : (
+          <Translate lang="tr">Cart is Empty</Translate>
+        )}
       </div>
       <div className="dropdown-cart-top-footer border-top p-4">
         <p className="mb-0 font-weight-bold text-secondary">
-          Sub Total{" "}
+          <Translate lang="tr">Sub Total</Translate>
           <span className="float-right text-dark">
             {cartTotal} {customerInfo.currency_unit}
           </span>
         </p>
-        <small className="text-info">Extra charges may apply</small>
+        <small className="text-info">
+          <Translate lang="tr">Extra charges may apply</Translate>
+        </small>
       </div>
       <div className="dropdown-cart-top-footer border-top p-2">
         <NavDropdown.Item
@@ -52,7 +57,7 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
           className="btn btn-success btn-block py-3 text-white text-center dropdown-item"
           to="/checkout"
         >
-          Checkout
+          <Translate lang="tr">Checkout</Translate>
         </NavDropdown.Item>
       </div>
     </div>

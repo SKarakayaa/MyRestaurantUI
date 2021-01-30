@@ -1,10 +1,10 @@
 import { Container, Image, Navbar } from "react-bootstrap";
 import {
+  selectCustomerId,
   selectCustomerInfo,
   selectCustomerInfoIsFetching,
 } from "../../redux/customer/customer.reselect";
 
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import Loading from "../common/loading.component";
 import LoginUser from "./login-header.component";
 import NonloginUser from "./nonlogin-header.component";
@@ -17,8 +17,8 @@ import { selectLoginCompleted } from "../../redux/auth/auth.reselect";
 
 class Header extends React.Component {
   componentDidMount() {
-    const { fetchCustomerInfoStartAsync } = this.props;
-    fetchCustomerInfoStartAsync(CurrentCustomerId());
+    const { fetchCustomerInfoStartAsync, customerId } = this.props;
+    fetchCustomerInfoStartAsync(customerId);
   }
 
   render() {
@@ -41,9 +41,6 @@ class Header extends React.Component {
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse id="navbarNavDropdown"></Navbar.Collapse>
-            {/* {Object.keys(currentUser).length === 0
-              ? this.unlogonUser()
-              : this.logonUser()} */}
             {loginCompleted ? <LoginUser /> : <NonloginUser />}
           </Container>
         </Navbar>
@@ -55,6 +52,7 @@ const mapStateToProps = createStructuredSelector({
   isCustomerInfoFetching: selectCustomerInfoIsFetching,
   customerInfo: selectCustomerInfo,
   loginCompleted: selectLoginCompleted,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   fetchCustomerInfoStartAsync: (customerid) =>

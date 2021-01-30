@@ -4,6 +4,7 @@ import AddToCartButton from "../buttons/add-to-cart-button.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from "../../utilities/translator";
 
 const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
   <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
@@ -41,16 +42,13 @@ const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
           </Link>
           {product.is_new ? (
             <Badge variant="success" className="ml-1">
-              NEW
+              <Translate lang="tr">NEW</Translate>
             </Badge>
           ) : (
             ""
           )}
           <span className="float-right">
             <AddToCartButton variant="outline-secondary" product={product} />
-            {/* <Button variant="outline-secondary" size="sm">
-              ADD
-            </Button> */}
           </span>
         </p>
       </div>

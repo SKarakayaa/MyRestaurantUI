@@ -1,5 +1,4 @@
 import Comments from "./comments.component";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import { Fragment } from "react";
 import Ratings from "./ratings.component";
 import React from "react";
@@ -9,11 +8,12 @@ import { fetchCommentLikesStartAsync } from "../../redux/like/like.actions";
 import { fetchCustomerCommentStartAsync } from "../../redux/comment/comment.actions";
 import { selectAreLikesFetching } from "../../redux/like/like.reselect";
 import { selectCustomerCommentsAreFetching } from "../../redux/comment/comment.reselect";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 class RatingsAndReviews extends React.Component {
   componentDidMount() {
-    const { loadCustomerComment, loadLikes } = this.props;
-    loadCustomerComment(CurrentCustomerId());
-    loadLikes(CurrentCustomerId());
+    const { loadCustomerComment, loadLikes, customerId } = this.props;
+    loadCustomerComment(customerId);
+    loadLikes(customerId);
   }
   render() {
     const { areCustomerCommentsFetching, areLikesFetching } = this.props;
@@ -33,6 +33,7 @@ class RatingsAndReviews extends React.Component {
 const mapStateToProps = createStructuredSelector({
   areCustomerCommentsFetching: selectCustomerCommentsAreFetching,
   areLikesFetching: selectAreLikesFetching,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadCustomerComment: (customerid) =>

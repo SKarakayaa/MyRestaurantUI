@@ -5,19 +5,25 @@ import {
 } from "../../redux/product/product.actions";
 
 import CartSide from "../cart/cart-side.component";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import React from "react";
 import TabBody from "./tab-body.component";
 import TabHeader from "./tab-header.component";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { fetchCategoriesStartAsync } from "../../redux/category/category.actions";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
 class TabPane extends React.Component {
   componentDidMount() {
-    const { loadCategories, loadProducts, loadProductMaterials } = this.props;
-    loadCategories(CurrentCustomerId());
-    loadProducts(CurrentCustomerId());
-    loadProductMaterials(CurrentCustomerId());
+    const {
+      customerId,
+      loadCategories,
+      loadProducts,
+      loadProductMaterials,
+    } = this.props;
+    loadCategories(customerId);
+    loadProducts(customerId);
+    loadProductMaterials(customerId);
   }
   render() {
     return (
@@ -43,7 +49,9 @@ class TabPane extends React.Component {
     );
   }
 }
-
+const mapStateToProps = createStructuredSelector({
+  customerId: selectCustomerId,
+});
 const mapDispatchToProps = (dispatch) => ({
   loadCategories: (customerid) =>
     dispatch(fetchCategoriesStartAsync(customerid)),
@@ -51,4 +59,4 @@ const mapDispatchToProps = (dispatch) => ({
   loadProductMaterials: (customerid) =>
     dispatch(fetchProductMaterialStartAsync(customerid)),
 });
-export default connect(null, mapDispatchToProps)(TabPane);
+export default connect(mapStateToProps, mapDispatchToProps)(TabPane);

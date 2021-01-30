@@ -3,8 +3,9 @@ import { Button } from "react-bootstrap";
 import { Fragment } from "react";
 import MenuModal from "../modals/menu-modal.component";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { addItem } from "../../redux/cart/cart.actions";
-import alertifyjs from 'alertifyjs'
+import alertifyjs from "alertifyjs";
 import { connect } from "react-redux";
 class AddToCartButton extends React.Component {
   state = {
@@ -43,7 +44,7 @@ class AddToCartButton extends React.Component {
           className={className}
           onClick={() => this.CheckAndAddToCart(product)}
         >
-          ADD
+          <Translate lang="tr">ADD</Translate>
         </Button>
       </Fragment>
     );

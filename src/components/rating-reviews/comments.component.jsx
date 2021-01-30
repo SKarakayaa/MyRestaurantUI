@@ -23,7 +23,6 @@ const Comments = ({ customerComments, seeCommentCount, seeAllComment }) => (
       {customerComments.slice(0, seeCommentCount).map((comment) => (
         <Fragment key={comment.frm_customer_comments_id}>
           <CommentItem comment={comment} />
-
           <hr />
         </Fragment>
       ))}

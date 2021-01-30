@@ -1,9 +1,9 @@
 import {
+  selectCustomerId,
   selectCustomerMoreInfo,
   selectCustomerMoreInfoIsFetching,
 } from "../../redux/customer/customer.reselect";
 
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import CustomerInfo from "./customer-info.component";
 import CustomerMoreInfo from "./customer-more-info.component";
 import React from "react";
@@ -13,8 +13,8 @@ import { fetchCustomerMoreInfoStartAsync } from "../../redux/customer/customer.a
 
 class RestaurantInfo extends React.Component {
   componentDidMount() {
-    const { loadCustomerMoreInfo } = this.props;
-    loadCustomerMoreInfo(CurrentCustomerId());
+    const { loadCustomerMoreInfo, customerId } = this.props;
+    loadCustomerMoreInfo(customerId);
   }
   render() {
     const { isFethingCustomerMoreInfo, customerMoreInfo } = this.props;
@@ -33,6 +33,7 @@ class RestaurantInfo extends React.Component {
 const mapStateToProps = createStructuredSelector({
   isFethingCustomerMoreInfo: selectCustomerMoreInfoIsFetching,
   customerMoreInfo: selectCustomerMoreInfo,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadCustomerMoreInfo: (customerid) =>

@@ -3,6 +3,7 @@ import Icofont from "react-icofont";
 import { NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import React from "react";
+import Translate from "../../utilities/translator";
 
 const HeaderMyAccount = () => (
   <NavDropdown
@@ -13,7 +14,7 @@ const HeaderMyAccount = () => (
         image="img/user/4.png"
         imageAlt="user"
         imageClass="nav-osahan-pic rounded-pill"
-        title="My Account"
+        title={<Translate lang="tr">My Account</Translate>}
       />
     }
   >
@@ -23,7 +24,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/orders"
     >
-      <Icofont icon="food-cart" /> Orders
+      <Icofont icon="food-cart" /> <Translate lang="tr">Orders</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -32,7 +33,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/favourites"
     >
-      <Icofont icon="heart" /> Favourites
+      <Icofont icon="heart" /> <Translate lang="tr">Favourites</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -41,7 +42,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/addresses"
     >
-      <Icofont icon="location-pin" /> Addresses
+      <Icofont icon="location-pin" /> <Translate lang="tr">Addresses</Translate>
     </NavDropdown.Item>
   </NavDropdown>
 );

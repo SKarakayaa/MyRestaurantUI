@@ -1,0 +1,32 @@
+{
+  "lang": "tr",
+  "words": {
+    "home": "Ana Sayfa",
+    "my account": "Hesabım",
+    "cart": "Sepet",
+    "logout": "Çıkış",
+    "orders": "Siparişler",
+    "favourites": "Favoriler",
+    "addresses": "Adresler",
+    "cart is empty": "Sepet Boş",
+    "sub total": "Toplam",
+    "extra charges may apply": "Ekstra ücretler uygulanabilir",
+    "checkout": "Ödeme",
+    "order online": "Ürünler",
+    "gallery": "Galeri",
+    "restaurant info": "Restorant Bilgisi",
+    "rezervation": "Rezervasyon",
+    "ratings & reviews": "Oylama & İnceleme",
+    "open": "Açık",
+    "close": "Kapalı",
+    "ratings": "Oy",
+    "reviews": "İnceleme",
+    "menus": "Menüler",
+    "search for dishes": "Menü İsmi İle Arama Yapınız",
+    "add": "EKLE",
+    "new": "Yeni",
+    "your orders":"Siparişleriniz",
+    "you didn't add to cart anything !":"Sepetinize ürün eklemediniz !",
+    "items":"ürün"
+  }
+}

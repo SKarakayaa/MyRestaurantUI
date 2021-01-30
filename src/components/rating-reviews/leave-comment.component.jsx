@@ -2,19 +2,20 @@ import { Button, Form } from "react-bootstrap";
 
 import AuthHelper from "../../helpers/authHelper";
 import CommentHelper from "../../helpers/commentHelper";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import React from "react";
 import StarRating from "./star-rating.component";
 import alertify from "alertifyjs";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { fetchCustomerCommentAddAsync } from "../../redux/comment/comment.actions";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
 class LeaveComment extends React.Component {
   state = {
     flavor: 0,
     comment: "",
     user_id: AuthHelper.GetCurrentUser().userId,
-    customer_id: CurrentCustomerId(),
+    customer_id: this.props.customerId,
     comment_date: new Date(),
   };
   handlePoint = (point) => this.setState({ flavor: point });
@@ -61,7 +62,10 @@ class LeaveComment extends React.Component {
     );
   }
 }
+const mapStateToProps = createStructuredSelector({
+  customerId: selectCustomerId,
+});
 const mapDispatchToProps = (dispatch) => ({
   addComment: (comment) => dispatch(fetchCustomerCommentAddAsync(comment)),
 });
-export default connect(null, mapDispatchToProps)(LeaveComment);
+export default connect(mapStateToProps, mapDispatchToProps)(LeaveComment);

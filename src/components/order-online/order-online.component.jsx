@@ -10,6 +10,8 @@ import MenuList from "../menu-list/menu-list.component";
 import ProductCard from "../product-list/product-card.component";
 import ProductLine from "../product-list/product-line.component";
 import React from "react";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
@@ -21,10 +23,13 @@ const OrderOnline = ({
 }) => {
   return (
     <Fragment>
-      <h5 className="mb-4">Recommended</h5>
+      {/* <h5 className="mb-4">Recommended</h5> */}
       <Form className="explore-outlets-search mb-4">
         <InputGroup>
-          <Form.Control type="text" placeholder="Search for dishes..." />
+          <Form.Control
+            type="text"
+            placeholder={TranslatePlaceholder("Search for dishes", "tr")}
+          />
           <InputGroup.Append>
             <Button type="button" variant="link">
               <Icofont icon="search" />
@@ -32,7 +37,9 @@ const OrderOnline = ({
           </InputGroup.Append>
         </InputGroup>
       </Form>
-      <h6 className="mb-3">Menus </h6>
+      <h6 className="mb-3">
+        <Translate lang="tr">Menus</Translate>{" "}
+      </h6>
       <MenuList currencyUnit={customerInfo.currency_unit} />
 
       {bigListCategories.map((bigListCategory) => (

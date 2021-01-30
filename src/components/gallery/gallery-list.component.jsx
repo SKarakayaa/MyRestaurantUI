@@ -1,9 +1,9 @@
 import {
   selectCustomerGallery,
   selectCustomerGalleryIsFetching,
+  selectCustomerId,
 } from "../../redux/customer/customer.reselect";
 
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import { Image } from "react-bootstrap";
 import OwlCarousel from "react-owl-carousel3";
 import React from "react";
@@ -14,8 +14,8 @@ import { options } from "../../helpers/owlCarouselOptions";
 
 class GalleryList extends React.Component {
   componentDidMount() {
-    const { loadCustomerGallery } = this.props;
-    loadCustomerGallery(CurrentCustomerId());
+    const { loadCustomerGallery, customerId } = this.props;
+    loadCustomerGallery(customerId);
   }
   render() {
     const { isGalleryFetching, gallery } = this.props;
@@ -49,6 +49,7 @@ class GalleryList extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   isGalleryFetching: selectCustomerGalleryIsFetching,
+  customerId: selectCustomerId,
   gallery: selectCustomerGallery,
 });
 const mapDispatchToProps = (dispatch) => ({

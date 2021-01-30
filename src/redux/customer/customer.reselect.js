@@ -2,6 +2,11 @@ import { createSelector } from "reselect";
 
 const selectCustomer = (state) => state.customer;
 
+export const selectCustomerId = createSelector(
+  [selectCustomer],
+  (customer) => customer.customerId
+);
+
 //CUSTOMER INFO
 export const selectCustomerInfo = createSelector(
   [selectCustomer],
