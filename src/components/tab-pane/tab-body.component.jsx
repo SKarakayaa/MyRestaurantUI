@@ -8,6 +8,7 @@ import OrderOnline from "../order-online/order-online.component";
 import RatingsAndReviews from "../rating-reviews/ratings-and-reviews.component";
 import React from "react";
 import RestaurantInfo from "../restaurant-info/restaurant-info.component";
+import Rezervation from "../rezervation/rezervation.component";
 import { Tab } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -36,7 +37,9 @@ const TabBody = ({
         <RestaurantInfo />
       </Tab.Pane>
 
-      <Tab.Pane eventKey="fourth">{/* <BookTable /> */}</Tab.Pane>
+      <Tab.Pane eventKey="fourth">
+        <Rezervation />
+      </Tab.Pane>
 
       <Tab.Pane eventKey="fifth">
         <RatingsAndReviews />

@@ -1,5 +1,6 @@
 import { Col, Nav, Row } from "react-bootstrap";
 
+import AuthHelper from "../../helpers/authHelper";
 import React from "react";
 
 const TabHeader = () => (
@@ -15,11 +16,11 @@ const TabHeader = () => (
         <Nav.Item>
           <Nav.Link eventKey="third">Restaurant Info</Nav.Link>
         </Nav.Item>
-        {/* {customerInfo.is_rezervation === true && IsLogin() ? (
-                <Nav.Item>
-                  <Nav.Link eventKey="fourth">Rezervation</Nav.Link>
-                </Nav.Item>
-              ) : null} */}
+        {AuthHelper.IsLogin() && (
+          <Nav.Item>
+            <Nav.Link eventKey="fourth">Rezervation</Nav.Link>
+          </Nav.Item>
+        )}
         <Nav.Item>
           <Nav.Link eventKey="fifth">Ratings & Reviews</Nav.Link>
         </Nav.Item>

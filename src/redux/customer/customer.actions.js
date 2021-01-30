@@ -73,3 +73,16 @@ export const fetchCustomerGalleryStartAsync = (customerid) => {
     );
   };
 };
+
+//REZERVATION
+export const fetchCreateRezervation = () => ({
+  type: CustomerActionTypes.CREATE_REZERVATION_SUCCESS,
+});
+export const fetchCreateRezervationAsync = (rezervation) => {
+  return (dispatch) => {
+    agent.Customers.addRezervation(rezervation).then((result) => {
+      debugger;
+      dispatch(fetchCreateRezervation(result));
+    });
+  };
+};

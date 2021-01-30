@@ -70,6 +70,9 @@ const customerReducer = (state = INITIAL_STATE, action) => {
         isCustomerMoreInfoFetching: false,
         customerMoreInfo: action.payload,
       };
+    case CustomerActionTypes.CREATE_REZERVATION_SUCCESS:
+      return state;
+      
     default:
       return state;
   }
