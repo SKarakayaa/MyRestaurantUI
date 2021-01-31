@@ -42,7 +42,7 @@ const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
           </Link>
           {product.is_new ? (
             <Badge variant="success" className="ml-1">
-              <Translate lang="tr">NEW</Translate>
+              <Translate >NEW</Translate>
             </Badge>
           ) : (
             ""

@@ -22,6 +22,8 @@ import {
 import AddressHelper from "../../helpers/addressHelper";
 import React from "react";
 import SingleSelect from "../dropdowns/single-select.component";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import UserActionTypes from "../../redux/user/user.types";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -110,14 +112,14 @@ class AddUpdateAddressModal extends React.Component {
       <Modal show={show} onHide={onHide} size="m" centered>
         <Modal.Header closeButton={true}>
           <Modal.Title as="h5" id="edit-profile">
-            Address Processes
+            <Translate>Address Processes</Translate>
           </Modal.Title>
         </Modal.Header>
         <span style={{ color: "red" }}>{this.state.errorMessage}</span>
         <Form onSubmit={this.HandleSubmit}>
           <Modal.Body>
             <SingleSelect
-              label="Address Tipi Seçiniz"
+              label={TranslatePlaceholder("Choose Address Type")}
               options={AddressHelper.GetAddressTypeSelect()}
               value={this.state.addressType}
               name="addressType"
@@ -131,7 +133,7 @@ class AddUpdateAddressModal extends React.Component {
                 value={this.state.city}
                 required
                 name="city"
-                label="Şehir Seçiniz"
+                label={TranslatePlaceholder("Choose City")}
               />
             )}
             {!countiesAreFetching && (
@@ -141,7 +143,7 @@ class AddUpdateAddressModal extends React.Component {
                 required
                 value={this.state.county}
                 name="county"
-                label="İlçe Seçiniz"
+                label={TranslatePlaceholder("Choose County")}
               />
             )}
             {!areasAreFetching && (
@@ -151,7 +153,7 @@ class AddUpdateAddressModal extends React.Component {
                 required
                 value={this.state.area}
                 name="area"
-                label="Bölge Seçiniz"
+                label={TranslatePlaceholder("Choose Area")}
               />
             )}
             {!neighborhoodsAreFetching && (
@@ -161,7 +163,7 @@ class AddUpdateAddressModal extends React.Component {
                 required
                 value={this.state.neighborhoods}
                 name="neighborhoods"
-                label="Mahalle Seçiniz"
+                label={TranslatePlaceholder("Choose Neighborhood")}
               />
             )}
             <FormGroup>
@@ -185,14 +187,16 @@ class AddUpdateAddressModal extends React.Component {
               variant="outline-primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              CANCEL
+              <Translate>CANCEL</Translate>
             </Button>
             <Button
               type="submit"
               variant="primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              {address !== null ? "UPDATE" : "ADD"}
+              {address !== null
+                ? TranslatePlaceholder("UPDATE")
+                : TranslatePlaceholder("ADD")}
             </Button>
           </Modal.Footer>
         </Form>

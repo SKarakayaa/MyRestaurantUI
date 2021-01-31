@@ -7,6 +7,8 @@ import {
 
 import FontAwesome from "../componentsold/common/FontAwesome";
 import React from "react";
+import Translate from "../utilities/translator";
+import {TranslatePlaceholder} from "../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { login } from "../redux/auth/auth.actions";
@@ -24,14 +26,6 @@ class Login extends React.Component {
     event.preventDefault();
     const { login } = this.props;
     login(this.state);
-    
-    // this.props.actions.login(this.state).then((result) => {
-    //   if (result.type === actionTypes.LOGIN_ERROR) {
-    //     this.setState({ loginError: result.payload.error });
-    //   } else {
-    //     history.push("/");
-    //   }
-    // });
   };
   render() {
     const { userName, passWord } = this.state;
@@ -47,53 +41,57 @@ class Login extends React.Component {
               <Container>
                 <Row>
                   <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
-                    <h3 className="login-heading mb-4">Welcome back!</h3>
+                    <h3 className="login-heading mb-4">
+                      <Translate>Welcome back !</Translate>
+                    </h3>
                     <span className="mb-4 text-danger">{loginError}</span>
                     <br></br>
                     <Form onSubmit={this.handleSubmit}>
                       <div className="form-label-group">
                         <Form.Control
                           type="text"
-                          id="userName"
                           name="userName"
+                          id="userName"
                           value={userName}
                           onChange={this.handleChange}
-                          placeholder="Username"
+                          placeholder={TranslatePlaceholder("Username")}
                         />
-                        <Form.Label htmlFor="userName">Username</Form.Label>
+                        <Form.Label htmlFor="userName">
+                          <Translate>Username</Translate>
+                        </Form.Label>
                       </div>
                       <div className="form-label-group">
                         <Form.Control
                           type="password"
-                          id="passWord"
                           name="passWord"
+                          id="passWord"
                           value={passWord}
                           onChange={this.handleChange}
-                          placeholder="Password"
+                          placeholder={TranslatePlaceholder("Password")}
                         />
-                        <Form.Label htmlFor="passWord">Password</Form.Label>
+                        <Form.Label htmlFor="passWord"><Translate>Password</Translate></Form.Label>
                       </div>
                       <button
                         type="submit"
                         className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                       >
-                        Sign in
+                        <Translate>Sign in</Translate>
                       </button>
                       <div className="text-center pt-3">
-                        Don’t have an account?{" "}
+                        <Translate>Don’t have an account?</Translate>{" "}
                         <Link className="font-weight-bold" to="/register">
-                          Sign Up
+                          <Translate>Sign Up</Translate>
                         </Link>
                         &emsp;
                         <Link
                           className="font-weight-bold"
                           to="/forgot-password"
                         >
-                          Forgot Password ?
+                          <Translate>Forgot Password ?</Translate>
                         </Link>
                       </div>
                       <hr className="my-4" />
-                      <p className="text-center">LOGIN WITH</p>
+                      <p className="text-center"><Translate>LOGIN WITH</Translate></p>
                       <div className="row">
                         <div className="col pr-2">
                           <Button

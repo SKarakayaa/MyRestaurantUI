@@ -3,6 +3,8 @@ import { Button, Form, Modal } from "react-bootstrap";
 import CommentHelper from "../../helpers/commentHelper";
 import React from "react";
 import StarRating from "../rating-reviews/star-rating.component";
+import Translate from '../../utilities/translator';
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
 import alertify from "alertifyjs";
 import { connect } from "react-redux";
 import { fetchCustomerCommentUpdateAsync } from "../../redux/comment/comment.actions";
@@ -23,11 +25,11 @@ class UpdateCommentModal extends React.Component {
     event.preventDefault();
     const { onHide, updateComment } = this.props;
     if (CommentHelper.ValidateCommentModel(this.state)) {
-      alertify.success("Yorum güncellendi !");
+      alertify.success(TranslatePlaceholder("Comment Updated !"));
       updateComment(this.state);
       onHide();
     } else {
-      alertify.error("Puan ve yorum kısmı boş bırakılamaz !");
+      alertify.error(TranslatePlaceholder("Please don't leave empty point and comment !"));
     }
   };
   render() {
@@ -37,13 +39,13 @@ class UpdateCommentModal extends React.Component {
       <Modal show={show} size="m" onHide={onHide} centered>
         <Modal.Header closeButton={true}>
           <Modal.Title as="h5" id="edit-profile">
-            Edit Comment
+            <Translate>Edit</Translate>
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={this.handleSubmit}>
           <Modal.Body>
-            <h5 className="mb-4">Leave Comment</h5>
-            <p className="mb-2">Rate the Place</p>
+            <h5 className="mb-4"><Translate>Leave Comment</Translate></h5>
+            <p className="mb-2"><Translate>Rate the Place</Translate></p>
             <div className="mb-4">
               <div className="star-rating">
                 <StarRating
@@ -54,7 +56,7 @@ class UpdateCommentModal extends React.Component {
               </div>
             </div>
             <Form.Group>
-              <Form.Label>Your Comment</Form.Label>
+              <Form.Label><Translate>Your Comment</Translate></Form.Label>
               <Form.Control
                 as="textarea"
                 rows="5"
@@ -71,14 +73,14 @@ class UpdateCommentModal extends React.Component {
               variant="outline-primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              CANCEL
+              <Translate>CANCEL</Translate>
             </Button>
             <Button
               type="submit"
               variant="primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              UPDATE
+              <Translate>UPDATE</Translate>
             </Button>
           </Modal.Footer>
         </Form>

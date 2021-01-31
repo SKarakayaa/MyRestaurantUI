@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from "../../utilities/translator";
 import UpdateCommentModal from "../modals/update-comment.component";
-
 class CommentButtons extends React.Component {
   state = {
     showModal: false,
@@ -24,11 +24,12 @@ class CommentButtons extends React.Component {
           className="w-100 mt-4 font-weight-bold ml-2"
           onClick={() => this.setState({ showModal: true })}
         >
-          <i className="icofont-ui-edit"></i> Edit Comment
+          <i className="icofont-ui-edit"></i> <Translate>Edit</Translate>
         </Link>
         &emsp;
         <Link to="#" className="w-100 mt-4 font-weight-bold ml-2">
-          <i className="icofont-ui-delete"></i> Delete Comment
+          <i className="icofont-ui-delete"></i>
+          <Translate>Delete</Translate>
         </Link>
       </>
     );

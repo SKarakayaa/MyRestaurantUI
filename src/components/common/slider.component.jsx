@@ -60,12 +60,12 @@ class Slider extends React.Component {
                       {customerInfo.customer_location}
                       {customerInfo.customer_status === customerStatus.OPEN ? (
                         <Badge variant="success">
-                          <Translate lang="tr">OPEN</Translate>{" "}
+                          <Translate >OPEN</Translate>{" "}
                         </Badge>
                       ) : (
                         <Badge variant="danger">
                           {" "}
-                          <Translate lang="tr">CLOSE</Translate>{" "}
+                          <Translate >CLOSE</Translate>{" "}
                         </Badge>
                       )}
                     </p>
@@ -88,10 +88,10 @@ class Slider extends React.Component {
                           )}
                         </span>
                         {customerComments.length}{" "}
-                        <Translate lang="tr">Ratings</Translate>
+                        <Translate >Ratings</Translate>
                         <Icofont icon="speech-comments" className="ml-3" />{" "}
                         {customerComments.length}{" "}
-                        <Translate lang="tr">Reviews</Translate>
+                        <Translate >Reviews</Translate>
                       </h6>
                     )}
                   </div>

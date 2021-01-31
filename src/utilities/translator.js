@@ -3,7 +3,8 @@ import React from "react";
 
 class Translator extends React.PureComponent {
   translateWord(word) {
-    const { lang } = this.props;
+    // const { lang } = this.props;
+    const lang = "tr";
     const languageDB = Dictionary(lang);
     if (word in languageDB.words) {
       return languageDB.words[word];

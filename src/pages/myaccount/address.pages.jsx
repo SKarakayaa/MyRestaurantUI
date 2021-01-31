@@ -2,6 +2,7 @@ import { Col, Row } from "react-bootstrap";
 
 import AddressCard from "../../components/myaccount/address-card.component";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectUserAddresses } from "../../redux/user/user.reselect";
@@ -10,7 +11,9 @@ const Address = ({ addresses }) => (
   <div className="p-4 bg-white shadow-sm">
     <Row>
       <Col md={12}>
-        <h4 className="font-weight-bold mt-0 mb-3">Manage Addresses</h4>
+        <h4 className="font-weight-bold mt-0 mb-3">
+          <Translate>My Addresses</Translate>
+        </h4>
       </Col>
       {addresses.map((address, index) => (
         <AddressCard key={index} address={address} />

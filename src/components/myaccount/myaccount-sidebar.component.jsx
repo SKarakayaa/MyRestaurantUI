@@ -3,6 +3,8 @@ import { Col, Image } from "react-bootstrap";
 import EditProfileButton from "../buttons/edit-profile-button.component";
 import { NavLink } from "react-router-dom";
 import React from "react";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectUserInfo } from "../../redux/user/user.reselect";
@@ -23,12 +25,12 @@ const MyAccountSidebar = ({ userInfo }) => (
               <p className="mb-1">
                 {userInfo.phone !== ""
                   ? userInfo.phone
-                  : "You have no phone number !"}
+                  : TranslatePlaceholder("You have no phone number !")}
               </p>
               <p>
                 {userInfo.email !== ""
                   ? userInfo.email
-                  : "You have no email address !"}
+                  : TranslatePlaceholder("You have no email address !")}
               </p>
               <p className="mb-0 text-black font-weight-bold">
                 <EditProfileButton userInfo={userInfo} />
@@ -45,7 +47,7 @@ const MyAccountSidebar = ({ userInfo }) => (
             exact
             to="/myaccount/orders"
           >
-            <i className="icofont-food-cart"></i> Orders
+            <i className="icofont-food-cart"></i> <Translate>Orders</Translate>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -55,7 +57,7 @@ const MyAccountSidebar = ({ userInfo }) => (
             exact
             to="/myaccount/favourites"
           >
-            <i className="icofont-heart"></i> Favourites
+            <i className="icofont-heart"></i> <Translate>Favourites</Translate>
           </NavLink>
         </li>
         <li className="nav-item">
@@ -65,7 +67,8 @@ const MyAccountSidebar = ({ userInfo }) => (
             exact
             to="/myaccount/addresses"
           >
-            <i className="icofont-location-pin"></i> Addresses
+            <i className="icofont-location-pin"></i>{" "}
+            <Translate>Addresses</Translate>
           </NavLink>
         </li>
       </ul>

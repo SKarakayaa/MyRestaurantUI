@@ -7,6 +7,8 @@ import {
 
 import FormInput from "../components/inputs/form-input.component";
 import React from "react";
+import Translate from '../utilities/translator';
+import {TranslatePlaceholder} from '../utilities/translator-placeholder';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { register } from "../redux/auth/auth.actions";
@@ -43,46 +45,46 @@ class Register extends React.Component {
               <Container>
                 <Row>
                   <Col md={9} lg={8} className="mx-auto pl-5 pr-5">
-                    <h3 className="login-heading mb-4">New Buddy!</h3>
+                    <h3 className="login-heading mb-4"><Translate>New Buddy!</Translate></h3>
                     <span className="mb-4 text-danger">{registerError}</span>
                     <Form onSubmit={this.handleSubmit}>
                       <FormInput
                         handleChange={this.handleChange}
-                        labelText="Your Fullname"
+                        labelText={TranslatePlaceholder("Full name")}
                         name="full_name"
-                        placeholder="Your Fullname"
+                        placeholder={TranslatePlaceholder("Full name")}
                         type="text"
                         value={full_name}
                       />
                       <FormInput
                         handleChange={this.handleChange}
-                        labelText="Email address"
+                        labelText={TranslatePlaceholder("Email")}
                         name="email"
-                        placeholder="Email address"
+                        placeholder={TranslatePlaceholder("Email")}
                         type="email"
                         value={email}
                       />
                       <FormInput
                         handleChange={this.handleChange}
-                        labelText="Phone Number"
+                        labelText={TranslatePlaceholder("Phone number")}
                         name="phone"
-                        placeholder="Phone Number"
+                        placeholder={TranslatePlaceholder("Phone number")}
                         type="number"
                         value={phone}
                       />
                       <FormInput
                         handleChange={this.handleChange}
-                        labelText="Username"
+                        labelText={TranslatePlaceholder("Username")}
                         name="user_name"
-                        placeholder="Username"
+                        placeholder={TranslatePlaceholder("Username")}
                         type="text"
                         value={user_name}
                       />
                       <FormInput
                         handleChange={this.handleChange}
-                        labelText="Password"
+                        labelText={TranslatePlaceholder("Password")}
                         name="pass_word"
-                        placeholder="Password"
+                        placeholder={TranslatePlaceholder("Password")}
                         type="password"
                         value={pass_word}
                       />
@@ -90,12 +92,12 @@ class Register extends React.Component {
                         type="submit"
                         className="btn btn-lg btn-outline-primary btn-block btn-login text-uppercase font-weight-bold mb-2"
                       >
-                        Sign Up
+                        <Translate>Sign Up</Translate>
                       </button>
                       <div className="text-center pt-3">
-                        Already have an account?{" "}
+                        <Translate>Already have an account?</Translate>{" "}
                         <Link className="font-weight-bold" to="/login">
-                          Sign In
+                          <Translate>Sign In</Translate>
                         </Link>
                       </div>
                     </Form>

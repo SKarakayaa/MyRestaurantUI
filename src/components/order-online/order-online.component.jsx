@@ -28,7 +28,7 @@ const OrderOnline = ({
         <InputGroup>
           <Form.Control
             type="text"
-            placeholder={TranslatePlaceholder("Search for dishes", "tr")}
+            placeholder={TranslatePlaceholder("Search for dishes")}
           />
           <InputGroup.Append>
             <Button type="button" variant="link">
@@ -38,7 +38,7 @@ const OrderOnline = ({
         </InputGroup>
       </Form>
       <h6 className="mb-3">
-        <Translate lang="tr">Menus</Translate>{" "}
+        <Translate >Menus</Translate>{" "}
       </h6>
       <MenuList currencyUnit={customerInfo.currency_unit} />
 

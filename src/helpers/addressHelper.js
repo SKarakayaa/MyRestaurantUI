@@ -1,12 +1,13 @@
 import * as addressTypeEnum from "../enums/AddressTypeEnum";
 
 import AuthHelper from "./authHelper";
+import { TranslatePlaceholder } from "../utilities/translator-placeholder";
 
 const AddressHelper = {
   GetAddress: (addresses, addressid) => {
     const address = addresses.find((x) => x.frm_user_adress_id === addressid);
     return address === null
-      ? "Address Not Found or Removed"
+      ? TranslatePlaceholder("Address Not Found or Removed")
       : address.delivery_area +
           " - " +
           address.delivery_instructions +
@@ -16,13 +17,13 @@ const AddressHelper = {
   GetAddressTypeName: (addressTypeId) => {
     switch (addressTypeId) {
       case addressTypeEnum.HOME:
-        return "Home";
+        return TranslatePlaceholder("HOME ADDRESS");
       case addressTypeEnum.WORK:
-        return "Work";
+        return TranslatePlaceholder("WORK");
       case addressTypeEnum.ADD:
-        return "ADD";
+        return TranslatePlaceholder("ADD");
       default:
-        return "Other";
+        return TranslatePlaceholder("OTHER");
     }
   },
   GetAddressIcon: (addressTypeId) => {
@@ -39,9 +40,9 @@ const AddressHelper = {
   },
   GetAddressTypeSelect: () => {
     return [
-      { value: 1, label: "EV" },
-      { value: 2, label: "İŞ" },
-      { value: 3, label: "DİĞER" },
+      { value: 1, label: TranslatePlaceholder("HOME ADDRESS") },
+      { value: 2, label: TranslatePlaceholder("WORK") },
+      { value: 3, label: TranslatePlaceholder("OTHER") },
     ];
   },
   IsNullOrEmpty: (obj) => {
@@ -70,7 +71,8 @@ const AddressHelper = {
         "/" +
         AddressHelper.GetLabel(cities, state.city),
     };
-    if (state.address_id !== undefined) addressModel.tfrm_user_adress_id = state.address_id;
+    if (state.address_id !== undefined)
+      addressModel.tfrm_user_adress_id = state.address_id;
     return addressModel;
   },
   GetLabel: (array, value) => {

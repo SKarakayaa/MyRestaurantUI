@@ -44,7 +44,7 @@ class AddToCartButton extends React.Component {
           className={className}
           onClick={() => this.CheckAndAddToCart(product)}
         >
-          <Translate lang="tr">ADD</Translate>
+          <Translate >ADD</Translate>
         </Button>
       </Fragment>
     );

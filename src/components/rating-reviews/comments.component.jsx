@@ -9,6 +9,8 @@ import { Fragment } from "react";
 import LeaveComment from "./leave-comment.component";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from '../../utilities/translator'
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder'
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { seeAllComment } from "../../redux/comment/comment.actions";
@@ -16,10 +18,8 @@ import { seeAllComment } from "../../redux/comment/comment.actions";
 const Comments = ({ customerComments, seeCommentCount, seeAllComment }) => (
   <Fragment>
     <div className="bg-white rounded shadow-sm p-4 mb-4 restaurant-detailed-ratings-and-reviews">
-      <Link to="#" className="btn btn-outline-primary btn-sm float-right">
-        Top Rated
-      </Link>
-      <h5 className="mb-1">All Ratings and Reviews</h5>
+     
+      <h5 className="mb-1"><Translate>All Ratings and Reviews</Translate></h5>
       {customerComments.slice(0, seeCommentCount).map((comment) => (
         <Fragment key={comment.frm_customer_comments_id}>
           <CommentItem comment={comment} />
@@ -33,7 +33,7 @@ const Comments = ({ customerComments, seeCommentCount, seeAllComment }) => (
         as={Button}
         to="#"
       >
-        {seeCommentCount === 2 ? "See All Reviews" : "See Few Reviews"}
+        {seeCommentCount === 2 ? TranslatePlaceholder("See All Reviews") : TranslatePlaceholder("See Few Reviews")}
       </Link>
     </div>
     <LeaveComment />

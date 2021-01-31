@@ -24,7 +24,7 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
         className="d-inline-block"
         faIcon="shopping-basket"
         iconClass="mr-1"
-        title={<Translate lang="tr">Cart</Translate>}
+        title={<Translate >Cart</Translate>}
         badgeClass="ml-1"
         badgeVariant="success"
         badgeValue={cartCount}
@@ -36,18 +36,18 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
         {cartCount !== 0 ? (
           cartItems.map((cartItem) => <CartHeader cartItem={cartItem} />)
         ) : (
-          <Translate lang="tr">Cart is Empty</Translate>
+          <Translate >Cart is Empty</Translate>
         )}
       </div>
       <div className="dropdown-cart-top-footer border-top p-4">
         <p className="mb-0 font-weight-bold text-secondary">
-          <Translate lang="tr">Sub Total</Translate>
+          <Translate >Sub Total</Translate>
           <span className="float-right text-dark">
             {cartTotal} {customerInfo.currency_unit}
           </span>
         </p>
         <small className="text-info">
-          <Translate lang="tr">Extra charges may apply</Translate>
+          <Translate >Extra charges may apply</Translate>
         </small>
       </div>
       <div className="dropdown-cart-top-footer border-top p-2">
@@ -57,7 +57,7 @@ const HeaderCart = ({ cartCount, cartItems, cartTotal, customerInfo }) => (
           className="btn btn-success btn-block py-3 text-white text-center dropdown-item"
           to="/checkout"
         >
-          <Translate lang="tr">Checkout</Translate>
+          <Translate >Checkout</Translate>
         </NavDropdown.Item>
       </div>
     </div>

@@ -6,6 +6,8 @@ import AddressHelper from "../../helpers/addressHelper";
 import CheckoutAddressButtons from "../buttons/checkout-address-buttons.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 
 const AddressCard = ({ address, isAdd, isCheckout }) => (
   <Col md={6}>
@@ -27,7 +29,9 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
                 {AddressHelper.GetAddressTypeName(address.address_type)}
               </h6>
               <p className="text-black">
-                {!isAdd ? address.complate_address : "Click to add new address"}
+                {!isAdd
+                  ? address.complate_address
+                  : TranslatePlaceholder("Click to add new address")}
               </p>
 
               <p className="mb-0 text-black font-weight-bold">
@@ -40,7 +44,8 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
                         to="#"
                         //   onClick={this.props.onDeleteClick}
                       >
-                        <Icofont icon="ui-delete" /> DELETE
+                        <Icofont icon="ui-delete" />{" "}
+                        <Translate>DELETE</Translate>
                       </Link>
                     </>
                   ) : (

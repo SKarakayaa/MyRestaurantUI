@@ -2,6 +2,7 @@ import { Badge } from "react-bootstrap";
 import { Fragment } from "react";
 import Icofont from "react-icofont";
 import React from "react";
+import Translate from '../../utilities/translator'
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
@@ -25,7 +26,7 @@ const CustomerInfo = ({ customerInfo }) => (
         </div>
       </div>
     </div>
-    <h5 className="mb-4">Restaurant Info</h5>
+    <h5 className="mb-4"><Translate >Restaurant Info</Translate></h5>
     <p className="mb-3">
       {customerInfo.customer_location}
       <br />
@@ -39,11 +40,10 @@ const CustomerInfo = ({ customerInfo }) => (
       <Icofont icon="email text-primary mr-2" /> {customerInfo.email}
     </p>
     <p className="mb-2 text-black">
-      <Icofont icon="clock-time text-primary mr-2" /> Today{" "}
+      <Icofont icon="clock-time text-primary mr-2" /> <Translate >Today</Translate>
       {customerInfo.work_time_start} - {customerInfo.work_time_end}
       <Badge variant="success" className="ml-1">
-        {" "}
-        OPEN NOW{" "}
+        <Translate >OPEN NOW</Translate>
       </Badge>
     </p>
   </Fragment>

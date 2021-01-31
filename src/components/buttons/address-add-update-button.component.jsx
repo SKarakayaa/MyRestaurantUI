@@ -9,6 +9,7 @@ import AddUpdateAddressModal from "../modals/add-update-address-modal.component"
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from '../../utilities/translator';
 import { connect } from "react-redux";
 
 class AddressAddUpdateButton extends React.Component {
@@ -39,11 +40,11 @@ class AddressAddUpdateButton extends React.Component {
             to="#"
             onClick={() => this.setState({ modalIsShow: true })}
           >
-            ADD NEW ADDRESS
+            <Translate>ADD NEW ADDRESS</Translate>
           </Link>
         ) : (
           <Link className="text-primary mr-3" to="#" onClick={this.UpdateClick}>
-            <Icofont icon="ui-edit" /> EDIT
+            <Icofont icon="ui-edit" /> <Translate>EDIT</Translate>
           </Link>
         )}
       </>

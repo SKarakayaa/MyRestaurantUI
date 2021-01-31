@@ -1,6 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 
 import React from "react";
+import Translate from "../../utilities/translator";
 import UserActionTypes from "../../redux/user/user.types";
 import alertify from "alertifyjs";
 import { connect } from "react-redux";
@@ -37,7 +38,7 @@ class EditProfileModal extends React.Component {
       <Modal show={show} onHide={onHide} size="sm" centered>
         <Modal.Header closeButton={true}>
           <Modal.Title as="h5" id="edit-profile">
-            Edit profile
+            <Translate>Edit profile</Translate>
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={this.HandleSubmit}>
@@ -45,7 +46,9 @@ class EditProfileModal extends React.Component {
             <span className="mb-4 text-danger">{errorMessage}</span>
             <div className="form-row">
               <Form.Group className="col-md-12">
-                <Form.Label>Full Name</Form.Label>
+                <Form.Label>
+                  <Translate>Full Name</Translate>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="full_name"
@@ -56,7 +59,9 @@ class EditProfileModal extends React.Component {
                 />
               </Form.Group>
               <Form.Group className="col-md-12">
-                <Form.Label>Phone number</Form.Label>
+                <Form.Label>
+                  <Translate>Phone number</Translate>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="phone"
@@ -86,14 +91,14 @@ class EditProfileModal extends React.Component {
               variant="outline-primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              CANCEL
+              <Translate>CANCEL</Translate>
             </Button>
             <Button
               type="submit"
               variant="primary"
               className="d-flex w-50 text-center justify-content-center"
             >
-              UPDATE
+              <Translate>UPDATE</Translate>
             </Button>
           </Modal.Footer>
         </Form>

@@ -14,7 +14,7 @@ const HeaderMyAccount = () => (
         image="img/user/4.png"
         imageAlt="user"
         imageClass="nav-osahan-pic rounded-pill"
-        title={<Translate lang="tr">My Account</Translate>}
+        title={<Translate >My Account</Translate>}
       />
     }
   >
@@ -24,7 +24,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/orders"
     >
-      <Icofont icon="food-cart" /> <Translate lang="tr">Orders</Translate>
+      <Icofont icon="food-cart" /> <Translate >Orders</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -33,7 +33,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/favourites"
     >
-      <Icofont icon="heart" /> <Translate lang="tr">Favourites</Translate>
+      <Icofont icon="heart" /> <Translate >Favourites</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -42,7 +42,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/addresses"
     >
-      <Icofont icon="location-pin" /> <Translate lang="tr">Addresses</Translate>
+      <Icofont icon="location-pin" /> <Translate >Addresses</Translate>
     </NavDropdown.Item>
   </NavDropdown>
 );

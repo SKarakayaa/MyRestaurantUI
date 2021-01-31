@@ -7,6 +7,7 @@ import AuthHelper from "../../helpers/authHelper";
 import { CurrentCustomerId } from "../../componentsold/Helper";
 import OrderCard from "../../components/myaccount/order-card.component";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchUserOrderHistoryStartAsync } from "../../redux/order/order.actions";
@@ -23,7 +24,9 @@ class Orders extends React.Component {
     return (
       <>
         <div className="p-4 bg-white shadow-sm">
-          <h4 className="font-weight-bold mt-0 mb-4">Past Orders</h4>
+          <h4 className="font-weight-bold mt-0 mb-4">
+            <Translate>Past Orders</Translate>
+          </h4>
           {orderHistory &&
             orderHistory.map((order, index) => (
               <OrderCard order={order} index={index} key={index} />

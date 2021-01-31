@@ -8,6 +8,8 @@ import {
 import AddToCartHelper from "../../helpers/addToCartHelper";
 import React from "react";
 import Select from "react-select";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { addItem } from "../../redux/cart/cart.actions";
 import alertifyjs from "alertifyjs";
 import { connect } from "react-redux";
@@ -111,7 +113,7 @@ class MenuModal extends React.Component {
             id="contained-modal-title-vcenter"
             className="text-center"
           >
-            Menu Options
+            <Translate >Menu Options</Translate>
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={this.HandleSubmit}>
@@ -119,7 +121,9 @@ class MenuModal extends React.Component {
             {menuOptions &&
               menuOptions.map((menu_option, index) => (
                 <Form.Group key={index + 1}>
-                  <Form.Label>Choose {index + 1}</Form.Label>
+                  <Form.Label>
+                    <Translate >Choose</Translate> {index + 1}
+                  </Form.Label>
                   <Form.Control
                     as="select"
                     id={"category" + menu_option.category_id}
@@ -127,7 +131,9 @@ class MenuModal extends React.Component {
                     required
                     onChange={this.HandleChange}
                   >
-                    <option value="">Choose</option>
+                    <option value="">
+                      {TranslatePlaceholder("Choose...")}
+                    </option>
                     {menu_option.product_ids.split(",")?.map((productid) => (
                       <option value={productid} key={productid}>
                         {this.GetProductName(productid)}
@@ -139,7 +145,9 @@ class MenuModal extends React.Component {
               ))}
             {materialList.length !== 0 ? (
               <Form.Group>
-                <Form.Label>Can Be Added Materials</Form.Label>
+                <Form.Label>
+                  <Translate >Can Be Added Materials</Translate>
+                </Form.Label>
                 <Select
                   defaultValue="Choose"
                   isMulti
@@ -155,7 +163,9 @@ class MenuModal extends React.Component {
             )}
             {removableMaterials.length !== 0 ? (
               <Form.Group>
-                <Form.Label>Removable Materials</Form.Label>
+                <Form.Label>
+                  <Translate >Removable Materials</Translate>
+                </Form.Label>
                 <Select
                   isMulti
                   defaultValue={removableMaterials}
@@ -175,7 +185,7 @@ class MenuModal extends React.Component {
               className="btn btn-md btn-outline-primary btn-login font-weight-bold mb-2"
               type="submit"
             >
-              Add To Cart
+              <Translate >Add To Cart</Translate>
             </button>
           </Modal.Footer>
         </Form>

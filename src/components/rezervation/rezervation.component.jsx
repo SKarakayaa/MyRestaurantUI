@@ -5,6 +5,8 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import AuthHelper from "../../helpers/authHelper";
 import Datetime from "react-datetime";
 import React from "react";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import alertify from "alertifyjs";
 import { connect } from "react-redux";
 import { fetchCreateRezervationAsync } from "../../redux/customer/customer.actions";
@@ -42,31 +44,35 @@ class Rezervation extends React.Component {
         id="book-a-table"
         className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page"
       >
-        <h5 className="mb-4">Book A Table</h5>
+        <h5 className="mb-4">
+          <Translate>Rezervation</Translate>
+        </h5>
         <Form onSubmit={this.handleSubmit}>
           <Row>
             <Col sm={6}>
               <Form.Group>
-                <Form.Label>Full Name</Form.Label>
+                <Form.Label>
+                  <Translate>Full Name</Translate>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="full_name"
                   value={full_name}
                   onChange={this.handleChange}
-                  placeholder="Enter Full Name"
+                  placeholder={TranslatePlaceholder("Full Name")}
                 />
               </Form.Group>
             </Col>
             <Col sm={6}>
               <Form.Group>
-                <Form.Label>Email Address</Form.Label>
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   name="email"
                   value={email}
                   onChange={this.handleChange}
                   required
                   type="text"
-                  placeholder="Enter Email address"
+                  placeholder="Email"
                 />
               </Form.Group>
             </Col>
@@ -74,32 +80,38 @@ class Rezervation extends React.Component {
           <Row>
             <Col sm={6}>
               <Form.Group>
-                <Form.Label>Mobile number</Form.Label>
+                <Form.Label>
+                  <Translate>Phone Number</Translate>
+                </Form.Label>
                 <Form.Control
                   name="telephone"
                   value={telephone}
                   onChange={this.handleChange}
                   type="phone"
-                  placeholder="Enter Mobile number"
+                  placeholder={TranslatePlaceholder("Phone Number")}
                 />
               </Form.Group>
             </Col>
             <Col sm={6}>
               <Form.Group>
-                <Form.Label>Date And Time</Form.Label>
+                <Form.Label>
+                  <Translate>Rezervation Date</Translate>
+                </Form.Label>
                 <Datetime
                   name="rezervation_date"
                   id="rezervation_date"
                   value={new Date(rezervation_date)}
                   onChange={this.handleDate}
-                  inputProps={{ placeholder: "Enter Date and Time" }}
+                  inputProps={{
+                    placeholder: TranslatePlaceholder("Rezervation Date"),
+                  }}
                 />
               </Form.Group>
             </Col>
           </Row>
           <Form.Group className="text-right">
             <Button variant="primary" type="submit">
-              Submit
+              <Translate>Submit</Translate>
             </Button>
           </Form.Group>
         </Form>

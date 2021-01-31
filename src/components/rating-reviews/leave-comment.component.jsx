@@ -4,6 +4,8 @@ import AuthHelper from "../../helpers/authHelper";
 import CommentHelper from "../../helpers/commentHelper";
 import React from "react";
 import StarRating from "./star-rating.component";
+import Translate from '../../utilities/translator'
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder'
 import alertify from "alertifyjs";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -23,16 +25,16 @@ class LeaveComment extends React.Component {
     event.preventDefault();
     if (CommentHelper.ValidateCommentModel(this.state)) {
       this.props.addComment(this.state);
-      alertify.success("Yorum Yapıldı !");
+      alertify.success(TranslatePlaceholder("Comment is successfull !"));
     } else {
-      alertify.error("Lütfen puan ve yorum kısmını boş bırakmayınız !");
+      alertify.error(TranslatePlaceholder("Please don't leave empty point and comment !"));
     }
   };
   render() {
     return (
       <div className="bg-white rounded shadow-sm p-4 mb-5 rating-review-select-page">
-        <h5 className="mb-4">Leave Comment</h5>
-        <p className="mb-2">Rate the Place</p>
+        <h5 className="mb-4"><Translate>Leave Comment</Translate></h5>
+        <p className="mb-2"><Translate>Rate the Place</Translate></p>
         <div className="mb-4">
           <div className="star-rating">
             <StarRating
@@ -45,7 +47,7 @@ class LeaveComment extends React.Component {
 
         <Form onSubmit={this.handleSubmit}>
           <Form.Group>
-            <Form.Label>Your Comment</Form.Label>
+            <Form.Label><Translate>Your Comment</Translate></Form.Label>
             <Form.Control
               as="textarea"
               rows={5}
@@ -54,7 +56,7 @@ class LeaveComment extends React.Component {
           </Form.Group>
           <Form.Group>
             <Button variant="primary" size="sm" type="submit">
-              Submit Comment
+              <Translate>Submit Comment</Translate>
             </Button>
           </Form.Group>
         </Form>

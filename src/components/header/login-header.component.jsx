@@ -10,12 +10,12 @@ import { logout } from "../../redux/auth/auth.actions";
 const LoginUser = ({ logout }) => (
   <Nav activeKey={0} className="ml-auto">
     <Nav.Link eventKey={1} as={NavLink} exact to="/">
-      <Translate lang={"tr"}>Home</Translate>
+      <Translate>Home</Translate>
     </Nav.Link>
     <HeaderMyAccount />
     <HeaderCart />
     <Nav.Link to="/login" onClick={() => logout()}>
-      <Translate lang={"tr"}>Logout</Translate>
+      <Translate>Logout</Translate>
     </Nav.Link>
   </Nav>
 );
