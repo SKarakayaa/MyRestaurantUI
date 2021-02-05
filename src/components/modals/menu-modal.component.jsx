@@ -22,6 +22,7 @@ class MenuModal extends React.Component {
     choosenOptions: "",
     removedMaterials: "",
     totalMaterialPrice: 0,
+    quantity: 1,
     options: [],
   };
   componentDidMount() {
@@ -113,7 +114,7 @@ class MenuModal extends React.Component {
             id="contained-modal-title-vcenter"
             className="text-center"
           >
-            <Translate >Menu Options</Translate>
+            <Translate>Menu Options</Translate>
           </Modal.Title>
         </Modal.Header>
         <Form onSubmit={this.HandleSubmit}>
@@ -122,7 +123,7 @@ class MenuModal extends React.Component {
               menuOptions.map((menu_option, index) => (
                 <Form.Group key={index + 1}>
                   <Form.Label>
-                    <Translate >Choose</Translate> {index + 1}
+                    <Translate>Choose</Translate> {index + 1}
                   </Form.Label>
                   <Form.Control
                     as="select"
@@ -146,7 +147,7 @@ class MenuModal extends React.Component {
             {materialList.length !== 0 ? (
               <Form.Group>
                 <Form.Label>
-                  <Translate >Can Be Added Materials</Translate>
+                  <Translate>Can Be Added Materials</Translate>
                 </Form.Label>
                 <Select
                   defaultValue="Choose"
@@ -164,7 +165,7 @@ class MenuModal extends React.Component {
             {removableMaterials.length !== 0 ? (
               <Form.Group>
                 <Form.Label>
-                  <Translate >Removable Materials</Translate>
+                  <Translate>Removable Materials</Translate>
                 </Form.Label>
                 <Select
                   isMulti
@@ -179,13 +180,33 @@ class MenuModal extends React.Component {
             ) : (
               ""
             )}
+            <Form.Group>
+              <Form.Label>
+                <Translate>Quantity</Translate>
+              </Form.Label>
+              <Form.Control
+                as="select"
+                id="quantity"
+                name="quantity"
+                value={this.state.quantity}
+                required
+                onChange={(e) => this.setState({ quantity: e.target.value })}
+              >
+                <option value="">{TranslatePlaceholder("Choose...")}</option>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((q) => (
+                  <option value={q} key={q}>
+                    {q}
+                  </option>
+                ))}
+              </Form.Control>
+            </Form.Group>
           </Modal.Body>
           <Modal.Footer>
             <button
               className="btn btn-md btn-outline-primary btn-login font-weight-bold mb-2"
               type="submit"
             >
-              <Translate >Add To Cart</Translate>
+              <Translate>Add To Cart</Translate>
             </button>
           </Modal.Footer>
         </Form>

@@ -1,5 +1,6 @@
+import { deleteAddress, deleteFavorite, updateAddress } from "./user.utils";
+
 import UserActionTypes from "./user.types";
-import { updateAddress } from "./user.utils";
 
 const INITIAL_STATE = {
   isFetchingUserInfo: true,
@@ -67,6 +68,19 @@ const userReducer = (state = INITIAL_STATE, action) => {
         favoriteProducts: action.payload,
         areFetchingFavorites: false,
       };
+    case UserActionTypes.ADD_FAVORITE:
+      return {
+        ...state,
+        favoriteProducts: [...state.favoriteProducts, { ...action.payload }],
+      };
+    case UserActionTypes.DELETE_FAVORITE:
+      return {
+        ...state,
+        favoriteProducts: deleteFavorite(
+          state.favoriteProducts,
+          action.payload
+        ),
+      };
 
     case UserActionTypes.CREATE_ADDRESS_SUCCESS:
       return {
@@ -83,6 +97,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         userAddresses: updateAddress(state.userAddresses, action.payload),
+      };
+    case UserActionTypes.DELETE_ADDRESS_SUCCESS:
+      return {
+        ...state,
+        userAddresses: deleteAddress(state.userAddresses, action.payload),
       };
     default:
       return state;

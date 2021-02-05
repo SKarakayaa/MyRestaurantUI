@@ -7,9 +7,12 @@ import {
   selectAreFetchingProductMaterials,
   selectProducts,
 } from "../../redux/product/product.reselect";
+import {
+  selectCustomerId,
+  selectCustomerInfo,
+} from "../../redux/customer/customer.reselect";
 
 import AuthHelper from "../../helpers/authHelper";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import ProductCardItem from "../../components/product-list/product-card-item.component";
 import React from "react";
 import Translate from "../../utilities/translator";
@@ -17,14 +20,17 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchFavoriteProductsStartAsync } from "../../redux/user/user.actions";
 import { fetchProductMaterialStartAsync } from "../../redux/product/product.actions";
-import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
 
 class Favorites extends React.Component {
   componentDidMount() {
-    const { loadFavoriteProducts, loadProductMaterials } = this.props;
+    const {
+      loadFavoriteProducts,
+      loadProductMaterials,
+      customerId,
+    } = this.props;
     const userid = AuthHelper.GetCurrentUser().userId;
-    loadFavoriteProducts(userid, CurrentCustomerId());
-    loadProductMaterials(CurrentCustomerId());
+    loadFavoriteProducts(userid, customerId);
+    loadProductMaterials(customerId);
   }
   render() {
     const {
@@ -77,6 +83,7 @@ const mapStateToProps = createStructuredSelector({
   products: selectProducts,
   customerInfo: selectCustomerInfo,
   areProductMaterialsFetching: selectAreFetchingProductMaterials,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadFavoriteProducts: (userid, customerid) =>

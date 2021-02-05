@@ -8,8 +8,10 @@ import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import Translate from "../../utilities/translator";
 import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
+import { connect } from "react-redux";
+import { fetchDeleteAddressAsync } from "../../redux/user/user.actions";
 
-const AddressCard = ({ address, isAdd, isCheckout }) => (
+const AddressCard = ({ address, isAdd, isCheckout, deleteAddress }) => (
   <Col md={6}>
     <Card
       className={"bg-white addresses-item mb-4 border border-primary shadow"}
@@ -42,7 +44,9 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
                       <Link
                         className="text-danger"
                         to="#"
-                        //   onClick={this.props.onDeleteClick}
+                        onClick={() =>
+                          deleteAddress(parseInt(address.frm_user_adress_id))
+                        }
                       >
                         <Icofont icon="ui-delete" />{" "}
                         <Translate>DELETE</Translate>
@@ -62,4 +66,7 @@ const AddressCard = ({ address, isAdd, isCheckout }) => (
     </Card>
   </Col>
 );
-export default AddressCard;
+const mapDispatchToProps = (dispatch) => ({
+  deleteAddress: (addressid) => dispatch(fetchDeleteAddressAsync(addressid)),
+});
+export default connect(null, mapDispatchToProps)(AddressCard);

@@ -1,3 +1,4 @@
+import AuthHelper from "../../helpers/authHelper";
 import UserActionTypes from "./user.types";
 import agent from "../api/agent";
 
@@ -80,6 +81,38 @@ export const fetchFavoriteProductsStartAsync = (userid, customerid) => {
     );
   };
 };
+export const addFavorite = (favorite) => ({
+  type: UserActionTypes.ADD_FAVORITE,
+  payload: favorite,
+});
+export const deleteFavorite = (favoriteId) => ({
+  type: UserActionTypes.DELETE_FAVORITE,
+  payload: favoriteId,
+});
+export const favoriteAsync = (product, customerid, isFavorite, favoriteid) => {
+  return (dispatch) => {
+    if (isFavorite) {
+      agent.Users.deleteFavorite(favoriteid).then((result) =>
+        dispatch(deleteFavorite(favoriteid))
+      );
+    } else {
+      let model = {
+        user_id: AuthHelper.GetCurrentUser().userId+"",
+        product_id: parseInt(product.frm_product_id)+"",
+      };
+      agent.Users.addFavorite(model).then((result) => {
+        debugger;
+        dispatch(
+          addFavorite({
+            ...model,
+            frm_user_product_favorites_id:
+              result.outs.frm_user_product_favorites_id,
+          })
+        );
+      });
+    }
+  };
+};
 
 //USER ADDRESS
 export const fetchCreateAddressSuccess = (addressModel) => ({
@@ -132,6 +165,26 @@ export const fetchUpdateAddressAsync = (addressModel) => {
           errmsg += error.dsc + " " + error.msg;
         });
         return dispatch(fetchUpdateAddressFail(errmsg));
+      }
+    });
+  };
+};
+
+export const fetchDeleteAddressSuccess = (addressid) => ({
+  type: UserActionTypes.DELETE_ADDRESS_SUCCESS,
+  payload: addressid,
+});
+export const fetchDeleteAddressFail = (errorMesssage) => ({
+  type: UserActionTypes.DELETE_ADDRESS_FAIL,
+  payload: errorMesssage,
+});
+export const fetchDeleteAddressAsync = (addressid) => {
+  return (dispatch) => {
+    agent.Address.deleteAddress(addressid).then((result) => {
+      if (result.success) {
+        dispatch(fetchDeleteAddressSuccess(addressid));
+      } else {
+        dispatch(fetchDeleteAddressFail(result.errors[0].msg));
       }
     });
   };

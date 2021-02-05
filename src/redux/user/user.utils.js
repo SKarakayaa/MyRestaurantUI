@@ -13,3 +13,13 @@ export const updateAddress = (addresses, updatedAddress) => {
       : address
   );
 };
+export const deleteAddress = (addresses, addressid) => {
+  return addresses.filter(
+    (address) => address.frm_user_adress_id !== addressid
+  );
+};
+export const deleteFavorite = (favorites, favoriteid) => {
+  return favorites.filter(
+    (favorite) => favorite.frm_user_product_favorites_id !== favoriteid
+  );
+};

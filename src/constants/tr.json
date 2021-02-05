@@ -27,7 +27,7 @@
     "new": "Yeni",
     "your orders": "Siparişleriniz",
     "you didn't add to cart anything !": "Sepetinize ürün eklemediniz !",
-    "items": "ürün",
+    "items": "Ürün",
     "menu options": "Menü Seçenekleri",
     "can be added materials": "Eklenebilir ek malzemeler",
     "removable materials": "Çıkarabileceğiniz malzemeler",
@@ -86,9 +86,13 @@
     "don’t have an account?": "Hesabınız yok mu?",
     "username": "Kullanıcı Adı",
     "password": "Şifre",
-    "already have an account?":"Zaten bir hesabınız var mı?",
-    "new buddy!":"Yeni Arkadaş!",
-    "rezervation date":"Rezervasyon Tarihi",
-    "submit":"Gönder"
+    "already have an account?": "Zaten bir hesabınız var mı?",
+    "new buddy!": "Yeni Arkadaş!",
+    "rezervation date": "Rezervasyon Tarihi",
+    "submit": "Gönder",
+    "choosed :": "Seçildi :",
+    "added :": "Eklendi :",
+    "removed :": "Çıkarıldı :",
+    "quantity": "Miktar"
   }
 }

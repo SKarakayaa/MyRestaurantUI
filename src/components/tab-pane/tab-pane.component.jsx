@@ -4,6 +4,7 @@ import {
   fetchProductStartAsync,
 } from "../../redux/product/product.actions";
 
+import AuthHelper from "../../helpers/authHelper";
 import CartSide from "../cart/cart-side.component";
 import React from "react";
 import TabBody from "./tab-body.component";
@@ -11,6 +12,7 @@ import TabHeader from "./tab-header.component";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchCategoriesStartAsync } from "../../redux/category/category.actions";
+import { fetchFavoriteProductsStartAsync } from "../../redux/user/user.actions";
 import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
 class TabPane extends React.Component {
@@ -20,10 +22,14 @@ class TabPane extends React.Component {
       loadCategories,
       loadProducts,
       loadProductMaterials,
+      loadFavoriteProducts,
     } = this.props;
     loadCategories(customerId);
     loadProducts(customerId);
     loadProductMaterials(customerId);
+    if (AuthHelper.IsLogin()) {
+      loadFavoriteProducts(AuthHelper.GetCurrentUser().userId, customerId);
+    }
   }
   render() {
     return (
@@ -58,5 +64,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadProducts: (customerid) => dispatch(fetchProductStartAsync(customerid)),
   loadProductMaterials: (customerid) =>
     dispatch(fetchProductMaterialStartAsync(customerid)),
+  loadFavoriteProducts: (userid, customerid) =>
+    dispatch(fetchFavoriteProductsStartAsync(userid, customerid)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TabPane);

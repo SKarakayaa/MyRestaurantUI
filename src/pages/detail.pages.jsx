@@ -10,7 +10,6 @@ import Slider from "../components/common/slider.component";
 import TabPane from "../components/tab-pane/tab-pane.component";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { fetchCustomerInfoStartAsync } from "../redux/customer/customer.actions";
 
 const Detail = ({ isCustomerInfoFetching }) =>
   isCustomerInfoFetching ? (
@@ -26,8 +25,5 @@ const mapStateToProps = createStructuredSelector({
   isCustomerInfoFetching: selectCustomerInfoIsFetching,
   customerInfo: selectCustomerInfo,
 });
-const mapDispatchToProps = (dispatch) => ({
-  fetchCustomerInfoStartAsync: (customerid) =>
-    dispatch(fetchCustomerInfoStartAsync(customerid)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+
+export default connect(mapStateToProps)(Detail);

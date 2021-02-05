@@ -46,7 +46,13 @@ const AddToCartHelper = {
     return removedMaterialsName;
   },
   HandleMenuModalSubmit: (
-    { choosedMaterials, totalMaterialPrice, removedMaterials, choosenOptions },
+    {
+      choosedMaterials,
+      totalMaterialPrice,
+      removedMaterials,
+      choosenOptions,
+      quantity,
+    },
     product
   ) => {
     const productModel = {
@@ -54,15 +60,16 @@ const AddToCartHelper = {
       name: product.name,
       price: parseInt(product.price),
       is_menu: product.is_menu,
+      quantity: parseInt(quantity),
       options: choosenOptions !== undefined ? choosenOptions : "",
       choosedMaterials: "",
       removedMaterials:
         removedMaterials !== "" && removedMaterials !== undefined
-          ? "Without " + removedMaterials
+          ? " " + removedMaterials
           : "",
     };
     if (choosedMaterials !== "" && choosedMaterials !== undefined) {
-      productModel.choosedMaterials += "With " + choosedMaterials;
+      productModel.choosedMaterials += " " + choosedMaterials;
       productModel.price += parseInt(totalMaterialPrice);
     }
 
