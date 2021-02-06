@@ -21,7 +21,7 @@ const ProductCardItem = ({
     <div className="list-card-image">
       <div
         className={
-          favoriteInformation.isFavorite
+          favoriteInformation !== undefined && favoriteInformation.isFavorite
             ? "favourite-heart position-absolute text-danger"
             : "favourite-heart position-absolute text-secondary"
         }

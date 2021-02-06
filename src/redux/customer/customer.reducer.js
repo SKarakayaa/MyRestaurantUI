@@ -1,6 +1,7 @@
 import CustomerActionTypes from "./customer.types";
 
 const INITIAL_STATE = {
+  isMainSite: true,
   customerId: 1,
 
   isFetching: true,

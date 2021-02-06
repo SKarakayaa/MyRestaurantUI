@@ -6,6 +6,7 @@ import { combineReducers } from "redux";
 import commentReducer from "./comment/comment.reducer";
 import customerReducer from "./customer/customer.reducer";
 import likeReducer from "./like/like.reducer";
+import mainReducer from "./main/main.reducer";
 import orderReducer from "./order/order.reducer";
 import productReducer from "./product/product.reducer";
 import userReducer from "./user/user.reducer";
@@ -21,5 +22,6 @@ const rootReducer = combineReducers({
   order: orderReducer,
   address: addressReducer,
   like: likeReducer,
+  main: mainReducer,
 });
 export default rootReducer;

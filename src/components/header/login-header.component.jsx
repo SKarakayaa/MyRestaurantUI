@@ -7,13 +7,13 @@ import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { logout } from "../../redux/auth/auth.actions";
 
-const LoginUser = ({ logout }) => (
+const LoginUser = ({ logout, isMainSite }) => (
   <Nav activeKey={0} className="ml-auto">
     <Nav.Link eventKey={1} as={NavLink} exact to="/">
       <Translate>Home</Translate>
     </Nav.Link>
     <HeaderMyAccount />
-    <HeaderCart />
+    {!isMainSite && <HeaderCart />}
     <Nav.Link to="/login" onClick={() => logout()}>
       <Translate>Logout</Translate>
     </Nav.Link>

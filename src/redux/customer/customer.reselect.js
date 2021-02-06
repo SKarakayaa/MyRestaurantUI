@@ -52,3 +52,8 @@ export const selectCustomerGallery = createSelector(
   [selectCustomer],
   (customer) => customer.gallery
 );
+
+export const selectIsMainSite = createSelector(
+  [selectCustomer],
+  (customer) => customer.isMainSite
+);
