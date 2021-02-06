@@ -3,6 +3,7 @@ import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import OrderDetailModal from "../modals/order-detail-modal.component";
 import React from "react";
+import Translate from "../../utilities/translator";
 
 class OrderDetailButton extends React.Component {
   state = {
@@ -26,7 +27,7 @@ class OrderDetailButton extends React.Component {
           to="#"
           onClick={() => this.setState({ detailModalShow: true })}
         >
-          <Icofont icon="listing-box" /> Detail
+          <Icofont icon="listing-box" /> <Translate>Detail</Translate>
         </Link>
       </Fragment>
     );

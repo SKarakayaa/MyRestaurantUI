@@ -8,11 +8,7 @@ const AddressHelper = {
     const address = addresses.find((x) => x.frm_user_adress_id === addressid);
     return address === null
       ? TranslatePlaceholder("Address Not Found or Removed")
-      : address.delivery_area +
-          " - " +
-          address.delivery_instructions +
-          " - " +
-          address.location;
+      : address.complate_address;
   },
   GetAddressTypeName: (addressTypeId) => {
     switch (addressTypeId) {

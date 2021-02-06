@@ -4,6 +4,7 @@ import { NavDropdown } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import React from "react";
 import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 
 const HeaderMyAccount = () => (
   <NavDropdown
@@ -14,7 +15,7 @@ const HeaderMyAccount = () => (
         image="img/user/4.png"
         imageAlt="user"
         imageClass="nav-osahan-pic rounded-pill"
-        title={<Translate >My Account</Translate>}
+        title={TranslatePlaceholder("My Account")}
       />
     }
   >
@@ -24,7 +25,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/orders"
     >
-      <Icofont icon="food-cart" /> <Translate >Orders</Translate>
+      <Icofont icon="food-cart" /> <Translate>Orders</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -33,7 +34,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/favourites"
     >
-      <Icofont icon="heart" /> <Translate >Favourites</Translate>
+      <Icofont icon="heart" /> <Translate>Favourites</Translate>
     </NavDropdown.Item>
 
     <NavDropdown.Item
@@ -42,7 +43,7 @@ const HeaderMyAccount = () => (
       activeclassname="active"
       to="/myaccount/addresses"
     >
-      <Icofont icon="location-pin" /> <Translate >Addresses</Translate>
+      <Icofont icon="location-pin" /> <Translate>Addresses</Translate>
     </NavDropdown.Item>
   </NavDropdown>
 );

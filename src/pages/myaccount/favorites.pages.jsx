@@ -65,7 +65,11 @@ class Favorites extends React.Component {
                       <ProductCardItem
                         product={product}
                         currencyUnit={customerInfo.currency_unit}
-                        isFavorite={true}
+                        favoriteInformation={{
+                          isFavorite: true,
+                          favoriteId:
+                            favoriteProduct.frm_user_product_favorites_id,
+                        }}
                       />
                     </Col>
                   );

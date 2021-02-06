@@ -1,6 +1,7 @@
 import { Image, Media } from "react-bootstrap";
 
 import React from "react";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 
 const OrderDetailModalBody = ({ orderDetail, product, currency_unit }) => (
   <div
@@ -21,9 +22,21 @@ const OrderDetailModalBody = ({ orderDetail, product, currency_unit }) => (
           {orderDetail.price + " " + currency_unit}
         </p>
         <br />
-        <p className="text-gray mb-0">{orderDetail.options}</p>
+        <p className="mb-0">
+          {orderDetail.options !== "" &&
+            TranslatePlaceholder("Choosed :") + "" + orderDetail.options}
+        </p>
+        <p className="mb-0">
+          {orderDetail.material_add !== "" &&
+            TranslatePlaceholder("Added :") + orderDetail.material_add}
+        </p>
+        <p className="mb-0">
+          {orderDetail.material_removed !== "" &&
+            TranslatePlaceholder("Removed :") + orderDetail.material_removed}
+        </p>
+        {/* <p className="text-gray mb-0">{orderDetail.options}</p>
         <p className="text-gray mb-0">{orderDetail.material_add}</p>
-        <p className="text-gray mb-0">{orderDetail.material_removed}</p>
+        <p className="text-gray mb-0">{orderDetail.material_removed}</p> */}
       </Media.Body>
     </Media>
   </div>

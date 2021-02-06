@@ -5,6 +5,7 @@ import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import OrderDetailButton from "../buttons/order-detail-button.component";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
@@ -18,7 +19,7 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
         <Media.Body>
           {order.send_date !== "" ? (
             <span className="float-right text-info">
-              Delivered on {order.send_date}
+              <Translate>Delivered on</Translate> {order.send_date}
               <Icofont icon="check-circled" className="text-success ml-1" />
             </span>
           ) : (
@@ -34,19 +35,23 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
             {AddressHelper.GetAddress(userAddresses, order.address_id)}
           </p>
           <p className="text-gray mb-3">
-            <Icofont icon="list" /> ORDER #{order.orderNumber}
+            <Icofont icon="list" /> <Translate>ORDER#</Translate>
+            {order.orderNumber}
             <Icofont icon="clock-time" className="ml-2" /> {order.order_date}
           </p>
           {/* <p className="text-dark">ORDER PRODUCTS</p> */}
           <hr />
           <div className="float-right">
-            <Link className="btn btn-sm btn-outline-primary mr-1" to="#">
+            {/* <Link className="btn btn-sm btn-outline-primary mr-1" to="#">
               <Icofont icon="headphone-alt" /> HELP
-            </Link>
+            </Link> */}
             <OrderDetailButton orderid={order.frm_orders_id} />
           </div>
           <p className="mb-0 text-black text-primary pt-2">
-            <span className="text-black font-weight-bold"> Total Paid:</span>{" "}
+            <span className="text-black font-weight-bold">
+              {" "}
+              <Translate>Total Bill</Translate>:
+            </span>{" "}
             {order.total_price} {customerInfo.currency_unit}
           </p>
         </Media.Body>

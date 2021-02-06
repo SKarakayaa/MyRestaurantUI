@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types'; 
 import Icofont from 'react-icofont';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class CartDropdownItem extends React.Component {
 	render() {
@@ -13,7 +13,7 @@ class CartDropdownItem extends React.Component {
 		);
 	}
 }
-
+ 
 CartDropdownItem.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,

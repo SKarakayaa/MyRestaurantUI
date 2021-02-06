@@ -93,6 +93,20 @@
     "choosed :": "Seçildi :",
     "added :": "Eklendi :",
     "removed :": "Çıkarıldı :",
-    "quantity": "Miktar"
+    "quantity": "Miktar",
+    "order details": "Sipariş Detayları",
+    "from": "Nereden",
+    "deliver to": "Nereye",
+    "total bill": "Fatura Tutarı",
+    "paying via": "Ödeme Yöntemi",
+    "order received": "Sipariş Alındı",
+    "order confirmed": "Sipariş Onaylandı",
+    "order picked up": "Sipariş Yollandı",
+    "next": "Sonraki",
+    "now": "Şuan",
+    "reorder": "SİPARİŞ VER",
+    "delivered on": "Teslim Tarihi",
+    "order#":"SİPARİŞ#",
+    "detail":"Detaylar"
   }
 }

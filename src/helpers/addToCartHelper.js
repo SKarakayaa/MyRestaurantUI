@@ -75,6 +75,19 @@ const AddToCartHelper = {
 
     return productModel;
   },
+  Reorder: (orderDetail, product) => {
+    const cartItemModel = {
+      frm_product_id: orderDetail.product_id,
+      name: product.name,
+      price: parseInt(orderDetail.price),
+      is_menu: product.is_menu,
+      quantity: parseInt(orderDetail.quantity),
+      options: orderDetail.options,
+      choosedMaterials: orderDetail.material_add,
+      removedMaterials: orderDetail.material_removed,
+    };
+    return cartItemModel;
+  },
 };
 
 export default AddToCartHelper;

@@ -5,18 +5,38 @@ import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
 import Translate from "../../utilities/translator";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { favoriteAsync } from "../../redux/user/user.actions";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
-const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
+const ProductCardItem = ({
+  product,
+  currencyUnit,
+  favoriteInformation,
+  favorite,
+  customerId,
+}) => (
   <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
     <div className="list-card-image">
       <div
         className={
-          isFavorite
+          favoriteInformation.isFavorite
             ? "favourite-heart position-absolute text-danger"
             : "favourite-heart position-absolute text-secondary"
         }
       >
-        <Link to="#">
+        <Link
+          to="#"
+          onClick={() =>
+            favorite(
+              product,
+              customerId,
+              favoriteInformation.isFavorite,
+              favoriteInformation.favoriteId
+            )
+          }
+        >
           <Icofont icon="heart" />
         </Link>
       </div>
@@ -42,7 +62,7 @@ const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
           </Link>
           {product.is_new ? (
             <Badge variant="success" className="ml-1">
-              <Translate >NEW</Translate>
+              <Translate>NEW</Translate>
             </Badge>
           ) : (
             ""
@@ -55,5 +75,11 @@ const ProductCardItem = ({ product, currencyUnit, isFavorite }) => (
     </div>
   </div>
 );
-
-export default ProductCardItem;
+const mapStateToProps = createStructuredSelector({
+  customerId: selectCustomerId,
+});
+const mapDispatchToProps = (dispatch) => ({
+  favorite: (product, customerid, isFavorite, favoriteid) =>
+    dispatch(favoriteAsync(product, customerid, isFavorite, favoriteid)),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCardItem);

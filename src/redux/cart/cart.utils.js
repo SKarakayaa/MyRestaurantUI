@@ -1,7 +1,6 @@
 import uuid from "react-uuid";
 
 export const addItemToCart = (cartItems, cartItemToAdd) => {
-  debugger;
   const existingCartItem = cartItems.find(
     (cartItem) =>
       cartItem.frm_product_id === cartItemToAdd.frm_product_id &&

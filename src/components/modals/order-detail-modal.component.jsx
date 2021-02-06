@@ -4,9 +4,12 @@ import {
   selectOrderDetails,
 } from "../../redux/order/order.reselect";
 
+import AddToCartHelper from "../../helpers/addToCartHelper";
 import OrderDetailModalBody from "../common/order-detail-modal-body.component";
 import ProductHelper from "../../helpers/productHelper";
 import React from "react";
+import Translate from "../../utilities/translator";
+import { addItem } from "../../redux/cart/cart.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchOrderDetailStartAsync } from "../../redux/order/order.actions";
@@ -18,6 +21,16 @@ class OrderDetailModal extends React.Component {
     const { orderid, loadOrderDetails } = this.props;
     loadOrderDetails(orderid);
   }
+  Reorder = () => {
+    const { products, orderDetails, addItem } = this.props;
+    orderDetails.forEach((orderDetail) => {
+      let product = products.find(
+        (product) => product.frm_product_id === orderDetail.product_id
+      );
+      var cartItemModel = AddToCartHelper.Reorder(orderDetail, product);
+      addItem(cartItemModel);
+    });
+  };
   render() {
     const {
       areOrderDetailsFetching,
@@ -34,7 +47,7 @@ class OrderDetailModal extends React.Component {
       >
         <Modal.Header closeButton={true}>
           <Modal.Title as="h5" id="edit-profile">
-            Order Detail
+            <Translate>Order Details</Translate>
           </Modal.Title>
         </Modal.Header>
 
@@ -60,14 +73,15 @@ class OrderDetailModal extends React.Component {
             variant="outline-primary"
             className="d-flex w-50 text-center justify-content-center"
           >
-            CANCEL
+            <Translate>CANCEL</Translate>
           </Button>
           <Button
             type="button"
             variant="primary"
             className="d-flex w-50 text-center justify-content-center"
+            onClick={() => this.Reorder()}
           >
-            REORDER
+            <Translate>REORDER</Translate>
           </Button>
         </Modal.Footer>
       </Modal>
@@ -82,5 +96,6 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   loadOrderDetails: (orderid) => dispatch(fetchOrderDetailStartAsync(orderid)),
+  addItem: (cartItem) => dispatch(addItem(cartItem)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetailModal);
