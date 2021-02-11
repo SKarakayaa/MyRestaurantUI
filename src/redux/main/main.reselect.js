@@ -12,3 +12,12 @@ export const selectCustomers = createSelector(
   [selectMain],
   (main) => main.customers
 );
+
+export const selectAreCuisiniesFetching = createSelector(
+  [selectMain],
+  (main) => main.areCuisiniesFetching
+);
+export const selectCuisinies = createSelector(
+  [selectMain],
+  (main) => main.cuisines
+);

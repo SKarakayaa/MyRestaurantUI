@@ -5,50 +5,22 @@ import { Link } from "react-router-dom";
 import OwlCarousel from "react-owl-carousel3";
 import React from "react";
 import TopSearch from "../components/index/top-search.component";
-
+import { createStructuredSelector } from "reselect";
+import { connect } from "react-redux";
+import { fetchCuisinesStartAsync } from "../redux/main/main.actions";
+import { selectAreCuisiniesFetching } from "../redux/main/main.reselect";
 class Index extends React.Component {
+  componentDidMount() {
+    const { loadCuisines } = this.props;
+    loadCuisines();
+  }
   render() {
+    const { areCuisinesFetching } = this.props;
     return (
       <>
-        <TopSearch />
-        <section className="section pt-5 pb-5 bg-white homepage-add-section">
-          <Container>
-            <Row>
-              <Col md={3} xs={6}>
-                {/* <ProductBox
-                  image="img/pro1.jpg"
-                  imageClass="img-fluid rounded"
-                  imageAlt="product"
-                  linkUrl="#" */}
-                {/* /> */}
-              </Col>
-              <Col md={3} xs={6}>
-                {/* <ProductBox
-                  image="img/2.jpg"
-                  imageClass="img-fluid rounded"
-                  imageAlt="product"
-                  linkUrl="#"
-                /> */}
-              </Col>
-              <Col md={3} xs={6}>
-                {/* <ProductBox
-                  image="img/pro3.jpg"
-                  imageClass="img-fluid rounded"
-                  imageAlt="product"
-                  linkUrl="#"
-                /> */}
-              </Col>
-              <Col md={3} xs={6}>
-                {/* <ProductBox
-                  image="img/pro4.jpg"
-                  imageClass="img-fluid rounded"
-                  imageAlt="product"
-                  linkUrl="#"
-                /> */}
-              </Col>
-            </Row>
-          </Container>
-        </section>
+        {!areCuisinesFetching && <TopSearch />}
+
+        {/* {!areCuisinesFetching && <Cuisines />} */}
 
         <section className="section pt-5 pb-5 products-section">
           <Container>
@@ -135,5 +107,10 @@ const options = {
     "<i class='fa fa-chevron-right'></i>",
   ],
 };
-
-export default Index;
+const mapStateToProps = createStructuredSelector({
+  areCuisinesFetching: selectAreCuisiniesFetching,
+});
+const mapDispatchToProps = (dispatch) => ({
+  loadCuisines: () => dispatch(fetchCuisinesStartAsync()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(Index);

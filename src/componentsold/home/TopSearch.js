@@ -74,7 +74,7 @@ class TopSearch extends React.Component {
 							   	/>
 	                        </div>
 	                        <div className="item">
-								<ProductBox 
+								<ProductBox  
 							   		image='img/slider.png'
 							   		imageClass='img-fluid rounded'
 							   		imageAlt='carousel'

@@ -128,8 +128,7 @@ const Orders = {
 
 const HomepageRequests = {
   loadCustomers: () => request.get("/Customer/getCustomerList"),
-  laodCuisines: (customerid) =>
-    request.get(`/Customer/getCustomerAllCuisines?xcustomer_id=${customerid}`),
+  laodCuisines: (customerid) => request.get(`/Customer/getCustomerAllCuisines`),
 };
 
 export default {

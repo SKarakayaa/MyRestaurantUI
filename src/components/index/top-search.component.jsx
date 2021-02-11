@@ -12,12 +12,11 @@ import Select2 from "react-select2-wrapper";
 import { chooseCity } from "../../redux/main/main.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectCityId } from "../../redux/main/main.reselect";
-
+import { selectCityId, selectCuisinies } from "../../redux/main/main.reselect";
+import Cuisines from "./cuisines.component";
 class TopSearch extends React.Component {
   render() {
     const { cities, citiesAreFetching, cityId, chooseCity } = this.props;
-    console.log("choosed city id :", cityId);
     return (
       !citiesAreFetching && (
         <section className="pt-5 pb-5 homepage-search-block position-relative">
@@ -63,44 +62,23 @@ class TopSearch extends React.Component {
                     </div>
                   </Form>
                 </div>
-
+                <Cuisines />
                 {/* <CategoriesCarousel /> */}
               </Col>
-              <Col md={4}>
+              {/* <Col md={4}>
                 <div className="osahan-slider pl-4 pt-3">
-                  {/* <OwlCarousel
-              nav
-              loop
-              {...options2}
-              className="homepage-ad owl-theme"
-            > */}
-                  {/* <div className="item">
-                <ProductBox
-                  image="img/slider.png"
-                  imageClass="img-fluid rounded"
-                  imageAlt="carousel"
-                  linkUrl="listing"
-                />
-              </div>
-              <div className="item">
-                <ProductBox
-                  image="img/slider1.png"
-                  imageClass="img-fluid rounded"
-                  imageAlt="carousel"
-                  linkUrl="listing"
-                />
-              </div>
-              <div className="item">
-                <ProductBox
-                  image="img/slider.png"
-                  imageClass="img-fluid rounded"
-                  imageAlt="carousel"
-                  linkUrl="listing"
-                />
-              </div> */}
-                  {/* </OwlCarousel> */}
+                  <OwlCarousel
+                    nav
+                    loop
+                    {...options2}
+                    className="homepage-ad owl-theme"
+                  >
+                    {cuisines.map((cuisine) => (
+                      <CuisineItem title={cuisine.name} />
+                    ))}
+                  </OwlCarousel>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
           </Container>
         </section>
@@ -108,37 +86,41 @@ class TopSearch extends React.Component {
     );
   }
 }
+const options2 = {
+  responsive: {
+    0: {
+      items: 2,
+    },
+    764: {
+      items: 2,
+    },
+    765: {
+      items: 1,
+    },
+    1200: {
+      items: 1,
+    },
+  },
+  lazyLoad: true,
+  loop: true,
+  autoplay: true,
+  autoplaySpeed: 1000,
+  dots: false,
+  autoplayTimeout: 2000,
+  nav: true,
+  navText: [
+    "<i class='fa fa-chevron-left'></i>",
+    "<i class='fa fa-chevron-right'></i>",
+  ],
+  autoplayHoverPause: true,
+};
 const mapStateToProps = createStructuredSelector({
   cities: selectCities,
   citiesAreFetching: selectAreCitiesFetching,
   cityId: selectCityId,
+  cuisines: selectCuisinies,
 });
 const mapDispatchToProps = (dispatch) => ({
   chooseCity: (cityId) => dispatch(chooseCity(cityId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TopSearch);
-// const options2={
-// 	responsive: {
-//         0:{
-//             items:2,
-//         },
-//         764:{
-//             items:2,
-//         },
-//         765: {
-//           items: 1,
-//         },
-//         1200: {
-//           items: 1,
-//         },
-//       },
-//       lazyLoad: true,
-//       loop: true,
-//       autoplay: true,
-//       autoplaySpeed: 1000,
-//       dots: false,
-//       autoplayTimeout: 2000,
-//       nav: true,
-//       navText: ["<i class='fa fa-chevron-left'></i>", "<i class='fa fa-chevron-right'></i>"],
-//       autoplayHoverPause: true,
-// }

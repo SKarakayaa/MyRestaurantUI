@@ -21,3 +21,19 @@ export const fetchCustomersStartAsync = () => {
     );
   };
 };
+
+export const fetchCuisinesStart = () => ({
+  type: MainActionTypes.FETCH_CUISINES_START,
+});
+export const fetchCuisinesSuccess = (cuisines) => ({
+  type: MainActionTypes.FETCH_CUISINES_SUCCESS,
+  payload: cuisines.data,
+});
+export const fetchCuisinesStartAsync = () => {
+  return (dispatch) => {
+    dispatch(fetchCuisinesStart());
+    agent.HomepageRequests.laodCuisines().then((result) =>
+      dispatch(fetchCuisinesSuccess(result))
+    );
+  };
+};

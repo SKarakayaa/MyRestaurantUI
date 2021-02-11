@@ -5,6 +5,9 @@ const INITIAL_STATE = {
 
   areCustomersFetching: true,
   customers: null,
+
+  areCuisiniesFetching: true,
+  cuisines: null,
 };
 
 const mainReducer = (state = INITIAL_STATE, action) => {
@@ -20,10 +23,22 @@ const mainReducer = (state = INITIAL_STATE, action) => {
         areCustomersFetching: true,
       };
     case MainActionTypes.FETCH_CUSTOMERS_SUCCESS:
+      debugger;
       return {
         ...state,
         areCustomersFetching: false,
         customers: action.payload,
+      };
+    case MainActionTypes.FETCH_CUISINES_START:
+      return {
+        ...state,
+        areCuisiniesFetching: true,
+      };
+    case MainActionTypes.FETCH_CUISINES_SUCCESS:
+      return {
+        ...state,
+        areCuisiniesFetching: false,
+        cuisines: action.payload,
       };
     default:
       return state;
