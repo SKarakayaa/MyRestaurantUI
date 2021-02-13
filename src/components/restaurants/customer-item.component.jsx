@@ -1,4 +1,4 @@
-import { Col, Image } from "react-bootstrap";
+import { Badge, Col, Image } from "react-bootstrap";
 
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
@@ -8,11 +8,20 @@ const CustomerItem = ({ customer }) => (
   <Col md={4} sm={6} className="mb-4 pb-2">
     <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
       <div className="list-card-image">
+        <div className={`favourite-heart position-absolute text-danger`}>
+          <Icofont icon="heart" />
+        </div>
+        {customer.is_popular === "1" && (
+          <div className="member-plan position-absolute">
+            <Badge variant="success">Popular</Badge>
+          </div>
+        )}
         <Link to={`detail/${customer.frm_customer_id}`}>
           <Image
-            src="img/list/1.png"
+            src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customer.logo_path}`}
             className="img-fluid item-img"
-            alt="customer"
+            style={{ width: "264px", height: "166px" }}
+            alt="popular-customer"
           />
         </Link>
       </div>
@@ -26,16 +35,35 @@ const CustomerItem = ({ customer }) => (
               {customer.name}
             </Link>
           </h6>
-          {customer.cuisines && (
-            <p className="text-gray mb-3">{customer.cuisines}</p>
-          )}
-          {customer.order_time && (
-            <p className="text-gray mb-3 time">
+          <p className="text-gray mb-3" style={{ height: "30px" }}>
+            {customer.meta_data}
+          </p>
+
+          <p className="text-gray mb-3 time">
+            {customer.order_time !== "" && (
               <span className="bg-light text-dark rounded-sm pl-2 pb-1 pt-1 pr-2">
                 <Icofont icon="wall-clock" /> {customer.order_time}
               </span>
-            </p>
-          )}
+            )}
+            {customer.phone_number !== "" && (
+              <span className="float-right text-black-50">
+                {" "}
+                <Icofont icon="phone" /> {customer.phone_number}
+              </span>
+            )}
+          </p>
+        </div>
+        <div className="list-card-badge">
+          <Badge
+            variant={customer.customer_status === "1" ? "success" : "danger"}
+          >
+            {customer.customer_status_qw_}
+          </Badge>{" "}
+          <small>
+            {customer.customer_status === "1"
+              ? "Firm is open and not busy"
+              : "Firms is busy now, your order may late!"}
+          </small>
         </div>
       </div>
     </div>

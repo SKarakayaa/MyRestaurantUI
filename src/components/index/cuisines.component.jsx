@@ -13,8 +13,8 @@ const Cuisines = ({ cuisines }) => (
     {...cuisinesOptions}
     className="owl-carousel-category owl-theme"
   >
-    {cuisines.map((cuisine) => (
-      <CuisineItem title={cuisine.name} />
+    {cuisines.map((cuisine, index) => (
+      <CuisineItem title={cuisine.name} key={index} />
     ))}
   </OwlCarousel>
 );

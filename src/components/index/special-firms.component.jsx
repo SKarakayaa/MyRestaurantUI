@@ -11,7 +11,7 @@ const SpecialFirms = ({ customers }) => (
     <Container>
       <Row>
         {customers.map((customer) => (
-          <Col md={3} xs={6}>
+          <Col md={3} xs={6} key={customer.frm_customer_id}>
             <SpecialFirmsItem customer={customer} />
           </Col>
         ))}

@@ -27,7 +27,7 @@ const PopularFirms = ({ customers }) => (
             {customers
               .filter((customer) => customer.is_popular)
               .map((customer) => (
-                <div className="item">
+                <div className="item" key={customer.frm_customer_id}>
                   <PopularFirmsItem customer={customer} />
                 </div>
               ))}
