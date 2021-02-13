@@ -6,5 +6,6 @@ const MainActionTypes = {
   FETCH_CUISINES_SUCCESS: "FETCH_CUISINES_SUCCESS",
 
   CHOOSE_CITY: "CHOOSE_CITY",
+  CHOOSE_COUNTY: "CHOOSE_COUNTY",
 };
 export default MainActionTypes;

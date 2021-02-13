@@ -4,6 +4,11 @@ const selectMain = (state) => state.main;
 
 export const selectCityId = createSelector([selectMain], (main) => main.cityId);
 
+export const selectCountyId = createSelector(
+  [selectMain],
+  (main) => main.countyId
+);
+
 export const selectAreCustomersFetching = createSelector(
   [selectMain],
   (main) => main.areCustomersFetching

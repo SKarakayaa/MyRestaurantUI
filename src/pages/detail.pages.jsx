@@ -24,9 +24,11 @@ class Detail extends React.Component {
       changeCustomerId,
       match,
     } = this.props;
-    fetchCustomerInfoStartAsync(customerId);
     if (isMainSite) {
       changeCustomerId(parseInt(match.params.id));
+      fetchCustomerInfoStartAsync(parseInt(match.params.id));
+    } else {
+      fetchCustomerInfoStartAsync(customerId);
     }
   }
   render() {

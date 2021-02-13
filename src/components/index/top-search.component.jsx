@@ -1,22 +1,40 @@
 import { Col, Container, Form, Row } from "react-bootstrap";
+import { chooseCity, chooseCounty } from "../../redux/main/main.actions";
 import {
   selectAreCitiesFetching,
   selectCities,
+  selectCounties,
 } from "../../redux/address/address.reselect";
+import { selectCityId, selectCountyId } from "../../redux/main/main.reselect";
 
+import Cuisines from "./cuisines.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import MainPagesHelper from "../../helpers/mainPagesHelper";
 import React from "react";
 import Select2 from "react-select2-wrapper";
-import { chooseCity } from "../../redux/main/main.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectCityId, selectCuisinies } from "../../redux/main/main.reselect";
-import Cuisines from "./cuisines.component";
+import { fetchCountiesStartAsync } from "../../redux/address/address.actions";
+
 class TopSearch extends React.Component {
+  HandleChange = (e) => {
+    const { chooseCity, chooseCounty, loadCounties } = this.props;
+    if (e.target.name === "city") {
+      chooseCity(e.target.value);
+      loadCounties(e.target.value);
+    } else {
+      chooseCounty(e.target.value);
+    }
+  };
   render() {
-    const { cities, citiesAreFetching, cityId, chooseCity } = this.props;
+    const {
+      cities,
+      citiesAreFetching,
+      cityId,
+      counties,
+      countyId,
+    } = this.props;
     return (
       !citiesAreFetching && (
         <section className="pt-5 pb-5 homepage-search-block position-relative">
@@ -36,21 +54,36 @@ class TopSearch extends React.Component {
                 <div className="homepage-search-form">
                   <Form className="form-noborder">
                     <div className="form-row">
-                      <Form.Group className="col-lg-10 col-md-10 col-sm-12">
+                      <Form.Group className="col-lg-5 col-md-5 col-sm-12">
                         <div className="location-dropdown">
                           <Icofont icon="location-arrow" />
                           <Select2
                             className="custom-select"
                             data={MainPagesHelper.FormatCities(cities)}
+                            name="city"
                             value={cityId}
-                            onChange={(e) => chooseCity(e.target.value)}
+                            onChange={this.HandleChange}
                             options={{
-                              placeholder: "Quick Searches",
+                              placeholder: "Choose City",
                             }}
                           />
                         </div>
                       </Form.Group>
-
+                      <Form.Group className="col-lg-5 col-md-5 col-sm-12">
+                        <div className="location-dropdown">
+                          <Icofont icon="location-arrow" />
+                          <Select2
+                            className="custom-select"
+                            data={MainPagesHelper.FormatCities(counties)}
+                            name="county"
+                            value={countyId}
+                            onChange={this.HandleChange}
+                            options={{
+                              placeholder: "Choose County",
+                            }}
+                          />
+                        </div>
+                      </Form.Group>
                       <Form.Group className="col-lg-2 col-md-2 col-sm-12">
                         <Link
                           to={cityId !== 0 ? "restaurants" : "#"}
@@ -63,22 +96,7 @@ class TopSearch extends React.Component {
                   </Form>
                 </div>
                 <Cuisines />
-                {/* <CategoriesCarousel /> */}
               </Col>
-              {/* <Col md={4}>
-                <div className="osahan-slider pl-4 pt-3">
-                  <OwlCarousel
-                    nav
-                    loop
-                    {...options2}
-                    className="homepage-ad owl-theme"
-                  >
-                    {cuisines.map((cuisine) => (
-                      <CuisineItem title={cuisine.name} />
-                    ))}
-                  </OwlCarousel>
-                </div>
-              </Col> */}
             </Row>
           </Container>
         </section>
@@ -86,41 +104,16 @@ class TopSearch extends React.Component {
     );
   }
 }
-const options2 = {
-  responsive: {
-    0: {
-      items: 2,
-    },
-    764: {
-      items: 2,
-    },
-    765: {
-      items: 1,
-    },
-    1200: {
-      items: 1,
-    },
-  },
-  lazyLoad: true,
-  loop: true,
-  autoplay: true,
-  autoplaySpeed: 1000,
-  dots: false,
-  autoplayTimeout: 2000,
-  nav: true,
-  navText: [
-    "<i class='fa fa-chevron-left'></i>",
-    "<i class='fa fa-chevron-right'></i>",
-  ],
-  autoplayHoverPause: true,
-};
 const mapStateToProps = createStructuredSelector({
   cities: selectCities,
   citiesAreFetching: selectAreCitiesFetching,
   cityId: selectCityId,
-  cuisines: selectCuisinies,
+  counties: selectCounties,
+  countyId: selectCountyId,
 });
 const mapDispatchToProps = (dispatch) => ({
   chooseCity: (cityId) => dispatch(chooseCity(cityId)),
+  chooseCounty: (countyId) => dispatch(chooseCounty(countyId)),
+  loadCounties: (cityId) => dispatch(fetchCountiesStartAsync(cityId)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(TopSearch);

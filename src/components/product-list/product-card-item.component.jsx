@@ -1,4 +1,4 @@
-import { Badge, Image } from "react-bootstrap";
+import { Badge, Col, Image } from "react-bootstrap";
 
 import AddToCartButton from "../buttons/add-to-cart-button.component";
 import Icofont from "react-icofont";
@@ -17,63 +17,65 @@ const ProductCardItem = ({
   favorite,
   customerId,
 }) => (
-  <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
-    <div className="list-card-image">
-      <div
-        className={
-          favoriteInformation !== undefined && favoriteInformation.isFavorite
-            ? "favourite-heart position-absolute text-danger"
-            : "favourite-heart position-absolute text-secondary"
-        }
-      >
-        <Link
-          to="#"
-          onClick={() =>
-            favorite(
-              product,
-              customerId,
-              favoriteInformation.isFavorite,
-              favoriteInformation.favoriteId
-            )
+  <Col md={4} sm={6} className="mb-4">
+    <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
+      <div className="list-card-image">
+        <div
+          className={
+            favoriteInformation !== undefined && favoriteInformation.isFavorite
+              ? "favourite-heart position-absolute text-danger"
+              : "favourite-heart position-absolute text-secondary"
           }
         >
-          <Icofont icon="heart" />
+          <Link
+            to="#"
+            onClick={() =>
+              favorite(
+                product,
+                customerId,
+                favoriteInformation.isFavorite,
+                favoriteInformation.favoriteId
+              )
+            }
+          >
+            <Icofont icon="heart" />
+          </Link>
+        </div>
+        <Link to="#">
+          <Image
+            className="img-fluid item-img"
+            alt="image"
+            src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${product.photo}`}
+          />
         </Link>
       </div>
-      <Link to="#">
-        <Image
-          className="img-fluid item-img"
-          alt="image"
-          src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${product.photo}`}
-        />
-      </Link>
-    </div>
-    <div className="p-3 position-relative">
-      <div className="list-card-body">
-        <h6 className="mb-1">
-          <Link to="#" className="text-black">
-            {product.name}
-          </Link>
-        </h6>
-        <p className="text-gray mb-3">{product.description}</p>
-        <p className="text-gray time mb-0">
-          <Link to="#" className="btn btn-link btn-sm pl-0 text-black pr-0">
-            {product.price} {currencyUnit}
-          </Link>
-          {product.is_new ? (
-            <Badge variant="success" className="ml-1">
-              <Translate>NEW</Translate>
-            </Badge>
-          ) : (
-            ""
-          )}
-          <span className="float-right">
-            <AddToCartButton variant="outline-secondary" product={product} />
-          </span>
-        </p>
+      <div className="p-3 position-relative">
+        <div className="list-card-body">
+          <h6 className="mb-1">
+            <Link to="#" className="text-black">
+              {product.name}
+            </Link>
+          </h6>
+          <p className="text-gray mb-3">{product.description}</p>
+          <p className="text-gray time mb-0">
+            <Link to="#" className="btn btn-link btn-sm pl-0 text-black pr-0">
+              {product.price} {currencyUnit}
+            </Link>
+            {product.is_new ? (
+              <Badge variant="success" className="ml-1">
+                <Translate>NEW</Translate>
+              </Badge>
+            ) : (
+              ""
+            )}
+            <span className="float-right">
+              <AddToCartButton variant="outline-secondary" product={product} />
+            </span>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
+  </Col>
 );
 const mapStateToProps = createStructuredSelector({
   customerId: selectCustomerId,

@@ -2,6 +2,7 @@ import MainActionTypes from "./main.types";
 
 const INITIAL_STATE = {
   cityId: 0,
+  countyId: 0,
 
   areCustomersFetching: true,
   customers: null,
@@ -17,13 +18,17 @@ const mainReducer = (state = INITIAL_STATE, action) => {
         ...state,
         cityId: action.payload,
       };
+    case MainActionTypes.CHOOSE_COUNTY:
+      return {
+        ...state,
+        countyId: action.payload,
+      };
     case MainActionTypes.FETCH_CUSTOMERS_START:
       return {
         ...state,
         areCustomersFetching: true,
       };
     case MainActionTypes.FETCH_CUSTOMERS_SUCCESS:
-      debugger;
       return {
         ...state,
         areCustomersFetching: false,

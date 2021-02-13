@@ -5,6 +5,10 @@ export const chooseCity = (cityid) => ({
   type: MainActionTypes.CHOOSE_CITY,
   payload: cityid,
 });
+export const chooseCounty = (countyid) => ({
+  type: MainActionTypes.CHOOSE_COUNTY,
+  payload: countyid,
+});
 
 export const fetchCustomersStart = () => ({
   type: MainActionTypes.FETCH_CUSTOMERS_START,
