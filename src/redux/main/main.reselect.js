@@ -35,3 +35,11 @@ export const selectCuisinies = createSelector(
   [selectMain],
   (main) => main.cuisines
 );
+export const selectDestinies = createSelector(
+  [selectMain],
+  (main) => main.densities
+);
+export const selectOrderTimes = createSelector(
+  [selectMain],
+  (main) => main.orderTimes
+);

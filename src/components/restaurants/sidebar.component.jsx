@@ -1,7 +1,11 @@
 import { Accordion, Button, Form } from "react-bootstrap";
+import {
+  selectCuisinies,
+  selectDestinies,
+  selectOrderTimes,
+} from "../../redux/main/main.reselect";
 
 import Icofont from "react-icofont";
-import { Link } from "react-router-dom";
 import MainPagesHelper from "../../helpers/mainPagesHelper";
 import React from "react";
 import Select2 from "react-select2-wrapper";
@@ -9,14 +13,23 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectAreas } from "../../redux/address/address.reselect";
 
-const Sidebar = ({ areas, areaId, HandleChange }) => (
+const Sidebar = ({
+  areas,
+  cuisines,
+  destinies,
+  orderTimes,
+  areaId,
+  destinyId,
+  orderTime,
+  checkedCuisines,
+  HandleChange,
+}) => (
   <div>
     <div className="filters shadow-sm rounded bg-white mb-4">
       <div className="filters-header border-bottom pl-4 pr-4 pt-3 pb-3">
         <h5 className="m-0">Filter By</h5>
       </div>
       <div className="filters-body">
-        
         <Accordion defaultActiveKey="0">
           <div className="filters-card border-bottom p-4">
             <div className="filters-card-header" id="headingOne">
@@ -74,110 +87,19 @@ const Sidebar = ({ areas, areaId, HandleChange }) => (
                     />
                   </Form.Group>
                 </form>
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  defaultChecked={true}
-                  id="custom-cb6"
-                  label={
-                    <React.Fragment>
-                      American <small className="text-black-50">156</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb7"
-                  label={
-                    <React.Fragment>
-                      Pizza <small className="text-black-50">120</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb8"
-                  label={
-                    <React.Fragment>
-                      Healthy <small className="text-black-50">130</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb9"
-                  label={
-                    <React.Fragment>
-                      Vegetarian <small className="text-black-50">120</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb10"
-                  label={
-                    <React.Fragment>
-                      Chinese <small className="text-black-50">111</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb11"
-                  label={
-                    <React.Fragment>
-                      Hamburgers <small className="text-black-50">95</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb12"
-                  label={
-                    <React.Fragment>
-                      Dessert <small className="text-black-50">50</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb13"
-                  label={
-                    <React.Fragment>
-                      Chicken <small className="text-black-50">32</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb14"
-                  label={
-                    <React.Fragment>
-                      Indian <small className="text-black-50">156</small>
-                    </React.Fragment>
-                  }
-                />
-                <div className="mt-2">
-                  <Link to="#" className="link">
-                    See all
-                  </Link>
-                </div>
+                {cuisines.map((cuisine) => (
+                  <Form.Check
+                    custom
+                    type="checkbox"
+                    name="cuisine"
+                    value={cuisine.all_cuisines_id}
+                    key={cuisine.all_cuisines_id}
+                    onChange={HandleChange}
+                    checked={checkedCuisines.includes(cuisine.all_cuisines_id)}
+                    id={cuisine.all_cuisines_id}
+                    label={<React.Fragment>{cuisine.name}</React.Fragment>}
+                  />
+                ))}
               </div>
             </Accordion.Collapse>
           </div>
@@ -191,46 +113,25 @@ const Sidebar = ({ areas, areaId, HandleChange }) => (
                   className="text-left d-flex align-items-center p-0"
                   eventKey="2"
                 >
-                  Feature <Icofont icon="arrow-down" className="ml-auto" />
+                  Destiny <Icofont icon="arrow-down" className="ml-auto" />
                 </Accordion.Toggle>
               </h6>
             </div>
             <Accordion.Collapse eventKey="2">
               <div className="filters-card-body card-shop-filters">
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  defaultChecked={true}
-                  id="custom-cb15"
-                  label={
-                    <React.Fragment>
-                      Free Delivery <small className="text-black-50">156</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb16"
-                  label={
-                    <React.Fragment>
-                      Coupons <small className="text-black-50">120</small>
-                    </React.Fragment>
-                  }
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb17"
-                  label={
-                    <React.Fragment>
-                      Open Now [1:31am]{" "}
-                      <small className="text-black-50">85</small>
-                    </React.Fragment>
-                  }
-                />
+                {destinies.map((destiny) => (
+                  <Form.Check
+                    custom
+                    type="checkbox"
+                    name="destiny"
+                    value={destiny.id}
+                    key={destiny.id}
+                    onChange={HandleChange}
+                    checked={destiny.id === destinyId}
+                    id={destiny.name}
+                    label={<React.Fragment>{destiny.name}</React.Fragment>}
+                  />
+                ))}
               </div>
             </Accordion.Collapse>
           </div>
@@ -251,46 +152,19 @@ const Sidebar = ({ areas, areaId, HandleChange }) => (
             </div>
             <Accordion.Collapse eventKey="3">
               <div className="filters-card-body card-shop-filters">
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  defaultChecked={true}
-                  id="custom-cb18"
-                  label="Any Time"
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb19"
-                  label="25 min"
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb20"
-                  label="30 min"
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb21"
-                  label="40 min"
-                />
-
-                <Form.Check
-                  custom
-                  type="checkbox"
-                  id="custom-cb22"
-                  label="45 min"
-                />
-                <div className="mt-2">
-                  <Link to="#" className="link">
-                    See all
-                  </Link>
-                </div>
+                {orderTimes.map((time, index) => (
+                  <Form.Check
+                    custom
+                    type="checkbox"
+                    name="orderTime"
+                    key={index}
+                    onChange={HandleChange}
+                    checked={orderTime === time.time}
+                    value={time.time}
+                    id={time.time}
+                    label={time.time + " Minutes"}
+                  />
+                ))}
               </div>
             </Accordion.Collapse>
           </div>
@@ -301,5 +175,8 @@ const Sidebar = ({ areas, areaId, HandleChange }) => (
 );
 const mapStateToProps = createStructuredSelector({
   areas: selectAreas,
+  cuisines: selectCuisinies,
+  destinies: selectDestinies,
+  orderTimes: selectOrderTimes,
 });
 export default connect(mapStateToProps)(Sidebar);

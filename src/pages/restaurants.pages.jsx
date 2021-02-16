@@ -19,10 +19,44 @@ import { fetchAreasStartAsync } from "../redux/address/address.actions";
 class Restaurants extends React.Component {
   state = {
     areaId: 0,
+    checkedCuisines: [],
+    destinyId: 0,
+    orderTime: "",
   };
   HandleChange = (e) => {
     const { name, value } = e.target;
-    if (value !== "") this.setState({ [name]: value });
+    if (e.target.type === "checkbox") {
+      if (name === "cuisine") {
+        var found = this.state.checkedCuisines.find(
+          (x) => x === e.target.value
+        );
+        if (found) {
+          const newCheckedCuisines = this.state.checkedCuisines.filter(
+            (x) => x !== value
+          );
+          this.setState(
+            { checkedCuisines: newCheckedCuisines },
+            console.log(this.state.checkedCuisines)
+          );
+        } else {
+          this.setState({
+            checkedCuisines: [...this.state.checkedCuisines, value],
+          });
+        }
+      }
+      if (name === "destiny") {
+        this.setState({ destinyId: value });
+      }
+      if (name === "orderTime") {
+        if (this.state.orderTime === value) {
+          this.setState({ orderTime: "" });
+        } else {
+          this.setState({ orderTime: value });
+        }
+      }
+    } else {
+      if (value !== "") this.setState({ [name]: value });
+    }
   };
   componentDidMount() {
     const { loadAreas, countyId } = this.props;
@@ -30,12 +64,18 @@ class Restaurants extends React.Component {
   }
   render() {
     const { cityId, countyId, areCustomersFetching, customers } = this.props;
-    const { areaId } = this.state;
+    const { areaId, destinyId, checkedCuisines, orderTime } = this.state;
     const filteredCustomers =
       cityId !== 0 &&
       countyId !== 0 &&
       !areCustomersFetching &&
-      CustomerHelper.FilterCustomer(areaId, customers);
+      CustomerHelper.FilterCustomer(
+        areaId,
+        destinyId,
+        orderTime,
+        checkedCuisines,
+        customers
+      );
     return cityId !== 0 && countyId !== 0 && !areCustomersFetching ? (
       <>
         <PageTitle
@@ -56,7 +96,13 @@ class Restaurants extends React.Component {
             </Row>
             <Row>
               <Col md={3}>
-                <Sidebar areaId={areaId} HandleChange={this.HandleChange} />
+                <Sidebar
+                  areaId={areaId}
+                  destinyId={destinyId}
+                  HandleChange={this.HandleChange}
+                  checkedCuisines={checkedCuisines}
+                  orderTime={orderTime}
+                />
               </Col>
               <Col md={9}>
                 <Row>

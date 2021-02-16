@@ -1,6 +1,6 @@
-import React from "react";
 import { Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const CuisineItem = ({ title }) => (
   <div className="item">
@@ -10,7 +10,7 @@ const CuisineItem = ({ title }) => (
           src="img/list/1.png"
           className="img-fluid"
           alt="cuisine"
-        />
+        /> 
         {title ? <h6>{title}</h6> : ""}
       </Link>
     </div>

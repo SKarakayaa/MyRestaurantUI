@@ -7,6 +7,19 @@ const INITIAL_STATE = {
   areCustomersFetching: true,
   customers: null,
 
+  densities: [
+    { id: "2", name: "Busy" },
+    { id: "1", name: "Available" },
+  ],
+
+  orderTimes: [
+    { time: "20 - 25" },
+    { time: "25 - 30" },
+    { time: "30 - 35" },
+    { time: "35 - 40" },
+    { time: "40 - 45" },
+  ],
+
   areCuisiniesFetching: true,
   cuisines: null,
 };

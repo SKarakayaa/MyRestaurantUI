@@ -37,8 +37,6 @@ class TopSearch extends React.Component {
       counties,
       countyId,
     } = this.props;
-    console.log("city id :", cityId);
-    console.log("county id :", countyId);
     return (
       !citiesAreFetching && (
         <section className="pt-5 pb-5 homepage-search-block position-relative">
