@@ -55,12 +55,13 @@ const AddToCartHelper = {
     },
     product
   ) => {
+    debugger;
     const productModel = {
       frm_product_id: product.frm_product_id,
       name: product.name,
       price: parseInt(product.price),
       is_menu: product.is_menu,
-      quantity: parseInt(quantity),
+      quantity: quantity !== undefined ? parseInt(quantity) : 1,
       options: choosenOptions !== undefined ? choosenOptions : "",
       choosedMaterials: "",
       removedMaterials:

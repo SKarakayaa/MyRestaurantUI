@@ -1,18 +1,18 @@
-import AuthHelper from "../../helpers/authHelper";
+// import AuthHelper from "../../helpers/authHelper";
 import axios from "axios";
 // axios.defaults.baseURL =
 //   "http://app.code2.io/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
-// axios.defaults.baseURL =
-//   "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
+axios.defaults.baseURL =
+  "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01";
 
-axios.interceptors.request.use((config) => {
-  const token = AuthHelper.GetToken();
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// axios.interceptors.request.use((config) => {
+//   const token = AuthHelper.GetToken();
+//   if (token) {
+//     config.headers.Authorization = `Bearer ${token}`;
+//   }
+//   return config;
+// });
 
 const responseBody = (response) => {
   return response.data;

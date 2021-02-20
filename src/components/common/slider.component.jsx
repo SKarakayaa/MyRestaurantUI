@@ -52,7 +52,7 @@ class Slider extends React.Component {
                       fluid
                       className="mr-3 float-left"
                       alt="osahan"
-                      src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customerInfo.logo_path}`}
+                      src={`http://206.189.55.20:8080/preview/276ce05d-837b-4aa1-8f6f-ff02597a0e01/sf/x_file?_fai=${customerInfo.sub_logo}`}
                     />
                     <h2 className="text-white">{customerInfo.name}</h2>
                     <p className="text-white mb-2">

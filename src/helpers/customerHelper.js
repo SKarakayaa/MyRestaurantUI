@@ -6,6 +6,7 @@ const CustomerHelper = {
     checkedCuisines,
     customers
   ) => {
+    debugger;
     console.log("customers :", customers);
     console.log("area id:", areaid);
     var filteredCustomers = customers;

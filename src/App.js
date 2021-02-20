@@ -44,15 +44,22 @@ class App extends React.Component {
               <Route path="/" exact component={Index} />
               <Route path="/detail/:id" exact component={Detail} />
               <Route path="/restaurants" exact component={Restaurants} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/myaccount" component={MyAccount} />
+              <Route path="/checkout" exact component={Checkout} />
+              <Route path="/thanks" exact component={Thanks} />
             </>
           ) : (
-            <Route path="/" exact component={Detail} />
+            <>
+              <Route path="/" exact component={Detail} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/myaccount" component={MyAccount} />
+              <Route path="/checkout" exact component={Checkout} />
+              <Route path="/thanks" exact component={Thanks} />
+            </>
           )}
-          <Route path="/login" exact component={Login} />
-          <Route path="/register" exact component={Register} />
-          <Route path="/myaccount" component={MyAccount} />
-          <Route path="/checkout" exact component={Checkout} />
-          <Route path="/thanks" exact component={Thanks} />
         </Switch>
       </>
     );
