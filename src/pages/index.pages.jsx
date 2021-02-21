@@ -15,20 +15,22 @@ import React from "react";
 import SectionHeading from "../components/common/section-heading.component";
 import SpecialFirms from "../components/index/special-firms.component";
 import TopSearch from "../components/index/top-search.component";
+import { changeCustomerIdAsync } from "../redux/customer/customer.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
 class Index extends React.Component {
   componentDidMount() {
-    const { loadCuisines, loadCustomers } = this.props;
+    const { loadCuisines, loadCustomers, changeCustomerId } = this.props;
     loadCustomers();
     loadCuisines();
+    changeCustomerId();
   }
   render() {
-    const { areCuisinesFetching, areCustomerFetching } = this.props;
+    const { areCuisinesFetching, areCustomerFetching, history } = this.props;
     return (
       <>
-        {!areCuisinesFetching && <TopSearch />}
+        {!areCuisinesFetching && <TopSearch history={history} />}
         {!areCustomerFetching && (
           <>
             <SpecialFirms />
@@ -61,5 +63,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   loadCuisines: () => dispatch(fetchCuisinesStartAsync()),
   loadCustomers: () => dispatch(fetchCustomersStartAsync()),
+  changeCustomerId: () => dispatch(changeCustomerIdAsync(null)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

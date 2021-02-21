@@ -9,7 +9,6 @@ import {
 } from "../../redux/user/user.reselect";
 
 import AuthHelper from "../../helpers/authHelper";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import MyAccountBody from "../../components/myaccount/myaccount-body.component";
 import MyAccountSidebar from "../../components/myaccount/myaccount-sidebar.component";
 import React from "react";
@@ -19,6 +18,7 @@ import { createStructuredSelector } from "reselect";
 import { fetchCustomerInfoStartAsync } from "../../redux/customer/customer.actions";
 import { fetchProductStartAsync } from "../../redux/product/product.actions";
 import { selectAreFethingProducts } from "../../redux/product/product.reselect";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 import { selectCustomerInfoIsFetching } from "../../redux/customer/customer.reselect";
 import { selectLoginCompleted } from "../../redux/auth/auth.reselect";
 
@@ -30,11 +30,15 @@ class MyAccount extends React.Component {
       loadCustomerInfo,
       loadUserAddresses,
       loadProducts,
+      customerId,
     } = this.props;
+
     loadUserInfo(userid);
-    loadCustomerInfo(CurrentCustomerId());
-    loadUserAddresses(CurrentCustomerId(), userid);
-    loadProducts(CurrentCustomerId());
+    loadUserAddresses(userid);
+    if (customerId !== null) {
+      loadCustomerInfo(customerId);
+      loadProducts(customerId);
+    }
   }
   render() {
     const {
@@ -71,6 +75,7 @@ const mapStateToProps = createStructuredSelector({
   customerInfoIsFetching: selectCustomerInfoIsFetching,
   userAddressesAreFetching: selectAreAddressesFetching,
   productsAreFetching: selectAreFethingProducts,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadUserInfo: (userid) => dispatch(fetchUserInfoStartAsync(userid)),

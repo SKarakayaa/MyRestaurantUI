@@ -56,10 +56,10 @@ export const fetchUserAddressesSuccess = (userAddresses) => ({
   type: UserActionTypes.FETCH_USER_ADDRESSES_SUCCESS,
   payload: userAddresses.data,
 });
-export const fetchUserAddressesStartAsync = (customerid, userid) => {
+export const fetchUserAddressesStartAsync = (userid) => {
   return (dispatch) => {
     dispatch(fetchUserAddressesStart());
-    agent.Address.loadAddresses(userid, customerid).then((result) =>
+    agent.Address.loadAddresses(userid).then((result) =>
       dispatch(fetchUserAddressesSuccess(result))
     );
   };
@@ -97,8 +97,9 @@ export const favoriteAsync = (product, customerid, isFavorite, favoriteid) => {
       );
     } else {
       let model = {
-        user_id: AuthHelper.GetCurrentUser().userId+"",
-        product_id: parseInt(product.frm_product_id)+"",
+        user_id: AuthHelper.GetCurrentUser().userId + "",
+        product_id: parseInt(product.frm_product_id) + "",
+        customer_id: customerid,
       };
       agent.Users.addFavorite(model).then((result) => {
         debugger;

@@ -1,4 +1,8 @@
 import { Col, Image } from "react-bootstrap";
+import {
+  selectCustomerId,
+  selectIsMainSite,
+} from "../../redux/customer/customer.reselect";
 
 import EditProfileButton from "../buttons/edit-profile-button.component";
 import { NavLink } from "react-router-dom";
@@ -9,7 +13,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectUserInfo } from "../../redux/user/user.reselect";
 
-const MyAccountSidebar = ({ userInfo }) => (
+const MyAccountSidebar = ({ userInfo, customerId, isMainSite }) => (
   <Col md={3}>
     <div className="osahan-account-page-left shadow-sm bg-white h-100">
       <div className="border-bottom p-4">
@@ -50,16 +54,19 @@ const MyAccountSidebar = ({ userInfo }) => (
             <i className="icofont-food-cart"></i> <Translate>Orders</Translate>
           </NavLink>
         </li>
-        <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            exact
-            to="/myaccount/favourites"
-          >
-            <i className="icofont-heart"></i> <Translate>Favourites</Translate>
-          </NavLink>
-        </li>
+        {customerId && !isMainSite && (
+          <li className="nav-item">
+            <NavLink
+              className="nav-link"
+              activeClassName="active"
+              exact
+              to="/myaccount/favourites"
+            >
+              <i className="icofont-heart"></i>{" "}
+              <Translate>Favourites</Translate>
+            </NavLink>
+          </li>
+        )}
         <li className="nav-item">
           <NavLink
             className="nav-link"
@@ -77,5 +84,7 @@ const MyAccountSidebar = ({ userInfo }) => (
 );
 const mapStateToProps = createStructuredSelector({
   userInfo: selectUserInfo,
+  customerId: selectCustomerId,
+  isMainSite: selectIsMainSite,
 });
 export default connect(mapStateToProps)(MyAccountSidebar);

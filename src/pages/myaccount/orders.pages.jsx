@@ -28,7 +28,7 @@ class Orders extends React.Component {
             <Translate>Past Orders</Translate>
           </h4>
           {orderHistory &&
-            orderHistory.map((order, index) => (
+            orderHistory.reverse().map((order, index) => (
               <OrderCard order={order} index={index} key={index} />
             ))}
         </div>

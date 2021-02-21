@@ -6,18 +6,20 @@ import { createStructuredSelector } from "reselect";
 import { cuisinesOptions } from "../../helpers/owlCarouselOptions";
 import { selectCuisinies } from "../../redux/main/main.reselect";
 
-const Cuisines = ({ cuisines }) => (
-  <OwlCarousel
-    nav
-    loop
-    {...cuisinesOptions}
-    className="owl-carousel-category owl-theme"
-  >
-    {cuisines.map((cuisine, index) => (
-      <CuisineItem title={cuisine.name} key={index} />
-    ))}
-  </OwlCarousel>
-);
+const Cuisines = ({ cuisines }) => {
+  return (
+    <OwlCarousel
+      nav
+      loop
+      {...cuisinesOptions}
+      className="owl-carousel-category owl-theme"
+    >
+      {cuisines.map((cuisine, index) => (
+        <CuisineItem title={cuisine.name} photo={cuisine.photo} key={index} />
+      ))}
+    </OwlCarousel>
+  );
+};
 const mapStateToProps = createStructuredSelector({
   cuisines: selectCuisinies,
 });
