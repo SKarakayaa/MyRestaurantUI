@@ -18,7 +18,6 @@ export const selectCustomers = createSelector(
   (main) => main.customers
 );
 export const selectFileredCustomers = createSelector([selectMain], (main) => {
-  console.log(main.cityId);
   return main.cityId !== 0 && main.countyId !== 0
     ? main.customers.filter(
         (customer) =>

@@ -1,9 +1,17 @@
 import { Col, Container, Row } from "react-bootstrap";
 import {
+  fetchCustomerInfoStartAsync,
+  fetchPriceOfAreasStartAsync,
+} from "../redux/customer/customer.actions";
+import {
   selectAreFetchingPaymentMethods,
-  selectChoosedAddressId,
+  selectChoosedAddress,
   selectChoosedPaymentMethodId,
 } from "../redux/order/order.reselect";
+import {
+  selectAreFetchingPriceOfAreas,
+  selectCustomerId,
+} from "../redux/customer/customer.reselect";
 import {
   selectCartItems,
   selectCartItemsCount,
@@ -20,11 +28,9 @@ import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { createOrder } from "../redux/order/order.actions";
 import { createStructuredSelector } from "reselect";
-import { fetchCustomerInfoStartAsync } from "../redux/customer/customer.actions";
 import { fetchPaymentMethodsStartAsync } from "../redux/order/order.actions";
 import { fetchUserAddressesStartAsync } from "../redux/user/user.actions";
 import { selectAreAddressesFetching } from "../redux/user/user.reselect";
-import { selectCustomerId } from "../redux/customer/customer.reselect";
 import { selectCustomerInfoIsFetching } from "../redux/customer/customer.reselect";
 import { selectLoginCompleted } from "../redux/auth/auth.reselect";
 
@@ -34,16 +40,22 @@ class Checkout extends React.Component {
   };
   componentDidMount() {
     const userid = AuthHelper.GetCurrentUser().userId;
-    const { loadAddresses, loadPaymentMethods } = this.props;
+    const {
+      loadPriceOfAreas,
+      loadAddresses,
+      loadPaymentMethods,
+      customerid,
+    } = this.props;
     loadAddresses(userid);
     loadPaymentMethods();
+    loadPriceOfAreas(customerid);
   }
   CreateOrder = () => {
     const {
       cartItems,
       cartTotal,
       cartItemsCount,
-      choosedAddressId,
+      choosedAddress,
       choosedPaymentMethodId,
       createOrder,
       customerid,
@@ -51,13 +63,13 @@ class Checkout extends React.Component {
     } = this.props;
     const validation = OrderHelper.OrderValidation(
       cartItemsCount,
-      choosedAddressId,
+      choosedAddress,
       choosedPaymentMethodId
     );
     if (validation.isValid) {
       const order = {
         user_id: AuthHelper.GetCurrentUser().userId,
-        address_id: choosedAddressId,
+        address_id: choosedAddress.frm_user_adress_id,
         payment_methods: choosedPaymentMethodId,
         total_price: cartTotal,
         channel_type_id: 1,
@@ -78,8 +90,10 @@ class Checkout extends React.Component {
       addressesAreFetching,
       customerInfoIsFetching,
       paymentMethodsAreFetching,
+      areFetchingPriceOfAreas,
+      cartItemsCount
     } = this.props;
-    return !loginCompleted ? (
+    return !loginCompleted || cartItemsCount === 0 ? (
       <Redirect to="/login" />
     ) : (
       <section className="offer-dedicated-body mt-4 mb-4 pt-2 pb-2">
@@ -89,7 +103,9 @@ class Checkout extends React.Component {
               <h4 style={{ color: "red" }}>{this.state.orderValidation}</h4>
               <div className="offer-dedicated-body-left">
                 <div className="pt-2"></div>
-                {!addressesAreFetching && <CheckoutAddress />}
+                {!addressesAreFetching && !areFetchingPriceOfAreas && (
+                  <CheckoutAddress />
+                )}
 
                 <div className="pt-2"></div>
                 {!customerInfoIsFetching && !paymentMethodsAreFetching && (
@@ -113,10 +129,11 @@ const mapStateToProps = createStructuredSelector({
   paymentMethodsAreFetching: selectAreFetchingPaymentMethods,
   cartItems: selectCartItems,
   cartItemsCount: selectCartItemsCount,
-  choosedAddressId: selectChoosedAddressId,
+  choosedAddress: selectChoosedAddress,
   choosedPaymentMethodId: selectChoosedPaymentMethodId,
   cartTotal: selectCartTotal,
-  customerid:selectCustomerId
+  customerid: selectCustomerId,
+  areFetchingPriceOfAreas: selectAreFetchingPriceOfAreas,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadAddresses: (userid) => dispatch(fetchUserAddressesStartAsync(userid)),
@@ -124,5 +141,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchCustomerInfoStartAsync(customerid)),
   loadPaymentMethods: () => dispatch(fetchPaymentMethodsStartAsync()),
   createOrder: (order, cart) => dispatch(createOrder(order, cart)),
+  loadPriceOfAreas: (customerid) =>
+    dispatch(fetchPriceOfAreasStartAsync(customerid)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

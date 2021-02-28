@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   areFetchingPaymentMethods: true,
   paymentMethods: null,
 
-  choosedAddressId: 0,
+  choosedAddress: 0,
   choosedPaymentMethodId: 0,
 
   isOrderCreated: false,
@@ -59,7 +59,7 @@ const orderReducer = (state = INITIAL_STATE, action) => {
     case OrderActionTypes.CHOOSE_ADDRESS:
       return {
         ...state,
-        choosedAddressId: action.payload,
+        choosedAddress: action.payload,
       };
     case OrderActionTypes.CHOOSE_PAYMENT_METHOD:
       return {

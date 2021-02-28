@@ -22,14 +22,17 @@ class ChooseAddress extends React.Component {
     loadAddresses(userId);
   }
   HandleClick = (choosedAddress) => {
-    const { chooseCity, chooseCounty, chooseAddress,history } = this.props;
+    const { chooseCity, chooseCounty, chooseAddress, history } = this.props;
     chooseCity(choosedAddress.city_id);
     chooseCounty(choosedAddress.counties_id);
-    chooseAddress(choosedAddress.frm_user_adress_id)
+    chooseAddress(choosedAddress);
     history.push("/restaurants");
   };
   render() {
     const { addressesAreFetching, addresses } = this.props;
+    if (addresses !== null && addresses.length !== 0) {
+      this.props.chooseAddress(addresses[0]);
+    }
     return (
       !addressesAreFetching && (
         <>

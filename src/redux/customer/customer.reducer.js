@@ -16,6 +16,9 @@ const INITIAL_STATE = {
 
   isGalleryFething: true,
   gallery: null,
+
+  areFetchingPriceOfAreas: true,
+  priceOfAreas: null,
 };
 
 const customerReducer = (state = INITIAL_STATE, action) => {
@@ -81,6 +84,17 @@ const customerReducer = (state = INITIAL_STATE, action) => {
     case CustomerActionTypes.CREATE_REZERVATION_SUCCESS:
       return state;
 
+    case CustomerActionTypes.FETCH_PRICE_OF_AREA_START:
+      return {
+        ...state,
+        areFetchingPriceOfAreas: true,
+      };
+    case CustomerActionTypes.FETCH_PRICE_OF_AREA_SUCCESS:
+      return {
+        ...state,
+        areFetchingPriceOfAreas: false,
+        priceOfAreas: action.payload,
+      };
     default:
       return state;
   }

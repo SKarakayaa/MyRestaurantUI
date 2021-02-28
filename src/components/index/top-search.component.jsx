@@ -27,7 +27,7 @@ const TopSearch = ({ citiesAreFetching, loginCompleted, history }) =>
             </div>
             <div className="homepage-search-form">
               {loginCompleted ? (
-                <ChooseAddress history={history} />
+                <ChooseAddress history={history} /> 
               ) : (
                 <SearchAddress />
               )}

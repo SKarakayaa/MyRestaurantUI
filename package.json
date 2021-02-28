@@ -1,6 +1,7 @@
 {
   "name": "new-app",
   "homepage": "https://SKarakayaa.github.io/",
+  "proxy": "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

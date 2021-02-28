@@ -91,3 +91,20 @@ export const fetchCreateRezervationAsync = (rezervation) => {
     });
   };
 };
+
+//BÖLGELERE GÖRE FİYATLARI ÇEKİLİYOR
+export const fetchPriceOfAreasStart = () => ({
+  type: CustomerActionTypes.FETCH_PRICE_OF_AREA_START,
+});
+export const fetchPriceOfAreasSuccess = (prices) => ({
+  type: CustomerActionTypes.FETCH_PRICE_OF_AREA_SUCCESS,
+  payload: prices.data,
+});
+export const fetchPriceOfAreasStartAsync = (customerid) => {
+  return (dispatch) => {
+    dispatch(fetchPriceOfAreasStart());
+    agent.Customers.loadPriceOfAreas(customerid).then((result) =>
+      dispatch(fetchPriceOfAreasSuccess(result))
+    );
+  };
+};

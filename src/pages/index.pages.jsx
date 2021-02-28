@@ -24,6 +24,7 @@ import { createStructuredSelector } from "reselect";
 import { resetAddressFetch } from "../redux/address/address.actions";
 import { resetCategories } from "../redux/category/category.actions";
 import { resetProducts } from "../redux/product/product.actions";
+import { selectChoosedAddress } from "../redux/order/order.reselect";
 
 class Index extends React.Component {
   componentDidMount() {
@@ -82,6 +83,7 @@ class Index extends React.Component {
 const mapStateToProps = createStructuredSelector({
   areCuisinesFetching: selectAreCuisiniesFetching,
   areCustomerFetching: selectAreCustomersFetching,
+  choosedAddress: selectChoosedAddress,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadCuisines: () => dispatch(fetchCuisinesStartAsync()),

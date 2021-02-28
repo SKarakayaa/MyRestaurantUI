@@ -37,9 +37,9 @@ export const selectPaymentMethod = memoize((paymentMethodId) =>
   )
 );
 
-export const selectChoosedAddressId = createSelector(
+export const selectChoosedAddress = createSelector(
   [selectOrder],
-  (order) => order.choosedAddressId
+  (order) => order.choosedAddress
 );
 export const selectChoosedPaymentMethodId = createSelector(
   [selectOrder],

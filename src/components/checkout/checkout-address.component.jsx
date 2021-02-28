@@ -5,12 +5,12 @@ import { Row } from "react-bootstrap";
 import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { selectChoosedAddressId } from "../../redux/order/order.reselect";
+import { selectChoosedAddress } from "../../redux/order/order.reselect";
 import { selectIsMainSite } from "../../redux/customer/customer.reselect";
 import { selectUserAddresses } from "../../redux/user/user.reselect";
 
-const CheckoutAddress = ({ addresses, isMainSite, choosedAddressId }) =>
-  isMainSite && choosedAddressId === 0 ? (
+const CheckoutAddress = ({ addresses, isMainSite, choosedAddress }) =>
+  isMainSite && choosedAddress.frm_user_adress_id === 0 ? (
     <Redirect to="/" />
   ) : (
     <div className="bg-white rounded shadow-sm p-4 mb-4">
@@ -21,7 +21,8 @@ const CheckoutAddress = ({ addresses, isMainSite, choosedAddressId }) =>
         {isMainSite ? (
           <AddressCard
             address={addresses.find(
-              (address) => address.frm_user_adress_id === choosedAddressId
+              (address) =>
+                address.frm_user_adress_id === choosedAddress.frm_user_adress_id
             )}
             isCheckout
           />
@@ -43,6 +44,6 @@ const CheckoutAddress = ({ addresses, isMainSite, choosedAddressId }) =>
 const mapStateToProps = createStructuredSelector({
   addresses: selectUserAddresses,
   isMainSite: selectIsMainSite,
-  choosedAddressId: selectChoosedAddressId,
+  choosedAddress: selectChoosedAddress,
 });
 export default connect(mapStateToProps)(CheckoutAddress);

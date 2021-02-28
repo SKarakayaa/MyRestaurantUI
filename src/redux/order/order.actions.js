@@ -73,7 +73,7 @@ export const createOrder = (order, cart) => {
               price: cartItem.price,
               options: cartItem.options,
               material_add: cartItem.choosedMaterials,
-              material_removed: cartItem.removedMaterials, 
+              material_removed: cartItem.removedMaterials,
               quantity: cartItem.quantity,
             };
             agent.Orders.createOrderDetail(orderDetail);
@@ -87,9 +87,9 @@ export const createOrder = (order, cart) => {
   };
 };
 
-export const chooseAddress = (addressId) => ({
+export const chooseAddress = (address) => ({
   type: OrderActionTypes.CHOOSE_ADDRESS,
-  payload: addressId,
+  payload: address,
 });
 export const choosePaymentMethod = (paymentMethodId) => ({
   type: OrderActionTypes.CHOOSE_PAYMENT_METHOD,

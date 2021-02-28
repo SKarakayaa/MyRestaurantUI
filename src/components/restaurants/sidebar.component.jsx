@@ -11,7 +11,9 @@ import React from "react";
 import Select2 from "react-select2-wrapper";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { selectAreAreasFetching } from "../../redux/address/address.reselect";
 import { selectAreas } from "../../redux/address/address.reselect";
+import { selectChoosedAddress } from "../../redux/order/order.reselect";
 
 const Sidebar = ({
   areas,
@@ -22,6 +24,8 @@ const Sidebar = ({
   destinyId,
   orderTime,
   checkedCuisines,
+  areAreasFetching,
+  choosedAddress,
   HandleChange,
 }) => (
   <div>
@@ -31,35 +35,37 @@ const Sidebar = ({
       </div>
       <div className="filters-body">
         <Accordion defaultActiveKey="0">
-          <div className="filters-card border-bottom p-4">
-            <div className="filters-card-header" id="headingOne">
-              <h6 className="mb-0">
-                <Accordion.Toggle
-                  as={Button}
-                  size="block"
-                  variant="link"
-                  className="text-left d-flex align-items-center p-0"
-                  eventKey="0"
-                >
-                  Area <Icofont icon="arrow-down" className="ml-auto" />
-                </Accordion.Toggle>
-              </h6>
-            </div>
-            <Accordion.Collapse eventKey="0">
-              <div className="filters-card-body card-shop-filters">
-                <Select2
-                  className="form-control"
-                  data={MainPagesHelper.FormatCities(areas)}
-                  name="areaId"
-                  value={areaId}
-                  onChange={HandleChange}
-                  options={{
-                    placeholder: "Choose Area",
-                  }}
-                />
+          {choosedAddress === null && !areAreasFetching && (
+            <div className="filters-card border-bottom p-4">
+              <div className="filters-card-header" id="headingOne">
+                <h6 className="mb-0">
+                  <Accordion.Toggle
+                    as={Button}
+                    size="block"
+                    variant="link"
+                    className="text-left d-flex align-items-center p-0"
+                    eventKey="0"
+                  >
+                    Area <Icofont icon="arrow-down" className="ml-auto" />
+                  </Accordion.Toggle>
+                </h6>
               </div>
-            </Accordion.Collapse>
-          </div>
+              <Accordion.Collapse eventKey="0">
+                <div className="filters-card-body card-shop-filters">
+                  <Select2
+                    className="form-control"
+                    data={MainPagesHelper.FormatCities(areas)}
+                    name="areaId"
+                    value={areaId}
+                    onChange={HandleChange}
+                    options={{
+                      placeholder: "Choose Area",
+                    }}
+                  />
+                </div>
+              </Accordion.Collapse>
+            </div>
+          )}
 
           <div className="filters-card border-bottom p-4">
             <div className="filters-card-header" id="headingTwo">
@@ -178,5 +184,7 @@ const mapStateToProps = createStructuredSelector({
   cuisines: selectCuisinies,
   destinies: selectDestinies,
   orderTimes: selectOrderTimes,
+  choosedAddress: selectChoosedAddress,
+  areAreasFetching: selectAreAreasFetching,
 });
 export default connect(mapStateToProps)(Sidebar);

@@ -57,3 +57,12 @@ export const selectIsMainSite = createSelector(
   [selectCustomer],
   (customer) => customer.isMainSite
 );
+
+export const selectAreFetchingPriceOfAreas = createSelector(
+  [selectCustomer],
+  (customer) => customer.areFetchingPriceOfAreas
+);
+export const selectPriceOfAreas = createSelector(
+  [selectCustomer],
+  (customer) => customer.priceOfAreas
+);
