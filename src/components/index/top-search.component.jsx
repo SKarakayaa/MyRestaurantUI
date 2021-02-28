@@ -1,6 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
 
-import AuthHelper from "../../helpers/authHelper";
 import ChooseAddress from "./choose-address.component";
 import Cuisines from "./cuisines.component";
 import React from "react";
@@ -8,8 +7,9 @@ import SearchAddress from "./search-address.component";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectAreCitiesFetching } from "../../redux/address/address.reselect";
+import { selectLoginCompleted } from "../../redux/auth/auth.reselect";
 
-const TopSearch = ({ citiesAreFetching, history }) =>
+const TopSearch = ({ citiesAreFetching, loginCompleted, history }) =>
   !citiesAreFetching && (
     <section className="pt-5 pb-5 homepage-search-block position-relative">
       <div className="banner-overlay"></div>
@@ -26,7 +26,7 @@ const TopSearch = ({ citiesAreFetching, history }) =>
               </h5>
             </div>
             <div className="homepage-search-form">
-              {AuthHelper.IsLogin() ? (
+              {loginCompleted ? (
                 <ChooseAddress history={history} />
               ) : (
                 <SearchAddress />
@@ -40,5 +40,6 @@ const TopSearch = ({ citiesAreFetching, history }) =>
   );
 const mapStateToProps = createStructuredSelector({
   citiesAreFetching: selectAreCitiesFetching,
+  loginCompleted: selectLoginCompleted,
 });
 export default connect(mapStateToProps)(TopSearch);

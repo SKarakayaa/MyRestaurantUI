@@ -54,7 +54,7 @@ const MyAccountSidebar = ({ userInfo, customerId, isMainSite }) => (
             <i className="icofont-food-cart"></i> <Translate>Orders</Translate>
           </NavLink>
         </li>
-        {customerId && !isMainSite && (
+        {customerId && (
           <li className="nav-item">
             <NavLink
               className="nav-link"

@@ -8,6 +8,7 @@ import {
 
 import CustomerHelper from "../helpers/customerHelper";
 import CustomerItem from "../components/restaurants/customer-item.component";
+import FailOrder from "../components/thanks/fail-order.component";
 import PageTitle from "../components/common/page-title.component";
 import React from "react";
 import { Redirect } from "react-router-dom";
@@ -123,7 +124,10 @@ class Restaurants extends React.Component {
                       />
                     ))
                   ) : (
-                    <h3>Any Restaurants Not Found !</h3>
+                    <FailOrder
+                      orderErrorMessage="Any Restaurants Not Found !"
+                      errorHeader="Not Found"
+                    />
                   )}
                 </Row>
               </Col>

@@ -34,7 +34,7 @@ const HeaderMyAccount = ({ customerId, isMainSite }) => (
     >
       <Icofont icon="food-cart" /> <Translate>Orders</Translate>
     </NavDropdown.Item>
-    {customerId && !isMainSite && (
+    {customerId && (
       <NavDropdown.Item
         eventKey={4.3}
         as={NavLink}

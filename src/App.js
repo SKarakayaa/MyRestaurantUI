@@ -26,10 +26,8 @@ class App extends React.Component {
     isMainSite: true,
   };
   componentDidMount() {
-    const { loadCities, citiesAreFetching } = this.props;
-    if (citiesAreFetching) {
-      loadCities();
-    }
+    const { loadCities } = this.props;
+    loadCities();
   }
   render() {
     const { isMainSite } = this.props;

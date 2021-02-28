@@ -5,19 +5,24 @@ import { Nav } from "react-bootstrap";
 import React from "react";
 import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { logout } from "../../redux/auth/auth.actions";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
-const LoginUser = ({ logout, isMainSite }) => (
+const LoginUser = ({ logout, customerId }) => (
   <Nav activeKey={0} className="ml-auto">
     <GoHomeButton />
     <HeaderMyAccount />
-    {!isMainSite && <HeaderCart />}
-    <Nav.Link to="/login" onClick={() => logout()}>
+    {customerId && <HeaderCart />}
+    <Nav.Link to="#" onClick={() => logout()}>
       <Translate>Logout</Translate>
     </Nav.Link>
   </Nav>
 );
+const mapStateToProps = createStructuredSelector({
+  customerId: selectCustomerId,
+});
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logout()),
 });
-export default connect(null, mapDispatchToProps)(LoginUser);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginUser);

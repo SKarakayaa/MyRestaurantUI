@@ -15,6 +15,7 @@ import {
 import AuthHelper from "../../helpers/authHelper";
 import ProductCardItem from "../../components/product-list/product-card-item.component";
 import React from "react";
+import { Redirect } from "react-router-dom";
 import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -38,8 +39,11 @@ class Favorites extends React.Component {
       products,
       customerInfo,
       areProductMaterialsFetching,
+      customerId,
     } = this.props;
-    return (
+    return customerId === null ? (
+      <Redirect to="/" />
+    ) : (
       !areProductMaterialsFetching && (
         <>
           <div className="p-4 bg-white shadow-sm">
@@ -56,22 +60,13 @@ class Favorites extends React.Component {
                       product.frm_product_id === favoriteProduct.product_id
                   );
                   return (
-                    <Col
-                      md={4}
-                      sm={6}
-                      className="mb-4 pb-2"
-                      key={favoriteProduct.frm_user_product_favorites_id}
-                    >
+                    product !== undefined && (
                       <ProductCardItem
+                        key={favoriteProduct.frm_user_product_favorites_id}
                         product={product}
                         currencyUnit={customerInfo.currency_unit}
-                        favoriteInformation={{
-                          isFavorite: true,
-                          favoriteId:
-                            favoriteProduct.frm_user_product_favorites_id,
-                        }}
                       />
-                    </Col>
+                    )
                   );
                 })}
             </Row>

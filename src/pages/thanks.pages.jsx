@@ -28,7 +28,11 @@ class Thanks extends React.Component {
             {orderErrorMessage === null ? (
               <SuccessOrder />
             ) : (
-              <FailOrder orderErrorMessage={orderErrorMessage} />
+              <FailOrder
+                orderErrorMessage={orderErrorMessage}
+                errorHeader="Ooopps !..."
+                isNavigate
+              />
             )}
           </Row>
         </Container>
