@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   cityId: 0,
   countyId: 0,
 
+  isLeaveRestaurantPage: false,
   areCustomersFetching: true,
   customers: null,
 
@@ -61,8 +62,14 @@ const mainReducer = (state = INITIAL_STATE, action) => {
     case MainActionTypes.RESET_MAIN:
       return {
         ...state,
+        isLeaveRestaurantPage: false,
         areCustomersFetching: true,
         areCuisiniesFetching: true,
+      };
+    case MainActionTypes.LEAVE_RESTAURANT_PAGE:
+      return {
+        ...state,
+        isLeaveRestaurantPage: true,
       };
     default:
       return state;

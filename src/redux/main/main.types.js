@@ -9,5 +9,7 @@ const MainActionTypes = {
   CHOOSE_COUNTY: "CHOOSE_COUNTY",
 
   RESET_MAIN: "RESET_MAIN",
+
+  LEAVE_RESTAURANT_PAGE: "LEAVE_RESTAURANT_PAGE",
 };
 export default MainActionTypes;

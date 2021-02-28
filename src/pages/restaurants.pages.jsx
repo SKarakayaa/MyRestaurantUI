@@ -15,6 +15,7 @@ import Sidebar from "../components/restaurants/sidebar.component";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchAreasStartAsync } from "../redux/address/address.actions";
+import { selectAreAreasFetching } from "../redux/address/address.reselect";
 
 class Restaurants extends React.Component {
   state = {
@@ -63,7 +64,13 @@ class Restaurants extends React.Component {
     loadAreas(countyId);
   }
   render() {
-    const { cityId, countyId, areCustomersFetching, customers } = this.props;
+    const {
+      cityId,
+      countyId,
+      areCustomersFetching,
+      customers,
+      areAreasFetching,
+    } = this.props;
     const { areaId, destinyId, checkedCuisines, orderTime } = this.state;
     const filteredCustomers =
       cityId !== 0 &&
@@ -95,15 +102,17 @@ class Restaurants extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col md={3}>
-                <Sidebar
-                  areaId={areaId}
-                  destinyId={destinyId}
-                  HandleChange={this.HandleChange}
-                  checkedCuisines={checkedCuisines}
-                  orderTime={orderTime}
-                />
-              </Col>
+              {!areAreasFetching && (
+                <Col md={3}>
+                  <Sidebar
+                    areaId={areaId}
+                    destinyId={destinyId}
+                    HandleChange={this.HandleChange}
+                    checkedCuisines={checkedCuisines}
+                    orderTime={orderTime}
+                  />
+                </Col>
+              )}
               <Col md={9}>
                 <Row>
                   {filteredCustomers.length > 0 ? (
@@ -132,6 +141,7 @@ const mapStateToProps = createStructuredSelector({
   cityId: selectCityId,
   countyId: selectCountyId,
   areCustomersFetching: selectAreCustomersFetching,
+  areAreasFetching: selectAreAreasFetching,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadAreas: (countyId) => dispatch(fetchAreasStartAsync(countyId)),

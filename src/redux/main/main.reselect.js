@@ -17,7 +17,7 @@ export const selectCustomers = createSelector(
   [selectMain],
   (main) => main.customers
 );
-export const selectFileredCustomers = createSelector([selectMain], (main) =>{
+export const selectFileredCustomers = createSelector([selectMain], (main) => {
   console.log(main.cityId);
   return main.cityId !== 0 && main.countyId !== 0
     ? main.customers.filter(
@@ -25,8 +25,8 @@ export const selectFileredCustomers = createSelector([selectMain], (main) =>{
           customer.city_id === main.cityId &&
           customer.counties_id.split(",").includes(main.countyId)
       )
-    : main.customers}
-);
+    : main.customers;
+});
 
 export const selectAreCuisiniesFetching = createSelector(
   [selectMain],
@@ -43,4 +43,8 @@ export const selectDestinies = createSelector(
 export const selectOrderTimes = createSelector(
   [selectMain],
   (main) => main.orderTimes
+);
+export const selectIsLeaveRestaurantPage = createSelector(
+  [selectMain],
+  (main) => main.isLeaveRestaurantPage
 );
