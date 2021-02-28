@@ -41,3 +41,7 @@ export const fetchCuisinesStartAsync = () => {
     );
   };
 };
+
+export const resetMain = () => ({
+  type: MainActionTypes.RESET_MAIN,
+});

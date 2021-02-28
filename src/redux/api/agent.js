@@ -120,7 +120,7 @@ const Orders = {
     request.post("/Orders/addOrderDetail", orderDetail),
   loadOrders: (customerid, userid) =>
     request.get(
-      `/Orders/getOrder?xcustomer_id=${customerid}&xuser_id=${userid}`
+      `/Orders/getOrder?xuser_id=${userid}`
     ),
   loadOrderDetails: (orderid) =>
     request.get(`/Orders/getOrderDetail?xorder_id=${orderid}`),

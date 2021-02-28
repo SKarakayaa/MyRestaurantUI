@@ -92,3 +92,7 @@ export const fetchNeighborhoodsStartAsync = (areaid) => {
     });
   };
 };
+
+export const resetAddressFetch = () => ({
+  type: AddressActionTypes.RESET_ADDRESS_FETCH,
+});

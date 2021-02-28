@@ -29,6 +29,7 @@ class SearchAddress extends React.Component {
   };
   render() {
     const { cities, cityId, counties, countyId } = this.props;
+    debugger;
     return (
       <Form className="form-noborder">
         <div className="form-row">

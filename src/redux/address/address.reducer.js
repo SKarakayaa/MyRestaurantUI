@@ -73,6 +73,12 @@ const addressReducer = (state = INITIAL_STATE, action) => {
         neighborhoods: action.payload,
         areNeighborhoodsFetching: false,
       };
+    case AddressActionTypes.RESET_ADDRESS_FETCH:
+      return {
+        areCountiesFetching: true,
+        areAreasFetching: true,
+        areNeighborhoodsFetching: true,
+      };
     default:
       return state;
   }

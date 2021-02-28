@@ -44,9 +44,7 @@ class MyAccount extends React.Component {
     const {
       loginCompleted,
       userInfoIsFetching,
-      customerInfoIsFetching,
       userAddressesAreFetching,
-      productsAreFetching,
     } = this.props;
     return !loginCompleted ? (
       <Redirect to="/login" />
@@ -54,15 +52,12 @@ class MyAccount extends React.Component {
       <>
         <section className="section pt-4 pb-4 osahan-account-page">
           <Container>
-            {!userInfoIsFetching &&
-              !userAddressesAreFetching &&
-              !customerInfoIsFetching &&
-              !productsAreFetching && (
-                <Row>
-                  <MyAccountSidebar />
-                  <MyAccountBody />
-                </Row>
-              )}
+            {!userInfoIsFetching && !userAddressesAreFetching && (
+              <Row>
+                <MyAccountSidebar />
+                <MyAccountBody />
+              </Row>
+            )}
           </Container>
         </section>
       </>

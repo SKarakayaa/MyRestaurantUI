@@ -47,3 +47,7 @@ export const fetchMenuOptionsAsync = (customerid, productid) => {
     );
   };
 };
+
+export const resetProducts = () => ({
+  type: ProductActionTypes.RESET_PRODUCTS,
+});

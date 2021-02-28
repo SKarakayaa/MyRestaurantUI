@@ -10,8 +10,8 @@ export const selectProducts = createSelector(
   [selectProduct],
   (products) => products.products
 );
-export const selectMenus = createSelector([selectProduct], (menus) =>
-  menus.products.filter((product) => product.product_category_id === "5")
+export const selectMenus = createSelector([selectProduct], (menus) => 
+   menus.products.filter((product) => product.is_menu === true)
 );
 
 //PRODUCT MATERIALS AND OPTIONS

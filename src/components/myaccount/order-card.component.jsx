@@ -52,7 +52,7 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
               {" "}
               <Translate>Total Bill</Translate>:
             </span>{" "}
-            {order.total_price} {customerInfo.currency_unit}
+            {order.total_price} {customerInfo !== null ? customerInfo.currency_unit : "₺"}
           </p>
         </Media.Body>
       </Media>

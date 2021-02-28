@@ -18,6 +18,11 @@ const categoryReducer = (state = INITIAL_STATE, action) => {
         isCategoriesFething: false,
         categories: action.payload,
       };
+    case CategoryActionTypes.RESET_CATEGORIES:
+      return {
+        ...state,
+        isCategoriesFething: true,
+      };
     default:
       return state;
   }

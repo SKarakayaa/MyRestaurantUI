@@ -18,6 +18,7 @@ import Thanks from "./pages/thanks.pages";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchCitiesStartAsync } from "./redux/address/address.actions";
+import { selectAreCitiesFetching } from "./redux/address/address.reselect";
 import { selectIsMainSite } from "./redux/customer/customer.reselect";
 
 class App extends React.Component {
@@ -25,8 +26,10 @@ class App extends React.Component {
     isMainSite: true,
   };
   componentDidMount() {
-    const { loadCities } = this.props;
-    loadCities();
+    const { loadCities, citiesAreFetching } = this.props;
+    if (citiesAreFetching) {
+      loadCities();
+    }
   }
   render() {
     const { isMainSite } = this.props;
@@ -67,6 +70,7 @@ class App extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   isMainSite: selectIsMainSite,
+  citiesAreFetching: selectAreCitiesFetching,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadCities: () => dispatch(fetchCitiesStartAsync()),

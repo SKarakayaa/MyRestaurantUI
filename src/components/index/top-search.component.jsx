@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectAreCitiesFetching } from "../../redux/address/address.reselect";
 
-const TopSearch = ({ citiesAreFetching,history }) =>
+const TopSearch = ({ citiesAreFetching, history }) =>
   !citiesAreFetching && (
     <section className="pt-5 pb-5 homepage-search-block position-relative">
       <div className="banner-overlay"></div>
@@ -27,12 +27,10 @@ const TopSearch = ({ citiesAreFetching,history }) =>
             </div>
             <div className="homepage-search-form">
               {AuthHelper.IsLogin() ? (
-                <ChooseAddress history={history}/>
+                <ChooseAddress history={history} />
               ) : (
                 <SearchAddress />
               )}
-
-              {/*  */}
             </div>
             <Cuisines />
           </Col>

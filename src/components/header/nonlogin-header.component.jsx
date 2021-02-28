@@ -1,13 +1,12 @@
+import GoHomeButton from "../buttons/go-home-button.component";
 import { Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
 import React from "react";
-import Translate from '../../utilities/translator';
+import Translate from "../../utilities/translator";
 
 const NonloginUser = () => (
   <Nav activeKey={0} className="ml-auto">
-    <Nav.Link eventKey={1} as={NavLink} exact to="/">
-      <Translate>Home</Translate>
-    </Nav.Link>
+    <GoHomeButton />
     <Nav.Link eventKey={1} as={NavLink} exact to="/login">
       <Translate>Login</Translate>
     </Nav.Link>

@@ -59,7 +59,7 @@ const PopularFirmsItem = ({ customer }) => (
         <small>
           {customer.customer_status === "1"
             ? "Firm is open and not busy"
-            : "Firms is busy now, your order may late!"}
+            : "Firms is busy, your order may late!"}
         </small>
       </div>
     </div>

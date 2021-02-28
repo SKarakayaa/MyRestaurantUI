@@ -10,6 +10,7 @@ import AuthHelper from "../../helpers/authHelper";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import { chooseAddress } from "../../redux/order/order.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchUserAddressesStartAsync } from "../../redux/user/user.actions";
@@ -21,9 +22,10 @@ class ChooseAddress extends React.Component {
     loadAddresses(userId);
   }
   HandleClick = (choosedAddress) => {
-    const { chooseCity, chooseCounty, history } = this.props;
+    const { chooseCity, chooseCounty, chooseAddress,history } = this.props;
     chooseCity(choosedAddress.city_id);
     chooseCounty(choosedAddress.counties_id);
+    chooseAddress(choosedAddress.frm_user_adress_id)
     history.push("/restaurants");
   };
   render() {
@@ -78,5 +80,6 @@ const mapDispatchToProps = (dispatch) => ({
   loadAddresses: (userid) => dispatch(fetchUserAddressesStartAsync(userid)),
   chooseCity: (cityid) => dispatch(chooseCity(cityid)),
   chooseCounty: (countyid) => dispatch(chooseCounty(countyid)),
+  chooseAddress: (addressid) => dispatch(chooseAddress(addressid)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(ChooseAddress);

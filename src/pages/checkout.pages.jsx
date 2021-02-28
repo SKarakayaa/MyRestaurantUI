@@ -14,7 +14,6 @@ import AuthHelper from "../helpers/authHelper";
 import CartSide from "../components/cart/cart-side.component";
 import CheckoutAddress from "../components/checkout/checkout-address.component";
 import CheckoutPayment from "../components/checkout/checkout-payment.component";
-import { CurrentCustomerId } from "../componentsold/Helper";
 import OrderHelper from "../helpers/orderHelper";
 import React from "react";
 import { Redirect } from "react-router-dom";
@@ -25,6 +24,7 @@ import { fetchCustomerInfoStartAsync } from "../redux/customer/customer.actions"
 import { fetchPaymentMethodsStartAsync } from "../redux/order/order.actions";
 import { fetchUserAddressesStartAsync } from "../redux/user/user.actions";
 import { selectAreAddressesFetching } from "../redux/user/user.reselect";
+import { selectCustomerId } from "../redux/customer/customer.reselect";
 import { selectCustomerInfoIsFetching } from "../redux/customer/customer.reselect";
 import { selectLoginCompleted } from "../redux/auth/auth.reselect";
 
@@ -35,7 +35,7 @@ class Checkout extends React.Component {
   componentDidMount() {
     const userid = AuthHelper.GetCurrentUser().userId;
     const { loadAddresses, loadPaymentMethods } = this.props;
-    loadAddresses(CurrentCustomerId(), userid);
+    loadAddresses(userid);
     loadPaymentMethods();
   }
   CreateOrder = () => {
@@ -46,6 +46,7 @@ class Checkout extends React.Component {
       choosedAddressId,
       choosedPaymentMethodId,
       createOrder,
+      customerid,
       history,
     } = this.props;
     const validation = OrderHelper.OrderValidation(
@@ -60,7 +61,7 @@ class Checkout extends React.Component {
         payment_methods: choosedPaymentMethodId,
         total_price: cartTotal,
         channel_type_id: 1,
-        customer_id: CurrentCustomerId(),
+        customer_id: customerid,
         order_status_id: 1,
         order_date: new Date(),
       };
@@ -87,11 +88,6 @@ class Checkout extends React.Component {
             <Col md={8}>
               <h4 style={{ color: "red" }}>{this.state.orderValidation}</h4>
               <div className="offer-dedicated-body-left">
-                {/* <div className="bg-white rounded shadow-sm p-4 mb-4">
-                  <h6 className="mb-3">You may also like</h6>
-                  <ItemsCarousel />
-                </div> */}
-
                 <div className="pt-2"></div>
                 {!addressesAreFetching && <CheckoutAddress />}
 
@@ -120,10 +116,10 @@ const mapStateToProps = createStructuredSelector({
   choosedAddressId: selectChoosedAddressId,
   choosedPaymentMethodId: selectChoosedPaymentMethodId,
   cartTotal: selectCartTotal,
+  customerid:selectCustomerId
 });
 const mapDispatchToProps = (dispatch) => ({
-  loadAddresses: (customerid, userid) =>
-    dispatch(fetchUserAddressesStartAsync(customerid, userid)),
+  loadAddresses: (userid) => dispatch(fetchUserAddressesStartAsync(userid)),
   loadCustomerInfo: (customerid) =>
     dispatch(fetchCustomerInfoStartAsync(customerid)),
   loadPaymentMethods: () => dispatch(fetchPaymentMethodsStartAsync()),

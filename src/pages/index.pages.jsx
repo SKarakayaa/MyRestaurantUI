@@ -2,12 +2,14 @@ import { Col, Container, Row } from "react-bootstrap";
 import {
   fetchCuisinesStartAsync,
   fetchCustomersStartAsync,
+  resetMain,
 } from "../redux/main/main.actions";
 import {
   selectAreCuisiniesFetching,
   selectAreCustomersFetching,
 } from "../redux/main/main.reselect";
 
+import AuthHelper from "../helpers/authHelper";
 import FontAwesome from "../components/common/fontawesome.component";
 import { Link } from "react-router-dom";
 import PopularFirms from "../components/index/popular-firms.component";
@@ -16,15 +18,36 @@ import SectionHeading from "../components/common/section-heading.component";
 import SpecialFirms from "../components/index/special-firms.component";
 import TopSearch from "../components/index/top-search.component";
 import { changeCustomerIdAsync } from "../redux/customer/customer.actions";
+import { clearCart } from "../redux/cart/cart.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { resetAddressFetch } from "../redux/address/address.actions";
+import { resetCategories } from "../redux/category/category.actions";
+import { resetProducts } from "../redux/product/product.actions";
 
 class Index extends React.Component {
   componentDidMount() {
-    const { loadCuisines, loadCustomers, changeCustomerId } = this.props;
+    const {
+      loadCuisines,
+      loadCustomers,
+      changeCustomerId,
+      resetAddressFetch,
+      clearCart,
+      resetProducts,
+      resetCategories,
+      resetMain,
+    } = this.props;
+    if (AuthHelper.IsLogin()) {
+      resetAddressFetch();
+    }
+    resetProducts();
+    resetCategories();
+    clearCart();
+    changeCustomerId();
+    resetMain();
+
     loadCustomers();
     loadCuisines();
-    changeCustomerId();
   }
   render() {
     const { areCuisinesFetching, areCustomerFetching, history } = this.props;
@@ -64,5 +87,10 @@ const mapDispatchToProps = (dispatch) => ({
   loadCuisines: () => dispatch(fetchCuisinesStartAsync()),
   loadCustomers: () => dispatch(fetchCustomersStartAsync()),
   changeCustomerId: () => dispatch(changeCustomerIdAsync(null)),
+  resetAddressFetch: () => dispatch(resetAddressFetch()),
+  clearCart: () => dispatch(clearCart()),
+  resetProducts: () => dispatch(resetProducts()),
+  resetCategories: () => dispatch(resetCategories()),
+  resetMain: () => dispatch(resetMain()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

@@ -16,3 +16,7 @@ export const fetchCategoriesStartAsync = (customerid) => {
     );
   };
 };
+
+export const resetCategories = () => ({
+  type: CategoryActionTypes.RESET_CATEGORIES,
+});

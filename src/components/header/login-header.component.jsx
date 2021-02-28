@@ -1,7 +1,7 @@
+import GoHomeButton from "../buttons/go-home-button.component";
 import HeaderCart from "./header-cart.component";
 import HeaderMyAccount from "./header-myaccount.component";
 import { Nav } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
 import React from "react";
 import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
@@ -9,9 +9,7 @@ import { logout } from "../../redux/auth/auth.actions";
 
 const LoginUser = ({ logout, isMainSite }) => (
   <Nav activeKey={0} className="ml-auto">
-    <Nav.Link eventKey={1} as={NavLink} exact to="/">
-      <Translate>Home</Translate>
-    </Nav.Link>
+    <GoHomeButton />
     <HeaderMyAccount />
     {!isMainSite && <HeaderCart />}
     <Nav.Link to="/login" onClick={() => logout()}>

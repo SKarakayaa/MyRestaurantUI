@@ -7,5 +7,7 @@ const MainActionTypes = {
 
   CHOOSE_CITY: "CHOOSE_CITY",
   CHOOSE_COUNTY: "CHOOSE_COUNTY",
+
+  RESET_MAIN: "RESET_MAIN",
 };
 export default MainActionTypes;

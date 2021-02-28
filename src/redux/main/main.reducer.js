@@ -58,6 +58,12 @@ const mainReducer = (state = INITIAL_STATE, action) => {
         areCuisiniesFetching: false,
         cuisines: action.payload,
       };
+    case MainActionTypes.RESET_MAIN:
+      return {
+        ...state,
+        areCustomersFetching: true,
+        areCuisiniesFetching: true,
+      };
     default:
       return state;
   }
