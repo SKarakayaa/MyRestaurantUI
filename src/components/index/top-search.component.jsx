@@ -4,6 +4,7 @@ import ChooseAddress from "./choose-address.component";
 import Cuisines from "./cuisines.component";
 import React from "react";
 import SearchAddress from "./search-address.component";
+import Translate from '../../utilities/translator';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectAreCitiesFetching } from "../../redux/address/address.reselect";
@@ -18,11 +19,11 @@ const TopSearch = ({ citiesAreFetching, loginCompleted, history }) =>
           <Col md={8}>
             <div className="homepage-search-title">
               <h1 className="mb-2 font-weight-normal">
-                <span className="font-weight-bold">Find Awesome Deals</span>
+                <span className="font-weight-bold"><Translate>Find Awesome Deals</Translate></span>
               </h1>
               <h5 className="mb-5 text-secondary font-weight-normal">
-                Lists of top restaurants, cafes, pubs, and bars in Melbourne,
-                based on trends
+                <Translate>Lists of top restaurants and cafes,
+                based on trends</Translate>
               </h5>
             </div>
             <div className="homepage-search-form">

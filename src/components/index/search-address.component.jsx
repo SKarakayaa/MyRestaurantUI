@@ -15,6 +15,8 @@ import { Link } from "react-router-dom";
 import MainPagesHelper from "../../helpers/mainPagesHelper";
 import React from "react";
 import Select2 from "react-select2-wrapper";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 
@@ -52,7 +54,7 @@ class SearchAddress extends React.Component {
                   value={cityId}
                   onChange={this.HandleChange}
                   options={{
-                    placeholder: "Choose City",
+                    placeholder: TranslatePlaceholder("Choose City"),
                   }}
                 />
               </div>
@@ -67,7 +69,7 @@ class SearchAddress extends React.Component {
                   value={countyId}
                   onChange={this.HandleChange}
                   options={{
-                    placeholder: "Choose County",
+                    placeholder: TranslatePlaceholder("Choose County"),
                   }}
                 />
               </div>
@@ -77,7 +79,7 @@ class SearchAddress extends React.Component {
                 to={cityId !== 0 ? "restaurants" : "#"}
                 className="btn btn-primary btn-block btn-lg btn-gradient"
               >
-                Search
+                <Translate>Search</Translate>
               </Link>
             </Form.Group>
           </div>

@@ -26,23 +26,25 @@ const HeaderMyAccount = ({ customerId, isMainSite }) => (
       />
     }
   >
-    <NavDropdown.Item
-      eventKey={4.1}
-      as={NavLink}
-      activeclassname="active"
-      to="/myaccount/orders"
-    >
-      <Icofont icon="food-cart" /> <Translate>Orders</Translate>
-    </NavDropdown.Item>
     {customerId && (
-      <NavDropdown.Item
-        eventKey={4.3}
-        as={NavLink}
-        activeclassname="active"
-        to="/myaccount/favourites"
-      >
-        <Icofont icon="heart" /> <Translate>Favourites</Translate>
-      </NavDropdown.Item>
+      <>
+        <NavDropdown.Item
+          eventKey={4.1}
+          as={NavLink}
+          activeclassname="active"
+          to="/myaccount/orders"
+        >
+          <Icofont icon="food-cart" /> <Translate>Orders</Translate>
+        </NavDropdown.Item>
+        <NavDropdown.Item
+          eventKey={4.3}
+          as={NavLink}
+          activeclassname="active"
+          to="/myaccount/favourites"
+        >
+          <Icofont icon="heart" /> <Translate>Favourites</Translate>
+        </NavDropdown.Item>
+      </>
     )}
     <NavDropdown.Item
       eventKey={4.5}

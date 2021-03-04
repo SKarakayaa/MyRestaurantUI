@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap";
 
 import React from "react";
+import Translate from '../../utilities/translator';
 
 class GoHomeModal extends React.Component {
   HandleClick = (e) => {
@@ -14,15 +15,16 @@ class GoHomeModal extends React.Component {
   render() {
     const { show, onHide } = this.props;
     return (
-      <Modal show={show} onHide={onHide} size="sm" centered>
+      <Modal show={show} onHide={onHide} size="m" centered>
         <Modal.Header closeButton={true}>
           <Modal.Title as="h5" id="edit-profile">
-            YOU ARE LEAVING
+            <Translate>YOU ARE LEAVING</Translate>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          If you are leaving now, your cart will clear ! Are your sure to leave
-          from restaurant ?
+          <Translate>
+          If you are leaving now, your cart will clear ! Are you sure to leave
+          from restaurant ?</Translate>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -32,7 +34,7 @@ class GoHomeModal extends React.Component {
             onClick={() => this.props.onHide()}
             className="d-flex w-50 text-center justify-content-center"
           >
-            STAY
+            <Translate>STAY</Translate>
           </Button>
           <Button
             type="submit"
@@ -41,7 +43,7 @@ class GoHomeModal extends React.Component {
             onClick={() => this.props.onLeave()}
             className="d-flex w-50 text-center justify-content-center"
           >
-            LEAVE
+            <Translate>LEAVE</Translate>
           </Button>
         </Modal.Footer>
       </Modal>

@@ -3,6 +3,8 @@ import { Badge, Image } from "react-bootstrap";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from '../../utilities/translator';
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
 
 const PopularFirmsItem = ({ customer }) => {
   return (
@@ -12,7 +14,7 @@ const PopularFirmsItem = ({ customer }) => {
           <Icofont icon="heart" />
         </div>
         <div className="member-plan position-absolute">
-          <Badge variant="success">Popular</Badge>
+          <Badge variant="success"><Translate>Popular</Translate></Badge>
         </div>
         <Link to={`detail/${customer.frm_customer_id}`}>
           <Image
@@ -59,8 +61,8 @@ const PopularFirmsItem = ({ customer }) => {
           </Badge>{" "}
           <small>
             {customer.customer_status === "1"
-              ? "Firm is open and not busy"
-              : "Firms is busy, your order may late!"}
+              ? TranslatePlaceholder("Firm is open and not busy")
+              : TranslatePlaceholder("Firms is busy, your order may late!")}
           </small>
         </div>
       </div>

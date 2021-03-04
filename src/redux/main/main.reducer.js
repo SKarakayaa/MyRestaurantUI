@@ -1,4 +1,5 @@
 import MainActionTypes from "./main.types";
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
 
 const INITIAL_STATE = {
   cityId: 0,
@@ -9,8 +10,8 @@ const INITIAL_STATE = {
   customers: null,
 
   densities: [
-    { id: "2", name: "Busy" },
-    { id: "1", name: "Available" },
+    { id: "2", name: TranslatePlaceholder("Busy") },
+    { id: "1", name: TranslatePlaceholder("Available") },
   ],
 
   orderTimes: [

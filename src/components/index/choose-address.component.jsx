@@ -10,6 +10,7 @@ import AuthHelper from "../../helpers/authHelper";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from '../../utilities/translator';
 import { chooseAddress } from "../../redux/order/order.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -36,7 +37,7 @@ class ChooseAddress extends React.Component {
     return (
       !addressesAreFetching && (
         <>
-          <h4>Choose Address</h4>
+          <h4><Translate>Choose Address</Translate></h4>
           <Tabs defaultActiveKey="0" id="uncontrolled-tab-example">
             {AddressHelper.GetAddressTypeSelect().map((addressType, index) => {
               const filteredAddresses = addresses.filter(

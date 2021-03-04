@@ -44,28 +44,31 @@ const MyAccountSidebar = ({ userInfo, customerId, isMainSite }) => (
         </div>
       </div>
       <ul className="nav flex-column border-0 pt-4 pl-4 pb-4">
-        <li className="nav-item">
-          <NavLink
-            className="nav-link"
-            activeClassName="active"
-            exact
-            to="/myaccount/orders"
-          >
-            <i className="icofont-food-cart"></i> <Translate>Orders</Translate>
-          </NavLink>
-        </li>
         {customerId && (
-          <li className="nav-item">
-            <NavLink
-              className="nav-link"
-              activeClassName="active"
-              exact
-              to="/myaccount/favourites"
-            >
-              <i className="icofont-heart"></i>{" "}
-              <Translate>Favourites</Translate>
-            </NavLink>
-          </li>
+          <>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                exact
+                to="/myaccount/orders"
+              >
+                <i className="icofont-food-cart"></i>{" "}
+                <Translate>Orders</Translate>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                activeClassName="active"
+                exact
+                to="/myaccount/favourites"
+              >
+                <i className="icofont-heart"></i>{" "}
+                <Translate>Favourites</Translate>
+              </NavLink>
+            </li>
+          </>
         )}
         <li className="nav-item">
           <NavLink

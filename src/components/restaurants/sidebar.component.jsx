@@ -9,6 +9,8 @@ import Icofont from "react-icofont";
 import MainPagesHelper from "../../helpers/mainPagesHelper";
 import React from "react";
 import Select2 from "react-select2-wrapper";
+import Translate from '../../utilities/translator';
+import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectAreAreasFetching } from "../../redux/address/address.reselect";
@@ -31,7 +33,7 @@ const Sidebar = ({
   <div>
     <div className="filters shadow-sm rounded bg-white mb-4">
       <div className="filters-header border-bottom pl-4 pr-4 pt-3 pb-3">
-        <h5 className="m-0">Filter By</h5>
+        <h5 className="m-0"><Translate>Filter By</Translate></h5>
       </div>
       <div className="filters-body">
         <Accordion defaultActiveKey="0">
@@ -46,7 +48,7 @@ const Sidebar = ({
                     className="text-left d-flex align-items-center p-0"
                     eventKey="0"
                   >
-                    Area <Icofont icon="arrow-down" className="ml-auto" />
+                    <Translate>Area</Translate> <Icofont icon="arrow-down" className="ml-auto" />
                   </Accordion.Toggle>
                 </h6>
               </div>
@@ -59,7 +61,7 @@ const Sidebar = ({
                     value={areaId}
                     onChange={HandleChange}
                     options={{
-                      placeholder: "Choose Area",
+                      placeholder: TranslatePlaceholder("Choose Area"),
                     }}
                   />
                 </div>
@@ -77,14 +79,14 @@ const Sidebar = ({
                   className="text-left d-flex align-items-center p-0"
                   eventKey="1"
                 >
-                  All cuisines <Icofont icon="arrow-down" className="ml-auto" />
+                  <Translate>All cuisines</Translate> <Icofont icon="arrow-down" className="ml-auto" />
                 </Accordion.Toggle>
               </h6>
             </div>
 
             <Accordion.Collapse eventKey="1">
               <div className="filters-card-body card-shop-filters">
-                <form className="filters-search mb-3">
+                {/* <form className="filters-search mb-3">
                   <Form.Group>
                     <Icofont icon="search" />
                     <Form.Control
@@ -92,7 +94,7 @@ const Sidebar = ({
                       placeholder="Start typing to search..."
                     />
                   </Form.Group>
-                </form>
+                </form> */}
                 {cuisines.map((cuisine) => (
                   <Form.Check
                     custom
@@ -119,7 +121,7 @@ const Sidebar = ({
                   className="text-left d-flex align-items-center p-0"
                   eventKey="2"
                 >
-                  Destiny <Icofont icon="arrow-down" className="ml-auto" />
+                  <Translate>Destiny</Translate> <Icofont icon="arrow-down" className="ml-auto" />
                 </Accordion.Toggle>
               </h6>
             </div>
@@ -151,7 +153,7 @@ const Sidebar = ({
                   className="text-left d-flex align-items-center p-0"
                   eventKey="3"
                 >
-                  Delivery time{" "}
+                  <Translate>Delivery time</Translate>{" "}
                   <Icofont icon="arrow-down" className="ml-auto" />
                 </Accordion.Toggle>
               </h6>
@@ -168,7 +170,7 @@ const Sidebar = ({
                     checked={orderTime === time.time}
                     value={time.time}
                     id={time.time}
-                    label={time.time + " Minutes"}
+                    label={time.time + TranslatePlaceholder(" Minutes")}
                   />
                 ))}
               </div>
