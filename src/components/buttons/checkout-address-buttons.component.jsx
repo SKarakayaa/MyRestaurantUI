@@ -22,7 +22,6 @@ const CheckoutButtons = ({
   const isExistAddress = priceOfAreas.find(
     (x) => x.neighborhoods_id === address.neighborhoods_id
   );
-  debugger;
   return (
     <>
       {isExistAddress ? (
@@ -35,12 +34,14 @@ const CheckoutButtons = ({
           </button>
         ) : (
           <span>
-            Minimum Price to Deliver : {isExistAddress.min_price}{" "}
-            {customerInfo.currency_unit}
+            <Translate>Minimum Price to Deliver :</Translate>{" "}
+            {isExistAddress.min_price} {customerInfo.currency_unit}
           </span>
         )
       ) : (
-        <span>The restaurant does not transport here</span>
+        <span>
+          <Translate>Restaurant has no deliver here</Translate>
+        </span>
       )}
 
       {address.frm_user_adress_id === choosedAddress.frm_user_adress_id && (

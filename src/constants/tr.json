@@ -72,6 +72,7 @@
     "deliver here": "BURAYA GÖNDER",
     "choosed": "SEÇİLDİ",
     "choose payment method": "Ödeme Yöntemi Seçiniz",
+    " choose payment method": "ÖDEME YÖNTEMİ SEÇİNİZ",
     "order": "Sipariş Ver",
     "edit profile": "Profil Güncelle",
     "full name": "Ad-Soyad",
@@ -131,9 +132,11 @@
     "not found": "Bulunamadı !",
     "busy": "Yoğun",
     "available": "Müsait",
-    "you are leaving":"SAYFADAN AYRILIYORSUNUZ !",
-    "if you are leaving now, your cart will clear ! are you sure to leave from restaurant ?":"Eğer ayrılısanız sepetinizdeki ürünler silinecek ! Bu restorandan ayrılmak istediğinize emin misiniz ?",
-    "stay":"KAL",
-    "leave":"AYRIL"
+    "you are leaving": "SAYFADAN AYRILIYORSUNUZ !",
+    "if you are leaving now, your cart will clear ! are you sure to leave from restaurant ?": "Eğer ayrılısanız sepetinizdeki ürünler silinecek ! Bu restorandan ayrılmak istediğinize emin misiniz ?",
+    "stay": "KAL",
+    "leave": "AYRIL",
+    "restaurant has no deliver here": "Teslimat bulunmamakta",
+    "minimum price to deliver :": "Teslimat için minimum fiyat :"
   }
 }

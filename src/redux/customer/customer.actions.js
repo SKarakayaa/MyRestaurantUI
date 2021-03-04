@@ -103,8 +103,10 @@ export const fetchPriceOfAreasSuccess = (prices) => ({
 export const fetchPriceOfAreasStartAsync = (customerid) => {
   return (dispatch) => {
     dispatch(fetchPriceOfAreasStart());
-    agent.Customers.loadPriceOfAreas(customerid).then((result) =>
-      dispatch(fetchPriceOfAreasSuccess(result))
-    );
+    debugger;
+    agent.Customers.loadPriceOfAreas(customerid).then((result) => {
+      debugger;
+      return dispatch(fetchPriceOfAreasSuccess(result));
+    });
   };
 };

@@ -3,15 +3,18 @@ import React, { useEffect, useState } from "react";
 
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
+import Translate from "../../utilities/translator";
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import axios from "axios";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectChoosedAddress } from "../../redux/order/order.reselect";
 
 const CustomerItem = ({ customer, choosedAddress }) => {
-  // const [prices, setPrices] = useState(null);
-  const baseUrl =
-    "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01/Customer/getCustomerAddressPrice";
+  const [prices, setPrices] = useState(null);
+  // const baseUrl =
+  //   "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01/Customer/getCustomerAddressPrice";
+  const baseUrl = "/Customer/getCustomerAddressPrice";
 
   useEffect(() => {
     if (choosedAddress !== undefined) {
@@ -20,7 +23,9 @@ const CustomerItem = ({ customer, choosedAddress }) => {
           `${baseUrl}?xcustomer_id=${customer.frm_customer_id}&xneighborhoods_id=${choosedAddress.neighborhoods_id}`
         )
         .then((response) => {
-          console.log("restaurant address price :", response.data);
+          if (response.data.data.length > 0) {
+            setPrices(response.data.data[0]);
+          }
         });
     }
   }, [
@@ -37,7 +42,9 @@ const CustomerItem = ({ customer, choosedAddress }) => {
           </div>
           {customer.is_popular === "1" && (
             <div className="member-plan position-absolute">
-              <Badge variant="success">Popular</Badge>
+              <Badge variant="success">
+                <Translate>Popular</Translate>
+              </Badge>
             </div>
           )}
           <Link to={`detail/${customer.frm_customer_id}`}>
@@ -77,7 +84,13 @@ const CustomerItem = ({ customer, choosedAddress }) => {
               )}
             </p>
           </div>
-          <div className="list-card-body">Deneme</div>
+          <div className="list-card-body">
+            {prices === null
+              ? TranslatePlaceholder("Restaurant has no deliver here")
+              : TranslatePlaceholder("Minimum Price to Deliver :") +
+                prices.min_price +
+                " ₺"}
+          </div>
           <div className="list-card-badge">
             <Badge
               variant={customer.customer_status === "1" ? "success" : "danger"}
@@ -86,8 +99,10 @@ const CustomerItem = ({ customer, choosedAddress }) => {
             </Badge>{" "}
             <small>
               {customer.customer_status === "1"
-                ? "Firm is open and not busy"
-                : "Firms is busy now, your order may late!"}
+                ? TranslatePlaceholder("Firm is open and not busy")
+                : TranslatePlaceholder(
+                    "Firms is busy now, your order may late!"
+                  )}
             </small>
           </div>
         </div>

@@ -6,6 +6,7 @@ import {
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
+import Translate from '../../utilities/translator';
 import { choosePaymentMethod } from "../../redux/order/order.actions";
 import { connect } from "react-redux";
 
@@ -26,7 +27,7 @@ const ChoosePaymentCard = ({
           to="#"
           className="btn btn-sm btn-warning mr-2"
         >
-          CHOOSE PAYMENT METHOD
+          <Translate> CHOOSE PAYMENT METHOD</Translate>
         </Link>
         {choosedPaymentMethodId === customerPaymentId && (
           <button className="btn btn-sm btn-success" type="button">

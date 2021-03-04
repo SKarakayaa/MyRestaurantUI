@@ -108,7 +108,7 @@ class Checkout extends React.Component {
                 )}
 
                 <div className="pt-2"></div>
-                {!customerInfoIsFetching && !paymentMethodsAreFetching && (
+                {!customerInfoIsFetching && !paymentMethodsAreFetching && !areFetchingPriceOfAreas && (
                   <CheckoutPayment CreateOrder={this.CreateOrder} />
                 )}
               </div>
