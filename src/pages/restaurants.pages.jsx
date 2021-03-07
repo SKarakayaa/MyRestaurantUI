@@ -13,8 +13,8 @@ import PageTitle from "../components/common/page-title.component";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../components/restaurants/sidebar.component";
-import Translate from '../utilities/translator';
-import {TranslatePlaceholder} from '../utilities/translator-placeholder';
+import Translate from "../utilities/translator";
+import { TranslatePlaceholder } from "../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchAreasStartAsync } from "../redux/address/address.actions";
@@ -37,10 +37,7 @@ class Restaurants extends React.Component {
           const newCheckedCuisines = this.state.checkedCuisines.filter(
             (x) => x !== value
           );
-          this.setState(
-            { checkedCuisines: newCheckedCuisines },
-            console.log(this.state.checkedCuisines)
-          );
+          this.setState({ checkedCuisines: newCheckedCuisines });
         } else {
           this.setState({
             checkedCuisines: [...this.state.checkedCuisines, value],
@@ -83,7 +80,9 @@ class Restaurants extends React.Component {
       <>
         <PageTitle
           title={TranslatePlaceholder("Offers Near You")}
-          subTitle={TranslatePlaceholder("Best deals at your favourite restaurants")}
+          subTitle={TranslatePlaceholder(
+            "Best deals at your favourite restaurants"
+          )}
         />
         <section className="section pt-5 pb-5 products-listing">
           <Container>
@@ -92,7 +91,8 @@ class Restaurants extends React.Component {
                 <h4 className="font-weight-bold mt-0 mb-3">
                   Found{" "}
                   <small className="h6 mb-0 ml-2">
-                    {filteredCustomers.length} <Translate>Restaurants</Translate>
+                    {filteredCustomers.length}{" "}
+                    <Translate>Restaurants</Translate>
                   </small>
                 </h4>
               </Col>
@@ -118,7 +118,9 @@ class Restaurants extends React.Component {
                     ))
                   ) : (
                     <FailOrder
-                      orderErrorMessage={TranslatePlaceholder("Any Restaurants Not Found !")}
+                      orderErrorMessage={TranslatePlaceholder(
+                        "Any Restaurants Not Found !"
+                      )}
                       errorHeader={TranslatePlaceholder("Not Found")}
                     />
                   )}

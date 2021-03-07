@@ -102,7 +102,6 @@ export const favoriteAsync = (product, customerid, isFavorite, favoriteid) => {
         customer_id: customerid,
       };
       agent.Users.addFavorite(model).then((result) => {
-        debugger;
         dispatch(
           addFavorite({
             ...model,
@@ -182,7 +181,6 @@ export const fetchDeleteAddressFail = (errorMesssage) => ({
 export const fetchDeleteAddressAsync = (addressid) => {
   return (dispatch) => {
     agent.Address.deleteAddress(addressid).then((result) => {
-      debugger;
       if (result.success) {
         dispatch(fetchDeleteAddressSuccess(addressid));
       } else {

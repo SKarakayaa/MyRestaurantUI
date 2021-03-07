@@ -18,8 +18,8 @@ import { selectProducts } from "../../redux/product/product.reselect";
 
 class OrderDetailModal extends React.Component {
   componentDidMount() {
-    const { orderid, loadOrderDetails } = this.props;
-    loadOrderDetails(orderid);
+    const { order, loadOrderDetails } = this.props;
+    loadOrderDetails(order.frm_orders_id);
   }
   Reorder = () => {
     const { products, orderDetails, addItem } = this.props;

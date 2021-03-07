@@ -11,7 +11,8 @@ import { createStructuredSelector } from "reselect";
 import { selectCustomerInfo } from "../../redux/customer/customer.reselect";
 import { selectUserAddresses } from "../../redux/user/user.reselect";
 
-const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
+const OrderCard = ({ order, index, customerInfo, userAddresses }) => {
+  return (
   <div className="bg-white card mb-4 order-list shadow-sm">
     <div className="gold-members p-4">
       <Media>
@@ -45,7 +46,7 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
             {/* <Link className="btn btn-sm btn-outline-primary mr-1" to="#">
               <Icofont icon="headphone-alt" /> HELP
             </Link> */}
-            <OrderDetailButton orderid={order.frm_orders_id} />
+            <OrderDetailButton order={order} />
           </div>
           <p className="mb-0 text-black text-primary pt-2">
             <span className="text-black font-weight-bold">
@@ -58,7 +59,7 @@ const OrderCard = ({ order, index, customerInfo, userAddresses }) => (
       </Media>
     </div>
   </div>
-);
+);}
 const mapStateToProps = createStructuredSelector({
   customerInfo: selectCustomerInfo,
   userAddresses: selectUserAddresses,

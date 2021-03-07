@@ -33,19 +33,19 @@ class AddUpdateAddressModal extends React.Component {
     super(props);
     const { address } = props;
     this.state = {
-      address_id: address !== null ? address.frm_user_adress_id : undefined,
-      addressType: address !== null ? address.address_type : undefined,
-      city: address !== null ? address.city_id : undefined,
-      county: address !== null ? address.counties_id : undefined,
-      area: address !== null ? address.area_id : undefined,
-      neighborhoods: address !== null ? address.neighborhoods_id : undefined,
-      openAddress: address !== null ? address.delivery_instructions : "",
+      address_id: address !== undefined ? address.frm_user_adress_id : undefined,
+      addressType: address !== undefined ? address.address_type : undefined,
+      city: address !== undefined ? address.city_id : undefined,
+      county: address !== undefined ? address.counties_id : undefined,
+      area: address !== undefined ? address.area_id : undefined,
+      neighborhoods: address !== undefined ? address.neighborhoods_id : undefined,
+      openAddress: address !== undefined ? address.delivery_instructions : "",
       errorMessage: "",
     };
   }
   componentDidMount() {
     const { address, loadCounties, loadAreas, loadNeighborhoods } = this.props;
-    if (address !== null) {
+    if (address) {
       loadCounties(address.city_id);
       loadAreas(address.counties_id);
       loadNeighborhoods(address.area_id);
@@ -82,7 +82,7 @@ class AddUpdateAddressModal extends React.Component {
       areas,
       neighborhoods
     );
-    if (address === null) {
+    if (!address) {
       this.props.createAddress(model).then((result) => {
         if (result.type === UserActionTypes.CREATE_ADDRESS_SUCCESS)
           this.props.onHide();

@@ -86,7 +86,6 @@ export const fetchCreateRezervation = () => ({
 export const fetchCreateRezervationAsync = (rezervation) => {
   return (dispatch) => {
     agent.Customers.addRezervation(rezervation).then((result) => {
-      debugger;
       dispatch(fetchCreateRezervation(result));
     });
   };
@@ -103,9 +102,7 @@ export const fetchPriceOfAreasSuccess = (prices) => ({
 export const fetchPriceOfAreasStartAsync = (customerid) => {
   return (dispatch) => {
     dispatch(fetchPriceOfAreasStart());
-    debugger;
     agent.Customers.loadPriceOfAreas(customerid).then((result) => {
-      debugger;
       return dispatch(fetchPriceOfAreasSuccess(result));
     });
   };

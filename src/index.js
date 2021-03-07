@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom";
 // import configureStore from "./redux/reducers/configureStore";
-import history from "./componentsold/history";
+import history from "./components/history";
 import { store } from "./redux/store";
 
 // "proxy": "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01",

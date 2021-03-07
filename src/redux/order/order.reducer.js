@@ -20,6 +20,15 @@ const INITIAL_STATE = {
 
 const orderReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
+    case OrderActionTypes.RESET_ORDERS:
+      return {
+        ...state,
+        userOrderHistory: null,
+        isFetchingUserOrderHistory: true,
+
+        areFetchingOrderDetails: true,
+        orderDetails: null,
+      };
     case OrderActionTypes.FETCH_ORDER_DETAIL_START:
       return {
         ...state,

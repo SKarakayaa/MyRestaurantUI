@@ -1,17 +1,8 @@
-import {
-  fetchAreasStartAsync,
-  fetchCitiesStartAsync,
-  fetchCountiesStartAsync,
-  fetchNeighborhoodsStartAsync,
-} from "../../redux/address/address.actions";
-
 import AddUpdateAddressModal from "../modals/add-update-address-modal.component";
 import Icofont from "react-icofont";
 import { Link } from "react-router-dom";
 import React from "react";
 import Translate from '../../utilities/translator';
-import { connect } from "react-redux";
-
 class AddressAddUpdateButton extends React.Component {
   state = {
     modalIsShow: false,
@@ -51,10 +42,5 @@ class AddressAddUpdateButton extends React.Component {
     );
   }
 }
-const mapDispatchToProps = (dispatch) => ({
-  loadCities: () => dispatch(fetchCitiesStartAsync()),
-  loadCounties: (cityid) => dispatch(fetchCountiesStartAsync(cityid)),
-  loadAreas: (countyid) => dispatch(fetchAreasStartAsync(countyid)),
-  loadNeighborhoods: (areaid) => dispatch(fetchNeighborhoodsStartAsync(areaid)),
-});
-export default connect(null, mapDispatchToProps)(AddressAddUpdateButton);
+
+export default AddressAddUpdateButton;

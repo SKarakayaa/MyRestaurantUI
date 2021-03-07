@@ -4,19 +4,19 @@ import {
 } from "../../redux/order/order.reselect";
 
 import AuthHelper from "../../helpers/authHelper";
-import { CurrentCustomerId } from "../../componentsold/Helper";
 import OrderCard from "../../components/myaccount/order-card.component";
 import React from "react";
 import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchUserOrderHistoryStartAsync } from "../../redux/order/order.actions";
+import { selectCustomerId } from "../../redux/customer/customer.reselect";
 
 class Orders extends React.Component {
   componentDidMount() {
-    const { loadOrderHistory } = this.props;
+    const { loadOrderHistory, customerId } = this.props;
     const userid = AuthHelper.GetCurrentUser().userId;
-    loadOrderHistory(CurrentCustomerId(), userid);
+    loadOrderHistory(customerId, userid);
   }
 
   render() {
@@ -28,7 +28,7 @@ class Orders extends React.Component {
             <Translate>Past Orders</Translate>
           </h4>
           {orderHistory &&
-            orderHistory.reverse().map((order, index) => (
+            orderHistory.map((order, index) => (
               <OrderCard order={order} index={index} key={index} />
             ))}
         </div>
@@ -39,6 +39,7 @@ class Orders extends React.Component {
 const mapStateToProps = createStructuredSelector({
   orderHistoryIsFetching: selectIsFetchingUserOrderHistory,
   orderHistory: selectUserOrderHistory,
+  customerId: selectCustomerId,
 });
 const mapDispatchToProps = (dispatch) => ({
   loadOrderHistory: (customerid, userid) =>

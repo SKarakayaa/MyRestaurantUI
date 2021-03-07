@@ -12,12 +12,12 @@ class OrderDetailButton extends React.Component {
   onHide = () => this.setState({ detailModalShow: false });
   render() {
     const { detailModalShow } = this.state;
-    const { orderid } = this.props;
+    const { order } = this.props;
     return (
       <Fragment>
         {detailModalShow && (
           <OrderDetailModal
-            orderid={orderid}
+            order={order}
             onHide={this.onHide}
             show={detailModalShow}
           />

@@ -55,7 +55,6 @@ const AddToCartHelper = {
     },
     product
   ) => {
-    debugger;
     const productModel = {
       frm_product_id: product.frm_product_id,
       name: product.name,

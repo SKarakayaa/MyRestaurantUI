@@ -28,7 +28,7 @@ const CheckoutButtons = ({
         parseInt(isExistAddress.min_price) <= cartTotal ? (
           <button
             className="btn btn-sm btn-success mr-2"
-            onClick={() => chooseAddress(address.frm_user_adress_id)}
+            onClick={() => chooseAddress(address)}
           >
             <Translate>DELIVER HERE</Translate>
           </button>

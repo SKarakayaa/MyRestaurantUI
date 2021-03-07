@@ -5,7 +5,7 @@ import {
   selectLoginError,
 } from "../redux/auth/auth.reselect";
 
-import FontAwesome from "../componentsold/common/FontAwesome";
+import FontAwesome from "../components/common/fontawesome.component";
 import React from "react";
 import Translate from "../utilities/translator";
 import {TranslatePlaceholder} from "../utilities/translator-placeholder";

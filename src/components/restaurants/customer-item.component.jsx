@@ -12,9 +12,9 @@ import { selectChoosedAddress } from "../../redux/order/order.reselect";
 
 const CustomerItem = ({ customer, choosedAddress }) => {
   const [prices, setPrices] = useState(null);
-  // const baseUrl =
-  //   "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01/Customer/getCustomerAddressPrice";
-  const baseUrl = "/Customer/getCustomerAddressPrice";
+  const baseUrl =
+    "http://206.189.55.20:8080/rest/276ce05d-837b-4aa1-8f6f-ff02597a0e01/Customer/getCustomerAddressPrice";
+  // const baseUrl = "/Customer/getCustomerAddressPrice";
 
   useEffect(() => {
     if (choosedAddress !== undefined) {

@@ -17,14 +17,15 @@ import React from "react";
 import SectionHeading from "../components/common/section-heading.component";
 import SpecialFirms from "../components/index/special-firms.component";
 import TopSearch from "../components/index/top-search.component";
-import Translate from '../utilities/translator';
-import {TranslatePlaceholder} from '../utilities/translator-placeholder';
+import Translate from "../utilities/translator";
+import { TranslatePlaceholder } from "../utilities/translator-placeholder";
 import { changeCustomerIdAsync } from "../redux/customer/customer.actions";
 import { clearCart } from "../redux/cart/cart.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { resetAddressFetch } from "../redux/address/address.actions";
 import { resetCategories } from "../redux/category/category.actions";
+import { resetOrders } from "../redux/order/order.actions";
 import { resetProducts } from "../redux/product/product.actions";
 import { selectChoosedAddress } from "../redux/order/order.reselect";
 
@@ -39,6 +40,7 @@ class Index extends React.Component {
       resetProducts,
       resetCategories,
       resetMain,
+      resetOrders
     } = this.props;
     if (AuthHelper.IsLogin()) {
       resetAddressFetch();
@@ -48,6 +50,7 @@ class Index extends React.Component {
     clearCart();
     changeCustomerId();
     resetMain();
+    resetOrders();
 
     loadCustomers();
     loadCuisines();
@@ -65,13 +68,12 @@ class Index extends React.Component {
         )}
         <section className="section pt-5 pb-5 bg-white becomemember-section border-bottom">
           <Container>
-            <SectionHeading
-              heading={TranslatePlaceholder("Become a Member")}
-            />
+            <SectionHeading heading={TranslatePlaceholder("Become a Member")} />
             <Row>
               <Col sm={12} className="text-center">
                 <Link to="register" className="btn btn-success btn-lg">
-                  <Translate>Create an Account</Translate> <FontAwesome icon="chevron-circle-right" />
+                  <Translate>Create an Account</Translate>{" "}
+                  <FontAwesome icon="chevron-circle-right" />
                 </Link>
               </Col>
             </Row>
@@ -95,5 +97,6 @@ const mapDispatchToProps = (dispatch) => ({
   resetProducts: () => dispatch(resetProducts()),
   resetCategories: () => dispatch(resetCategories()),
   resetMain: () => dispatch(resetMain()),
+  resetOrders: () => dispatch(resetOrders()),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Index);

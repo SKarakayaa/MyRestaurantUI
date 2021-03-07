@@ -56,7 +56,7 @@ const AddressCard = ({ address, isAdd, isCheckout, deleteAddress }) => (
                     <CheckoutAddressButtons address={address} />
                   )
                 ) : (
-                  <AddressAddUpdateButton address={null} isAdd />
+                  <AddressAddUpdateButton address={undefined} isAdd />
                 )}
               </p>
             </div>

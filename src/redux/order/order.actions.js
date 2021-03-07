@@ -22,7 +22,7 @@ export const fetchUserOrderHistoryStart = () => ({
 });
 export const fetchUserOrderHistorySuccess = (orderHistory) => ({
   type: OrderActionTypes.FETCH_USER_ORDER_HISTORY_SUCCESS,
-  payload: orderHistory.data,
+  payload: orderHistory.data.reverse(),
 });
 export const fetchUserOrderHistoryStartAsync = (customerid, userid) => {
   return (dispatch) => {
@@ -95,3 +95,6 @@ export const choosePaymentMethod = (paymentMethodId) => ({
   type: OrderActionTypes.CHOOSE_PAYMENT_METHOD,
   payload: paymentMethodId,
 });
+export const resetOrders = () => ({
+  type:OrderActionTypes.RESET_ORDERS,
+})
