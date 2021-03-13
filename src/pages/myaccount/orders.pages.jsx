@@ -21,16 +21,20 @@ class Orders extends React.Component {
 
   render() {
     const { orderHistory } = this.props;
+    console.log("order history ", orderHistory);
     return (
       <>
         <div className="p-4 bg-white shadow-sm">
           <h4 className="font-weight-bold mt-0 mb-4">
             <Translate>Past Orders</Translate>
           </h4>
-          {orderHistory &&
+          {orderHistory && orderHistory.length > 0 ? (
             orderHistory.map((order, index) => (
               <OrderCard order={order} index={index} key={index} />
-            ))}
+            ))
+          ) : (
+            <h2 className="text-center">Bu restorandan siparişiniz bulunmamakta</h2>
+          )}
         </div>
       </>
     );

@@ -53,7 +53,7 @@ class Favorites extends React.Component {
                   <Translate>Favourites</Translate>
                 </h4>
               </Col>
-              {favoriteProducts &&
+              {favoriteProducts && favoriteProducts.length > 0 ? (
                 favoriteProducts.map((favoriteProduct) => {
                   let product = products.find(
                     (product) =>
@@ -68,7 +68,12 @@ class Favorites extends React.Component {
                       />
                     )
                   );
-                })}
+                })
+              ) : (
+                <h2 className="text-center">
+                  Bu restoranda favori ürününüz bulunmamakta
+                </h2>
+              )}
             </Row>
           </div>
         </>

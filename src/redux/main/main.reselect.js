@@ -47,3 +47,12 @@ export const selectIsLeaveRestaurantPage = createSelector(
   [selectMain],
   (main) => main.isLeaveRestaurantPage
 );
+
+export const selectAreUserOrdersFetching = createSelector(
+  [selectMain],
+  (main) => main.areCustomersFetching
+);
+export const selectUserOrders = createSelector(
+  [selectMain],
+  (main) => main.userOrders
+);

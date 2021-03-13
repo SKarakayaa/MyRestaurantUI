@@ -1,5 +1,5 @@
 import MainActionTypes from "./main.types";
-import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 
 const INITIAL_STATE = {
   cityId: 0,
@@ -8,6 +8,9 @@ const INITIAL_STATE = {
   isLeaveRestaurantPage: false,
   areCustomersFetching: true,
   customers: null,
+
+  areFetchingUserOrders: true,
+  userOrders: null,
 
   densities: [
     { id: "2", name: TranslatePlaceholder("Busy") },
@@ -71,6 +74,17 @@ const mainReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         isLeaveRestaurantPage: true,
+      };
+    case MainActionTypes.FETCH_USER_ORDERS_START:
+      return {
+        ...state,
+        areCustomersFetching: true,
+      };
+    case MainActionTypes.FETCH_USER_ORDERS_SUCCESS:
+      return {
+        ...state,
+        areCustomersFetching: false,
+        userOrders: action.payload,
       };
     default:
       return state;

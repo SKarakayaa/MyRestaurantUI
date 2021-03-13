@@ -38,25 +38,27 @@ const OrderOnline = ({
         </InputGroup>
       </Form>
       <h6 className="mb-3">
-        <Translate >Menus</Translate>{" "}
+        <Translate>Menus</Translate>{" "}
       </h6>
       <MenuList currencyUnit={customerInfo.currency_unit} />
 
-      {bigListCategories.map((bigListCategory) => (
-        <ProductCard
-          category={bigListCategory}
-          currencyUnit={customerInfo.currency_unit}
-          key={bigListCategory.frm_product_categories_id}
-        />
-      ))}
+      {bigListCategories &&
+        bigListCategories.map((bigListCategory) => (
+          <ProductCard
+            category={bigListCategory}
+            currencyUnit={customerInfo.currency_unit}
+            key={bigListCategory.frm_product_categories_id}
+          />
+        ))}
 
-      {smallListCategories.map((smallListCategory) => (
-        <ProductLine
-          category={smallListCategory}
-          currencyUnit={customerInfo.currency_unit}
-          key={smallListCategory.frm_product_categories_id}
-        />
-      ))}
+      {smallListCategories &&
+        smallListCategories.map((smallListCategory) => (
+          <ProductLine
+            category={smallListCategory}
+            currencyUnit={customerInfo.currency_unit}
+            key={smallListCategory.frm_product_categories_id}
+          />
+        ))}
     </Fragment>
   );
 };

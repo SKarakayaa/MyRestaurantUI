@@ -42,7 +42,7 @@ class App extends React.Component {
         <Switch>
           {isMainSite ? (
             <>
-              <Route path="/" exact component={Index} />
+              <Route path="/" exact component={Index}/>
               <Route path="/detail/:id" exact component={Detail} />
               <Route path="/restaurants" exact component={Restaurants} />
               <Route path="/login" exact component={Login} />

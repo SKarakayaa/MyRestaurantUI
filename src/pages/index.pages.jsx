@@ -23,6 +23,7 @@ import { changeCustomerIdAsync } from "../redux/customer/customer.actions";
 import { clearCart } from "../redux/cart/cart.actions";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { fetchUserOrderStartAsync } from "../redux/main/main.actions";
 import { resetAddressFetch } from "../redux/address/address.actions";
 import { resetCategories } from "../redux/category/category.actions";
 import { resetOrders } from "../redux/order/order.actions";
@@ -34,13 +35,15 @@ class Index extends React.Component {
     const {
       loadCuisines,
       loadCustomers,
+      loadUserOrders,
+
       changeCustomerId,
       resetAddressFetch,
       clearCart,
       resetProducts,
       resetCategories,
       resetMain,
-      resetOrders
+      resetOrders,
     } = this.props;
     if (AuthHelper.IsLogin()) {
       resetAddressFetch();
@@ -54,6 +57,9 @@ class Index extends React.Component {
 
     loadCustomers();
     loadCuisines();
+    if (AuthHelper.IsLogin()) {
+      loadUserOrders(AuthHelper.GetCurrentUser().userId);
+    }
   }
   render() {
     const { areCuisinesFetching, areCustomerFetching, history } = this.props;
@@ -91,6 +97,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
   loadCuisines: () => dispatch(fetchCuisinesStartAsync()),
   loadCustomers: () => dispatch(fetchCustomersStartAsync()),
+  loadUserOrders: (userid) => dispatch(fetchUserOrderStartAsync(userid)),
+
   changeCustomerId: () => dispatch(changeCustomerIdAsync(null)),
   resetAddressFetch: () => dispatch(resetAddressFetch()),
   clearCart: () => dispatch(clearCart()),

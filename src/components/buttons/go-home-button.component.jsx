@@ -7,6 +7,7 @@ import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { leaveRestaurantPage } from "../../redux/main/main.actions";
+import { selectCartItemsCount } from "../../redux/cart/cart.reselect";
 import { selectIsLeaveRestaurantPage } from "../../redux/main/main.reselect";
 import { selectIsMainSite } from "../../redux/customer/customer.reselect";
 
@@ -22,9 +23,9 @@ class GoHomeButton extends React.Component {
   };
   render() {
     const { isShow } = this.state;
-    const { isLeave, isMainSite } = this.props;
+    const { isLeave, isMainSite, cartItemCount } = this.props;
     return isLeave ? (
-      <Redirect to="/" />
+      <Redirect to="/"/>
     ) : (
       <>
         {isShow && (
@@ -34,7 +35,7 @@ class GoHomeButton extends React.Component {
             onHide={this.onHide}
           />
         )}
-        {isMainSite ? (
+        {isMainSite && cartItemCount > 0 ? (
           <Nav.Link
             eventKey={1}
             onClick={() => this.setState({ isShow: true })}
@@ -53,6 +54,7 @@ class GoHomeButton extends React.Component {
 const mapStateToProps = createStructuredSelector({
   isLeave: selectIsLeaveRestaurantPage,
   isMainSite: selectIsMainSite,
+  cartItemCount: selectCartItemsCount,
 });
 const mapDispatchToProps = (dispatch) => ({
   leaveRestaurantPage: () => dispatch(leaveRestaurantPage()),

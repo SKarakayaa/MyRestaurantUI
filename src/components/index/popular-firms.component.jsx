@@ -4,7 +4,7 @@ import OwlCarousel from "react-owl-carousel3";
 import PopularFirmsItem from "./popular-firms-item.component";
 import React from "react";
 import SectionHeading from "../common/section-heading.component";
-import {TranslatePlaceholder} from '../../utilities/translator-placeholder';
+import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { popularFirmOptions } from "../../helpers/owlCarouselOptions";
@@ -15,7 +15,9 @@ const PopularFirms = ({ customers }) => (
     <Container>
       <SectionHeading
         heading={TranslatePlaceholder("Popular Brands")}
-        subHeading={TranslatePlaceholder("Lists of top restaurants and cafes, based on trends")}
+        subHeading={TranslatePlaceholder(
+          "Lists of top restaurants and cafes, based on trends"
+        )}
       />
       <Row>
         <Col md={12}>
@@ -25,13 +27,14 @@ const PopularFirms = ({ customers }) => (
             {...popularFirmOptions}
             className="owl-carousel-four owl-theme"
           >
-            {customers
-              .filter((customer) => customer.is_popular)
-              .map((customer) => (
-                <div className="item" key={customer.frm_customer_id}>
-                  <PopularFirmsItem customer={customer} />
-                </div>
-              ))}
+            {customers &&
+              customers
+                .filter((customer) => customer.is_popular)
+                .map((customer) => (
+                  <div className="item" key={customer.frm_customer_id}>
+                    <PopularFirmsItem customer={customer} />
+                  </div>
+                ))}
           </OwlCarousel>
         </Col>
       </Row>

@@ -17,20 +17,23 @@ export const selectCategories = createSelector(
 export const bigListCategories = createSelector(
   [selectCategory],
   (categories) =>
-    categories.categories.filter(
-      (category) =>
-        category.list_type === categoryTypesEnum.BIG_LIST_CATEGORY &&
-        category.frm_product_categories_id !== "5"
-    )
+    categories.categories !== undefined
+      ? categories.categories.filter(
+          (category) =>
+            category.list_type === categoryTypesEnum.BIG_LIST_CATEGORY &&
+            category.frm_product_categories_id !== "5"
+        )
+      : null
 );
 
 export const smallListCategories = createSelector(
   [selectCategory],
   (categories) =>
-    categories.categories.filter(
-      (category) =>
-        category.list_type === categoryTypesEnum.SMALL_LIST_CATEGORY &&
-        category.frm_product_categories_id !== "5"
-    )
+    categories.categories !== undefined
+      ? categories.categories.filter(
+          (category) =>
+            category.list_type === categoryTypesEnum.SMALL_LIST_CATEGORY &&
+            category.frm_product_categories_id !== "5"
+        )
+      : null
 );
-

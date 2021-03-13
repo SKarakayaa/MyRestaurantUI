@@ -10,11 +10,12 @@ const SpecialFirms = ({ customers }) => (
   <section className="section pt-5 pb-5 bg-white homepage-add-section">
     <Container>
       <Row>
-        {customers.map((customer) => (
-          <Col md={3} xs={6} key={customer.frm_customer_id}>
-            <SpecialFirmsItem customer={customer} />
-          </Col>
-        ))}
+        {customers &&
+          customers.map((customer) => (
+            <Col md={3} xs={6} key={customer.frm_customer_id}>
+              <SpecialFirmsItem customer={customer} />
+            </Col>
+          ))}
       </Row>
     </Container>
   </section>
