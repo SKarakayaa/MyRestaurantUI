@@ -39,15 +39,19 @@ const OrderHelper = {
     );
     return totalBill;
   },
-  GetOrderStatusIcon:(orderStatus)=>{
+  GetOrderStatusIcon: (orderStatus) => {
     switch (orderStatus) {
       case "1":
-        return {icon:"tasks",class:"text-info"};
+        return { icon: "tasks", class: "text-info" };
       case "2":
-        return {icon:"delivery-time",class:"text-danger"};
+        return { icon: "check-circled", class: "text-success" };
+      case "3":
+        return { icon: "close-circled", class: "text-danger" };
+      case "4":
+        return { icon: "delivery-time", class: "text-danger" };
       default:
         return "";
     }
-  }
+  },
 };
 export default OrderHelper;

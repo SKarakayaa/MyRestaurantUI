@@ -137,6 +137,10 @@
     "stay": "KAL",
     "leave": "AYRIL",
     "restaurant has no deliver here": "Teslimat bulunmamakta",
-    "minimum price to deliver :": "Teslimat için minimum fiyat :"
+    "minimum price to deliver :": "Teslimat için minimum fiyat :",
+    "order number": "Sipariş Numarası",
+    "congratulations": "Sipariş Alındı",
+    "go orders": "Siparişler",
+    "my orders": "Siparişkerim"
   }
 }

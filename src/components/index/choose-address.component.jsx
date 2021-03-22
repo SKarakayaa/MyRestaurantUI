@@ -38,7 +38,7 @@ class ChooseAddress extends React.Component {
       !addressesAreFetching && (
         <>
           <h4><Translate>Choose Address</Translate></h4>
-          <Tabs defaultActiveKey="0" id="uncontrolled-tab-example">
+          <Tabs id="uncontrolled-tab-example">
             {AddressHelper.GetAddressTypeSelect().map((addressType, index) => {
               const filteredAddresses = addresses.filter(
                 (address) => address.address_type === addressType.value + ""

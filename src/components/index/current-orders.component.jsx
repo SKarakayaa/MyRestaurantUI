@@ -3,6 +3,7 @@ import { Card, ListGroup } from "react-bootstrap";
 import Icofont from "react-icofont";
 import OrderHelper from "../../helpers/orderHelper";
 import React from "react";
+import Translate from "../../utilities/translator";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { selectUserOrders } from "../../redux/main/main.reselect";
@@ -11,7 +12,9 @@ const CurrentOrders = ({ userOrders }) => (
   <div style={{ marginTop: "5rem" }}>
     <Card style={{ width: "25rem", height: "18rem" }} border="info">
       <Card.Header className="text-center">
-        <b>Siparişlerim</b>
+        <b>
+          <Translate>My Orders</Translate>
+        </b>
       </Card.Header>
       <ListGroup>
         {userOrders &&
@@ -21,7 +24,8 @@ const CurrentOrders = ({ userOrders }) => (
             );
             return (
               <ListGroup.Item key={order.frm_orders_id}>
-                Order Number #{order.order_number} - {order.order_status_id_qw_}
+                <Translate>Order Number</Translate> #{order.order_number} -{" "}
+                {order.order_status_id_qw_}
                 <Icofont
                   icon={iconOptions.icon}
                   className={`icofont-2x pull-right ${iconOptions.class}`}
