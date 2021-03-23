@@ -3,9 +3,10 @@ import { Button } from "react-bootstrap";
 import { Fragment } from "react";
 import MenuModal from "../modals/menu-modal.component";
 import React from "react";
+import Swal from "sweetalert2";
+import SwalHelper from "../../helpers/swalHelper";
 import Translate from "../../utilities/translator";
 import { addItem } from "../../redux/cart/cart.actions";
-import alertifyjs from "alertifyjs";
 import { connect } from "react-redux";
 class AddToCartButton extends React.Component {
   state = {
@@ -18,7 +19,8 @@ class AddToCartButton extends React.Component {
     } else {
       const productModel = AddToCartHelper.HandleMenuModalSubmit({}, product);
       addToCart(productModel);
-      alertifyjs.success("Product is added to cart");
+      Swal.fire(SwalHelper.AddToCart());
+      // alertifyjs.success("Product is added to cart");
     }
   };
 
@@ -44,7 +46,7 @@ class AddToCartButton extends React.Component {
           className={className}
           onClick={() => this.CheckAndAddToCart(product)}
         >
-          <Translate >ADD</Translate>
+          <Translate>ADD</Translate>
         </Button>
       </Fragment>
     );

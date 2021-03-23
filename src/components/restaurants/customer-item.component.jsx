@@ -33,7 +33,7 @@ const CustomerItem = ({ customer, choosedAddress }) => {
     customer.frm_customer_id,
     choosedAddress,
   ]);
-  return (
+  return prices !== null && (
     <Col md={4} sm={6} className="mb-4 pb-2">
       <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
         <div className="list-card-image">

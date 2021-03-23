@@ -35,7 +35,7 @@ export const fetchCustomerMoreInfoSuccess = (customerMoreInfos) => ({
   type: CustomerActionTypes.FETCH_CUSTOMER_MORE_INFO_SUCCESS,
   payload: customerMoreInfos.data,
 });
-export const fetchCustomerMoreInfoStartAsync = (customerid) => {
+export const fetchCustomerMoreInfoStartAsync = (customerid) => { 
   return (dispatch) => {
     dispatch(fetchCustomerMoreInfoStart());
     agent.Customers.loadCustomerMoreInfo(customerid).then((result) =>

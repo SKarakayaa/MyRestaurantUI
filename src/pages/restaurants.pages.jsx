@@ -13,7 +13,6 @@ import PageTitle from "../components/common/page-title.component";
 import React from "react";
 import { Redirect } from "react-router-dom";
 import Sidebar from "../components/restaurants/sidebar.component";
-import Translate from "../utilities/translator";
 import { TranslatePlaceholder } from "../utilities/translator-placeholder";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -89,11 +88,11 @@ class Restaurants extends React.Component {
             <Row className="d-none-m">
               <Col md={12}>
                 <h4 className="font-weight-bold mt-0 mb-3">
-                  Found{" "}
-                  <small className="h6 mb-0 ml-2">
+                  {/* Found{" "} */}
+                  {/* <small className="h6 mb-0 ml-2">
                     {filteredCustomers.length}{" "}
-                    <Translate>Restaurants</Translate>
-                  </small>
+                    <Translate>Restaurants</Translate> Bulundu
+                  </small> */}
                 </h4>
               </Col>
             </Row>

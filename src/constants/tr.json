@@ -11,7 +11,7 @@
     "cart is empty": "Sepet Boş",
     "sub total": "Toplam",
     "extra charges may apply": "Ekstra ücretler uygulanabilir",
-    "checkout": "Ödeme",
+    "checkout": "Sepete Git",
     "order online": "Ürünler",
     "gallery": "Galeri",
     "restaurant info": "Restorant Bilgisi",
@@ -141,6 +141,6 @@
     "order number": "Sipariş Numarası",
     "congratulations": "Sipariş Alındı",
     "go orders": "Siparişler",
-    "my orders": "Siparişkerim"
+    "my orders": "Siparişlerim"
   }
 }

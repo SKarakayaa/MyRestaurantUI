@@ -8,10 +8,11 @@ import {
 import AddToCartHelper from "../../helpers/addToCartHelper";
 import React from "react";
 import Select from "react-select";
+import Swal from "sweetalert2";
+import SwalHelper from "../../helpers/swalHelper";
 import Translate from "../../utilities/translator";
 import { TranslatePlaceholder } from "../../utilities/translator-placeholder";
 import { addItem } from "../../redux/cart/cart.actions";
-import alertifyjs from "alertifyjs";
 import { connect } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { fetchMenuOptionsAsync } from "../../redux/product/product.actions";
@@ -70,7 +71,7 @@ class MenuModal extends React.Component {
       product
     );
     addToCart(productModel);
-    alertifyjs.success("Product is added to cart");
+    Swal.fire(SwalHelper.AddToCart());
     onHide();
   };
   HandleChange = (event) => {

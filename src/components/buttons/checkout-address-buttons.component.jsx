@@ -33,7 +33,7 @@ const CheckoutButtons = ({
             <Translate>DELIVER HERE</Translate>
           </button>
         ) : (
-          <span>
+          <span style={{ color: 'red' }}>
             <Translate>Minimum Price to Deliver :</Translate>{" "}
             {isExistAddress.min_price} {customerInfo.currency_unit}
           </span>
@@ -44,11 +44,12 @@ const CheckoutButtons = ({
         </span>
       )}
 
-      {address.frm_user_adress_id === choosedAddress.frm_user_adress_id && (
-        <button className="btn btn-sm btn-primary mr-2">
-          <Translate>CHOOSED</Translate>
-        </button>
-      )}
+      {choosedAddress !== null &&
+        address.frm_user_adress_id === choosedAddress.frm_user_adress_id && (
+          <button className="btn btn-sm btn-primary mr-2">
+            <Translate>CHOOSED</Translate>
+          </button>
+        )}
     </>
   );
 };

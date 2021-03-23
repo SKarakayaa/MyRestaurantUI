@@ -1,5 +1,7 @@
 import CustomerActionTypes from "./customer.types";
 
+// ? haydiye.com için isMainSite:true ve customerId:null olmalı
+// * tek site için isMainSite:false ve customerId: <Id> olmalı
 const INITIAL_STATE = {
   isMainSite: true,
   customerId: null,
@@ -34,6 +36,13 @@ const customerReducer = (state = INITIAL_STATE, action) => {
         isFetching: true,
       };
     case CustomerActionTypes.FETCH_CUSTOMER_INFO_SUCCESS:
+      if (action.payload === undefined) {
+        return {
+          ...state,
+          isFetching: false,
+          errorMessage: "Böyle Bir Restoran Bulunamadı !",
+        };
+      }
       return {
         ...state,
         isFetching: false,

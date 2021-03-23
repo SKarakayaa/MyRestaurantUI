@@ -10,7 +10,7 @@ const INITIAL_STATE = {
   areFetchingPaymentMethods: true,
   paymentMethods: null,
 
-  choosedAddress: 0,
+  choosedAddress: null,
   choosedPaymentMethodId: 0,
 
   isOrderCreated: false,

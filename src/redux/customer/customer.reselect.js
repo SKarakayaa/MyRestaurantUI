@@ -66,3 +66,8 @@ export const selectPriceOfAreas = createSelector(
   [selectCustomer],
   (customer) => customer.priceOfAreas
 );
+
+export const selectErrorMessage = createSelector(
+  [selectCustomer],
+  (customer) => customer.errorMessage
+);
